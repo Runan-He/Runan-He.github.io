@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Runan He — Mathematician · ICMAT, Madrid</title>
+<meta name="description" content="Runan He is a postdoctoral researcher at the Instituto de Ciencias Matemáticas (ICMAT) in Madrid, working on the analysis of partial differential equations, nonlinear evolution equations, MEMS models, and surface plasmon polaritons." />
+<meta name="keywords" content="Runan He, ICMAT, mathematics, partial differential equations, PDE, MEMS, surface plasmons, postdoc, Madrid, Heriot-Watt, Halle-Wittenberg" />
+<meta name="author" content="Runan He" />
+
+<!-- Open Graph for social / search previews -->
+<meta property="og:title" content="Runan He — Mathematician at ICMAT, Madrid" />
+<meta property="og:description" content="Postdoctoral researcher in partial differential equations at Instituto de Ciencias Matemáticas, Madrid." />
+<meta property="og:type" content="profile" />
+<meta property="profile:first_name" content="Runan" />
+<meta property="profile:last_name" content="He" />
+
+<!-- Structured data so search engines understand this is a person's academic homepage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Runan He",
+  "jobTitle": "Postdoctoral Researcher",
+  "affiliation": {
+    "@type": "Organization",
+    "name": "Instituto de Ciencias Matemáticas (ICMAT)",
+    "address": "Madrid, Spain"
+  },
+  "email": "runan.he@icmat.es",
+  "alumniOf": [
+    {"@type": "CollegeOrUniversity", "name": "Heriot-Watt University"},
+    {"@type": "CollegeOrUniversity", "name": "Shandong University"},
+    {"@type": "CollegeOrUniversity", "name": "Hunan University"}
+  ],
+  "knowsAbout": [
+    "Partial Differential Equations",
+    "Nonlinear Evolution Equations",
+    "MEMS modelling",
+    "Surface Plasmon Polaritons",
+    "Bifurcation Theory",
+    "Fluid Dynamics"
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --paper:        #f4efe6;
+    --paper-2:      #ebe3d2;
+    --paper-3:      #e2d8c1;
+    --ink:          #1c1814;
+    --ink-soft:     #2d2824;
+    --ink-muted:    #6b6357;
+    --ink-faint:    #9a9084;
+    --accent:       #8c2e2a;      /* oxblood */
+    --accent-soft:  #b04a43;
+    --line:         #c9bfa7;
+    --line-soft:    #d9d0ba;
+
+    --display: "Fraunces", "Cormorant Garamond", Georgia, serif;
+    --serif:   "EB Garamond", "Iowan Old Style", Georgia, serif;
+    --mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    --max: 1120px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink-soft);
+    font-family: var(--serif);
+    font-size: 19px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(140,46,42,0.035), transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(61,74,92,0.04), transparent 45%);
+    background-attachment: fixed;
+  }
+
+  /* Subtle paper texture via SVG noise */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    z-index: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.09  0 0 0 0 0.08  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    mix-blend-mode: multiply;
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(140,46,42,0.25);
+    transition: color .15s ease, border-color .15s ease, background-color .15s ease;
+  }
+  a:hover {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+    background-color: rgba(140,46,42,0.06);
+  }
+
+  /* ————— NAVIGATION ————— */
+  nav.topnav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(244,239,230,0.88);
+    backdrop-filter: saturate(140%) blur(8px);
+    -webkit-backdrop-filter: saturate(140%) blur(8px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  nav.topnav .inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 14px 32px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  nav.topnav .brand {
+    font-family: var(--display);
+    font-weight: 500;
+    font-variation-settings: "opsz" 36;
+    font-size: 18px;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+    border: none;
+  }
+  nav.topnav .brand em {
+    color: var(--accent);
+    font-style: italic;
+  }
+  nav.topnav ul {
+    display: flex;
+    gap: 22px;
+    margin: 0; padding: 0;
+    list-style: none;
+    font-family: var(--display);
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  nav.topnav ul a {
+    color: var(--ink-muted);
+    border: none;
+  }
+  nav.topnav ul a:hover {
+    color: var(--accent);
+    background: none;
+  }
+  @media (max-width: 720px) {
+    nav.topnav ul { display: none; }
+  }
+
+  /* ————— LAYOUT ————— */
+  main { position: relative; z-index: 1; }
+  .container {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ————— HERO ————— */
+  header.hero {
+    padding: 120px 0 72px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  header.hero .container {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 72px;
+    align-items: end;
+  }
+  @media (max-width: 860px) {
+    header.hero .container { grid-template-columns: 1fr; gap: 36px; }
+  }
+
+  .eyebrow {
+    font-family: var(--display);
+    font-size: 12px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .eyebrow::before,
+  .eyebrow::after {
+    content: "";
+    flex: 0 0 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .eyebrow::after { flex: 1 1 auto; background: linear-gradient(to right, var(--accent), transparent); }
+
+  h1.name {
+    font-family: var(--display);
+    font-variation-settings: "opsz" 144, "wght" 400;
+    font-weight: 400;
+    font-size: clamp(64px, 11vw, 132px);
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+    margin: 0 0 28px;
+    color: var(--ink);
+  }
+  h1.name .last {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  .tagline {
+    font-family: var(--display);
+    font-variation-settings: "opsz" 36;
+    font-size: 22px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--ink-muted);
+    max-width: 62ch;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .hero-meta {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink-muted);
+  }
+  .hero-meta .label {
+    font-family: var(--display);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display: block;
+    margin-top: 14px;
+    margin-bottom: 3px;
+  }
+  .hero-meta .label:first-child { margin-top: 0; }
+  .hero-meta a { color: var(--ink-soft); }
+
+  .download-cv {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 10px 18px;
+    font-family: var(--display);
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--ink);
+    border: none;
+    border-radius: 2px;
+    transition: background .2s ease, transform .2s ease;
+  }
+  .download-cv:hover {
+    background: var(--accent);
+    color: var(--paper);
+    transform: translateY(-1px);
+  }
+  .download-cv svg { width: 14px; height: 14px; }
+
+  /* ————— SECTIONS ————— */
+  section {
+    padding: 84px 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  section:last-of-type { border-bottom: none; }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 56px;
+    margin-bottom: 48px;
+    align-items: baseline;
+  }
+  @media (max-width: 860px) {
+    .section-head { grid-template-columns: 1fr; gap: 12px; margin-bottom: 32px; }
+  }
+  .section-num {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  h2 {
+    font-family: var(--display);
+    font-variation-settings: "opsz" 72;
+    font-weight: 400;
+    font-size: clamp(36px, 5vw, 52px);
+    line-height: 1;
+    letter-spacing: -0.015em;
+    margin: 0;
+    color: var(--ink);
+  }
+  h2 em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 300;
+  }
+
+  .section-body {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 56px;
+  }
+  @media (max-width: 860px) {
+    .section-body { grid-template-columns: 1fr; gap: 0; }
+  }
+  .section-body .aside {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink-muted);
+    line-height: 1.5;
+    padding-top: 8px;
+  }
+  .section-body .aside .drop {
+    font-size: 60px;
+    font-family: var(--display);
+    color: var(--accent);
+    line-height: 0.8;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  /* ————— ABOUT ————— */
+  .bio p {
+    margin: 0 0 1.1em;
+    font-size: 19px;
+    line-height: 1.7;
+  }
+  .bio p:last-child { margin-bottom: 0; }
+
+  .interests {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0;
+    border-top: 1px solid var(--line-soft);
+  }
+  .interest {
+    padding: 22px 0 22px;
+    padding-right: 24px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .interest h4 {
+    font-family: var(--display);
+    font-size: 17px;
+    font-weight: 500;
+    font-variation-settings: "opsz" 24;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+  .interest p {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink-muted);
+    margin: 0;
+  }
+
+  /* ————— PUBLICATIONS ————— */
+  .pub-list { list-style: none; margin: 0; padding: 0; }
+  .pub {
+    display: grid;
+    grid-template-columns: 70px 1fr auto;
+    gap: 20px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line-soft);
+    align-items: start;
+  }
+  .pub:last-child { border-bottom: none; }
+  .pub .year {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+    padding-top: 4px;
+  }
+  .pub-title {
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.4;
+    color: var(--ink);
+    margin: 0 0 4px;
+    font-weight: 500;
+  }
+  .pub-authors {
+    font-size: 15px;
+    color: var(--ink-muted);
+    margin: 0 0 6px;
+    line-height: 1.45;
+  }
+  .pub-authors .self { color: var(--accent); font-weight: 500; }
+  .pub-venue {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-muted);
+    margin: 0;
+  }
+  .pub-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    color: var(--ink-muted);
+    white-space: nowrap;
+    align-self: start;
+  }
+  .pub-badge.published { background: var(--accent); color: var(--paper); border-color: var(--accent); }
+  .pub-badge.submitted { background: var(--paper-2); color: var(--ink-soft); }
+  .pub-badge.preparation { color: var(--ink-faint); }
+  .pub-links {
+    font-family: var(--mono);
+    font-size: 12px;
+    margin-top: 6px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .pub-links a {
+    color: var(--ink-muted);
+    border-bottom: 1px solid var(--line);
+  }
+  .pub-links a:hover { color: var(--accent); border-color: var(--accent); }
+
+  @media (max-width: 640px) {
+    .pub { grid-template-columns: 1fr; gap: 6px; }
+    .pub-badge { justify-self: start; }
+    .pub .year { padding-top: 0; }
+  }
+
+  /* ————— TALKS ————— */
+  .talk-list { list-style: none; margin: 0; padding: 0; }
+  .talk {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 24px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line-soft);
+    align-items: baseline;
+  }
+  .talk:last-child { border-bottom: none; }
+  .talk .when {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+  }
+  .talk .venue {
+    font-family: var(--display);
+    font-size: 17px;
+    color: var(--ink);
+    font-weight: 500;
+    font-variation-settings: "opsz" 24;
+  }
+  .talk .venue .role {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    font-size: 14px;
+    margin-right: 8px;
+  }
+  .talk .loc { color: var(--ink-muted); font-size: 15px; }
+  .talk .title {
+    display: block;
+    font-style: italic;
+    color: var(--ink-muted);
+    font-size: 15px;
+    margin-top: 4px;
+    line-height: 1.45;
+  }
+  @media (max-width: 640px) {
+    .talk { grid-template-columns: 1fr; gap: 4px; }
+  }
+
+  /* ————— TEACHING ————— */
+  .teaching-block {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .teaching-block:last-child { border-bottom: none; }
+  .teaching-block .period {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-faint);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .teaching-block h4 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-variation-settings: "opsz" 24;
+    font-size: 19px;
+    margin: 0 0 10px;
+    color: var(--ink);
+  }
+  .teaching-block .detail {
+    color: var(--ink-muted);
+    font-size: 16px;
+    margin: 4px 0;
+  }
+  .teaching-block .detail .key {
+    font-family: var(--display);
+    font-style: italic;
+    color: var(--ink-soft);
+    margin-right: 6px;
+  }
+
+  /* ————— PROJECTS ————— */
+  .project {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .project:last-child { border-bottom: none; }
+  .project h4 {
+    font-family: var(--display);
+    font-size: 20px;
+    font-weight: 500;
+    font-variation-settings: "opsz" 36;
+    margin: 0 0 6px;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .project .meta {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+    margin-bottom: 12px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .project .meta .amount {
+    color: var(--accent);
+  }
+  .project p {
+    font-size: 16px;
+    color: var(--ink-muted);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 68ch;
+  }
+
+  /* ————— AWARDS & REFS ————— */
+  .award-grid {
+    list-style: none; margin: 0; padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 0;
+    border-top: 1px solid var(--line-soft);
+  }
+  .award-grid li {
+    padding: 18px 28px 18px 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .award-grid .yr {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .award-grid .title {
+    font-family: var(--display);
+    font-size: 16px;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+  .award-grid .where {
+    font-size: 14px;
+    color: var(--ink-muted);
+    display: block;
+    margin-top: 4px;
+  }
+
+  .ref-grid {
+    list-style: none; margin: 0; padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px;
+  }
+  .ref-grid li {
+    padding: 20px 24px;
+    background: rgba(235,227,210,0.4);
+    border-left: 2px solid var(--accent);
+  }
+  .ref-grid .name {
+    font-family: var(--display);
+    font-variation-settings: "opsz" 24;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .ref-grid .aff {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--ink-muted);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+  .ref-grid a {
+    font-family: var(--mono);
+    font-size: 12px;
+    display: inline-block;
+    margin-top: 8px;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* ————— FOOTER ————— */
+  footer {
+    padding: 72px 0 56px;
+    border-top: 1px solid var(--line);
+    background: var(--paper-2);
+    position: relative;
+    z-index: 1;
+  }
+  footer .inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 32px;
+  }
+  footer .mark {
+    font-family: var(--display);
+    font-size: 42px;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+    line-height: 1;
+  }
+  footer .colophon {
+    font-family: var(--display);
+    font-size: 13px;
+    font-style: italic;
+    color: var(--ink-muted);
+    max-width: 40ch;
+    text-align: right;
+    line-height: 1.5;
+  }
+  footer .colophon .year { font-family: var(--mono); font-style: normal; color: var(--accent); }
+
+  /* Subtle reveal animation */
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: rise 0.9s cubic-bezier(.2,.7,.2,1) forwards;
+    }
+    .reveal.d1 { animation-delay: .08s; }
+    .reveal.d2 { animation-delay: .18s; }
+    .reveal.d3 { animation-delay: .30s; }
+    .reveal.d4 { animation-delay: .44s; }
+    @keyframes rise {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  }
+
+  /* Scroll-margin so anchor links don't hide under sticky nav */
+  section { scroll-margin-top: 72px; }
+
+  /* Print styles — so if someone prints the page it looks clean */
+  @media print {
+    nav.topnav, footer, body::before { display: none; }
+    body { background: white; color: black; }
+    section { break-inside: avoid; border: none; padding: 24px 0; }
+    a { color: black; border: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="inner">
+    <a href="#top" class="brand">Runan <em>He</em></a>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#talks">Talks</a></li>
+      <li><a href="#teaching">Teaching</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="top">
+
+  <header class="hero">
+    <div class="container">
+      <div>
+        <div class="eyebrow reveal">Mathematician · ICMAT, Madrid</div>
+        <h1 class="name reveal d1">Runan <span class="last">He</span></h1>
+        <p class="tagline reveal d2">Analysis of partial differential equations — wellposedness, singularity formation, and bifurcation in problems from continuum mechanics and electromagnetism.</p>
+      </div>
+      <div class="hero-meta reveal d3">
+        <span class="label">Affiliation</span>
+        Instituto de Ciencias Matemáticas<br/>
+        Madrid, Spain
+        <span class="label">Email</span>
+        <a href="mailto:runan.he@icmat.es">runan.he@icmat.es</a>
+        <span class="label">Phone</span>
+        +34 607 291 324
+        <a class="download-cv" href="RunanHe_CV.pdf" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download CV
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-num">§ I &nbsp;·&nbsp; ABOUT</div>
+        <h2>A note on <em>what I do</em></h2>
+      </div>
+      <div class="section-body">
+        <div class="aside"><span class="drop">¶</span>Research at the intersection of PDE analysis, continuum mechanics, and applied electromagnetism.</div>
+        <div class="bio">
+          <p>I am a postdoctoral researcher at the <strong>Instituto de Ciencias Matemáticas (ICMAT)</strong> in Madrid, where I work within the Severo Ochoa programme and the project on the dynamics of singular incompressible fluids led by Diego Córdoba.</p>
+          <p>Before arriving in Madrid, I spent three years as a postdoc with Tomas Dohnal at <strong>Martin-Luther-Universität Halle-Wittenberg</strong>, and earned my Ph.D. in Mathematics at <strong>Heriot-Watt University, Edinburgh</strong>, under the supervision of Andrew Lacey and Heiko Gimperlein.</p>
+          <p>My work centres on the rigorous analysis of nonlinear partial differential equations — in particular the interplay between elliptic, hyperbolic, parabolic, and dispersive structures that appear in models of micro-electro-mechanical systems, surface plasmon polaritons, and, more recently, fluid–structure interaction.</p>
+
+          <div class="interests">
+            <div class="interest">
+              <h4>Nonlinear evolution PDEs</h4>
+              <p>Wellposedness, long-time behaviour, and singularity formation.</p>
+            </div>
+            <div class="interest">
+              <h4>Variational & functional analytic methods</h4>
+              <p>Calculus of variations, semigroup theory, fixed-point arguments.</p>
+            </div>
+            <div class="interest">
+              <h4>Continuum mechanics</h4>
+              <p>Elastic deformation and gas flow, motivated by MEMS.</p>
+            </div>
+            <div class="interest">
+              <h4>PDE bifurcation</h4>
+              <p>Nonlinear solutions from the spectrum; PT-symmetric problems.</p>
+            </div>
+            <div class="interest">
+              <h4>AI for PDEs</h4>
+              <p>Physics-informed neural networks for evolutionary problems.</p>
+            </div>
+            <div class="interest">
+              <h4>Fluid dynamics</h4>
+              <p>Nonlocal/nonlinear models and fluid–structure interaction.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="publications">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-num">§ II &nbsp;·&nbsp; PUBLICATIONS &amp; PREPRINTS</div>
+        <h2>Selected <em>writings</em></h2>
+      </div>
+      <div class="section-body">
+        <div class="aside"><span class="drop">¶</span>Peer-reviewed articles, preprints, and work in preparation. Self-authorship highlighted.</div>
+        <ul class="pub-list">
+
+          <li class="pub">
+            <div class="year">2026</div>
+            <div>
+              <h3 class="pub-title">Analysis and Numerics of a Stationary Drift-Diffusion Model for Electrical Discharge in MEMS</h3>
+              <p class="pub-authors"><span class="self">Runan He</span> and Wenjia Xie.</p>
+              <p class="pub-venue">In preparation.</p>
+            </div>
+            <span class="pub-badge preparation">In preparation</span>
+          </li>
+
+          <li class="pub">
+            <div class="year">2026</div>
+            <div>
+              <h3 class="pub-title">Self-similar Solution to the Mullins Equation Modelling Sintering</h3>
+              <p class="pub-authors">Heiko Gimperlein, <span class="self">Runan He</span> and Andrew A. Lacey.</p>
+              <p class="pub-venue">In preparation.</p>
+            </div>
+            <span class="pub-badge preparation">In preparation</span>
+          </li>
+
+          <li class="pub">
+            <div class="year">2026</div>
+            <div>
+              <h3 class="pub-title">Stable Quenching for Semilinear Wave Equations</h3>
+              <p class="pub-authors">Heiko Gimperlein, <span class="self">Runan He</span>, Andrew A. Lacey and B. Schörkhuber.</p>
+              <p class="pub-venue">In preparation.</p>
+            </div>
+            <span class="pub-badge preparation">In preparation</span>
+          </li>
+
+          <li class="pub">
+            <div class="year">2026</div>
+            <div>
+              <h3 class="pub-title">Analysis of a Model for Electrical Discharge in MEMS</h3>
+              <p class="pub-authors">Heiko Gimperlein, <span class="self">Runan He</span> and Andrew A. Lacey.</p>
+              <p class="pub-venue">Submitted.</p>
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2602.21439" target="_blank" rel="noopener">arXiv:2602.21439</a>
+              </div>
+            </div>
+            <span class="pub-badge submitted">Submitted</span>
+          </li>
+
+          <li class="pub">
+            <div class="year">2025</div>
+            <div>
+              <h3 class="pub-title">Polychromatic Surface Plasmons in Nonlinear Lossy Media</h3>
+              <p class="pub-authors">T. Dohnal, M. Hanisch and <span class="self">Runan He</span>.</p>
+              <p class="pub-venue">Submitted.</p>
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2511.21467" target="_blank" rel="noopener">arXiv:2511.21467</a>
+              </div>
+            </div>
+            <span class="pub-badge submitted">Submitted</span>
+          </li>
+
+          <li class="pub">
+            <div class="year">2024</div>
+            <div>
+              <h3 class="pub-title">Bifurcation and Asymptotics of Cubically Nonlinear Transverse Magnetic Surface Plasmon Polaritons</h3>
+              <p class="pub-authors">Tomas Dohnal and <span class="self">Runan He</span>.</p>
+              <p class="pub-venue">Journal of Mathematical Analysis and Applications, 538(2).</p>
+              <div class="pub-links">
+                <a href="https://doi.org/10.1016/j.jmaa.2024.128422" target="_blank" rel="noopener">doi.org/10.1016/j.jmaa.2024.128422</a>
+              </div>
+            </div>
+            <span class="pub-badge published">Published</span>
+          </li>
+
+          <li class="pub">
+            <div class="year">2024</div>
+            <div>
+              <h3 class="pub-title">Existence and Uniqueness for a Nonlinear Parabolic–Hyperbolic Coupled System for MEMS</h3>
+              <p class="pub-authors">Heiko Gimperlein, <span class="self">Runan He</span> and Andrew A. Lacey.</p>
+              <p class="pub-venue">Mathematical Methods in the Applied Sciences, 1–44.</p>
+              <div class="pub-links">
+                <a href="https://doi.org/10.1002/mma.9922" target="_blank" rel="noopener">doi.org/10.1002/mma.9922</a>
+              </div>
+            </div>
+            <span class="pub-badge published">Published</span>
+          </li>
+
+          <li class="pub">
+            <div class="year">2024</div>
+            <div>
+              <h3 class="pub-title">Wellposedness of a Nonlinear Parabolic–Dispersive Coupled System Modelling MEMS</h3>
+              <p class="pub-authors">Heiko Gimperlein, <span class="self">Runan He</span> and Andrew A. Lacey.</p>
+              <p class="pub-venue">Journal of Differential Equations, 384, 193–251.</p>
+              <div class="pub-links">
+                <a href="https://doi.org/10.1016/j.jde.2023.11.028" target="_blank" rel="noopener">doi.org/10.1016/j.jde.2023.11.028</a>
+              </div>
+            </div>
+            <span class="pub-badge published">Published</span>
+          </li>
+
+          <li class="pub">
+            <div class="year">2023</div>
+            <div>
+              <h3 class="pub-title">Wellposedness of an Elliptic–Dispersive Coupled System for MEMS</h3>
+              <p class="pub-authors">Heiko Gimperlein, <span class="self">Runan He</span> and Andrew A. Lacey.</p>
+              <p class="pub-venue">Discrete and Continuous Dynamical Systems, 43(9), 3485–3511.</p>
+              <div class="pub-links">
+                <a href="http://doi.org/10.3934/dcds.2023055" target="_blank" rel="noopener">doi.org/10.3934/dcds.2023055</a>
+              </div>
+            </div>
+            <span class="pub-badge published">Published</span>
+          </li>
+
+          <li class="pub">
+            <div class="year">2022</div>
+            <div>
+              <h3 class="pub-title">Quenching for a Semi-linear Wave Equation for Micro-Electro-Mechanical Systems</h3>
+              <p class="pub-authors">Heiko Gimperlein, <span class="self">Runan He</span> and Andrew A. Lacey.</p>
+              <p class="pub-venue">Proceedings of the Royal Society A, 478(2267), 20220490.</p>
+              <div class="pub-links">
+                <a href="https://doi.org/10.1098/rspa.2022.0490" target="_blank" rel="noopener">doi.org/10.1098/rspa.2022.0490</a>
+              </div>
+            </div>
+            <span class="pub-badge published">Published</span>
+          </li>
+
+          <li class="pub">
+            <div class="year">2021</div>
+            <div>
+              <h3 class="pub-title">Analysis of Coupled PDE Systems Modelling Micro-Electro-Mechanical Systems</h3>
+              <p class="pub-authors"><span class="self">Runan He</span>.</p>
+              <p class="pub-venue">Ph.D. thesis, Heriot-Watt University.</p>
+              <div class="pub-links">
+                <a href="https://www.ros.hw.ac.uk/handle/10399/4629" target="_blank" rel="noopener">ros.hw.ac.uk/handle/10399/4629</a>
+              </div>
+            </div>
+            <span class="pub-badge published">Thesis</span>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="talks">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-num">§ III &nbsp;·&nbsp; TALKS</div>
+        <h2>Conferences &amp; <em>seminars</em></h2>
+      </div>
+      <div class="section-body">
+        <div class="aside"><span class="drop">¶</span>Invited and contributed talks, in reverse chronological order.</div>
+        <ul class="talk-list">
+
+          <li class="talk">
+            <span class="when">07 · 2026</span>
+            <div>
+              <span class="venue"><span class="role">Short Communication</span> International Congress of Mathematicians (ICM 2026)</span>
+              <span class="loc">— Philadelphia, USA.</span>
+              <span class="title">Wellposedness of Nonlinear Coupled PDE Systems Modelling MEMS.</span>
+            </div>
+          </li>
+
+          <li class="talk">
+            <span class="when">10 · 2025</span>
+            <div>
+              <span class="venue"><span class="role">Poster</span> Wave Propagation in Guiding Structures</span>
+              <span class="loc">— Marseille, France.</span>
+              <span class="title">Polychromatic Surface Plasmons with Complex Frequencies in Nonlinear Media.</span>
+            </div>
+          </li>
+
+          <li class="talk">
+            <span class="when">11 · 2024</span>
+            <div>
+              <span class="venue"><span class="role">Invited</span> Research Exposition Workshop, ICMAT</span>
+              <span class="loc">— Madrid, Spain.</span>
+              <span class="title">Wellposedness and Singularity Formation for PDEs.</span>
+            </div>
+          </li>
+
+          <li class="talk">
+            <span class="when">07 · 2024</span>
+            <div>
+              <span class="venue"><span class="role">Invited</span> 16th International Conference on Mathematical &amp; Numerical Aspects of Wave Propagation</span>
+              <span class="loc">— Berlin, Germany.</span>
+              <span class="title">Monochromatic and Polychromatic Waves.</span>
+            </div>
+          </li>
+
+          <li class="talk">
+            <span class="when">03 · 2024</span>
+            <div>
+              <span class="venue"><span class="role">Invited</span> 94th Annual Meeting of GAMM</span>
+              <span class="loc">— Magdeburg, Germany.</span>
+              <span class="title">Bifurcation and Asymptotics in Nonlinear Surface Plasmon Polaritons.</span>
+            </div>
+          </li>
+
+          <li class="talk">
+            <span class="when">12 · 2023</span>
+            <div>
+              <span class="venue"><span class="role">Invited</span> PDE Seminar, Technische Universität Clausthal</span>
+              <span class="loc">— Clausthal, Germany.</span>
+              <span class="title">Bifurcation and Asymptotics in Maxwell Equations.</span>
+            </div>
+          </li>
+
+          <li class="talk">
+            <span class="when">07 · 2022</span>
+            <div>
+              <span class="venue"><span class="role">Invited</span> Workshop on Systems Theory and PDEs</span>
+              <span class="loc">— Freiberg, Germany.</span>
+              <span class="title">Wellposedness and Singularities in Nonlinear Coupled PDEs Systems for MEMS.</span>
+            </div>
+          </li>
+
+          <li class="talk">
+            <span class="when">03 · 2022</span>
+            <div>
+              <span class="venue"><span class="role">Invited</span> Conference on Mathematics of Wave Phenomena</span>
+              <span class="loc">— Online.</span>
+              <span class="title">Analysis of Nonlinear Coupled PDEs Systems for MEMS.</span>
+            </div>
+          </li>
+
+          <li class="talk">
+            <span class="when">10 · 2021</span>
+            <div>
+              <span class="venue"><span class="role">Invited</span> Oberseminar, Martin-Luther-Universität Halle-Wittenberg</span>
+              <span class="loc">— Halle (Saale), Germany.</span>
+              <span class="title">Analysis for MEMS Models.</span>
+            </div>
+          </li>
+
+          <li class="talk">
+            <span class="when">06 · 2020</span>
+            <div>
+              <span class="venue"><span class="role">Invited</span> Maxwell Institute Postgraduate Seminar</span>
+              <span class="loc">— Edinburgh, UK.</span>
+              <span class="title">Wellposedness of a Nonlinear Elliptic–Dispersive Coupled System for MEMS.</span>
+            </div>
+          </li>
+
+          <li class="talk">
+            <span class="when">06 · 2019</span>
+            <div>
+              <span class="venue"><span class="role">Invited</span> Maxwell Institute Postgraduate Seminar</span>
+              <span class="loc">— Edinburgh, UK.</span>
+              <span class="title">Finite-time Existence for a Nonlinear Parabolic–Dispersive Coupled System for MEMS with an Elastic Plate.</span>
+            </div>
+          </li>
+
+          <li class="talk">
+            <span class="when">11 · 2018</span>
+            <div>
+              <span class="venue"><span class="role">Invited</span> Heriot-Watt Postgraduate Seminar</span>
+              <span class="loc">— Edinburgh, UK.</span>
+              <span class="title">Operator Semigroup Theory and its Application to PDEs.</span>
+            </div>
+          </li>
+
+          <li class="talk">
+            <span class="when">06 · 2018</span>
+            <div>
+              <span class="venue"><span class="role">Invited</span> Heriot-Watt Applied Mathematics Postgraduate Seminar</span>
+              <span class="loc">— Edinburgh, UK.</span>
+              <span class="title">Wellposedness for a Nonlinear Parabolic–Hyperbolic Coupled System for MEMS.</span>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="teaching">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-num">§ IV &nbsp;·&nbsp; TEACHING &amp; SERVICE</div>
+        <h2>In the <em>classroom</em></h2>
+      </div>
+      <div class="section-body">
+        <div class="aside"><span class="drop">¶</span>Over a decade of teaching across undergraduate and graduate mathematics.</div>
+        <div>
+
+          <div class="teaching-block">
+            <div class="period">2021 — 2024</div>
+            <h4>Lecturer · Martin-Luther-Universität Halle-Wittenberg</h4>
+            <p class="detail"><span class="key">Lectures</span> Evolution Equations; Fachseminar.</p>
+            <p class="detail"><span class="key">Exercise courses</span> Partial Differential Equations; Dynamical Systems; Mathematical Physics (in German); Nonlinear Analysis.</p>
+          </div>
+
+          <div class="teaching-block">
+            <div class="period">2017 — 2021</div>
+            <h4>Tutorial Assistant · Heriot-Watt University, Edinburgh</h4>
+            <p class="detail"><span class="key">Tutor</span> Calculus; Mathematics for Scientists &amp; Engineers; PDE; Numerical Analysis; Complex Analysis; Functional Analysis; Real Analysis; Mathematical Experiment.</p>
+          </div>
+
+          <div class="teaching-block">
+            <div class="period">2018 — 2019</div>
+            <h4>Assistant · Heriot-Watt Public Masterclass Lectures</h4>
+            <p class="detail">Supported the "Masterclass" public lectures for Edinburgh high-school students.</p>
+          </div>
+
+          <div class="teaching-block">
+            <div class="period">2014 — 2017</div>
+            <h4>Teaching &amp; Research Assistant · Shandong University</h4>
+            <p class="detail">Assisted undergraduate courses; organised seminars on calculus of variations and PDEs.</p>
+          </div>
+
+          <div class="teaching-block">
+            <div class="period">2013 — 2014</div>
+            <h4>Computer Programmer · Shandong University</h4>
+            <p class="detail">Created and managed the software-development schedule.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-num">§ V &nbsp;·&nbsp; RESEARCH PROJECTS</div>
+        <h2>Funded <em>work</em></h2>
+      </div>
+      <div class="section-body">
+        <div class="aside"><span class="drop">¶</span>Current research projects and grants, with principal investigators.</div>
+        <div>
+
+          <div class="project">
+            <h4>Dynamics of Singular Incompressible Fluids</h4>
+            <div class="meta">
+              <span>MICINN · PID2023-152878NB-I00</span>
+              <span>Sep 2024 — Aug 2027</span>
+              <span class="amount">€70,000</span>
+              <span>PI: Diego Córdoba (ICMAT)</span>
+            </div>
+            <p>As a researcher on this project, I work on new methods in the mathematical analysis of nonlocal and nonlinear PDEs, and investigate mathematical models for incompressible fluids and their interaction with elastic structures.</p>
+          </div>
+
+          <div class="project">
+            <h4>ICMAT Severo Ochoa Project</h4>
+            <div class="meta">
+              <span>MICINN · CEX2023-001347-S</span>
+              <span>Jun 2024 — May 2028</span>
+              <span class="amount">€5,660,000</span>
+              <span>PI: Diego Córdoba (ICMAT)</span>
+            </div>
+            <p>Within this institutional programme I contribute as a researcher to the modelling and analysis of a range of problems in fluid dynamics.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="awards">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-num">§ VI &nbsp;·&nbsp; AWARDS</div>
+        <h2>Honours &amp; <em>recognition</em></h2>
+      </div>
+      <div class="section-body">
+        <div class="aside"><span class="drop">¶</span>Scholarships and prizes in mathematics.</div>
+        <ul class="award-grid">
+          <li>
+            <span class="yr">2015</span>
+            <span class="title">Third Ranking Graduate Academic Scholarship</span>
+            <span class="where">Shandong University, China</span>
+          </li>
+          <li>
+            <span class="yr">2014</span>
+            <span class="title">Exceptional Graduate Academic Scholarship</span>
+            <span class="where">Shandong University, China</span>
+          </li>
+          <li>
+            <span class="yr">2012</span>
+            <span class="title">Third Prize, Mathematics Competition</span>
+            <span class="where">Hunan Province, China</span>
+          </li>
+          <li>
+            <span class="yr">2010</span>
+            <span class="title">Second Prize, Mathematics Competition</span>
+            <span class="where">Hunan Province, China</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-num">§ VII &nbsp;·&nbsp; CONTACT</div>
+        <h2>Get in <em>touch</em></h2>
+      </div>
+      <div class="section-body">
+        <div class="aside"><span class="drop">¶</span>For enquiries about collaboration, talks, or student supervision.</div>
+        <div>
+          <div class="bio" style="margin-bottom: 40px;">
+            <p>The best way to reach me is by email at <a href="mailto:runan.he@icmat.es">runan.he@icmat.es</a>. I am based at ICMAT in Madrid. A full PDF of my CV is <a href="RunanHe_CV.pdf" download>available for download here</a>.</p>
+          </div>
+
+          <h3 style="font-family: var(--display); font-weight: 500; font-size: 22px; margin: 0 0 20px; color: var(--ink); font-variation-settings: 'opsz' 36;">References</h3>
+          <ul class="ref-grid">
+            <li>
+              <div class="name">Prof. Tomas Dohnal</div>
+              <div class="aff">Martin-Luther-Universität Halle-Wittenberg, Germany</div>
+              <a href="mailto:tomas.dohnal@mathematik.uni-halle.de">tomas.dohnal@mathematik.uni-halle.de</a>
+            </li>
+            <li>
+              <div class="name">Prof. Andrew Lacey</div>
+              <div class="aff">Heriot-Watt University, Edinburgh, UK</div>
+              <a href="mailto:a.a.lacey@hw.ac.uk">a.a.lacey@hw.ac.uk</a>
+            </li>
+            <li>
+              <div class="name">Prof. Heiko Gimperlein</div>
+              <div class="aff">Leopold-Franzens-Universität Innsbruck, Austria</div>
+              <a href="mailto:Heiko.Gimperlein@uibk.ac.at">Heiko.Gimperlein@uibk.ac.at</a>
+            </li>
+            <li>
+              <div class="name">Prof. Dominic Breit</div>
+              <div class="aff">TU Clausthal, Clausthal-Zellerfeld, Germany</div>
+              <a href="mailto:dominic.breit@tu-clausthal.de">dominic.breit@tu-clausthal.de</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="inner">
+    <div>
+      <div class="mark">R. H.</div>
+      <p style="font-family: var(--display); font-style: italic; color: var(--ink-muted); margin: 12px 0 0; font-size: 15px;">ICMAT, Madrid · <a href="mailto:runan.he@icmat.es" style="color: inherit; border-color: var(--line);">runan.he@icmat.es</a></p>
+    </div>
+    <div class="colophon">
+      Set in Fraunces &amp; EB Garamond.<br/>
+      Last updated <span class="year">April 2026</span>.<br/>
+      © Runan He. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
