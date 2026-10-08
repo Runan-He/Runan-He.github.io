@@ -1,0 +1,537 @@
+\documentclass[11pt,a4paper]{amsart}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{booktabs}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\cstar}{c^{*}}
+\newcommand{\vs}{v_{\mathrm{s}}}
+\newcommand{\vreg}{v_{\mathrm{reg}}}
+\newcommand{\Preg}{\Psi_{\mathrm{reg}}}
+\newcommand{\Psing}{\Psi_{\mathrm{sing}}}
+\newcommand{\dd}{\,\mathrm{d}}
+\DeclareMathOperator{\sgn}{sgn}
+\renewcommand{\theenumi}{\roman{enumi}}
+\renewcommand{\labelenumi}{(\theenumi)}
+\newenvironment{alphenum}{\begin{enumerate}\renewcommand{\theenumi}{\alph{enumi}}}{\end{enumerate}}
+
+\title[Smooth self-similar quenching profiles]{Global existence of smooth self-similar quenching profiles for $u_{tt}=\Delta u-u^{-2}$:\\ a rigorous version of Theorem~2.1 of Gimperlein--He--Lacey}
+\author{Runan He}
+\address{Instituto de Ciencias Matem\'aticas (ICMAT), Madrid}
+\date{October 2026}
+
+\begin{document}
+
+\begin{abstract}
+In \cite{GHL22} the existence of a sequence of smooth, radial, global self-similar quenching profiles for the semilinear wave equation $u_{tt}=\Delta u-u^{-2}$ in dimensions $2\le n\le 7$ was obtained formally (Theorem~2.1 there), by matched asymptotics applied to the profile equation
+\[
+(1-\eta^2)v''+\Big(\frac{n-1}{\eta}-\frac{2}{3}\eta\Big)v'+\frac{2}{9}v-\frac{1}{v^2}=0,\qquad v(0)=c,\quad v'(0)=0 .
+\]
+This note gives a complete proof.  The argument combines three ingredients that are by now standard in the blow-up literature following Merle and his coauthors: (i) the light cone $\eta=1$ is treated as a \emph{sonic point} in the sense of Merle--Rapha\"el--Rodnianski--Szeftel, where a non-resonance condition ($\alpha=\tfrac n2+\tfrac16\notin\N$) singles out a unique analytic branch through the cone and defines a scalar \emph{singular coefficient} $\beta(c)$; (ii) a quantitative inner/outer matching in the spirit of Collot--Rapha\"el--Szeftel (and of the earlier shooting constructions of Budd--Qi, Lepin and Bizo\'n--Maison--Wasserman), in which the exact singular profile $\vs(\eta)=a\eta^{2/3}$ plays the role of the singular self-similar solution and the inner Emden--Fowler-type profile oscillates around it with a logarithmic phase; (iii) a weighted flux identity, the ordinary-differential analogue of the Merle--Zaag energy identity in similarity variables, which yields monotonicity, global continuation beyond the cone and the sharp growth $v(\eta)=b\,\eta^{2/3}+O(\eta^{-1/3})$ at infinity.  The smooth global profiles are exactly the zeros of $\beta$, and $\beta(c)=K c^{\frac{3n}{4}-\frac12}\big[\sin\big(\tfrac{3b}{2}\ln\tfrac1c-\vartheta\big)+o(1)\big]$ as $c\to0$ with $K\neq0$, which produces the discrete sequence $c_k\to0$, $\ln c_k=-\tfrac{2\pi}{3b}k+\text{const}+o(1)$.  Numerical two-point shooting confirms the picture for $n=2,\dots,7$; in particular consecutive profiles are separated by \emph{one} additional intersection with $\vs$, so the spacing of $\ln c_k$ is $2\pi/(3b)$ rather than the $4\pi/(3b)$ suggested by (2.33) of \cite{GHL22}.
+\end{abstract}
+
+\maketitle
+\tableofcontents
+
+\section{Setting and main result}\label{sec:setting}
+
+\subsection{The profile equation}
+Radial self-similar solutions $u(x,t)=(T-t)^{2/3}v(\eta)$, $\eta=|x|/(T-t)$, of $u_{tt}=\Delta u-u^{-2}$ in $\R^n$ are governed by \cite[(2.3)--(2.4)]{GHL22}
+\begin{equation}\label{eq:ode}
+(1-\eta^2)v''+\Big(\frac{n-1}{\eta}-\frac{2}{3}\eta\Big)v'+\frac{2}{9}v-\frac{1}{v^2}=0,\qquad \eta>0,
+\end{equation}
+\begin{equation}\label{eq:ic}
+v(0)=c>0,\qquad v'(0)=0 .
+\end{equation}
+Throughout, $n\ge2$ and we use the constants
+\begin{equation}\label{eq:constants}
+\begin{gathered}
+\cstar=\Big(\frac92\Big)^{1/3},\qquad
+a=\Big[\frac23\Big(n-\frac43\Big)\Big]^{-1/3},\qquad
+\alpha=\frac n2+\frac16,\\
+\nu=\frac n2-\frac13,\qquad
+b=\sqrt{\frac83-\Big(\frac n2-\frac73\Big)^2}\ \ (2\le n\le7).
+\end{gathered}
+\end{equation}
+Two explicit solutions of \eqref{eq:ode} will be used constantly.
+
+\begin{lemma}[two exact solutions]\label{lem:exact}
+$v\equiv\cstar$ solves \eqref{eq:ode}--\eqref{eq:ic} with $c=\cstar$.  The \emph{singular profile}
+\begin{equation}\label{eq:vs}
+\vs(\eta)=a\,\eta^{2/3}
+\end{equation}
+solves \eqref{eq:ode} on all of $(0,\infty)$, through the light cone, but is not regular at $\eta=0$.  Moreover $\vs<\cstar$ exactly on $(0,\eta^*)$ with $\eta^*=(\cstar/a)^{3/2}=(3n-4)^{1/2}>1$.
+\end{lemma}
+\begin{proof}
+For $\vs$: $(1-\eta^2)\vs''+(\frac{n-1}{\eta}-\frac23\eta)\vs'+\frac29\vs=a\eta^{-4/3}\big[-\tfrac29+\tfrac29\eta^2+\tfrac23(n-1)-\tfrac49\eta^2+\tfrac29\eta^2\big]=\tfrac23\big(n-\tfrac43\big)a\,\eta^{-4/3}$, and $\vs^{-2}=a^{-2}\eta^{-4/3}$; the two agree precisely when $a^3=[\frac23(n-\frac43)]^{-1}$.  The $\eta^2$-terms cancel, which is why $\vs$ passes through $\eta=1$.  Finally $(\cstar/a)^3=\frac92\cdot\frac23(n-\frac43)=3n-4$.
+\end{proof}
+
+\subsection{Logarithmic variables and the weighted flux identity}
+Set $\eta=e^{s}$ and $Y(s)=\eta^{-2/3}v(\eta)$, i.e.\ $v=\eta^{2/3}Y$.  A direct computation (the $e^{2s}$-terms in the zeroth-order coefficient cancel, as in Lemma~\ref{lem:exact}) turns \eqref{eq:ode} into
+\begin{equation}\label{eq:Y}
+(1-e^{2s})\,Y_{ss}+\Big(n-\frac23-e^{2s}\Big)Y_s+G'(Y)=0,\qquad
+G(Y)=\frac13\Big(n-\frac43\Big)Y^2+\frac1Y ,
+\end{equation}
+so that $G'(Y)=\frac23(n-\frac43)Y-Y^{-2}$ vanishes exactly at $Y=a$, and $G''(a)=2(n-\frac43)>0$.  The constant $Y\equiv a$ is $\vs$; the constant solution $\cstar$ is $Y=\cstar e^{-2s/3}$.  As $s\to-\infty$ the non-autonomous terms disappear and \eqref{eq:Y} reduces to the autonomous \emph{inner equation}
+\begin{equation}\label{eq:inner}
+Y_{ss}+\Big(n-\frac23\Big)Y_s+G'(Y)=0,
+\end{equation}
+which is \cite[(2.14)]{GHL22}.  The equation \eqref{eq:inner} has the Lyapunov function $L=\frac12Y_s^2+G(Y)$, $\frac{d}{ds}L=-(n-\frac23)Y_s^2$, and the linearisation at the equilibrium $(a,0)$ has eigenvalues
+\begin{equation}\label{eq:eigen}
+\lambda_\pm=-\nu\pm\sqrt{\Big(\frac n2-\frac73\Big)^2-\frac83}
+=-\nu\pm i b\qquad(2\le n\le 7),
+\end{equation}
+so $(a,0)$ is a stable focus precisely for $2\le n\le7$, cf.\ \cite[(2.17)]{GHL22}.
+
+The second structural fact is a weighted flux identity, which is the one-dimensional analogue of the Merle--Zaag energy identity in similarity variables \cite{MZ03,MZ05}: with
+\begin{equation}\label{eq:weight}
+\rho(\eta)=\eta^{n-1}|1-\eta^2|^{-\alpha},\qquad \Phi(\eta)=\rho(\eta)(1-\eta^2)v'(\eta)=\eta^{n-1}\,\sgn(1-\eta^2)|1-\eta^2|^{1-\alpha}v'(\eta),
+\end{equation}
+equation \eqref{eq:ode} is equivalent, on each side of the cone, to
+\begin{equation}\label{eq:flux}
+\Phi'(\eta)=\rho(\eta)\Big(\frac{1}{v^2}-\frac29v\Big).
+\end{equation}
+(Indeed $\rho'/\rho=\frac{n-1}{\eta}+\frac{(n+\frac13)\eta}{1-\eta^2}$ is exactly what is needed for $(\rho(1-\eta^2)v')'=\rho[(1-\eta^2)v''+(\frac{n-1}\eta-\frac23\eta)v']$.)  The weight $\rho$ is the formal Merle--Zaag weight $(1-|y|^2)^{\frac{2}{p-1}-1}$ for the ``exponent'' $p=-2$ of the nonlinearity $-u^{-2}$; it is not integrable at the cone (since $\alpha>1$), which is the reason why no Lyapunov functional of Merle--Zaag type exists for \eqref{eq:Y}, as observed in \cite{GHL22}.  Nevertheless \eqref{eq:flux} encodes the sonic-point structure (Section~\ref{sec:cone}) and the monotonicity properties (Section~\ref{sec:beyond}).
+
+\subsection{Smooth solutions and the main theorem}
+By a \emph{solution} of \eqref{eq:ode}--\eqref{eq:ic} on $[0,\eta_1)$ we mean a positive $C^2$ function satisfying \eqref{eq:ode} pointwise for $0<\eta<\eta_1$, $\eta\ne1$, and \eqref{eq:ic}; at $\eta=1$ the second-order term drops out and \eqref{eq:ode} reduces to $v'(1)=p(v(1))$, where
+\begin{equation}\label{eq:p}
+p(c_1):=\frac{c_1^{-2}-\frac29c_1}{\,n-\frac53\,}.
+\end{equation}
+By Proposition~A.1 of \cite{GHL22} (local existence at $\eta=0$ and at $\eta=1$) every $c>0$ determines a unique solution $v_c$ on a maximal interval $[0,\eta_{\max}(c))$, $\eta_{\max}\le1$ possibly, and $v_c\in C^\infty([0,\eta_{\max}))$ if $\eta_{\max}\le 1$.  We call $v$ a \emph{smooth global solution} if it is a solution on $[0,\infty)$ and $v\in C^\infty([0,\infty))$.
+
+\begin{theorem}[rigorous form of {\cite[Theorem 2.1]{GHL22}}]\label{thm:main}
+Let $2\le n\le7$.  There exist $c_0\in(0,\cstar)$ and an index $k_0\in\N$ with the following properties.
+\begin{enumerate}
+\item\label{it:discrete} The set $\mathcal C=\{c\in(0,c_0]:\ v_c \text{ is a smooth global solution}\}$ is discrete in $(0,c_0]$ and accumulates at $0$: there are a phase $\vartheta\in\R$ (depending only on $n$) and, for every $k\ge k_0$, a nonempty window
+\[
+J_k=\Big\{c>0:\ \Big|\tfrac{3b}{2}\ln\tfrac1c-\vartheta-\pi k\Big|\le \varpi_k\Big\},\qquad \varpi_k\downarrow0,
+\]
+such that $\mathcal C\cap(0,c_0]\subset\bigcup_{k\ge k_0}J_k$ and $\mathcal C\cap J_k\neq\emptyset$ for every $k\ge k_0$.  In particular, choosing $c_k\in\mathcal C\cap J_k$, 
+\begin{equation}\label{eq:ck}
+\ln c_k=-\frac{2\pi}{3b}\,k+\frac{2\vartheta}{3b}+o(1)\qquad(k\to\infty),\qquad\text{so}\qquad \frac{c_{k+1}}{c_k}\to e^{-2\pi/(3b)} .
+\end{equation}
+\item\label{it:profile} Each $v_k:=v_{c_k}$ is real-analytic on $(0,\infty)$ (in particular across the light cone), strictly increasing, and $v_k<\cstar$ on $[0,\eta_k^{**})$, $v_k>\cstar$ on $(\eta^{**}_k,\infty)$ with $\eta^{**}_k\to\eta^*=(3n-4)^{1/2}>1$.
+\item\label{it:infinity} There are constants $b_k>0$, $b_k\to a$, with $v_k(\eta)=b_k\eta^{2/3}+O(\eta^{-1/3})$ as $\eta\to\infty$; more precisely $\eta^{-2/3}v_k(\eta)$ is a real-analytic function of $1/\eta$ near $1/\eta=0$.
+\item\label{it:matching} (Inner and intermediate behaviour.)  Let $V_0$ be the solution of $V''+\frac{n-1}{r}V'=V^{-2}$, $V(0)=1$, $V'(0)=0$.  Then $V_0$ is global, increasing, and $V_0(r)=a r^{2/3}+A_1 r^{1-n/2}\cos(b\ln r+A_2)+O(r^{1-n/2-\nu})$ as $r\to\infty$ with $A_1>0$; and for every $\eps>0$ there are $S_0,c_0'>0$ such that for $c\in\mathcal C\cap(0,c_0']$
+\[
+\Big|\frac{v_c(\eta)}{c\,V_0(\eta/c^{3/2})}-1\Big|\le\eps\quad\text{for }0\le\eta\le c^{3/2}e^{S_0},\qquad
+\Big|\frac{v_c(\eta)}{a\eta^{2/3}}-1\Big|\le\eps\quad\text{for }c^{3/2}e^{S_0}\le\eta\le1+\delta_0 .
+\]
+In particular $v_k(\eta)\sim a\eta^{2/3}$ in the intermediate region $c_k^{3/2}\ll\eta\ll1$, which is part \textup{(b)} of \cite[Theorem 2.1]{GHL22}.
+\item\label{it:count} If $c\in J_k\cap\mathcal C$ and $c'\in J_{k+1}\cap\mathcal C$, then $v_{c'}-\vs$ has exactly one more zero in $(0,1)$ than $v_c-\vs$; thus $k$ labels the number of intersections of $v_k$ with the singular profile, up to a fixed shift.
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}
+(a) The phase $\vartheta$ is explicit in terms of two universal quantities: the phase $A_2$ of the inner profile $V_0$ and the phase of the solution of the linearised equation at $\vs$ which is regular at the cone (Proposition~\ref{prop:regular} below): $\vartheta=B_2-A_2$, see \eqref{eq:theta}.  This is the content of the formal matching (2.31)--(2.33) in \cite{GHL22}; the only difference is that the matching condition holds modulo $\pi$ and not modulo $2\pi$, because the regular linear mode is determined only up to a real factor, so that consecutive profiles are separated by one (not two) additional intersection with $\vs$ (Table~\ref{tab:num}).
+
+(b) With a $C^1$ version (in $\ln c$) of the matching estimate of Proposition~\ref{prop:beta} one obtains that $\beta$ has exactly one, transversal, zero in each window $J_k$, so that $\mathcal C\cap(0,c_0]=\{c_k\}_{k\ge k_0}$.  This requires differentiating the whole construction with respect to the parameter and is not needed for Theorem~\ref{thm:main}; we comment on it in Remark~\ref{rem:transversal}.
+\end{remark}
+
+\section{The light cone as a sonic point}\label{sec:cone}
+
+The guiding principle of this section is borrowed from Merle--Rapha\"el--Rodnianski--Szeftel \cite{MRRS22a,MRRS22b}: a degenerate point of the profile equation (there the sonic point of the self-similar Euler flow, here the light cone $\eta=1$) is an equilibrium of a desingularised dynamical system, and smoothness of the profile across it is a codimension-one condition which is non-degenerate exactly when the ratio of the two relevant eigenvalues is not an integer.  Here the eigenvalues are $2$ and $n-\frac53$, and the ratio $\alpha-1=\frac n2-\frac56$ is never an integer.
+
+\subsection{Every solution reaches the cone}
+\begin{lemma}[energy inside the cone]\label{lem:energy}
+For a solution of \eqref{eq:ode} on an interval of $(0,1)$ the quantity
+$E(\eta)=\frac12(1-\eta^2)v'(\eta)^2+\frac1{v(\eta)}+\frac{v(\eta)^2}9$
+satisfies $E'(\eta)=-\big(\frac{n-1}{\eta}+\frac{\eta}3\big)v'(\eta)^2\le0$.  Consequently, for every $c>0$ the solution $v_c$ of \eqref{eq:ode}--\eqref{eq:ic} exists on $[0,1)$ and, with $E_0=c^{-1}+c^2/9$,
+\begin{equation}\label{eq:apriori}
+E_0^{-1}\le v_c(\eta)\le 3E_0^{1/2},\qquad |v_c'(\eta)|\le (2E_0)^{1/2}(1-\eta^2)^{-1/2}\qquad(0\le\eta<1).
+\end{equation}
+In particular $v_c(1):=\lim_{\eta\to1^-}v_c(\eta)$ exists and is positive.
+\end{lemma}
+\begin{proof}
+Using $(1-\eta^2)v''=-(\frac{n-1}\eta-\frac23\eta)v'+q(v)$ with $q(v)=v^{-2}-\frac29v=\frac{d}{dv}(-\frac1v-\frac{v^2}9)$ one finds $E'=-\eta v'^2+v'(1-\eta^2)v''-q(v)v'=-(\eta+\frac{n-1}\eta-\frac23\eta)v'^2$.  The bounds follow from $E\le E(0)=E_0$, and $v'$ is integrable on $[0,1)$ by the last bound.
+\end{proof}
+
+\subsection{Flux variables and the Briot--Bouquet structure}
+Put $x=1-\eta\in(0,\delta)$ and, with $\Phi$ as in \eqref{eq:weight},
+\begin{equation}\label{eq:psi}
+\psi(x):=x^{\alpha-1}\Phi(1-x),\qquad h(x):=(1-x)^{1-n}(2-x)^{\alpha-1},\qquad g(x):=(1-x)^{n-1}(2-x)^{-\alpha}.
+\end{equation}
+Then \eqref{eq:flux} is equivalent to the first-order system
+\begin{equation}\label{eq:BB}
+x\frac{dv}{dx}=-x\,h(x)\,\psi,\qquad x\frac{d\psi}{dx}=(\alpha-1)\psi-g(x)\,q(v),\qquad q(v)=v^{-2}-\tfrac29v .
+\end{equation}
+This is a Briot--Bouquet system $x\,\mathbf y'=\mathbf F(x,\mathbf y)$, $\mathbf y=(v,\psi)$, with $\mathbf F$ analytic in a neighbourhood of $\{x=0,\ v>0\}$.  Its equilibria at $x=0$ form the curve $\psi=\psi_1(v):=2^{-\alpha}q(v)/(\alpha-1)$, and
+\[
+D_{\mathbf y}\mathbf F(0,v,\psi_1(v))=\begin{pmatrix}0&0\\ -2^{-\alpha}q'(v)&\alpha-1\end{pmatrix},\qquad \text{eigenvalues }0\ \text{ and }\ \alpha-1=\frac n2-\frac56\notin\N .
+\]
+Note that $v'(1)=h(0)\psi_1(v(1))=p(v(1))$, see \eqref{eq:p}.
+
+\begin{lemma}[arrival at the cone in flux variables]\label{lem:arrival}
+Let $v$ be a solution of \eqref{eq:ode} on $[1-\delta,1)$ with $\inf v>0$.  Then $c_1=v(1)$ exists, $\psi(x)\to\psi_1(c_1)$ and $v'(\eta)\to p(c_1)$ as $x=1-\eta\to0$.
+\end{lemma}
+\begin{proof}
+Lemma~\ref{lem:energy} gives the existence of $c_1>0$.  From \eqref{eq:BB}, $(x^{1-\alpha}\psi)'=-x^{-\alpha}g(x)q(v(x))$, hence $x^{1-\alpha}\psi(x)=x_0^{1-\alpha}\psi(x_0)+\int_x^{x_0}\zeta^{-\alpha}g(\zeta)q(v(\zeta))\dd\zeta$.  Since $\alpha>1$ and $g(\zeta)q(v(\zeta))\to2^{-\alpha}q(c_1)$, the integral equals $2^{-\alpha}q(c_1)x^{1-\alpha}/(\alpha-1)+o(x^{1-\alpha})$, which gives $\psi\to\psi_1(c_1)$; then $v'=-v_x=h\psi\to h(0)\psi_1(c_1)=p(c_1)$.
+\end{proof}
+
+\begin{lemma}[the analytic branch through the cone]\label{lem:analytic}
+For every $c_1>0$ there is exactly one solution $\vreg(\cdot;c_1)$ of \eqref{eq:ode} which is real-analytic in a neighbourhood of $\eta=1$ and satisfies $\vreg(1;c_1)=c_1$.  It is real-analytic jointly in $(\eta,c_1)$, and $\vreg(\cdot;a)=\vs$.
+\end{lemma}
+\begin{proof}
+Since no eigenvalue of $D_{\mathbf y}\mathbf F(0,c_1,\psi_1(c_1))$ is a positive integer, the Briot--Bouquet theorem \cite[Ch.~11]{Hil76} (see also \cite[Ch.~2]{IKSY91}) provides a unique solution of \eqref{eq:BB} analytic at $x=0$ with $\mathbf y(0)=(c_1,\psi_1(c_1))$; appending the equation $x\,dc_1/dx=0$ shows analytic dependence on $c_1$.  The same holds on the right of the cone (replace $x$ by $\eta-1$), and both expansions are generated by the same recursion, so they define one analytic function near $\eta=1$.  Concretely, writing $v=\sum_m t_m(\eta-1)^m$ and inserting into \eqref{eq:ode}, the coefficient of $(\eta-1)^m$ determines $t_{m+1}$ through the factor $(m+1)\big(n-\frac53-2m\big)=2(m+1)(\alpha-1-m)$, which never vanishes; this is the non-resonance condition.  Uniqueness of the analytic solution shows $\vreg(\cdot;a)=\vs$.
+\end{proof}
+
+\subsection{The singular coefficient}
+\begin{proposition}[structure of all solutions at the cone]\label{prop:beta-def}
+Let $v$ be a solution of \eqref{eq:ode} on $[1-\delta,1)$ with $\inf v>0$ and $c_1=v(1)$.  There is a unique $\beta\in\R$ such that, as $\eta\to1^-$,
+\begin{equation}\label{eq:sing-exp}
+v(\eta)-\vreg(\eta;c_1)=\beta\,(1-\eta)^{\alpha}\big(1+o(1)\big),\qquad
+v'(\eta)-\vreg'(\eta;c_1)=-\alpha\beta\,(1-\eta)^{\alpha-1}\big(1+o(1)\big).
+\end{equation}
+Moreover $v$ extends to a function of class $C^{\lfloor\alpha\rfloor+1}$ on $[1-\delta,1]$ if and only if $\beta=0$, and then $v=\vreg(\cdot;c_1)$ on $[1-\delta,1)$; in particular $v$ extends to a $C^\infty$ (indeed analytic) solution across the cone if and only if $\beta=0$.
+\end{proposition}
+\begin{proof}
+Let $u=v-\vreg$, $\psi_u=\psi-\psi_{\rm reg}$, with $\psi_{\rm reg}$ the flux variable of $\vreg$.  By Lemma~\ref{lem:arrival}, $u(0)=0$ and $\psi_u(0)=0$ (as functions of $x$), and from \eqref{eq:BB}
+\begin{equation}\label{eq:usys}
+u(x)=-\int_0^x h\,\psi_u\dd\zeta,\qquad (x^{1-\alpha}\psi_u)'=-x^{-\alpha}g(x)Q(x)u(x),\qquad Q=\frac{q(v)-q(\vreg)}{v-\vreg}\in C([0,\delta]) .
+\end{equation}
+Let $m(x)=\sup_{[0,x]}|\psi_u|$, so that $|u(\zeta)|\le C\zeta\,m(\zeta)$.  Integrating the second relation from $x$ to $x_0$,
+\[
+\psi_u(x)=x^{\alpha-1}\Big[x_0^{1-\alpha}\psi_u(x_0)+\int_x^{x_0}\zeta^{-\alpha}gQu\dd\zeta\Big].
+\]
+If $\alpha<2$ the integral converges at $0$ and $\psi_u(x)=\beta'x^{\alpha-1}+O(x)$, with $\beta'=x_0^{1-\alpha}\psi_u(x_0)+\int_0^{x_0}\zeta^{-\alpha}gQu$.  If $\alpha>2$, the bound $|u|\le C\zeta m(x_0)$ gives $\psi_u=O(x)$, hence $|u|\le Cx^2$, hence $\psi_u=\beta'x^{\alpha-1}+O(x^2)$ if $\alpha<3$, and so on; after $\lfloor\alpha\rfloor$ steps one arrives at
+\begin{equation}\label{eq:psiu}
+\psi_u(x)=\beta'x^{\alpha-1}+O(x^{\lfloor\alpha\rfloor}),\qquad\text{whence}\qquad u(x)=-\frac{2^{\alpha-1}\beta'}{\alpha}x^{\alpha}+O(x^{\lfloor\alpha\rfloor+1}),
+\end{equation}
+and \eqref{eq:sing-exp} holds with $\beta=-2^{\alpha-1}\beta'/\alpha$ (recall $\alpha\notin\N$, so $x^\alpha$ and $x^{\lfloor\alpha\rfloor+1}$ are distinguishable).  If $\beta'=0$ the bootstrap continues indefinitely, $\psi_u=O(x^N)$ for all $N$, and then the weighted estimate $\sup_{[0,x]}\zeta^{-N}|\psi_u|\le \frac{C}{N-\alpha+1}\sup_{[0,x]}\zeta^{-N}|u|\le\frac{C'x}{N-\alpha+1}\sup_{[0,x]}\zeta^{-N}|\psi_u|$ forces $\psi_u\equiv0$, i.e.\ $u\equiv0$.  Finally, if $v\in C^{\lfloor\alpha\rfloor+1}([1-\delta,1])$ then $u$ has a Taylor polynomial $P$ of degree $\lfloor\alpha\rfloor$ at $x=0$ with $u=P+O(x^{\lfloor\alpha\rfloor+1})$; comparing with $u=\beta x^\alpha(1+o(1))$ and using $\alpha\notin\N$ gives first $P\equiv0$ and then $\beta=0$.
+\end{proof}
+
+\begin{definition}[shooting functional]\label{def:beta}
+For $c>0$ let $\beta(c)$ be the number $\beta$ of Proposition~\ref{prop:beta-def} for $v=v_c$ (which reaches the cone by Lemma~\ref{lem:energy}).  Thus $v_c$ extends to a $C^\infty$ solution across the light cone if and only if $\beta(c)=0$, and then the extension is $\vreg(\cdot;v_c(1))$.
+\end{definition}
+
+\begin{lemma}\label{lem:beta-analytic}
+$\beta$ is real-analytic on $(0,\infty)$, and $\beta(\cstar)=0$.
+\end{lemma}
+\begin{proof}
+By the Briot--Bouquet theory for a positive non-integer eigenvalue \cite[Ch.~12]{Hil76}, the solutions of \eqref{eq:BB} converging to $(c_1,\psi_1(c_1))$ form a one-parameter family
+\[
+\mathbf y(x;c_1,\beta')=\sum_{j,k\ge0}\mathbf a_{jk}(c_1,\beta')\,x^{j+k(\alpha-1)},
+\]
+convergent for $0<x<x_1$ uniformly for $(c_1,\beta')$ in compacts, with $\mathbf a_{jk}$ analytic and $\mathbf a_{01}=(0,\beta')$; by Proposition~\ref{prop:beta-def} these are all solutions with $\inf v>0$.  The map $(c_1,\beta')\mapsto(v,\psi)(x_0)$ is analytic with invertible differential (its columns are the values at $x_0$ of the regular and the singular solution of the linearised system, which are independent), so by the inverse function theorem $(c_1,\beta')$ is an analytic function of $(v_c(1-x_0),\psi_c(x_0))$, which in turn is analytic in $c$ by analytic dependence of \eqref{eq:ode} on initial data on the regular interval $[0,1-x_0]$ (the point $\eta=0$ is handled as in \cite[Lemma A.3]{GHL22}).  Finally $v_{\cstar}\equiv\cstar$ is analytic, so $\beta(\cstar)=0$.
+\end{proof}
+
+\subsection{The linearised equation at the singular profile}\label{sec:linearised}
+Write $Y=a+Z$ in \eqref{eq:Y}.  Then
+\begin{equation}\label{eq:Zeq}
+\mathcal L Z:=(1-e^{2s})Z_{ss}+\Big(n-\frac23-e^{2s}\Big)Z_s+2\Big(n-\frac43\Big)Z=-N(Z),\qquad N(Z)=G'(a+Z)-G''(a)Z ,
+\end{equation}
+with $|N(Z)|+|N'(Z)|\,|Z|\le C_N|Z|^2$ for $|Z|\le a/2$.  The linear operator $\mathcal L$ is \cite[(2.29)--(2.30)]{GHL22} written for $Z=\eta^{-2/3}v_l$; note that the non-autonomous terms of $\mathcal L$ only involve $Z_s$ and $Z_{ss}$, which is again the cancellation of Lemma~\ref{lem:exact}.
+
+\begin{proposition}[a basis of $\ker\mathcal L$ on $(-\infty,0)$]\label{prop:regular}
+Let $2\le n\le7$.
+\begin{alphenum}
+\item There are solutions $\Psi_1,\Psi_2$ of $\mathcal LZ=0$ on $(-\infty,0)$ with
+\begin{equation}\label{eq:levinson}
+\begin{aligned}
+\begin{pmatrix}\Psi_1\\ \Psi_1'\end{pmatrix}
+&=e^{-\nu s}\Big[\begin{pmatrix}\cos bs\\ -\nu\cos bs-b\sin bs\end{pmatrix}+O(e^{2s})\Big],\\
+\begin{pmatrix}\Psi_2\\ \Psi_2'\end{pmatrix}
+&=e^{-\nu s}\Big[\begin{pmatrix}\sin bs\\ -\nu\sin bs+b\cos bs\end{pmatrix}+O(e^{2s})\Big]
+\end{aligned}
+\end{equation}
+as $s\to-\infty$.
+\item $s=0$ is a regular singular point of $\mathcal L$ with exponents $0$ and $\alpha$: every solution on $(-\delta,0)$ is $A\,\chi_{\rm reg}(s)+B\,\chi_{\rm sing}(s)$ with $\chi_{\rm reg}$ analytic at $0$, $\chi_{\rm reg}(0)=1$, and $\chi_{\rm sing}(s)=|s|^{\alpha}(1+O(s))$.  Let $\sigma_j$ be the coefficient $B$ of $\Psi_j$.  Then $(\sigma_1,\sigma_2)\ne(0,0)$.
+\item Write $(\sigma_1,\sigma_2)=\rho_0(\cos\varphi,\sin\varphi)$ with $\rho_0>0$.  Then $\Preg:=\sigma_2\Psi_1-\sigma_1\Psi_2$ spans the solutions of $\mathcal LZ=0$ on $(-\infty,0]$ which are analytic at $s=0$, and
+\begin{equation}\label{eq:Preg}
+\Preg(s)=\rho_0e^{-\nu s}\big[\cos(bs+B_2)+O(e^{2s})\big]\quad(s\to-\infty),\qquad B_2:=\frac\pi2-\varphi .
+\end{equation}
+\end{alphenum}
+\end{proposition}
+\begin{proof}
+(a) For $s\le-1$ write $\mathcal LZ=0$ as a first-order system $\mathbf Z'=(\mathbf A+\mathbf R(s))\mathbf Z$, $\mathbf Z=(Z,Z')$, where $\mathbf A$ is the constant matrix of the autonomous equation $Z''+(n-\frac23)Z'+2(n-\frac43)Z=0$, with simple eigenvalues $\lambda_\pm=-\nu\pm ib$, and $\|\mathbf R(s)\|\le Ce^{2s}$.  Since $\int_{-\infty}^{-1}\|\mathbf R\|<\infty$, Levinson's theorem \cite[Thm.~1.3.1]{Eas89} (or \cite[Ch.~3, Thm.~8.1]{CL55}) yields solutions $\mathbf Z_\pm=e^{\lambda_\pm s}(\mathbf e_\pm+o(1))$, $\mathbf e_\pm$ the eigenvectors; the error is $O(\int_{-\infty}^s\|\mathbf R\|)=O(e^{2s})$ by the Volterra-equation form of the proof.  Taking real and imaginary parts gives \eqref{eq:levinson}.
+
+(b) Near $s=0$ the coefficients of $\mathcal L$ are analytic, $1-e^{2s}=-2s(1+O(s))$, and the indicial equation of $\mathcal L$ at $s=0$ is $2\lambda(\lambda-1)-(n-\frac53)\lambda=0$, i.e.\ $\lambda\in\{0,\alpha\}$; as $\alpha\notin\Z$ the Frobenius method gives the stated basis.  If $\sigma_1=\sigma_2=0$ then every solution of $\mathcal LZ=0$ would be analytic at $0$, contradicting the existence of $\chi_{\rm sing}$.
+
+(c) is immediate from (a), (b): $\sigma_2\cos bs-\sigma_1\sin bs=\rho_0\sin(\varphi-bs)=\rho_0\cos(bs+\frac\pi2-\varphi)$.
+\end{proof}
+
+The number $B_2$ is the phase in \cite[(2.31)]{GHL22} of the solution of the linearised equation ``regular at $s=0$''.  We can now define the phase of Theorem~\ref{thm:main}:
+\begin{equation}\label{eq:theta}
+\vartheta:=B_2-A_2\pmod\pi ,
+\end{equation}
+where $A_2$ is the inner phase of Proposition~\ref{prop:inner} below.
+
+\section{Beyond the light cone: monotonicity, global continuation and growth}\label{sec:beyond}
+
+This section makes rigorous the second half of the formal proof in \cite[\S2(b)]{GHL22} and Lemma~2.4 there.  No smallness is used; the input is only a sign configuration at the cone.
+
+\begin{lemma}[critical points, {\cite[\S2(b)(a)--(d)]{GHL22}}]\label{lem:extrema}
+Let $v$ solve \eqref{eq:ode} near $\eta_0\ne1$ with $v'(\eta_0)=0$.  Then $(1-\eta_0^2)v''(\eta_0)=q(v(\eta_0))$, $q(v)=v^{-2}-\frac29v$.  Hence, if $v(\eta_0)\ne\cstar$, $\eta_0$ is a strict local extremum of $v$, namely
+\begin{center}
+\begin{tabular}{lcc}\toprule
+ & $0<\eta_0<1$ & $\eta_0>1$\\ \midrule
+$v(\eta_0)<\cstar$ & minimum & maximum\\
+$v(\eta_0)>\cstar$ & maximum & minimum\\ \bottomrule
+\end{tabular}
+\end{center}
+and if $v(\eta_0)=\cstar$ then $v\equiv\cstar$.
+\end{lemma}
+\begin{proof}
+Evaluate \eqref{eq:ode} at $\eta_0$; $q>0$ below $\cstar$ and $q<0$ above.  The last claim is uniqueness for the regular initial value problem at $\eta_0\neq 1$.
+\end{proof}
+
+\begin{proposition}[global continuation beyond the cone]\label{prop:beyond}
+Let $v$ be a solution of \eqref{eq:ode} on $[1,\eta_1)$ which is $C^1$ at $\eta=1$ with $v'(1)=p(v(1))$, and assume that $v(1)<\cstar$ and that $v$ attains the value $\cstar$ at some $\eta^{**}\in(1,\eta_1)$, with $v<\cstar$ on $[1,\eta^{**})$.  Then:
+\begin{enumerate}
+\item $v'>0$ on $[1,\eta^{**}]$;
+\item $v$ extends to a solution on $[1,\infty)$, with $v'>0$ and $v>\cstar$ on $(\eta^{**},\infty)$;
+\item $Y(\eta):=\eta^{-2/3}v(\eta)$ converges to some $b\in(0,\infty)$, and $Y$ is a real-analytic function of $t=1/\eta$ in a neighbourhood of $t=0$.  In particular
+\begin{equation}\label{eq:infinity}
+v(\eta)=b\,\eta^{2/3}+b_1\eta^{-1/3}+O(\eta^{-4/3})\qquad(\eta\to\infty),
+\end{equation}
+and more generally $v$ has a convergent expansion $\eta^{2/3}\sum_{j\ge0}b_j\eta^{-j}$, which is \cite[Lemma 2.4]{GHL22}.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $v'(1)=p(v(1))>0$ because $v(1)<\cstar$.  Let $\eta_2=\sup\{\eta\in(1,\eta^{**}):v'>0\text{ on }(1,\eta)\}$.  If $\eta_2<\eta^{**}$ then $v'(\eta_2)=0$ with $v(\eta_2)<\cstar$, so $\eta_2$ is a strict local maximum by Lemma~\ref{lem:extrema}; since $v(\eta^{**})=\cstar>v(\eta_2)$, $v$ would then have a local minimum in $(\eta_2,\eta^{**})$ with value below $\cstar$, which Lemma~\ref{lem:extrema} forbids.  Thus $v'>0$ on $(1,\eta^{**})$, and $v'(\eta^{**})=0$ would force $v\equiv\cstar$.
+
+(ii) For $\eta>1$ it is convenient to use the flux $\tilde\Phi(\eta):=\eta^{n-1}(\eta^2-1)^{1-\alpha}v'(\eta)=-\Phi(\eta)$, for which \eqref{eq:flux} reads
+\begin{equation}\label{eq:flux-out}
+\tilde\Phi'(\eta)=\eta^{n-1}(\eta^2-1)^{-\alpha}\Big(\frac29v-\frac1{v^2}\Big).
+\end{equation}
+On any interval beyond $\eta^{**}$ on which $v>\cstar$ the flux $\tilde\Phi$ is increasing; since $\tilde\Phi(\eta^{**})>0$, $v'$ cannot vanish there, so $v'>0$ and $v>\cstar$ persist as long as the solution exists.  Blow-up of $(v,v')$ in finite $\eta$ is excluded because $v''=[(\frac{n-1}\eta-\frac23\eta)v'-q(v)]/(\eta^2-1)$ grows at most linearly in $(v,v')$ on compact $\eta$-intervals away from $\eta=1$, and $v>\cstar$ keeps $q$ bounded.  Hence the solution is global.
+
+(iii) \emph{Step 1: $v\to\infty$.}  Fix $\eta_3>\eta^{**}$ and set $\kappa=\frac29v(\eta_3)-v(\eta_3)^{-2}>0$.  By \eqref{eq:flux-out} and monotonicity of $v$, $\tilde\Phi\ge\tilde\Phi(\eta_3)>0$ for $\eta\ge\eta_3$, so $v'(\eta)\ge\tilde\Phi(\eta_3)\eta^{1-n}(\eta^2-1)^{\alpha-1}\ge c\,\eta^{-2/3}$ for large $\eta$ (recall $2(\alpha-1)=n-\frac53$), and $v(\eta)\ge c'\eta^{1/3}\to\infty$.
+
+\emph{Step 2: the equation for $Y$.}  Substituting $v=\eta^{2/3}Y$ in \eqref{eq:ode} (equivalently, writing \eqref{eq:Y} in the variable $\eta$) gives, for $\eta>1$,
+\begin{equation}\label{eq:Yeta}
+\eta^2(\eta^2-1)Y''+\eta\Big(2\eta^2-n-\frac13\Big)Y'=G'(Y)=\frac23\Big(n-\frac43\Big)Y-\frac1{Y^2},
+\end{equation}
+and with the integrating factor $\mu(\eta)=\eta^{n+\frac13}(\eta^2-1)^{1-\alpha}=\eta^2(1+O(\eta^{-2}))$ this is
+\begin{equation}\label{eq:muY}
+\big(\mu Y'\big)'=\frac{\mu(\eta)}{\eta^2(\eta^2-1)}\,G'(Y),\qquad \frac{\mu(\eta)}{\eta^2(\eta^2-1)}=\eta^{n-\frac53}(\eta^2-1)^{-\alpha}=\eta^{-2}(1+O(\eta^{-2})) .
+\end{equation}
+Since $G'(Y)$ has the sign of $Y-a$, a zero $\eta_0$ of $Y'$ with $Y(\eta_0)>a$ (resp.\ $<a$) is followed by $Y'>0$ (resp.\ $Y'<0$) for all $\eta>\eta_0$, and $Y'(\eta_0)=0=Y(\eta_0)-a$ forces $Y\equiv a$.  Hence $Y$ is eventually strictly monotone and $b:=\lim Y\in[0,\infty]$ exists.
+
+\emph{Step 3: $b<\infty$.}  If $Y\uparrow\infty$, then eventually $Y>a$, $Y'>0$, and by \eqref{eq:muY} $(\mu Y')'\le C\eta^{-2}Y$.  Integrating and using monotonicity, $\mu Y'(\eta)\le C_1+C\,Y(\eta)/\eta_0$, so $Y'\le(C_1+C_2Y)\eta^{-2}$, which integrates to a bound on $Y$: contradiction.
+
+\emph{Step 4: $b>0$.}  If $Y\downarrow0$, then eventually $Y<a$, $\phi:=-\mu Y'>0$ is increasing by \eqref{eq:muY}, and
+$Y(\eta)=\int_\eta^\infty\phi/\mu\ge\phi(\eta)\int_\eta^\infty\mu^{-1}\ge c\,\phi(\eta)/\eta$.
+Also $\phi'=\eta^{-2}(1+O(\eta^{-2}))\,(Y^{-2}-\tfrac23(n-\tfrac43)Y)\le C\eta^{-2}Y^{-2}\le C'\phi^{-2}$, so $\phi^3\le C''\eta$ and therefore $Y(\eta)=\int_\eta^\infty\phi/\mu\le C\int_\eta^\infty\zeta^{1/3-2}\dd\zeta=C\eta^{-2/3}$, i.e.\ $v=\eta^{2/3}Y$ is bounded, contradicting Step~1.
+
+\emph{Step 5: asymptotics.}  With $b\in(0,\infty)$ the right-hand side of \eqref{eq:muY} is $O(\eta^{-2})$, so $\mu Y'\to m_1\in\R$, $Y'=m_1\eta^{-2}+O(\eta^{-3})$ and $Y=b-m_1\eta^{-1}+O(\eta^{-2})$, which is \eqref{eq:infinity}.  Finally, in the variable $t=1/\eta$ equation \eqref{eq:Yeta} becomes
+\begin{equation}\label{eq:Yt}
+(1-t^2)\,Y_{tt}+\Big(n-\frac53\Big)t\,Y_t=G'(Y),
+\end{equation}
+which is a \emph{regular} analytic equation at $t=0$ as long as $Y>0$.  Since $(Y,Y_t)=(Y,-\eta^2Y')\to(b,-m_1)$ as $t\to0^+$, the solution extends analytically through $t=0$, which proves the last claim.  (The exact solution $Y=\cstar t^{2/3}$ shows that \eqref{eq:Yt} is singular on $\{Y=0\}$; this is the alternative $v\to\cstar$ in \cite[Lemma 2.4]{GHL22}, which is excluded for our solutions by Step~1.)
+\end{proof}
+
+\begin{remark}
+Combining Lemma~\ref{lem:energy} with Proposition~\ref{prop:beyond}, the ``possibility of limited existence as $v$ could vanish at some finite value of $\eta$'' noted in \cite{GHL22} can only occur outside the light cone, and it does not occur for solutions which cross $\cstar$ upwards after the cone.
+\end{remark}
+
+\section{Inner region and matching}\label{sec:matching}
+
+We now make the matched asymptotics of \cite[\S2(a),(b)]{GHL22} quantitative, following the strategy of Collot--Rapha\"el--Szeftel \cite{CRS19} for the construction of self-similar profiles of the supercritical heat equation by bifurcation from the singular profile; the oscillatory situation at hand, in which the linearisation at the singular profile has complex eigenvalues, corresponds to the Sobolev-supercritical, Joseph--Lundgren-subcritical range of the heat equation, where the profiles were obtained by shooting by Troy, Budd--Qi and Lepin \cite{Tro87,BQ89,Lep90}, and to the construction of self-similar wave profiles by Bizo\'n--Maison--Wasserman \cite{BMW07} and Dai--Duyckaerts \cite{DD21}.  Throughout, $2\le n\le7$,
+\[
+\sigma:=\tfrac32\ln c\quad(\text{so } c^{3/2}=e^{\sigma}),\qquad Y_c(s):=e^{-2s/3}v_c(e^s),\qquad Z_c:=Y_c-a .
+\]
+
+\subsection{The inner profile}
+\begin{proposition}[inner profile]\label{prop:inner}
+Let $V_0$ be the solution of $V''+\frac{n-1}rV'=V^{-2}$, $V(0)=1$, $V'(0)=0$, and $Y_0(s)=e^{-2s/3}V_0(e^s)$.
+\begin{alphenum}
+\item $V_0$ exists on $[0,\infty)$, $V_0'>0$ on $(0,\infty)$, and $1\le V_0(r)\le1+r^2/(2n)$.
+\item $Y_0$ solves the inner equation \eqref{eq:inner} and $(Y_0,Y_0')(s)\to(a,0)$ as $s\to\infty$.
+\item There are $A_1>0$ and $A_2\in\R$ such that, as $s\to\infty$,
+\begin{equation}\label{eq:inner-tail}
+\begin{aligned}
+Y_0(s)&=a+A_1e^{-\nu s}\cos(bs+A_2)+O(e^{-2\nu s}),\\
+Y_0'(s)&=A_1e^{-\nu s}\big[-\nu\cos(bs+A_2)-b\sin(bs+A_2)\big]+O(e^{-2\nu s}).
+\end{aligned}
+\end{equation}
+Equivalently $V_0(r)=ar^{2/3}+A_1r^{1-n/2}\cos(b\ln r+A_2)+O(r^{1-n/2-\nu})$, which is \cite[(2.21)]{GHL22}.
+\end{alphenum}
+\end{proposition}
+\begin{proof}
+(a) $(r^{n-1}V')'=r^{n-1}V^{-2}>0$ gives $V'>0$ and $V\ge1$, hence $(r^{n-1}V')'\le r^{n-1}$, $V'\le r/n$, and the solution is global.
+
+(b) The computation leading to \eqref{eq:Y} with the $e^{2s}$-terms removed shows that $Y_0$ solves \eqref{eq:inner}.  Along solutions, $L=\frac12Y_s^2+G(Y)$ is nonincreasing, and $\{L\le L_0\}$ is a compact subset of $\{Y>0\}\times\R$ because $G(Y)\to\infty$ as $Y\to0^+$ or $Y\to\infty$.  By LaSalle's invariance principle the $\omega$-limit set of $(Y_0,Y_0')$ is contained in the largest invariant subset of $\{Y_s=0\}$, which is the equilibrium $(a,0)$.
+
+(c) Set $Z_0=Y_0-a$, so that $Z_0''+(n-\frac23)Z_0'+G''(a)Z_0=-N(Z_0)$ with $N$ as in \eqref{eq:Zeq}.  The linear part is a hyperbolic sink with eigenvalues $-\nu\pm ib$, so (e.g.\ by a quadratic Lyapunov function for the linear part, perturbed by the $O(|Z_0|^3)$ cubic term once $|Z_0|$ is small) $|Z_0(s)|+|Z_0'(s)|\le C_\eps e^{-(\nu-\eps)s}$ for every $\eps>0$.  Let $K(s,s')=b^{-1}e^{-\nu(s-s')}\sin b(s-s')$ be the fundamental solution of the linear operator.  For $s\ge s_0$,
+\[
+Z_0(s)=e^{-\nu s}\big(C_1\cos bs+C_2\sin bs\big)-\int_{s_0}^{s}K(s,s')N(Z_0(s'))\dd s' ,
+\]
+and we split $\int_{s_0}^s=\int_{s_0}^\infty-\int_s^\infty$.  Since $K(s,s')=e^{-\nu s}[\sin bs\cdot e^{\nu s'}\cos bs'-\cos bs\cdot e^{\nu s'}\sin bs']/b$ and $|N(Z_0(s'))|\le Ce^{-2(\nu-\eps)s'}$, the first integral is $e^{-\nu s}$ times a convergent combination of $\cos bs,\sin bs$, which we absorb into $(C_1,C_2)$, while the second is $O(e^{-\nu s}\int_s^\infty e^{\nu s'}e^{-2(\nu-\eps)s'}\dd s')=O(e^{-2(\nu-\eps)s})$.  This gives $|Z_0|\le Ce^{-\nu s}$, and running the argument once more, $Z_0=e^{-\nu s}(C_1\cos bs+C_2\sin bs)+O(e^{-2\nu s})$; the derivative is handled in the same way.  It remains to see $(C_1,C_2)\ne0$.  Otherwise $Z_0=O(e^{-2\nu s})$, and iterating the previous step gives $Z_0=O(e^{-Ns})$ for every $N$, so that $Z_0(s)=-\int_s^\infty K(s,s')N(Z_0(s'))\dd s'$ (all boundary terms vanish).  With $m(s)=\sup_{[s,\infty)}|Z_0|$ this yields $m(s)\le Cm(s)\,e^{-\nu s}\int_s^\infty e^{\nu s'}m(s')\dd s'$, and the last factor tends to $0$, so $Z_0\equiv0$ near $+\infty$ and hence everywhere, contradicting $Y_0(s)\to\infty$ as $s\to-\infty$.  Finally write $(C_1,C_2)=A_1(\cos A_2,-\sin A_2)$.
+\end{proof}
+
+\subsection{The inner region of $v_c$}
+Set $V_c(r):=c^{-1}v_c(c^{3/2}r)$; then $Y_c(s)=e^{-2(s-\sigma)/3}V_c(e^{s-\sigma})$ and, by \cite[(2.9)]{GHL22},
+\begin{equation}\label{eq:Vc}
+V_c''+\frac{n-1}rV_c'-\frac1{V_c^2}=c^3\Big(r^2V_c''+\frac23rV_c'-\frac29V_c\Big),\qquad V_c(0)=1,\ V_c'(0)=0 .
+\end{equation}
+\begin{lemma}[inner stability]\label{lem:inner-stab}
+For every $S_0\ge1$ there are $C(S_0)$ and $c_1(S_0)>0$ such that for $0<c\le c_1(S_0)$
+\begin{gather*}
+\sup_{0\le r\le e^{S_0}}\big(|V_c-V_0|+|V_c'-V_0'|\big)\le C(S_0)\,c^3,\\
+\sup_{\sigma-1\le s\le\sigma+S_0}\big(|Y_c(s)-Y_0(s-\sigma)|+|Y_c'(s)-Y_0'(s-\sigma)|\big)\le C(S_0)\,c^3 .
+\end{gather*}
+In particular $v_c>0$ and $v_c'>0$ on $(0,c^{3/2}e^{S_0}]$, and $v_c(\eta)=cV_0(\eta/c^{3/2})(1+O(c^3))$ there.
+\end{lemma}
+\begin{proof}
+Solving \eqref{eq:Vc} for $V_c''$, $V_c''=\big[-\frac{n-1}rV_c'+V_c^{-2}+c^3(\frac23rV_c'-\frac29V_c)\big]/(1-c^3r^2)$, which on $[0,e^{S_0}]$ is a regular (in $c^3$) perturbation of the equation for $V_0$ once $c^3e^{2S_0}\le\frac12$; the point $r=0$ is handled through the integral form $V(r)=1+\int_0^r\zeta^{1-n}\int_0^\zeta\xi^{n-1}F(\xi,V,V')\dd\xi\dd\zeta$ exactly as in \cite[Lemma A.3]{GHL22}.  Continuous dependence on parameters (Gronwall on a compact interval) gives the first bound; the second follows since $r=e^{s-\sigma}\in[e^{-1},e^{S_0}]$ is bounded away from $0$ and $\infty$, and the last statement from $V_0\ge1$, $V_0'>0$ on $(0,\infty)$ together with $V_c'(r)=\frac{r}{n}(1+O(r^2))>0$ for small $r$.
+\end{proof}
+
+\subsection{The singular coefficient near the singular profile}
+We normalise the singular coefficient of solutions of the linearised equation as in Proposition~\ref{prop:beta-def}: for a solution $Z$ of $\mathcal LZ=0$ on $(-\delta,0)$, $\beta_{\rm lin}[Z]$ is the number $B$ in $Z=A\chi_{\rm reg}+B\chi_{\rm sing}$; since $1-\eta=|s|(1+O(s))$ and $\eta^{2/3}=1+O(s)$, this is the coefficient of $(1-\eta)^\alpha$ in $\eta^{2/3}Z$, so $\beta_{\rm lin}[\Psi_j]=\sigma_j$.  Fix $\delta_1\in(0,1)$ and $x_0:=1-e^{-\delta_1}$.
+
+\begin{lemma}[linearisation of the shooting functional]\label{lem:beta-lin}
+There are $r_0,C>0$ and a linear form $\ell:\R^2\to\R$ with the following property.  If $Y=a+Z$ solves \eqref{eq:Y} on $[-\delta_1,0)$ and $d:=|Z(-\delta_1)|+|Z'(-\delta_1)|\le r_0$, then $v=\eta^{2/3}Y$ satisfies the hypotheses of Proposition~\ref{prop:beta-def}, and its singular coefficient obeys
+\[
+\big|\beta[v]-\ell\big(Z(-\delta_1),Z'(-\delta_1)\big)\big|\le C d^2 ,\qquad \ell\big(\Psi_j(-\delta_1),\Psi_j'(-\delta_1)\big)=\sigma_j\quad(j=1,2).
+\]
+\end{lemma}
+\begin{proof}
+By Lemma~\ref{lem:beta-analytic} and its proof, the map $\Pi:(c_1,\beta')\mapsto(v,\psi)(x_0;c_1,\beta')$ is an analytic diffeomorphism from a neighbourhood of $(a,0)$ onto a neighbourhood of the data of $\vs$ at $x_0$, and $\beta[v]=-\frac{2^{\alpha-1}}{\alpha}\,\mathrm{pr}_2\Pi^{-1}\big((v,\psi)(x_0)\big)$.  The data $(v,\psi)(x_0)$ depend linearly on $(Z,Z')(-\delta_1)$ (through $v=\eta^{2/3}(a+Z)$ and \eqref{eq:weight}, \eqref{eq:psi}), so $\mathfrak B:=\beta\circ(\text{data map})$ is analytic near $(0,0)$ with $\mathfrak B(0,0)=\beta[\vs]=0$, and $\ell:=D\mathfrak B(0,0)$ gives the first estimate by Taylor's theorem.  For the second, differentiate the one-parameter family $v^\eps:=\Pi$-solution with parameters $(a,0)+\eps\,D\Pi(a,0)^{-1}(\text{data of }\eta^{2/3}\Psi_j)$: its $\eps$-derivative at $\eps=0$ is a solution of the linearisation of \eqref{eq:BB} at $\vs$ with the data of $\Psi_j$, hence equals $\Psi_j$ (in flux variables), and the $\eps$-derivative of its $\beta'$-parameter is by construction the coefficient of $x^{\alpha-1}$ in its $\psi$-component, i.e.\ $-\frac{\alpha}{2^{\alpha-1}}\sigma_j$.  Thus $\ell(\text{data of }\Psi_j)=\sigma_j$.
+\end{proof}
+
+\subsection{Matching: asymptotics of $\beta(c)$}
+\begin{proposition}[matching]\label{prop:beta}
+Let $2\le n\le7$ and $\mathcal A(c):=A_1c^{3\nu/2}=A_1e^{\nu\sigma}$.  There is $C>0$ such that for every $S_0\ge1$ there is $c_1(S_0)>0$ with
+\begin{equation}\label{eq:beta-asym}
+\beta(c)=-\rho_0\,\mathcal A(c)\Big[\sin\Big(\frac{3b}{2}\ln\frac1c-\vartheta\Big)+E(c,S_0)\Big],\qquad
+|E(c,S_0)|\le C\big(e^{-\nu S_0}+c^3e^{(2+\nu)S_0}+c^{3\nu/2}\big),
+\end{equation}
+for all $0<c\le c_1(S_0)$, with $\vartheta=B_2-A_2$ as in \eqref{eq:theta}.  Moreover, for such $c$ and with $s_m:=\sigma+S_0$,
+\begin{equation}\label{eq:Z-outer}
+\begin{gathered}
+Z_c(s)=c_1\Psi_1(s)+c_2\Psi_2(s)+Z_N(s),\qquad \theta:=A_2-b\sigma,\\
+(c_1,c_2)=\mathcal A(c)\big[(\cos\theta,-\sin\theta)+O(e^{-\nu S_0}+c^3e^{(2+\nu)S_0})\big],
+\end{gathered}
+\end{equation}
+where $|Z_N(s)|+|Z_N'(s)|\le Ce^{-\nu S_0}\mathcal A(c)e^{-\nu s}$ on $[s_m,-\delta_1]$, and $|Z_c|+|Z_c'|\le C\mathcal A(c)$ on $[-\delta_1,0)$.
+\end{proposition}
+
+\begin{proof}
+\emph{Step 1: data at $s_m$.}  By Lemma~\ref{lem:inner-stab} and \eqref{eq:inner-tail},
+\[
+\begin{pmatrix}Z_c\\ Z_c'\end{pmatrix}(s_m)=A_1e^{-\nu S_0}\Big[\begin{pmatrix}\cos\\ -\nu\cos-b\sin\end{pmatrix}(bS_0+A_2)+O\big(e^{-\nu S_0}+c^3e^{\nu S_0}\big)\Big].
+\]
+
+\emph{Step 2: the linear part.}  Let $W(s)$ be the matrix with columns $(\Psi_j,\Psi_j')(s)$, so that by \eqref{eq:levinson} $W(s)=e^{-\nu s}[W_0(s)+O(e^{2s})]$ with $\det W_0\equiv b$.  Define $(c_1,c_2)^T:=W(s_m)^{-1}(Z_c,Z_c')(s_m)$.  Since $A_1e^{-\nu(s-\sigma)}\cos(b(s-\sigma)+A_2)=\mathcal A(c)e^{-\nu s}[\cos\theta\cos bs-\sin\theta\sin bs]$, the inner tail has data $\mathcal A(c)e^{-\nu s_m}W_0(s_m)(\cos\theta,-\sin\theta)^T$ at $s_m$, and Step~1 gives \eqref{eq:Z-outer} (the term $O(e^{2s_m})=O(c^3e^{2S_0})$ from the Levinson error is absorbed).
+
+\emph{Step 3: the nonlinear part on $[s_m,-\delta_1]$.}  $Z_N$ solves $\mathcal LZ_N=-N(Z_c)$ with zero data at $s_m$, hence
+$Z_N(s)=\int_{s_m}^s\mathcal K(s,s')\,\frac{-N(Z_c(s'))}{1-e^{2s'}}\dd s'$ with $\mathcal K(s,s')=[\Psi_1(s')\Psi_2(s)-\Psi_2(s')\Psi_1(s)]/\mathcal W(s')$, $\mathcal W=\Psi_1\Psi_2'-\Psi_2\Psi_1'$.  As $\mathcal W'=-\frac{n-\frac23-e^{2s}}{1-e^{2s}}\mathcal W$, we have $\mathcal W(s)\asymp e^{-2\nu s}$ on $(-\infty,-\delta_1]$, and therefore $|\mathcal K(s,s')|+|\partial_s\mathcal K(s,s')|\le Ce^{-\nu(s-s')}$ for $s_m\le s'\le s\le-\delta_1$.  Assume (bootstrap) $|Z_N|\le\mathcal A(c)e^{-\nu s}$ on $[s_m,s^*]$.  Then $|Z_c|\le C\mathcal A(c)e^{-\nu s}\le a/2$ there (as $\mathcal A(c)e^{-\nu s_m}=A_1e^{-\nu S_0}$ is small), so $|N(Z_c(s'))|\le C\mathcal A(c)^2e^{-2\nu s'}$ and
+\[
+|Z_N(s)|+|Z_N'(s)|\le C\mathcal A(c)^2\int_{s_m}^se^{-\nu(s-s')}e^{-2\nu s'}\dd s'\le \frac{C}{\nu}\mathcal A(c)^2e^{-\nu s}e^{-\nu s_m}=\frac{CA_1}{\nu}e^{-\nu S_0}\,\mathcal A(c)e^{-\nu s},
+\]
+which improves the bootstrap assumption once $e^{-\nu S_0}$ is small, and proves the bound on $Z_N$ on all of $[s_m,-\delta_1]$.
+
+\emph{Step 4: the cone.}  By Step~3, $d:=|Z_c(-\delta_1)|+|Z_c'(-\delta_1)|\le C\mathcal A(c)$, so Lemma~\ref{lem:beta-lin} applies (recall $v_c=\eta^{2/3}Y_c$ reaches the cone by Lemma~\ref{lem:energy}) and gives, with $\ell$ linear,
+\[
+\beta(c)=\ell\big((Z_c,Z_c')(-\delta_1)\big)+O(\mathcal A(c)^2)
+=c_1\sigma_1+c_2\sigma_2+O\big(e^{-\nu S_0}\mathcal A(c)\big)+O(\mathcal A(c)^2).
+\]
+Inserting \eqref{eq:Z-outer} and $(\sigma_1,\sigma_2)=\rho_0(\cos\varphi,\sin\varphi)$,
+$c_1\sigma_1+c_2\sigma_2=\rho_0\mathcal A(c)[\cos(\theta+\varphi)+O(e^{-\nu S_0}+c^3e^{(2+\nu)S_0})]$, and
+$\theta+\varphi=A_2-b\sigma+\frac\pi2-B_2=\frac{3b}2\ln\frac1c-\vartheta+\frac\pi2$, so $\cos(\theta+\varphi)=-\sin(\frac{3b}2\ln\frac1c-\vartheta)$.  The bound on $Z_c$ on $[-\delta_1,0)$ follows from the contraction estimates of \cite[Lemma A.2]{GHL22} (continuous dependence up to the cone), or from the analytic parametrisation $\Pi$ of Lemma~\ref{lem:beta-lin}.
+\end{proof}
+
+\begin{remark}\label{rem:transversal}
+The whole construction depends analytically on $\sigma$, and each estimate above may be differentiated with respect to $\sigma$ (the derivative of the inner tail $\partial_\sigma[Y_0(s-\sigma)]=-Y_0'(s-\sigma)$ has the same form \eqref{eq:inner-tail}, the Levinson errors are uniform, and the bootstrap of Step~3 closes equally for $\partial_\sigma Z_N$).  This yields \eqref{eq:beta-asym} in $C^1$ with respect to $\ln c$, i.e.\ $\frac{d}{d\ln c}\big[\beta(c)/(\rho_0\mathcal A(c))\big]=\frac{3b}{2}\cos(\frac{3b}2\ln\frac1c-\vartheta)+o(1)$, and hence that $\beta$ has exactly one zero in each window $J_k$, that zero being transversal.  We do not carry this out here.
+\end{remark}
+
+\section{Proof of Theorem~\ref{thm:main}}\label{sec:proof}
+
+\emph{Choice of parameters.}  Let $C$ be the constant of Proposition~\ref{prop:beta}.  Given $\eps\in(0,\frac1{10})$ choose $S_0(\eps)$ with $Ce^{-\nu S_0}\le\eps/3$ and then $c(\eps)\le c_1(S_0(\eps))$ so small that $C(c^3e^{(2+\nu)S_0}+c^{3\nu/2})\le\eps/3$ for $c\le c(\eps)$; thus $|E|\le\eps$ in \eqref{eq:beta-asym} for $0<c\le c(\eps)$.  Let $\Theta(c):=\frac{3b}2\ln\frac1c-\vartheta$, an increasing function of $\ln\frac1c$, and $c_0:=c(\frac1{10})$.
+
+\emph{(i) Zeros of $\beta$.}  Fix $\eps_k\downarrow0$ and choose $k_0$ and an increasing sequence of indices such that $c\le c(\eps_k)$ whenever $\Theta(c)\ge\pi k-\frac\pi2$, $k\ge k_0$ (possible since $\Theta(c)\to\infty$ as $c\to0$).  Put $\varpi_k:=\arcsin(2\eps_k)$ and $J_k:=\{c:|\Theta(c)-\pi k|\le\varpi_k\}$.  If $c\in(0,c_0]$ lies in no $J_k$, then $|\sin\Theta(c)|>2\eps_k\ge2|E|$ for the relevant $k$, so $\beta(c)\ne0$.  At the two points $c^\pm_k$ with $\Theta(c_k^\pm)=\pi k\pm\frac\pi2$ one has $\sin\Theta=\pm1$ and $|E|\le\frac1{10}$, so $\beta(c_k^+)\beta(c_k^-)<0$; by continuity of $\beta$ (Lemma~\ref{lem:beta-analytic}) there is a zero in $(c_k^+,c_k^-)$, and by the previous sentence it lies in $J_k$.  Since $\beta$ is analytic and changes sign, its zeros in $(0,c_0]$ are isolated; hence $\mathcal C$ is discrete, $\mathcal C\subset\bigcup_{k\ge k_0}J_k$, $\mathcal C\cap J_k\ne\emptyset$, and \eqref{eq:ck} follows from $\Theta(c_k)=\pi k+O(\varpi_k)$.  By Definition~\ref{def:beta}, $c\in\mathcal C$ exactly when $v_c$ extends to a $C^\infty$ solution across the cone; that the extension is global and smooth is shown next.
+
+\emph{(ii) Positivity, monotonicity and the crossing of $\cstar$.}  Let $c\in\mathcal C\cap(0,c_0]$ and $S_0=S_0(\frac1{10})$.  On $[0,c^{3/2}e^{S_0}]$, Lemma~\ref{lem:inner-stab} gives $v_c>0$, $v_c'>0$ and $v_c\le c(1+e^{2S_0}/2n)(1+O(c^3))<\cstar$.  On $[c^{3/2}e^{S_0},1)$, Proposition~\ref{prop:beta} gives $|Z_c|\le C\mathcal A(c)$, i.e.\ $|v_c-\vs|\le C\mathcal A(c)\eta^{2/3}$, so $v_c\le a+C\mathcal A(c)<\cstar$ for $c$ small (Lemma~\ref{lem:exact}).  Since $v_c'(\eta)=\eta(c^{-2}-\frac29c)/n+O(\eta^3)>0$ near $0$ and $v_c<\cstar$ on $[0,1)$, Lemma~\ref{lem:extrema} (no local maximum below $\cstar$ inside the cone) shows $v_c'>0$ on $(0,1)$.  At the cone, $\beta(c)=0$ and $v_c$ coincides near $\eta=1$ with the analytic branch $\vreg(\cdot;v_c(1))$, where $v_c(1)=a+O(\mathcal A(c))$.  By Lemma~\ref{lem:analytic} and regular continuous dependence on $[1+\delta,\eta_0]$, $\eta_0:=\eta^*+1$, $\vreg(\cdot;v_c(1))\to\vs$ in $C^1([1,\eta_0])$ as $c\to0$.  As $\vs$ crosses $\cstar$ transversally at $\eta^*\in(1,\eta_0)$ (Lemma~\ref{lem:exact}: $\vs'(\eta^*)>0$), for $c$ small $v_c$ crosses $\cstar$ at some $\eta^{**}_c\to\eta^*$ with $v_c<\cstar$ on $[1,\eta^{**}_c)$.  Proposition~\ref{prop:beyond} now applies: $v_c$ is a global solution, $v_c'>0$ on $(0,\infty)$, $v_c>\cstar$ beyond $\eta^{**}_c$.  Analyticity on $(0,\infty)$ holds since \eqref{eq:ode} is analytic and non-degenerate away from $\eta=1$, and across $\eta=1$ by Lemma~\ref{lem:analytic}; smoothness at $\eta=0$ is \cite[Lemma A.3]{GHL22}.  This proves (\ref{it:profile}).
+
+\emph{(iii)} is Proposition~\ref{prop:beyond}(iii).  For $b_k\to a$, note that $(Y_c,\partial_tY_c)$ at $t=1/\eta_0$ converges to $(a,0)$ by the $C^1$ convergence on $[1,\eta_0]$, and that $Y\equiv a$ is the solution of the regular equation \eqref{eq:Yt} with these limiting data on $[0,1/\eta_0]$; continuous dependence gives $Y_c(0)=b\to a$.
+
+\emph{(iv)} is Lemma~\ref{lem:inner-stab} (with $V_0\ge1$) and the bound $|Z_c|\le C\mathcal A(c)$ on $[\sigma+S_0,0]$ obtained in the proof of Proposition~\ref{prop:beta}, together with \eqref{eq:inner-tail} on $[\sigma+S_0,\sigma+S_0']$ for any $S_0'>S_0$ (where $|Z_c-A_1e^{-\nu(s-\sigma)}\cos(b(s-\sigma)+A_2)|\le C(S_0')(c^3+e^{-2\nu S_0})$) and the continuity of $\vreg(\cdot;c_1)$ in $c_1$ up to $\eta=1+\delta_0$.
+
+\emph{(v) Intersection count.}  The zeros of $v_c-\vs$ in $(0,1)$ are the zeros of $Z_c$ in $(-\infty,0)$.  Choose $S_0$ with $Y_0(S_0)\ne a$ and $bS_0+A_2\notin\frac\pi2+\pi\Z$, and $M>\delta_1$ with $\Preg(-M)\ne0$ and $-bM+B_2\notin\frac\pi2+\pi\Z$.  On $(-\infty,\sigma+S_0]$ the zeros of $Z_c$ are, by Lemma~\ref{lem:inner-stab}, in one-to-one correspondence with the zeros of $Y_0-a$ in $(-\infty,S_0]$ (finitely many, all simple because $Y_0'=0=Y_0-a$ would force $Y_0\equiv a$), a number independent of $c$.  On $[\sigma+S_0,-M]$, by \eqref{eq:Z-outer} and \eqref{eq:levinson}, $Z_c=\mathcal A(c)e^{-\nu s}[\cos(b(s-\sigma)+A_2)+O(e^{-\nu S_0}+e^{-2M})]$ in $C^1$, so its zeros correspond to the solutions of $b(s-\sigma)+A_2\in\frac\pi2+\pi\Z$ in that interval, whose number is $\lfloor(\pi k+\pi/2-bM-bS_0+B_2-A_2+\pi/2)/\pi\rfloor$ up to a fixed shift when $c\in J_k$ with $k$ large (use $-b\sigma=\vartheta+\pi k+O(\varpi_k)$), and it increases by exactly one from $J_k$ to $J_{k+1}$ because the endpoints stay at a fixed distance from the zeros.  On $[-M,0)$, $Z_c/\mathcal A(c)$ is $C^1$-close to $\pm\rho_0^{-1}\Preg$ for $c\in J_k$, $k$ large (the singular component is $O(\varpi_k)$), so the number of zeros is that of $\Preg$ on $[-M,0)$, independent of $k$ and of the sign.  Summing the three counts proves (\ref{it:count}).
+\qed
+
+\section{Numerical confirmation}\label{sec:numerics}
+
+The structure of the proof suggests a robust \emph{two-point shooting} scheme, which we used to check Theorem~\ref{thm:main} (scripts in the accompanying \texttt{numerics/} directory).  For a given $c$ the regular solution $v_c$ is integrated from $\eta=0$ (started from its Taylor expansion $v=c+\frac{c^{-2}-\frac29c}{2n}\eta^2+\dots$) to a matching point $\eta_m=0.85$, in the variable $s=\ln\eta$ with a high-order Runge--Kutta method.  Independently, for a given value $c_1=v(1)$ the analytic branch $\vreg(\cdot;c_1)$ of Lemma~\ref{lem:analytic} is generated by its Taylor series at the cone (the recursion of that proof) and integrated backwards from $\eta=1-\delta$ to $\eta_m$.  The function
+\[
+g(c)=v_c'(\eta_m)-\vreg'(\eta_m;c_1(c)),\qquad c_1(c)\text{ defined by }\vreg(\eta_m;c_1(c))=v_c(\eta_m),
+\]
+vanishes exactly at the smooth global profiles and is a numerical proxy for $\beta(c)$; its zeros are located by bisection after a scan in $\ln c$.  Each profile is then continued beyond the cone from the Taylor series at $\eta=1$ up to $\eta=10^4$ to read off $b_k$ and to check monotonicity.  The constants $A_1,A_2$ (least-squares fit of $Y_0-a$ on a window in $s$) and $B_2$ (Levinson asymptotics of the numerically integrated $\Preg$) are computed separately, and the last two columns of Table~\ref{tab:num} compare the zeros with the leading-order prediction $c_k^{\rm formal}=\exp\big(-\frac{2}{3b}(\vartheta+\pi k)\big)$ of \eqref{eq:beta-asym}, i.e.\ with (2.33) of \cite{GHL22} with $\pi k$ in place of $2\pi k$.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{rrllllll}\toprule
+$n$ & $k$ & $c_k$ & $v_k(1)$ & $b_k$ & zeros of $v_k-\vs$ & $c_k^{\rm formal}$ & rel.\ err.\\ \midrule
+2 & 1 & 0.23969913 & 1.271208 & 1.498995 & 1 & 0.23135200 & $3.5\cdot10^{-2}$\\
+2 & 2 & 0.02499324 & 1.314581 & 1.291049 & 2 & 0.02509074 & $-3.9\cdot10^{-3}$\\
+2 & 3 & 0.00272231 & 1.309914 & 1.312479 & 3 & 0.00272116 & $4.2\cdot10^{-4}$\\ \midrule
+3 & 1 & 0.40504140 & 0.940347 & 1.154685 & 1 & 0.41437736 & $-2.3\cdot10^{-2}$\\
+3 & 2 & 0.09335645 & 0.967509 & 0.951396 & 2 & 0.09326298 & $1.0\cdot10^{-3}$\\
+3 & 3 & 0.02098872 & 0.965342 & 0.966526 & 3 & 0.02099049 & $-8.4\cdot10^{-5}$\\
+3 & 4 & 0.00472431 & 0.965500 & 0.965413 & 4 & 0.00472428 & $6.1\cdot10^{-6}$\\
+3 & 5 & 0.00106328 & 0.965489 & 0.965495 & 5 & 0.00106328 & $-3.9\cdot10^{-7}$\\ \midrule
+4 & 0 & 0.47418175 & 0.837698 & 1.006057 & 0 & 0.51782309 & $-9.2\cdot10^{-2}$\\
+4 & 1 & 0.13977134 & 0.824947 & 0.816470 & 1 & 0.13970024 & $5.1\cdot10^{-4}$\\
+4 & 2 & 0.03768561 & 0.825502 & 0.825820 & 2 & 0.03768885 & $-8.6\cdot10^{-5}$\\
+4 & 3 & 0.01016786 & 0.825481 & 0.825469 & 3 & 0.01016784 & $2.0\cdot10^{-6}$\\
+4 & 4 & 0.00274312 & 0.825482 & 0.825482 & 4 & 0.00274312 & $-4.4\cdot10^{-8}$\\
+4 & 5 & 0.00074005 & 0.825482 & 0.825482 & 5 & 0.00074005 & $4.4\cdot10^{-7}$\\ \midrule
+5 & 0 & 0.51205398 & 0.787565 & 0.914301 & 0 & 0.61981854 & $-2.1\cdot10^{-1}$\\
+5 & 1 & 0.16949413 & 0.741674 & 0.736655 & 1 & 0.17074041 & $-7.4\cdot10^{-3}$\\
+5 & 2 & 0.04702869 & 0.742357 & 0.742433 & 2 & 0.04703358 & $-1.0\cdot10^{-4}$\\
+5 & 3 & 0.01295623 & 0.742346 & 0.742345 & 3 & 0.01295627 & $-3.0\cdot10^{-6}$\\
+5 & 4 & 0.00356905 & 0.742346 & 0.742346 & 4 & 0.00356904 & $2.7\cdot10^{-6}$\\ \midrule
+6 & 0 & 0.18793550 & 0.685459 & 0.681545 & 0 & 0.19367157 & $-3.1\cdot10^{-2}$\\
+6 & 1 & 0.04750634 & 0.685005 & 0.685020 & 1 & 0.04752238 & $-3.4\cdot10^{-4}$\\
+6 & 2 & 0.01166082 & 0.685007 & 0.685007 & 2 & 0.01166086 & $-3.3\cdot10^{-6}$\\
+6 & 3 & 0.00286258 & 0.685007 & 0.685007 & 3 & 0.00286130 & $4.5\cdot10^{-4}$\\ \midrule
+7 & 0 & 0.19720292 & 0.643996 & 0.640182 & 0 & 0.21866791 & $-1.1\cdot10^{-1}$\\
+7 & 1 & 0.03495458 & 0.642078 & 0.642079 & 1 & 0.03497245 & $-5.1\cdot10^{-4}$\\
+7 & 2 & 0.00560440 & 0.642078 & 0.642078 & 2 & 0.00559329 & $2.0\cdot10^{-3}$\\ \bottomrule
+\end{tabular}
+\caption{Smooth global profiles found by two-point shooting.  $k$ is the index of the window $J_k$ of Theorem~\ref{thm:main} (the nearest integer to $\Theta(c_k)/\pi$); in every case it coincides with the number of zeros of $v_k-\vs$ in $(0,1)$.  The trivial profile $c=\cstar$ and, for $n\ge4$, one further large-$c$ profile outside the asymptotic regime ($k<0$) are omitted, as are zeros with $c^{3\nu/2}<10^{-11}$, where the deviation from $\vs$ is below double-precision resolution.  All profiles are strictly increasing and $b_k\to a$ ($a=1.3104, 0.9655, 0.8255, 0.7423, 0.6850, 0.6421$ for $n=2,\dots,7$).  The ratios $c_{k+1}/c_k$ converge to $e^{-2\pi/(3b)}=0.1085, 0.2251, 0.2698, 0.2755, 0.2454, 0.1599$.}
+\label{tab:num}
+\end{table}
+
+The agreement between the last two columns improves like a power of $c_k$, as predicted by \eqref{eq:beta-asym}; for $n=3$, $k=5$ the leading-order matching already gives seven correct digits.  The phases used are $(A_2,B_2)=(2.022,0.951)$, $(0.860,-0.426)$, $(-0.152,1.426)$, $(-1.021,0.144)$, $(-1.715,1.956)$, $(-2.136,0.470)$ for $n=2,\dots,7$.
+
+\section*{Acknowledgement}
+This note was drafted with the help of an AI assistant (Claude); all statements and proofs were checked by the author.
+
+\begin{thebibliography}{99}
+\bibitem{BMW07} P.~Bizo\'n, D.~Maison, A.~Wasserman, Self-similar solutions of semilinear wave equations with a focusing nonlinearity, \emph{Nonlinearity} 20 (2007) 2061--2074.
+\bibitem{BQ89} C.~Budd, Y.-W.~Qi, The existence of bounded solutions of a semilinear elliptic equation, \emph{J. Differential Equations} 82 (1989) 207--218.
+\bibitem{CL55} E.~A.~Coddington, N.~Levinson, \emph{Theory of Ordinary Differential Equations}, McGraw--Hill, 1955.
+\bibitem{CRS19} C.~Collot, P.~Rapha\"el, J.~Szeftel, On the stability of type I blow up for the energy super critical heat equation, \emph{Mem. Amer. Math. Soc.} 260 (2019), no.~1255.
+\bibitem{DD21} W.~Dai, T.~Duyckaerts, Self-similar solutions of focusing semi-linear wave equations in $\R^N$, \emph{J. Evol. Equ.} 21 (2021) 4703--4740.
+\bibitem{Eas89} M.~S.~P.~Eastham, \emph{The Asymptotic Solution of Linear Differential Systems}, Oxford Univ. Press, 1989.
+\bibitem{GHL22} H.~Gimperlein, R.~He, A.~A.~Lacey, Quenching for a semi-linear wave equation for micro-electro-mechanical systems, \emph{Proc. R. Soc. A} 478 (2022) 20220490.
+\bibitem{Hil76} E.~Hille, \emph{Ordinary Differential Equations in the Complex Domain}, Wiley, 1976.
+\bibitem{IKSY91} K.~Iwasaki, H.~Kimura, S.~Shimomura, M.~Yoshida, \emph{From Gauss to Painlev\'e}, Vieweg, 1991.
+\bibitem{KLNT15} N.~I.~Kavallaris, A.~A.~Lacey, C.~V.~Nikolopoulos, D.~E.~Tzanetis, On the quenching behaviour of a semilinear wave equation modelling MEMS technology, \emph{Discrete Contin. Dyn. Syst.} 35 (2015) 1009--1037.
+\bibitem{Lep90} L.~A.~Lepin, Self-similar solutions of a semilinear heat equation, \emph{Mat. Model.} 2 (1990) 63--74.
+\bibitem{MRRS22a} F.~Merle, P.~Rapha\"el, I.~Rodnianski, J.~Szeftel, On the implosion of a compressible fluid I: Smooth self-similar inviscid profiles, \emph{Ann. of Math.} 196 (2022) 567--778.
+\bibitem{MRRS22b} F.~Merle, P.~Rapha\"el, I.~Rodnianski, J.~Szeftel, On blow up for the energy super critical defocusing nonlinear Schr\"odinger equations, \emph{Invent. Math.} 227 (2022) 247--413.
+\bibitem{MZ03} F.~Merle, H.~Zaag, Determination of the blow-up rate for the semilinear wave equation, \emph{Amer. J. Math.} 125 (2003) 1147--1164.
+\bibitem{MZ05} F.~Merle, H.~Zaag, Determination of the blow-up rate for a critical semilinear wave equation, \emph{Math. Ann.} 331 (2005) 395--416.
+\bibitem{Tro87} W.~C.~Troy, The existence of bounded solutions of a semilinear heat equation, \emph{SIAM J. Math. Anal.} 18 (1987) 332--336.
+\end{thebibliography}
+
+\end{document}
