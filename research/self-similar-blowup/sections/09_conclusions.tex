@@ -13,7 +13,7 @@ Hyperbolic MEMS $w^{-q}$, $q>1$ (electrostatic, vdW, Casimir actuators)
  & $1$ (time), $0$ (boosts)
  & $\min\{1,\frac{2(q-1)}{q+1}\}$
  & spectrum proved; stability modulo symmetries and with damping sketched
-   (\cref{mems:thm-main,mems:prop-damped}); new\\
+   for $d\le3$ (\cref{mems:thm-main,mems:prop-damped}); new\\
 MEMS, focused profiles $\psi_n$, $d=2,3$
  & touchdown at a point, $\psi_n(0)\to0$
  & $n$ extra unstable
@@ -78,16 +78,29 @@ final approach to touchdown or runaway is governed by the spatially
 homogeneous ODE. For the Coulomb MEMS force the gap closes like
 $(9\lambda/2)^{1/3}(T-t)^{2/3}$, against $(3\lambda(T-t))^{1/3}$ in the
 parabolic (overdamped) model. Damping, restoring forces and smooth variations
-of the permittivity change only lower-order corrections. They decay in
+of the permittivity change only lower-order corrections (\cref{mems:sec-damp};
+proof sketches, not written out for the permittivity). They decay in
 similarity variables, so the hyperbolic rate is the true terminal one even
 for strongly damped devices. The parabolic rate is at most an intermediate
 regime.
 \item \emph{The terminal profile is flat.} In the backward light cone the
-stable profile is constant (or a Lorentz-tilted constant). Touchdown
-therefore occurs along a spacelike hypersurface $t=T^*(x)$, not at an
-isolated point as in the parabolic theory. Focused, point-like touchdown
-profiles exist for $d=2,3$ but are unstable. A generic device is not expected
+stable profile is constant (or a Lorentz-tilted constant). The local
+analysis therefore gives a touchdown set that is a hypersurface $t=T^*(x)$,
+with the gap uniformly small on a region of size $\sim T^*-t$ around the
+first contact point (a minimum of $T^*$, where one expects $a^*=\nabla T^*=0$,
+i.e.\ a flat profile), rather than the focused, point-like touchdown of the parabolic theory. The
+regularity of $T^*$ is not proved (\cref{mems:rem-main}). Focused, point-like touchdown
+profiles are found numerically for $d=2,3$, with extra unstable modes. A generic device is not expected
 to show them.
+\item \emph{Measured exponents converge slowly.} The approach to the
+self-similar regime is governed by the slowest stable mode, which for the
+Coulomb force is the spatially constant ODE-energy mode ($\lambda=-\frac23$). In
+the simulations of \cref{num:subsec-mems}, $w_{\min}$ is within $1\%$ of
+$c(T-t)^{2/3}$ only once $w_{\min}\lesssim10^{-2}$. Power-law fits over moderate
+gaps ($0.02\le w_{\min}\le0.25$) return exponents between $0.50$ and $0.64$
+instead of $\frac23$. Experiments and simulations that stop at gaps of a
+few percent should be compared with the corrected law
+$c(T-t)^{2/3}(1+A(T-t)^{2/3})$, not with the bare power law.
 \item \emph{Boundaries do not matter locally.} The results are local in the
 light cone of the singular point. Clamping conditions, the geometry of the
 device and far-away material parameters enter only through the touchdown
@@ -104,9 +117,10 @@ acoustics leaves the light-cone setting entirely.
 \item Turn the proof sketches of
 \cref{mems:thm-main,mems:prop-damped,therm:thm:reduced} into complete
 proofs. The new ingredients relative to \cite{Ostermann2024} are the
-negative scaling exponent (finite-rank splitting of the free operator,
-\cref{mems:lem-free}) and the need to stay away from $w=0$, which the
-$L^\infty$ control gives.
+negative scaling exponent (handled by a finite-rank splitting of the free
+operator, \cref{mems:lem-free}, a soft version of the constructions in
+\cite{Ostermann2024,Glogic2025}) and the need to stay away from $w=0$, which
+the $L^\infty$ control gives.
 \item Prove the existence of the focused MEMS profiles $\psi_n$ in $d=2,3$
 (\cref{mems:conj-prof}) and determine their co-dimension. A shooting argument
 around the singular static solution $A|x|^{2/(q+1)}$, as in

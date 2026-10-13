@@ -38,7 +38,7 @@ Shatah~\cite{Shatah1988} and Turok--Spergel~\cite{TurokSpergel1990}.
 motion is overdamped and $\sigma_1$ is negligible, so \eqref{geom:eq:wm} is
 a formal inertial limit. A damping term $\gamma\,\partial_t\bm u$ is, however,
 a lower-order perturbation in similarity variables (relative size
-$\gamma(T-t)$, cf.\ the conventions of the introduction): \emph{if} a
+$\gamma(T-t)$, cf.\ \cref{fw:subsec-lower}): \emph{if} a
 singularity forms in the inertial regime, damping is asymptotically
 irrelevant, and the inertial self-similar regime is entered only when
 $T-t\ll\sigma_1/\gamma$. The scaling $\bm u\mapsto\bm u(\mu t,\mu x)$ ($s=0$)
@@ -97,7 +97,7 @@ one, which has exactly one unstable mode, sits at the threshold of blowup
 \end{equation}
 a radial wave equation on $\mathbb{R}^{d+2}$ with a smooth nonlinearity and
 scaling exponent $s=1$. With $\psi_1=(T-t)\psi$, $\psi_2=(T-t)^2\psi_t$ and
-$\xi\in\mathbb{B}^{d+2}$, the conventions of the introduction give an
+$\xi\in\mathbb{B}^{d+2}$, the conventions of \cref{fw:sec} give an
 \emph{autonomous} system, because
 $(T-t)^3\frac{d-1}{2r^3}(\sin 2r\psi-2r\psi)
 =\frac{d-1}{2|\xi|^3}(\sin 2|\xi|\psi_1-2|\xi|\psi_1)$.
@@ -111,8 +111,10 @@ $\mathbf L'(\phi_1,\phi_2)=(0,-V\phi_1)$ and
 $\mathbf L'$ is compact on radial $\mathcal H_k:=H^k\times H^{k-1}(\mathbb{B}^{d+2})$.
 For the free operator, the known Lumer--Phillips estimates (e.g.\
 \cite{Donninger2011,ChatzikaleasDonningerGlogic2017,Glogic2025}) give a
-growth bound which, by scaling, should be $\omega_k=\frac{d+2}{2}-1-k=\frac d2-k$.
-\textbf{(D)} This value is sharp: for $\operatorname{Re}\lambda<\omega_k$ both Frobenius branches at $\rho=1$,
+growth bound $-\omega_k$ which, by scaling, should have
+$\omega_k=k-\frac{d+2}{2}+1=k-\frac d2$ (the decay rate of \cref{fw:sec} with $s=1$
+in dimension $d+2$).
+\textbf{(D)} This value is sharp: for $\operatorname{Re}\lambda<-\omega_k$ both Frobenius branches at $\rho=1$,
 $1$ and $(1-\rho^2)^{\frac{d-1}{2}-\lambda}$, lie in $H^k$ near $\rho=1$
 (the second iff $\frac{d-1}{2}-\operatorname{Re}\lambda>k-\frac12$), so the
 free mode regular at $\rho=0$ is an eigenfunction in $\mathcal H_k$ and every such
@@ -260,7 +262,7 @@ automatically), refined by Newton's method; (3) the argument principle for
 this Wronskian on the rectangle
 $[-1.9,4]\times[-15,15]$ ($1200$ points, maximal phase step $<0.6$\,rad).
 \begin{table}[ht]
-\centering\small
+\centering\footnotesize
 \begin{tabular}{@{}llll@{}}
 \toprule
  & $d=3$ & $d=4$ & $d=5$\\
@@ -312,8 +314,8 @@ $\rho=1$ turns out to be log-free, so $\rho=1$ imposes no condition. We know
 no symmetry interpretation. (4) Consequently, in $\mathcal H_k$ with
 $k>\frac d2+|\lambda_1|$, perturbations (after fixing $T$) should decay like
 $e^{-\omega\tau}=(T-t)^{\omega}$ for every $\omega<|\lambda_1|$, i.e.\
-$(T-t)^{0.54}$ for $d=3$. For $k=2$ and $d=3$ the free bound
-$\omega_2=-\frac12$ is the binding constraint, since $|\lambda_1|>\frac12$.
+$(T-t)^{0.54}$ for $d=3$. For $k=2$ and $d=3$ the free decay rate
+$\omega_2=\frac12$ is the binding constraint, since $|\lambda_1|>\frac12$.
 
 \subsection{Known stability theorems}
 \label{geom:sec:wm-thm}
@@ -435,7 +437,7 @@ With $\Box_C=-\ell^{-d}\partial_\ell(\ell^d\partial_\ell)+\ell^{-2}\Delta_\Sigma
 one gets $(\Delta_\Sigma+|A_\Sigma|^2)\chi=a(a+d-1)\chi$, and
 $\mathrm{Ric}_{\mathbb H^{d+1}}(\nu,\nu)=-d$. For $\Sigma=\mathbb H^d$ (the flat
 membrane) this reproduces the free eigenvalues $\lambda\in\{1,0,-1,\dots\}$
-of the introduction with $s=-1$. This is the membrane analogue of the
+of \cref{fw:sec} with $s=-1$, $V_0=0$. This is the membrane analogue of the
 correspondence between self-similar wave maps and harmonic maps from
 $\mathbb H^d$ \cite{CazenaveShatahTahvildarZadeh1998} and of
 \cref{geom:prop:hyp}.
@@ -483,7 +485,7 @@ modulation) cannot apply to it.
   beyond symmetry. Our computations reproduce the spectral picture
   (gauge mode $\lambda=1$, gap $|\lambda_1|\approx0.54$--$0.59$), give a
   self-contained proof of the absence of eigenvalues with
-  $\operatorname{Re}\lambda\ge\frac{d-1}{2}$ for $d=3$
+  $\operatorname{Re}\lambda\ge\frac{d-1}{2}$ other than the gauge mode for $d=3$
   (consequence~(i) of \cref{geom:prop:hyp}), and give an explicit SUSY partner
   \eqref{geom:eq:susy}. The open cases relevant for applications are $d=2$
   with target $S^2$ (bubbling, not self-similar, so a different theory) and

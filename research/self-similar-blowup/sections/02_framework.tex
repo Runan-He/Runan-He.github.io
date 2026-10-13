@@ -59,7 +59,8 @@ what makes the MEMS case ($s<0$) structurally identical to the classical one.
 \label{fw:subsec-ode}
 An \emph{ODE blowup} solution is a spatially homogeneous solution
 $u_T(t)=\kappa(T-t)^{-s}$ (respectively $u_T=\log\kappa-2\log(T-t)$), i.e.\ a
-constant fixed point $\Psi_*=(\kappa,s\kappa)$ of \eqref{fw:system}. Its
+constant fixed point $\Psi_*=(\kappa,s\kappa)$ of \eqref{fw:system}
+(respectively $\Psi_*=(\log\kappa,2)$). Its
 symmetry orbit consists of
 \begin{itemize}[nosep]
 \item time translations $T\mapsto T'$ (in the fixed coordinates $(\tau,\xi)$
@@ -94,7 +95,7 @@ $(s+1)(s+2)-V_0=0$.
 \end{proof}
 Thus $a^2+a-V_0=(a-a_1)(a-a_2)$ with $a_1=s+1$, $a_2=-(s+2)$, and for
 $F=|u|^{p-1}u$ one recovers $V_0=p\kappa^{p-1}=ps(s+1)$, for MEMS
-$V_0=q\lambda c^{-q-1}=2q(q-1)/(q+1)^2$ and for $F=\delta e^u$ $V_0=2$.
+$V_0=q\lambda\kappa^{-q-1}=2q(q-1)/(q+1)^2$ and for $F=\delta e^u$ $V_0=2$.
 
 Writing $g(\xi)=|\xi|^\ell Y_\ell(\xi/|\xi|)\,h(|\xi|^2)$ with a spherical
 harmonic $Y_\ell$, \eqref{fw:eig} becomes Gauss' hypergeometric equation
@@ -131,9 +132,9 @@ logarithm; such a function lies in $H^k(B^d)$ only if
 $\operatorname{Re}\gamma>k-\frac12$ or $\gamma\in\mathbb N_0$ without log term.
 For $\operatorname{Re}\lambda>-\omega_k$ we have $\operatorname{Re}\gamma<k-\frac12$,
 so $h$ must be analytic at $z=1$. By the $z\mapsto1-z$ connection formulae \cite[\S15.8]{DLMF} (including the
-degenerate cases $\gamma\in\mathbb Z$, in which the coefficients of the logarithm
-and of $(1-z)^{\gamma}$, $\gamma<0$, are proportional to
-$1/(\Gamma(\alpha)\Gamma(\beta))$ resp.\ $1/(\Gamma(\alpha-m)\Gamma(\beta-m))$)
+degenerate cases $\gamma\in\mathbb Z$: for $\gamma=m\in\mathbb N_0$ the coefficient of
+$(1-z)^m\log(1-z)$, and for $\gamma=-m<0$ the coefficient of the leading term
+$(1-z)^{-m}$, is a nonzero multiple of $1/(\Gamma(\alpha)\Gamma(\beta))$)
 this happens iff $\alpha\in-\mathbb N_0$ or $\beta\in-\mathbb N_0$, in which case $h$ is a
 polynomial. Solving $\alpha=-n$, $\beta=-n$ for $\lambda=a-s$ gives the two
 families. For $s>-1$ the second family is $\le -2s-2<0$, and $1-\ell-2n\ge0$
@@ -167,8 +168,10 @@ part is not dissipative: polynomial free waves of degree $m$ give eigenvalues
 $-s-m$ of $\mathbf L_0^{(s)}$, and for the MEMS case $s<0$ the constant
 wave $w\equiv1$ gives the \emph{positive} eigenvalue $-s=\sigma$. The rigorous
 version (inner products on $\mathcal H^k$ built from $\dot H^k$-type
-seminorms plus boundary/low-order terms, Lumer--Phillips) is
-\cite{Ostermann2024} and \cite{Glogic2025}: there is an equivalent
+seminorms plus boundary/low-order terms, Lumer--Phillips) is modelled on
+\cite{Ostermann2024} and \cite{Glogic2025}; a self-contained version for all
+$s$ is \cref{mems:lem-free} (we have not checked that the cited works state
+it in exactly this form): there is an equivalent
 inner product and a finite-rank operator $\mathbf K_0$ such that
 $\mathbf L_0^{(s)}-\mathbf K_0$ generates a semigroup of growth bound
 $\le-\omega$ for any prescribed $\omega<\omega_k$ (after possibly increasing
@@ -208,7 +211,7 @@ after subtracting the Lyapunov--Perron correction
 $\mathbf C(\Phi,\mathbf u)=\mathbf P\mathbf u+\int_0^\infty e^{-\tau'}\mathbf P_1\mathbf N(\Phi(\tau'))\,d\tau'
 +\int_0^\infty\mathbf P_0\mathbf N(\Phi(\tau'))\,d\tau'$. The correction is then
 removed by choosing the blowup time $T^*$ (and, nonradially, the boost
-parameter $a^*$ and the blowup point) via the Brouwer fixed point theorem:
+parameter $a^*$) via the Brouwer fixed point theorem:
 the derivative of the rescaled data with respect to $(T,a)$ at the
 background is a non-degenerate map onto $\operatorname{ran}\mathbf P$, because
 the symmetry eigenfunctions are precisely the generators of these
@@ -221,11 +224,11 @@ $\|(u_0,u_1)-(u_{1,0}(0),\partial_tu_{1,0}(0))\|_{H^k\times H^{k-1}(B_{1+\vareps
 there exist $T^*\in(1-\varepsilon,1+\varepsilon)$ and
 $a^*\in B_\varepsilon$ (with $a^*=0$ for radial data) such that the
 solution blows up at $(T^*,0)$ and
-\[
-  \big\|(T^*-t)^{s}u(t,(T^*-t)\,\cdot)-\Psi_{a^*}\big\|_{H^k(B^d)}
+\begin{multline*}
+  \big\|(T^*-t)^{s}u(t,(T^*-t)\,\cdot)-\Psi_{a^*}\big\|_{H^k(B^d)}\\
   +\big\|(T^*-t)^{s+1}\partial_tu(t,(T^*-t)\,\cdot)-(\Lambda+s)\Psi_{a^*}\big\|_{H^{k-1}(B^d)}
   \lesssim (T^*-t)^{\omega}.
-\]
+\end{multline*}
 \end{theorem}
 No translation parameter is needed: the ODE profile is translation invariant,
 and a space translation of a boosted profile is a time translation of it
@@ -239,8 +242,10 @@ $T-t=Te^{-\tau}$, a damping term $\gamma\partial_tu$ adds
 $-\gamma Te^{-\tau}\psi_2$ to the second line of \eqref{fw:system}, and a
 linear restoring force $m^2u$ adds $-m^2T^2e^{-2\tau}\psi_1$. Two
 consequences: (i) the ODE blowup solution is no longer exactly self-similar,
-$u(t)=\kappa(T-t)^{-s}(1+O(T-t))$, so the background in similarity variables is
-$\Psi_*+O(e^{-\tau})$; (ii) the linearised flow is an \emph{integrable}
+$u(t)=\kappa(T-t)^{-s}(1+O(T-t))$ (for the member of the homogeneous family
+without the free mode $(T-t)^{s+2}$, and up to a factor $\log(T-t)$ in
+resonant cases such as MEMS with $q=3$; see \cref{power:prop-ode-pert}), so
+the background in similarity variables is $\Psi_*+O(e^{-\tau})$; (ii) the linearised flow is an \emph{integrable}
 ($\int_0^\infty\|e^{-\tau}\mathbf B\|\,d\tau<\infty$) bounded perturbation of
 $\mathbf S(\tau)$. Both are compatible with Steps~4--5 as long as the decay rate
 of the forcing ($1$ for damping) is not below the target rate $\omega$, which

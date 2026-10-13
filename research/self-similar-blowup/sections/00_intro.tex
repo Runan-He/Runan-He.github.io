@@ -43,22 +43,26 @@ derivative-quadratic acoustic toy model (\cref{acou:sec}).
 \item \emph{Hyperbolic MEMS} (\cref{mems:sec}). Touchdown of
 $w_{tt}+\gamma w_t-\Delta w=-\lambda w^{-q}$, $q>1$, is asymptotically
 self-similar with rate $w\simeq c(T-t)^{2/(q+1)}$ and a flat profile in the
-light cone. It is nonlinearly stable modulo time translation and Lorentz
+light cone. For $d\le3$ it is nonlinearly stable (proof sketch,
+\cref{mems:thm-main}) modulo time translation and Lorentz
 boosts, with convergence rate $(T-t)^{\omega}$, $\omega<\min\{1,\frac{2(q-1)}{q+1}\}$
 ($=\frac23$ for the Coulomb force). Damping does not change this. In $d=1$ the
 ODE profile and its boosts are the only self-similar profiles. In $d=2,3$ we
-find numerically an infinite sequence of focused profiles, each with extra
-unstable directions. These results put the formal and numerical picture of
-\cite{GimperleinHeLacey2022,He2021} on a rigorous footing (up to the
-proof-sketch caveats listed in \cref{mems:sec-gaps}).
+find numerically a sequence (conjecturally infinite) of focused profiles;
+the first two have extra unstable directions. Once the proof sketches are
+completed (see the caveats in \cref{mems:sec-gaps}), these results put the
+formal and numerical picture of \cite{GimperleinHeLacey2022,He2021} on a
+rigorous footing.
 \item \emph{Thermal explosion} (\cref{therm:sec}), \emph{softening
 foundations and Klein--Gordon} (\cref{power:sec}), \emph{wave maps and
 membranes} (\cref{geom:sec}), \emph{nonlinear acoustics}
 (\cref{acou:sec}). See \cref{concl:tab} for the status of each model.
-\item \emph{Independent numerics} (\cref{num:sec}). The spectra are confirmed
-by collocation in high precision. Direct simulations of the MEMS equation
+\item \emph{Independent numerics} (\cref{num:sec}). The spectra at the ODE
+profiles are confirmed by collocation in high precision. Direct simulations of the MEMS equation
 with clamped boundary conditions reproduce the touchdown rate, the constant
-$c$ and the convergence to the flat profile.
+$c$ and the convergence to the flat profile at the predicted rate
+$(T-t)^{2/3}$. For asymmetric data they show a flat profile at the first touchdown
+point and boosted profiles with $a=T'(x_0)$ elsewhere on the blowup curve.
 \end{enumerate}
 
 \paragraph{How to read these notes.}
@@ -70,8 +74,8 @@ known, proved or sketched here, or conjectural/numerical.
 \paragraph{Provenance and status.}
 These notes were drafted by a team of AI agents: one for the literature, one
 for each model class and one independent numerical verifier. A coordinating
-agent cross-checked their results and assembled the text. All formulas were
-checked symbolically or numerically by scripts in \texttt{code/}. The
+agent cross-checked their results and assembled the text. The key formulas
+were checked symbolically or numerically by scripts in \texttt{code/}. The
 nonlinear stability arguments are \emph{proof sketches} in the style of the
 cited works, not complete proofs. Several references could only be verified
 from abstracts (network access to arXiv was blocked); such places are marked

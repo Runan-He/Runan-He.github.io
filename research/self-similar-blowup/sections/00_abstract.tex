@@ -9,14 +9,17 @@ analysis, modulation). For every ODE-type blowup with scaling exponent $s>-1$,
 the linearisation turns out to have a universal spectrum
 $\{1-\ell-2n\}\cup\{-2s-2-\ell-2n\}$, whose only non-negative points come from
 time translation and Lorentz boosts. For the hyperbolic MEMS equation
-$w_{tt}+\gamma w_t-\Delta w=-\lambda w^{-q}$, $q>1$, this yields (with full
+$w_{tt}+\gamma w_t-\Delta w=-\lambda w^{-q}$, $q>1$, in dimensions $d\le3$, this yields (with full
 spectral analysis and a proof sketch of the nonlinear step) that touchdown
 $w\simeq c(T-t)^{2/(q+1)}$ with a flat profile in the light cone is stable
 modulo symmetries, also in the presence of damping, with rate
 $(T-t)^{\omega}$, $\omega<\min\{1,2(q-1)/(q+1)\}$. Non-trivial focused touchdown
-profiles exist numerically in dimensions $2$ and $3$ but are unstable. We
+profiles are found numerically in dimensions $2$ and $3$; numerically they
+carry additional unstable modes. We
 also identify where the method fails or the model changes the singularity
 type: the full Cattaneo model has a parabolic blowup rate, Arrhenius kinetics
 prevents blowup, and quasilinear acoustic and membrane models remain open.
-All spectral claims are checked independently by high-precision numerics, and
-direct simulations confirm the MEMS touchdown asymptotics.
+The spectra at the ODE profiles are cross-checked by high-precision collocation
+and, in selected cases, Evans-function tests. Direct simulations of the clamped MEMS device confirm
+the touchdown exponent, the constant $c$ and the convergence rate $2/3$. They
+also show that exponents fitted at moderate gaps are biased low.

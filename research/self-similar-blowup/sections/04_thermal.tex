@@ -86,7 +86,7 @@ models are not asymptotically equivalent near thermal runaway.
 
 \paragraph{Normal forms.}  In the FK limit $\varepsilon\to0$, $f_0(\theta)=\delta e^\theta$.
 Rescale time $t\mapsto\sqrt{\tau_*}\,t$ (wave speed $1$) and put $\gamma:=\tau_*^{-1/2}$.
-The reduced model becomes (keeping $\delta$, as in the conventions)
+The reduced model becomes (keeping $\delta$, as in \cref{fw:sec})
 \begin{equation}\label{therm:eq:redN}
   u_{tt}+\gamma u_t-\Delta u=\delta e^{u},\qquad u(t,x)=\theta(\sqrt{\tau_*}\,t,x),
 \end{equation}
@@ -133,7 +133,7 @@ $|a/A_0|<1$).  Space translations and scalings map $u_{T,a}$ to $u_{T',a}$, so
 $\{u_{T,a}\}$ is the full $(d+1)$-parameter symmetry orbit of the ODE blowup for a
 fixed blowup point $x_0=0$.
 
-\paragraph{Similarity variables.}  With the conventions of the note,
+\paragraph{Similarity variables.}  With the conventions of \cref{fw:sec},
 $\tau=\log T-\log(T-t)$, $\xi=x/(T-t)$, $\Lambda=\xi\cdot\nabla_\xi$,
 $\psi_1=u+2\log(T-t)$, $\psi_2=(T-t)u_t$, \cref{therm:eq:redN} becomes
 \begin{equation}\label{therm:eq:simred}
@@ -435,7 +435,7 @@ For smooth Cauchy data, $F$ and $G$ are local diffeomorphisms into
 $\mathbb{R}\cup\{\infty\}$ ($F'$, $G'$ never vanish since $u(0,\cdot)$ is finite; a M\"obius
 normalisation makes $F,G$ finite near any given point), and the solution blows up
 exactly on $\{F(t+x)+G(t-x)=0\}$.  The ODE blowup corresponds
-to $F=(T-\sigma)/2$, $G=-\eta/2$.
+to $F=(T-\sigma)/2$, $G=(T-\eta)/2$ (then $F+G=T-t$).
 
 \begin{proposition}[Local structure of $1$D blowup]\label{therm:prop:liouville}
 Let $u$ be given by \cref{therm:eq:liouville} and let $F(T+x_0)+G(T-x_0)=0$.  Then near
@@ -676,7 +676,8 @@ We did not find a Donninger-type (similarity variables,
 $H^k$, spectral) stability theorem for $u_{tt}-\Delta u=e^u$, nor any analysis of the
 MCV-consistent equation with the $\partial_t(e^u)$ nonlinearity.  However,
 Kichenassamy's result \cite{Kichenassamy1996} (Fuchsian reduction and Nash--Moser,
-data near constants, i.e.\ near the ODE blowup) already implies stability of the
+data near constants, i.e.\ near the ODE blowup) appears, judging from its
+abstract, to imply already stability of the
 ODE blowup for $\square u=e^u$ in a high-regularity sense, including the
 logarithmic terms (absent iff the blowup surface has vanishing scalar
 curvature); we have only seen the abstract of \cite{Kichenassamy1996}.
