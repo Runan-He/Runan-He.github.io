@@ -16,6 +16,7 @@ import sys
 import numpy as np
 from scipy.integrate import solve_ivp
 
+sys.dont_write_bytecode = True   # keep the project free of __pycache__
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from num_common import leapfrog1d, leapfrog_rad  # noqa: E402
 
@@ -78,11 +79,17 @@ def dyn_threshold(gam, d, lo, hi, it=7):
 def touchdown_location(lam, gam, d, M=2000):
     """argmin of w when min w first drops below 0.05 (coarse leapfrog)."""
     F = lambda w: -lam / w ** 2
+    tt = [0.0]
+
+    def rec(t, W):
+        tt[0] = t
+
+    stop = lambda W: W.min() < 0.05 or tt[0] > TMAX
     if d == 1:
-        x, W, _ = leapfrog1d(F, gam, M, stop=lambda W: W.min() < 0.05)
+        x, W, _ = leapfrog1d(F, gam, M, record=rec, stop=stop)
     else:
-        x, W, _ = leapfrog_rad(F, gam, M // 2, d=2, stop=lambda W: W.min() < 0.05)
-    return x[np.argmin(W)]
+        x, W, _ = leapfrog_rad(F, gam, M // 2, d=2, record=rec, stop=stop)
+    return x[np.argmin(W)] if W.min() < 0.05 else None
 
 
 if __name__ == "__main__":
@@ -93,13 +100,11 @@ if __name__ == "__main__":
             lo, hi = dyn_threshold(gam, d, 0.15 if d == 1 else 0.4, 1.0 if d == 1 else 1.5)
             print("      gam=%.0f: touchdown before t=%.0f iff lam > lam_dyn in [%.4f, %.4f]"
                   % (gam, TMAX, lo, hi))
-    print("location of the minimum of w when min w < 0.05 (grid spacing 1e-3):")
+    print("location of the minimum of w when min w < 0.05 (grid spacing 1e-3), t <= %.0f:" % TMAX)
     for d, lams in ((1, (0.35, 0.5, 1.0)), (2, (0.7, 0.8, 1.0, 1.2))):
         for gam in (0.0, 1.0):
             locs = []
             for lam in lams:
-                try:
-                    locs.append("lam=%.2f: x=%.4f" % (lam, touchdown_location(lam, gam, d)))
-                except Exception:
-                    locs.append("lam=%.2f: none" % lam)
+                xl = touchdown_location(lam, gam, d)
+                locs.append("lam=%.2f: %s" % (lam, "no touchdown" if xl is None else "x=%.4f" % xl))
             print("   d=%d gam=%.0f  " % (d, gam) + " ; ".join(locs))

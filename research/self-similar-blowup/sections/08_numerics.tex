@@ -10,22 +10,26 @@ coordinates of \cref{fw:sec}; no formula of the analytic sections is used as
 input except as the thing to be compared with. The scripts are listed in
 \cref{num:subsec-repro}. In brief:
 \begin{itemize}[leftmargin=1.4em,itemsep=1pt]
-\item \textbf{Spectra} (\cref{num:subsec-spec}). For all $27$ model/dimension
-  combinations and $\ell=0,1,2$ the converged eigenvalues with
+\item \textbf{Spectra} (\cref{num:subsec-spec}). For all $17$ model/dimension
+  combinations and $\ell=0,1,2$ ($46$ sectors) the converged eigenvalues with
   $\operatorname{Re}\lambda\ge-3$ coincide with
-  $\{a_1-s-\ell-2n\}\cup\{a_2-s-\ell-2n\}$ to $10^{-14}$ or better and do not
-  depend on $d$. Two discrepancies with the hints: \emph{(i)} for MEMS with
+  $\{a_1-s-\ell-2n\}\cup\{a_2-s-\ell-2n\}$ (to $5\cdot10^{-20}$ in $30$-digit
+  arithmetic) and do not depend on $d$; no other eigenvalue occurs. Double
+  precision is \emph{not} sufficient: a spurious branch, which moves to the
+  right as $N$ grows, swallows part of the window. Two discrepancies with the hints: \emph{(i)} for MEMS with
   $q=3$ (and for $p=5$) the two families collide and the collision
   eigenvalues are $2\times2$ Jordan blocks, among them the gap eigenvalue
   $\lambda=-1$ for $q=3$; \emph{(ii)} the derivative model is not of the
   potential form \eqref{fw:eig}; its eigenvalues are $\{1-\ell-2n\}\cup\{-\ell-2n\}$.
 \item \textbf{MEMS touchdown} (\cref{num:subsec-mems}). From the physical
   data $w(0)=1$, $w_t(0)=0$ in $d=1,2$, with and without damping, the minimum
-  of the gap behaves like $c(T-t)^{2/3}$ with $c=(9\lambda/2)^{1/3}$ to
-  $\ge 8$ digits; the light-cone profile converges to the constant $c$ at
-  the rate $(T-t)^{\omega}$ with measured $\omega=0.666\pm0.002$, in agreement
-  with $\omega_0=2/3$; the slowest mode is the spatially constant
-  ``ODE-energy'' mode $\lambda=-2/3$, the spatial variation decays like $(T-t)^{1}$.
+  of the gap behaves like $c(T-t)^{2/3}$, local exponent $0.66666$ and
+  $c=(9\lambda/2)^{1/3}$ recovered to $2\cdot10^{-7}$ ($d=1$), $4\cdot10^{-6}$ ($d=2$);
+  the light-cone profile converges to the constant $c$ at the rate
+  $(T-t)^{\omega}$, measured $\omega=0.6666\pm0.0001$, in agreement with
+  $\omega_0=2/3$; the slowest mode is the spatially constant ``ODE-energy''
+  mode $\lambda=-2/3$, the spatial variation decays like $(T-t)^{1}$. Power-law
+  fits at moderate gaps ($w_{\min}\ge0.02$) give exponents $0.50$--$0.64$.
 \item \textbf{Asymmetric data} (\cref{num:subsec-boost}). At the touchdown
   point the profile converges to the \emph{flat} ODE profile ($a=0$); a
   boosted profile with $a=T'(x_0)\ne0$ appears at the other points $x_0$
@@ -70,7 +74,7 @@ cone) none is admissible because all characteristics leave the cone, and at
 $z=0$ regularity is built into the ansatz $|\xi|^\ell h(|\xi|^2)$ with $h$ a
 polynomial. This is a standard eigenvalue problem of size $2(N+1)$ (no
 quadratic pencil is needed). It was solved (a) in double precision for
-$N=20,40,80$, (b) with \texttt{mpmath} at $30$ digits for $N=12$ and $N=20$,
+$N=20,40,80$ (and $120$), (b) with \texttt{mpmath} at $30$ digits for $N=12$ and $N=20$,
 and (c) exactly, in rational arithmetic, on polynomials of degree $\le5$ (see
 below). An eigenvalue is called \emph{converged} if (b) gives the same value
 for both $N$ to $10^{-6}$ (simple eigenvalues in fact agree to
@@ -154,7 +158,8 @@ multiplicity $1$ (Jordan block). Last column: gap after removing $\lambda=1$
   $-1$ is \emph{not} semisimple, and the linearised flow on the stable
   subspace decays like $\tau e^{-\tau}$, i.e.\ $(T-t)|\log(T-t)|$; the statement
   ``rate $e^{-\omega\tau}$ for every $\omega<\omega_0$'' is unaffected, but
-  $\omega=\omega_0$ is not attained.
+  $\omega=\omega_0$ is not attained. (This agrees with the analytic treatment
+  in \cref{mems:rem-q3}, which was written in parallel.)
 \item\label{num:D-deriv} \emph{Derivative model.} \eqref{fw:eig} does not
   apply ($F$ depends on $u_t$); naively taking $s=0$, $V_0=F'(u_T)(T-t)^2=0$ would give
   $\{-\ell-2n\}\cup\{-1-\ell-2n\}$ and miss the time-translation eigenvalue.
@@ -244,38 +249,28 @@ curve approaches it as $N$ grows.}
   w=1\text{ on }\partial\Omega,\qquad w(0)=1,\ w_t(0)=0,
 \end{equation}
 for $\Omega=(-1,1)$ and for radial solutions on the unit disk, with
-$\gamma\in\{0,1\}$. \Cref{num:tab-pullin} gives the pull-in values computed
-by \texttt{num\_mems\_threshold.py}. We take $\lambda=0.5$ ($d=1$) and
-$\lambda=0.8$ ($d=2$), above the dynamic threshold in all four cases and
-small enough that the touchdown time exceeds $1$: for $T\le1$ the solution in
-$|x|<1-t$ is the ODE solution, and the gap closes simultaneously on a whole
-interval (disk), a degenerate situation. With $T>1$ the boundary has
-influenced the whole backward light cone of the touchdown point.
-
-\begin{table}[ht]
-\centering\small
-\begin{tabular}{@{}lccc@{}}
-\toprule
- & static $\lambda^*$ & dynamic, $\gamma=0$ & dynamic, $\gamma=1$\\
-\midrule
-$d=1$, $(-1,1)$ & $0.35000$ & $[0.2895,\,0.2961]$ & $[0.3426,\,0.3492]$\\
-$d=2$, unit disk & $0.78923$ & $[0.6406,\,0.6492]$ & $[0.7438,\,0.7523]$\\
-\bottomrule
-\end{tabular}
-\caption{Pull-in values for \eqref{num:mems}. Static: fold of
-$\Delta w=\lambda w^{-2}$, $w|_{\partial\Omega}=1$ (shooting). Dynamic: bracket for
-the smallest $\lambda$ with $\min w<0.05$ before $t=30$ (coarse leapfrog; for
-$\gamma=0$ this finite-horizon value is an upper bound for the true threshold).}
-\label{num:tab-pullin}
-\end{table}
+$\gamma\in\{0,1\}$. The static pull-in value (fold of $\Delta w=\lambda w^{-2}$,
+$w|_{\partial\Omega}=1$, by shooting) is $\lambda^*=0.35000$ ($d=1$) and $0.78923$
+($d=2$); the dynamic threshold, defined as the smallest $\lambda$ with
+$\min w<0.05$ before $t=30$, lies in $[0.2895,0.2961]$ ($d=1$, $\gamma=0$),
+$[0.3426,0.3492]$ ($d=1$, $\gamma=1$), $[0.6406,0.6492]$ ($d=2$, $\gamma=0$) and
+$[0.7438,0.7523]$ ($d=2$, $\gamma=1$) (\texttt{num\_mems\_threshold.py}; for $\gamma=0$
+the finite-horizon value is an upper bound for the true threshold). We take
+$\lambda=0.5$ ($d=1$) and $\lambda=0.8$ ($d=2$), above the dynamic threshold in all
+four cases and small enough that the touchdown time exceeds $1$: for $T\le1$
+the solution in $|x|<1-t$ is the ODE solution, and the gap closes
+simultaneously on a whole interval (disk), a degenerate situation. With
+$T>1$ the boundary has influenced the whole backward light cone of the
+touchdown point.
 
 \paragraph{A weak singularity.} The data are incompatible with the boundary
 condition at second order ($w_{tt}(0)=-\lambda\ne0=\partial_t^2 1$), so a jump
 of $w_{tt}$ travels inwards from $\partial\Omega$ along characteristics. In $d=2$
 it focuses at $(t,r)=(1,0)$, i.e.\ \emph{inside} the backward light cone of
 the touchdown point. This is physical (a voltage switched on instantaneously),
-but it destroys the spectral accuracy of global methods: a Chebyshev method in
-physical space changed $T$ by $\approx10^{-7}$ between $N=128$ and $N=256$. We
+but it destroys the spectral accuracy of global methods: in a preliminary
+test, a Chebyshev method in physical space changed $T$ by $\approx10^{-7}$
+between $N=128$ and $N=256$. We
 therefore use the following three-stage method.
 
 \paragraph{Method.}
@@ -310,14 +305,17 @@ inside the cone at finite $\tau$ ($\min\psi_1\to0$); if $T$ is too small,
 $\psi_1\sim e^{2\tau/3}w(T,0)\to\infty$. Bisection is run to relative width
 $4\cdot10^{-16}$. Because of the time-translation mode $e^{\tau}$, the two
 trajectories belonging to the ends of the final bracket separate eventually;
-all rates are measured only on the $\tau$-window where they agree to $1\%$.
+all rates are measured only on the $\tau$-window where their values of
+$W(\tau,0)-c$ agree to $0.1\%$.
 
 \emph{Independent check.} Stage 1 alone, continued in physical space
 ($M=16000$, resp.\ $8000$) down to $\min w=0.02$ (resp.\ $0.03$), and fitted
 with $T$ as a free parameter.
 
 \paragraph{Results.} In all four cases the minimum of $w$ is attained at the
-centre (also in $d=2$: no ring quenching was observed for $\lambda\ge0.7$). The
+centre; the same holds for all values tested in \texttt{num\_mems\_threshold.py}
+($\lambda=0.35,0.5,1$ for $d=1$, $\lambda=0.7,\dots,1.2$ for $d=2$, $\gamma=0,1$): no
+off-centre or ring quenching occurred. The
 main numbers are collected in \cref{num:tab-mems}; \cref{num:fig-mems,num:fig-mems2}
 show the evolution.
 
@@ -328,10 +326,10 @@ show the evolution.
 \toprule
 case & $T$ & $\min(T-t)$ & $\omega_{\rm fit}$ & $\omega$, $c$ free & $C_\infty/c-1$ & $\frac{\psi_2+\frac23c}{\psi_1-c}$ & rate of $\operatorname{osc}W$\\
 \midrule
-$d=1$, $\gamma=0$ & $1.751942633160$ & $1.2\cdot10^{-7}$ & $0.66663$ & $0.6649$ & $2.1\cdot10^{-7}$ & $-1.3319$ & $0.995$\\
-$d=1$, $\gamma=1$ & $2.405075174190$ & $4.0\cdot10^{-8}$ & $0.66662$ & $0.6642$ & $2.6\cdot10^{-7}$ & $-1.3318$ & $0.994$\\
+$d=1$, $\gamma=0$ & $1.75194263316$ & $1.2\cdot10^{-7}$ & $0.66663$ & $0.6649$ & $2.1\cdot10^{-7}$ & $-1.3319$ & $0.995$\\
+$d=1$, $\gamma=1$ & $2.40507517419$ & $4.0\cdot10^{-8}$ & $0.66662$ & $0.6642$ & $2.6\cdot10^{-7}$ & $-1.3318$ & $0.994$\\
 $d=2$, $\gamma=0$ & $1.41984985$ & $1.8\cdot10^{-7}$ & $0.66666$ & $0.6627$ & $1.2\cdot10^{-6}$ & $-1.3312$ & $0.991$\\
-$d=2$, $\gamma=1$ & $2.2141540$ & $2.6\cdot10^{-7}$ & $0.66655$ & $0.6597$ & $3.8\cdot10^{-6}$ & $-1.3296$ & $0.985$\\
+$d=2$, $\gamma=1$ & $2.214154$ & $2.6\cdot10^{-7}$ & $0.66655$ & $0.6597$ & $3.8\cdot10^{-6}$ & $-1.3296$ & $0.985$\\
 \midrule
 prediction & & & $\frac23$ & $\frac23$ & $0$ & $-\frac43$ & $1$\\
 \bottomrule
@@ -356,13 +354,14 @@ column: decay rate of $\max_\xi W-\min_\xi W$.}
   free in the fit returns $c=(9\lambda/2)^{1/3}$ to $2\cdot10^{-7}$ ($d=1$) and
   $4\cdot10^{-6}$ ($d=2$). The approach is slow: the relative correction is
   $(A/c)(T-t)^{2/3}$ with $A/c=-1.44,-2.18,-2.82,-3.87$, so that $w_{\min}$ is
-  within $1\%$ of $c(T-t)^{2/3}$ only for $T-t\lesssim10^{-4}$, i.e.\ $w_{\min}\lesssim
-  3\cdot10^{-3}$ (\cref{num:fig-mems}, middle; \cref{num:fig-mems2}, right).
+  within $1\%$ of $c(T-t)^{2/3}$ only for $T-t\lesssim10^{-4}$--$6\cdot10^{-4}$, i.e.\
+  $w_{\min}\lesssim3\cdot10^{-3}$--$10^{-2}$ (\cref{num:fig-mems}, middle;
+  \cref{num:fig-mems2}, right).
   Consequently, the independent physical-space fits over $w_{\min}\in[0.02,0.25]$
   with $T$ free give $\beta=0.596,0.559,0.545,0.500$ for $w=C(T-t)^\beta$, and
   still $\beta=0.644,0.627,0.614,0.589$ if the correction
   $(1+e(T-t)^{2/3})$ is included; their $T$ deviates from the bisection value
-  by $10^{-4}$--$10^{-3}$. \emph{Exponents read off from moderate gaps are
+  by $8\cdot10^{-5}$--$1.4\cdot10^{-3}$. \emph{Exponents read off from moderate gaps are
   biased low}; this matters when comparing with experiments or with
   simulations that stop at $w_{\min}=O(10^{-2})$.
 \item \emph{Light-cone profile.} $W(t,\xi)=(T-t)^{-2/3}w(t,(T-t)\xi)$ converges
@@ -390,7 +389,7 @@ $\max_\xi W-\min_\xi W$ (dashed) with the slopes $\frac23$ and $1$.}
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.9\textwidth]{figures/num_mems_profiles.pdf}
+\includegraphics[width=0.85\textwidth]{figures/num_mems_profiles.pdf}
 \caption{Left: light-cone profiles $W(t,\cdot)$, $d=1$, $\lambda=0.5$, $\gamma=0$,
 flattening to $c$ (dotted). Right: local exponent $d\log w_{\min}/d\log(T-t)$.}
 \label{num:fig-mems2}
@@ -405,7 +404,7 @@ the full text, so we do not compare individual numbers). Our computations
 agree on all three qualitative points: quenching at the centre, exponent
 $\frac23$ and constant $(9\lambda/2)^{1/3}$, and convergence to the ODE profile
 at the spectral-gap rate; starting from physical data we never observed an
-approach to a non-trivial profile. They add two quantitative points: the
+approach to a non-trivial profile. Our computations add two quantitative points: the
 identification of the slowest correction as the ODE-energy mode, and the
 warning in (i) about pre-asymptotic exponents.
 
@@ -437,8 +436,8 @@ touchdown, although the physical problem ends there.
 \paragraph{Results.} The blowup curve (\cref{num:fig-boost}, left) is smooth
 with a non-degenerate minimum at $x^*=0.00860$, $T(x^*)=1.7356545138$,
 $T''(x^*)\approx1.76$: the asymmetric data shift the touchdown point (slightly
-to the right, although the initial gap is smaller on the left), and $|T'|<1$
-throughout, i.e.\ all points are non-characteristic. A degree-6 fit
+to the right, although the initial gap is smaller on the left), and
+$|T'|\le0.23<1$ on the computed range, i.e.\ these points are non-characteristic. A degree-6 fit
 through the twelve values of $T(x_0)$ (residual $7\cdot10^{-9}$; changing the
 degree alters $T'$ by $<5\cdot10^{-5}$) gives $T'(x_0)$. At five base points the
 boost parameter $a(t)$ of the light-cone profile, defined by
@@ -458,8 +457,10 @@ $+0.12$ & $+0.2274879$ & $+0.2274882$ & $8.7\cdot10^{-6}$ & $0.647$\\
 \end{tabular}
 \end{center}
 (the rate is a straight-line fit of $\log\|W-W_{a(t)}\|_\infty$ against $\tau$ for $\tau>3$, which
-is biased low by the same pre-asymptotic corrections as $\omega_{\rm late}$ in
-\cref{num:tab-mems}). Thus $a_\infty=T'(x_0)$ to within $2\cdot10^{-6}$ at every
+is biased low by the same pre-asymptotic corrections as the two-term fits
+quoted in the caption of \cref{num:tab-mems}; the window ends where the
+trajectories for the two ends of the $T$-bracket differ by $10\%$ of
+$\|W-W_a\|_\infty$). Thus $a_\infty=T'(x_0)$ to within $2\cdot10^{-6}$ at every
 base point, and \emph{at the touchdown point the limit profile is the flat ODE
 profile}: the residual $a\approx-1.1\cdot10^{-5}$ there is exactly $T'$ at
 our numerical $x^*$, which is off by $\approx7\cdot10^{-6}$. Boosted
@@ -541,10 +542,10 @@ $q=2$, the slowest mode is \emph{not} spatially constant: the ODE energy mode
   argument of \cref{fw:thm-spec}, not on numerics.
 \item The nonlinear simulations cover one $\lambda$ per geometry, $q=2$, and
   data at rest; the light-cone stage is spectrally accurate, but the data at
-  $t_1$ carry errors of $10^{-10}$ ($d=1$) and $10^{-9}$--$10^{-5}$ ($d=2$,
-  $w$ and $w_t$) because of the corner singularity; these shift $T$ (by
-  $\approx10^{-7}$ in $d=2$) but not the measured rates.
-\item Rates are measured on windows of $13$--$20$ units of $\tau$ (5--8 decades
+  $t_1$ carry errors of $10^{-10}$--$3\cdot10^{-8}$ ($d=1$) and up to $10^{-7}$
+  ($w$) and $2\cdot10^{-5}$ ($w_t$) in $d=2$ because of the corner singularity;
+  these shift $T$ (by up to $2\cdot10^{-7}$ in $d=2$) but not the measured rates.
+\item Rates are measured on windows of $12$--$17$ units of $\tau$ (5--7 decades
   of $T-t$), limited by the time-translation instability amplifying
   integration errors of size $\approx10^{-14}$.
 \item The dynamic pull-in values for $\gamma=0$ are finite-horizon ($t\le30$) values.
@@ -555,7 +556,7 @@ $q=2$, the slowest mode is \emph{not} spatially constant: the ODE energy mode
 
 \paragraph{Reproducibility.} All scripts run from the project root with
 \texttt{python3 code/<name>.py} (numpy, scipy, sympy, mpmath, matplotlib);
-times are for an idle 4-core machine.
+times are wall-clock times on a shared 4-core machine.
 \begin{center}\small
 \begin{tabular}{@{}lll@{}}
 \toprule
@@ -563,10 +564,10 @@ script & output & time\\
 \midrule
 \texttt{num\_spectra.py} & \cref{num:tab-spec}, \cref{num:fig-spec}, eigenvector checks & $\approx4$ min\\
 \texttt{num\_spurious.py} & spurious-branch edges $K_N$ (\cref{num:subsec-spec}) & $<1$ min\\
-\texttt{num\_mems\_threshold.py} & \cref{num:tab-pullin} & $<1$ min\\
-\texttt{num\_mems\_touchdown.py} & \cref{num:tab-mems}, \cref{num:fig-mems,num:fig-mems2} & $\approx3$--$6$ min\\
-\texttt{num\_mems\_boost.py} & \cref{num:fig-boost} and the boost table & $\approx3$--$5$ min\\
-\texttt{num\_exp\_touchdown.py} & \cref{num:fig-exp} & $\approx1$ min\\
+\texttt{num\_mems\_threshold.py} & pull-in values, location of the minimum & $<1$ min\\
+\texttt{num\_mems\_touchdown.py} & \cref{num:tab-mems}, \cref{num:fig-mems,num:fig-mems2} & $\approx4$--$5$ min\\
+\texttt{num\_mems\_boost.py} & \cref{num:fig-boost} and the boost table & $\approx4$ min\\
+\texttt{num\_exp\_touchdown.py} & \cref{num:fig-exp} & $<1$ min\\
 \texttt{num\_common.py} & shared solvers (not run directly) & ---\\
 \bottomrule
 \end{tabular}

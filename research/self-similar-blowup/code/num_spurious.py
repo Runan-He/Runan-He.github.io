@@ -13,6 +13,7 @@ from fractions import Fraction as Fr
 
 import numpy as np
 
+sys.dont_write_bytecode = True   # keep the project free of __pycache__
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from num_spectra import opmat, formula  # noqa: E402
 

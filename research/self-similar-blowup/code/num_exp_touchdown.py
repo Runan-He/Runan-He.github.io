@@ -16,6 +16,7 @@ import numpy as np
 from scipy.integrate import solve_ivp
 from scipy.optimize import least_squares
 
+sys.dont_write_bytecode = True   # keep the project free of __pycache__
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from num_common import Model, lagr, richardson1d, leapfrog1d, sim1d, bisect_T  # noqa: E402
 
