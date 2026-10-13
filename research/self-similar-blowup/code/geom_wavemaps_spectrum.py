@@ -1,7 +1,7 @@
 """geom_wavemaps_spectrum.py -- eigenvalues of the linearisation around the
 self-similar co-rotational wave map f0(rho) = 2 arctan(rho/sqrt(d-2)).
 
-Run:  python3 geom_wavemaps_spectrum.py   (about 10-15 minutes, mostly the
+Run:  python3 geom_wavemaps_spectrum.py   (30-60 minutes, mostly the
 argument-principle step; set QUICK=1 in the environment to skip it).
 Writes figures/geom_spectrum.pdf (relative to the project root).
 
@@ -108,6 +108,10 @@ def main():
                 cnt, mx = G.count_zeros(d, box, which, npts=1200)
                 print(f"d={d} {which:4s} box Re in [-1.9,4], Im in [-15,15]: "
                       f"winding = {cnt:.4f} (max phase step {mx:.2f} rad)")
+            # strip just left of the big box (contains lambda_2 only)
+            cnt, mx = G.count_zeros(d, (-2.25, -1.95, -6.0, 6.0), "orig", npts=500)
+            print(f"d={d} orig box Re in [-2.25,-1.95], Im in [-6,6]: "
+                  f"winding = {cnt:.4f} (max phase step {mx:.2f} rad)")
 
     # ------------------------------------------------------------ figure
     import matplotlib

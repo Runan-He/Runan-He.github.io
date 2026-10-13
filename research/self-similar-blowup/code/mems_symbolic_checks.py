@@ -310,4 +310,47 @@ print("[info] indicial roots at rho=1 (profile):", sp.solve(ind, rr))
 # damping term in similarity variables: (T-t)^{s+2} * (-gam u_t) = -gam (T-t) psi2
 ok(sp.simplify((T - t) ** (-sig + 2) * gam * sp.Symbol('ut') - gam * (T - t) * ((T - t) ** (1 - sig) * sp.Symbol('ut'))),
    "damping contributes -gamma (T-t) psi2 = -gamma T e^{-tau} psi2")
+
+# -------------------------------------------------- singular static solution and its oscillation
+Aamp = sp.symbols('A', positive=True)
+rr_ = sp.symbols('rr_', positive=True)
+psis = Aamp * rr_ ** sig
+prof_rad = (1 - rr_ ** 2) * sp.diff(psis, rr_, 2) + ((dd - 1) / rr_ - 2 * (1 - sig) * rr_) * sp.diff(psis, rr_) \
+    + sig * (1 - sig) * psis - lam * psis ** (-q)
+Asol = (lam / (sig * (sig + dd - 2))) ** (1 / (q + 1))
+for qq, dv in [(2, 2), (2, 3), (3, 3), (4, 2), (sp.Rational(5, 2), 3)]:
+    vv = prof_rad.subs(Aamp, Asol).subs({q: qq, dd: dv, lam: sp.Rational(7, 5)})
+    for rv in [sp.Rational(1, 5), sp.Rational(3, 4)]:
+        assert abs(sp.N(vv.subs(rr_, rv), 30)) < 1e-25
+print("[OK] psi_* = A rho^sigma, A^{q+1} = lam/(sigma(sigma+d-2)), solves the radial profile ODE (d>=2)")
+ok(sp.simplify(q * lam * Asol ** (-q - 1) - q * sig * (sig + dd - 2)), "potential at psi_*: q lam A^{-q-1} = q sigma(sigma+d-2)")
+# oscillation (Joseph--Lundgren type) for q=2: q s (s+d-2) > (d-2)^2/4  <=>  2 <= d <= 7
+osc = [dv for dv in range(2, 12) if (2 * sp.Rational(2, 3) * (sp.Rational(2, 3) + dv - 2) - sp.Rational((dv - 2) ** 2, 4)) > 0]
+print("[info] q=2: oscillatory dimensions", osc)
+assert osc == [2, 3, 4, 5, 6, 7]
+
+# -------------------------------------------------- q = 3: Jordan block at mu = -1 (l = 0)
+# eigenfunction f_E = (1, sigma-2) = (1,-3/2); chain: radial op g1 = -F, F = f2 + (a+1) f1 + Lambda f1 = -2
+q3 = {q: 3}
+a_m1 = (-1 - sig).subs(q3)
+V03 = (2 * q * (q - 1) / (q + 1) ** 2).subs(q3)
+assert sp.simplify(a_m1 * (a_m1 + 1) - V03) == 0
+Gc = r ** 2 / dd
+radop = (1 - r ** 2) * sp.diff(Gc, r, 2) + ((dd - 1) / r - 2 * (a_m1 + 1) * r) * sp.diff(Gc, r) - (a_m1 * (a_m1 + 1) - V03) * Gc
+Fsrc = (sig - 2).subs(q3) + (a_m1 + 1) * 1
+ok(sp.simplify(radop + Fsrc), "q=3: g1 = |xi|^2/d solves the Jordan-chain equation at mu=-1 (eigenvalue -1 = -omega_0 not semisimple)")
+
+# -------------------------------------------------- Jordan chain at mu=1 (l=0) and mu=0 (l=1): first-order reduction
+# P solves (1-r^2)P' + ((D-1)/r - 2(2-sigma) r) P = -(3-2 sigma); D = d (mu=1, P = G'), D = d+2 (mu=0, G = rK, P = K')
+Dd = sp.symbols('D', positive=True)
+Pf = sp.Function('P')(r)
+eqP = (1 - r ** 2) * Pf.diff(r) + ((Dd - 1) / r - 2 * (2 - sig) * r) * Pf
+Ifac = r ** (Dd - 1) * (1 - r ** 2) ** ((2 - sig) - (Dd - 1) / 2)
+# d/dr (I P) = I/(1-r^2) * [ (1-r^2) P' + (...) P ]
+lhsI = sp.diff(Ifac * Pf, r)
+ok(sp.simplify(lhsI - Ifac / (1 - r ** 2) * eqP), "integrating factor r^{D-1}(1-r^2)^{(2-sigma)-(D-1)/2} for the Jordan-chain ODE")
+G1 = sp.Function('G1')(r)
+mu1op = (1 - r ** 2) * G1.diff(r, 2) + ((dd - 1) / r - 2 * (2 - sig) * r) * G1.diff(r)
+ok(sp.simplify(mu1op - eqP.subs(Pf, G1.diff(r)).subs(Dd, dd).doit()), "mu=1, l=0: radial op = first-order op on G' with D=d")
+print("all additional checks passed")
 print("all checks passed")

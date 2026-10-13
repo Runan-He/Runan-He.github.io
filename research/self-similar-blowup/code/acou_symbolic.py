@@ -28,11 +28,16 @@ Checks
      null-form tilted family -log(T-t+a.x) has coefficient 1 (Lorentz invariant);
      -log((T-t)^2 + |x|^2/d) is an exact (non-ODE) self-similar blowup solution.
  C2  model (b) in the variable w = e^{-u}:  w Box w = -|grad_x w|^2.
+ E1  energy identity for the free system with exponent s' (d = 2, pointwise):
+     2 grad f1 . grad(-Lam f1 - s' f1 + f2) + 2 f2 (Lap f1 - Lam f2 - (s'+1) f2)
+       = (d-2-2s')(|grad f1|^2 + f2^2) + div( -xi(|grad f1|^2+f2^2) + 2 f2 grad f1 ),
+     and the commutator  D^beta Lam = (Lam + |beta|) D^beta.
  W1  Westervelt <=> (q^2)_tt = 2 c^2 Lap q for q = 1 - 2kp (inviscid); homogeneous
      solutions q^2 = A + B t; p_t ~ (T-t)^{-1/2}.
  W2  Kuznetsov - Westervelt (potential forms) = d_t(|grad psi|^2 - psi_t^2/c^2)
      (time derivative of the null form); Kuznetsov "uniform compression" solution
      psi = f(t) + B|x|^2/(2 d c^2) with (f' - K f'^2)' = B.
+ W2b Kuznetsov in r = 1-2K psi_t: (r^2)_tt = 2c^2 Lap r - 8K d_t(grad psi . grad psi_t).
  W3  Westervelt self-similar variables eta = x/rho^{3/4}, q = rho^{1/2} Q:
      (d_tau + 3/4 D)(d_tau + 3/4 D - 1) Q^2 = 2 c^2 Lap_eta Q   (exact).
  W4  linearisation at Q0: modes e^{lam tau} h(zeta) with
@@ -265,7 +270,7 @@ def check_B6():
     r1 = sp.simplify(sp.diff(q1, tau) - (-xi*sp.diff(q1, xi) + q2))
     r2 = sp.simplify(sp.diff(q2, tau) - (sp.diff(q1, xi, 2) - xi*sp.diff(q2, xi) + q2 + xi**2))
     assert r1 == 0 and r2 == 0
-    ok("B6 u_a solves the similarity system; O(a): eigenmode (xi, xi) at lam=0; "
+    ok("B6 u_a solves the similarity system; O(a): eigenmode -(xi, xi) at lam=0; "
        "O(a^2): q1 = -tau + xi^2/2 solves d_tau q = L q + (0, xi^2): secular drift "
        "along the shift mode (1,0), not a Jordan block of L")
 
@@ -317,6 +322,27 @@ def check_C():
     ok("C2 model (b) <=> w Box w + |grad_x w|^2 = 0 for w = e^{-u}")
 
 
+# ------------------------------------------------------------------ E1
+def check_E1():
+    X, Y, sp_ = sp.symbols('X Y s', real=True)
+    f1 = sp.Function('f1')(X, Y)
+    f2 = sp.Function('f2')(X, Y)
+    Lam = lambda g: X*sp.diff(g, X) + Y*sp.diff(g, Y)
+    Lap = lambda g: sp.diff(g, X, 2) + sp.diff(g, Y, 2)
+    gx = lambda g: (sp.diff(g, X), sp.diff(g, Y))
+    d = 2
+    lhs = (2*sum(a*b for a, b in zip(gx(f1), gx(-Lam(f1) - sp_*f1 + f2)))
+           + 2*f2*(Lap(f1) - Lam(f2) - (sp_ + 1)*f2))
+    e = sum(a**2 for a in gx(f1)) + f2**2
+    flux = (-X*e + 2*f2*gx(f1)[0], -Y*e + 2*f2*gx(f1)[1])
+    rhs = (d - 2 - 2*sp_)*e + sp.diff(flux[0], X) + sp.diff(flux[1], Y)
+    assert sp.simplify(sp.expand(lhs - rhs)) == 0
+    g = sp.Function('g')(X, Y)
+    assert sp.simplify(sp.diff(Lam(g), X, 2, Y, 1) - (Lam(sp.diff(g, X, 2, Y, 1)) + 3*sp.diff(g, X, 2, Y, 1))) == 0
+    ok("E1 energy identity: dE/dtau = (d-2-2s')E - int_{dB}(|grad f1|^2 + f2^2 - 2 f2 d_r f1) "
+       "<= (d-2-2s')E;  D^beta Lam = (Lam+|beta|) D^beta")
+
+
 # ------------------------------------------------------------------ W1, W2
 def check_W():
     t, k, c, b = sp.symbols('t k c b', positive=True)
@@ -361,9 +387,15 @@ def check_W():
            - sp.diff(K*sp.diff(psiK, t)**2 + grad2(psiK, xs), t))
     target = sp.diff(sp.diff(f, t) - K*sp.diff(f, t)**2, t) - Bc
     assert sp.simplify(kuz - target) == 0
+    # Kuznetsov in r = 1 - 2K psi_t:  (r^2)_tt = 2c^2 Lap r - 8K d_t(grad psi . grad psi_t)
+    kuz_inv = (sp.diff(psi, t, 2) - c**2*lap(psi) - sp.diff(K*sp.diff(psi, t)**2 + grad2p, t))
+    r_ = 1 - 2*K*sp.diff(psi, t)
+    gdot = sum(sp.diff(psi, x)*sp.diff(psi, x, t) for x in xs)
+    rform = sp.diff(r_**2, t, 2) - 2*c**2*lap(r_) + 8*K*sp.diff(gdot, t)
+    assert sp.simplify(rform + 4*K*sp.diff(kuz_inv, t)) == 0
     ok("W2 Kuznetsov = Westervelt + d_t(|grad psi|^2 - psi_t^2/c^2); d_t(potential Westervelt) "
        "= pressure Westervelt; Kuznetsov uniform compression psi = f(t)+B|x|^2/(2dc^2), "
-       "(f'-K f'^2)' = B  (viscous term inactive)")
+       "(f'-K f'^2)' = B  (viscous term inactive); (r^2)_tt = 2c^2 Lap r - 8K d_t(grad psi.grad psi_t)")
 
 
 # ------------------------------------------------------------------ W3, W4
@@ -439,6 +471,7 @@ if __name__ == "__main__":
     check_B6()
     check_B7()
     check_C()
+    check_E1()
     check_W()
     check_W34()
     print("all symbolic checks passed")

@@ -21,7 +21,7 @@ Outputs (run from project root):  python3 code/num_spectra.py
     comparison with lam = a_i - s - l - 2n, exact (rational) multiplicities,
     eigenfunction checks against symmetry generators and 2F1 polynomials.
   * figures/num_spectra.pdf: double vs high precision spectra (spurious branch).
-Runtime: about 3-6 minutes on 4 cores (mpmath part is the bottleneck).
+Runtime: about 3-5 minutes on 4 cores (mpmath part is the bottleneck).
 """
 import os
 import sys
@@ -36,7 +36,7 @@ import sympy as sp
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FIG = os.path.join(ROOT, "figures")
 DPS = 30           # working precision of the high-precision runs
-NMP = (20, 28)     # high-precision resolutions
+NMP = (12, 20)     # high-precision resolutions (exact for degree <= N)
 NDP = (20, 40, 80)  # double-precision resolutions
 REMIN = -3.0       # report eigenvalues with Re >= REMIN
 
@@ -209,7 +209,8 @@ def eigvec_checks():
             for l in sectors(d):
                 A, z = opmat(N, d, l, float(s), float(V0), deriv)
                 w, V = np.linalg.eig(A)
-                for lamf in formula(s, V0, deriv, l, remin=-1.5):
+                fl_all = formula(s, V0, deriv, l, remin=-1.5)
+                for lamf in sorted(set(fl_all), reverse=True):
                     i = np.argmin(abs(w - float(lamf)))
                     h1 = V[: N + 1, i]
                     h2 = V[N + 1:, i]
@@ -236,7 +237,7 @@ def eigvec_checks():
                     h2ex = (float(lamf) + (0 if deriv else float(s))) * h1 + Lh
                     err2 = np.max(abs(h2 - h2ex))
                     lines.append((name, par, d, l, lamf, float(w[i].real), err1, err2,
-                                  h2[0].real / h1[0].real))
+                                  h2[0].real / h1[0].real, fl_all.count(lamf) > 1))
     return lines
 
 
@@ -262,7 +263,7 @@ def main():
     print("  done in %.0f s" % (time.time() - t0), flush=True)
 
     print("\n=== converged eigenvalues (Re >= %g) ===" % REMIN)
-    print("high precision: Chebyshev N=%d and N=%d agree to < 1e-15" % NMP)
+    print("high precision (dps=%d): Chebyshev N=%d and N=%d agree to < 1e-8" % ((DPS,) + NMP))
     print("dbl80: number of these reproduced to 1e-6 by double precision at N=20/40/80")
     summary = []
     for (name, par, s, V0, deriv, dims) in allcases:
@@ -274,7 +275,9 @@ def main():
                 for e in evA:
                     if e.real < REMIN - 1e-6:
                         continue
-                    if np.min(abs(evB - e)) < 1e-15 * max(1, abs(e)) or np.min(abs(evB - e)) < 1e-12:
+                    # converged in N: N=12 and N=20 agree (1e-8 tolerates the
+                    # O(eps^(1/2)) splitting of a 2x2 Jordan block at dps=30)
+                    if np.min(abs(evB - e)) < 1e-8:
                         conv.append(e)
                 conv = sorted(conv, key=lambda e: -e.real)
                 fl = formula(s, V0, deriv, l)
@@ -317,28 +320,37 @@ def main():
         if jord:
             for lamf in sorted(set(fl), reverse=True):
                 if fl.count(lamf) == 2:
-                    cl = sorted([e for e in conv if abs(e - float(lamf)) < 1e-3],
+                    cl = sorted([e for e in conv if abs(e - float(lamf)) < 1e-6],
                                 key=lambda e: e.real)
-                    print("  %s %s d=%d l=%d lam=%s : |split| = %.2e (dps=%d; ~sqrt(eps) => Jordan)"
+                    print("  %s %s d=%d l=%d lam=%s : |split| = %.2e, |mean-lam| = %.1e"
+                          " (dps=%d: split ~ 10^-15 = sqrt(eps) signals a Jordan block)"
                           % (name, par, d, l, fmt_fr(lamf),
-                             abs(cl[-1] - cl[0]) if len(cl) == 2 else np.nan, DPS))
+                             abs(cl[-1] - cl[0]) if len(cl) == 2 else np.nan,
+                             abs(np.mean(cl) - float(lamf)) if cl else np.nan, DPS))
 
     print("\n=== eigenfunction checks (double precision, N=20) ===")
     print("err1 = max|h1 - 2F1 polynomial|, err2 = max|h2 - (lam+s+Lambda)h1|,"
           " ratio = h2/h1 at z=1")
-    for (name, par, d, l, lamf, lamn, e1, e2, ratio) in eigvec_checks():
+    checks = eigvec_checks()
+    for (name, par, d, l, lamf, lamn, e1, e2, ratio, dbl) in checks:
         if lamf in (1, 0):
             tag = ""
             if lamf == 1 and l == 0:
-                tag = "time translation: h1=const, h2/h1 = 1+s"
+                tag = "time translation"
             if lamf == 0 and l == 1:
-                tag = "Lorentz boost: h1=const (phi1 ~ xi), h2/h1 = 1+s"
+                tag = "Lorentz boost (phi1 ~ xi)"
             if lamf == 0 and l == 0:
-                tag = "shift u->u+c: (phi1,phi2)=(1,0)"
-            print("  %-6s %-4s d=%d l=%d lam=%-5s num=%+.14f err1=%.1e err2=%.1e h2/h1=%.6f %s"
-                  % (name, par, d, l, fmt_fr(lamf), lamn, e1, e2, ratio, tag))
-    worst = max(max(e1, e2) for (*_, e1, e2, r) in eigvec_checks())
-    print("  worst eigenvector deviation from 2F1 polynomial over all lam >= -1.5: %.1e" % worst)
+                tag = "shift u -> u + const"
+            print("  %-6s %-4s d=%d l=%d lam=%-3s num=%+.3e err1=%.1e err2=%.1e h2/h1=%.6f  %s"
+                  % (name, par, d, l, fmt_fr(lamf), lamn - float(lamf), e1, e2, ratio, tag))
+    ok = [max(c[6], c[7]) for c in checks if not c[9]]
+    print("  all simple eigenvalues with lam >= -1.5: max eigenvector deviation from the"
+          " 2F1 polynomial = %.1e (%d checks)" % (max(ok), len(ok)))
+    for c in checks:
+        if c[9]:
+            print("  (double eigenvalue %s %s d=%d l=%d lam=%s: double-precision eigenvector"
+                  " deviation %.1e, as expected for a Jordan block)" % (c[0], c[1], c[2], c[3],
+                                                                      fmt_fr(c[4]), max(c[6], c[7])))
 
     make_figure()
     print("\ntotal time %.0f s" % (time.time() - t0))
@@ -356,7 +368,7 @@ def make_figure():
     cols = {20: "#1f77b4", 40: "#ff7f0e", 80: "#2ca02c"}
     mks = {20: "o", 40: "s", 80: "^"}
     with Pool(3) as pool:
-        mpres = pool.map(mp_eigs, [(40, d, l, s, V0, der) for (_, d, l, s, V0, der) in panels])
+        mpres = pool.map(mp_eigs, [(32, d, l, s, V0, der) for (_, d, l, s, V0, der) in panels])
     for ax, (title, d, l, s, V0, der), mpr in zip(axs, panels, mpres):
         for N in NDP:
             A, _ = opmat(N, d, l, float(s), float(V0), der)
@@ -364,7 +376,7 @@ def make_figure():
             ax.plot(ev.real, ev.imag, mks[N], ms=4, mfc="none", color=cols[N],
                     label="double, N=%d" % N)
         evm = np.array(mpr[0])
-        ax.plot(evm.real, evm.imag, "k.", ms=4, label="%d digits, N=40" % DPS)
+        ax.plot(evm.real, evm.imag, "k.", ms=4, label="%d digits, N=32" % DPS)
         for lamf in formula(s, V0, der, l, remin=-8):
             ax.axvline(float(lamf), color="0.85", lw=0.6, zorder=0)
         lc = (d - 1) / 2 - float(s)

@@ -81,8 +81,16 @@ def hit_zero(r, Y):
 hit_zero.terminal = True
 
 
-def left_value(d, q, p, rho0=1e-4):
+def start_radius(q, p):
+    """Starting radius for the Taylor start at rho = 0.  A profile with psi(0) = p varies on the
+    length scale ~ p^{(q+1)/2} (static scaling psi -> mu^{-sigma} psi(mu rho)), so start well inside it."""
+    return min(1e-4, 1e-3 * p ** ((q + 1) / 2.0))
+
+
+def left_value(d, q, p, rho0=None):
     sig = 2.0 / (q + 1)
+    if rho0 is None:
+        rho0 = start_radius(q, p)
     A = (p ** (-q) - sig * (1 - sig) * p) / (2 * d)       # psi = p + A rho^2 + ...
     Y0 = [p + A * rho0 ** 2, 2 * A * rho0]
     sol = solve_ivp(rhs_factory(d, q), [rho0, RHO_M], Y0, method="DOP853", rtol=1e-11, atol=1e-13,
@@ -177,7 +185,7 @@ def profile_on_grid(d, q, p, b, rr):
     resonant, cf = right_series(d, q)
     rhs = rhs_factory(d, q)
     A = (p ** (-q) - sig * (1 - sig) * p) / (2 * d)
-    r0 = 1e-6
+    r0 = min(1e-6, start_radius(q, p))
     solL = solve_ivp(rhs, [r0, RHO_M], [p + A * r0 ** 2, 2 * A * r0], method="DOP853", rtol=1e-12,
                      atol=1e-14, dense_output=True)
     co = cf(b)
@@ -252,10 +260,23 @@ def main():
         ax.plot(v[0] / c, v[1] / c, 'ko', ms=4)
     ax.set_xlim(0.2, 1.4)
     ax.set_ylim(-0.6, 1.2)
+    # inset: zoom on the spiral of the left family around the singular solution A rho^sigma
+    ins = ax.inset_axes([0.52, 0.08, 0.45, 0.42])
+    ins.plot(PL[:, 0] / c, PL[:, 1] / c, '-', color='#1f5fa8', lw=0.8)
+    ins.plot(PR[:, 0] / c, PR[:, 1] / c, '-', color='#c4531b', lw=0.8)
+    for x in sols:
+        v = left_value(d, q, x[0])
+        ins.plot(v[0] / c, v[1] / c, 'ko', ms=3)
+    A = singular_amplitude(d, q)
+    ins.plot(A * 0.5 ** (2.0 / 3) / c, A * (2.0 / 3) * 0.5 ** (-1.0 / 3) / c, 'k+', ms=7)
+    ins.set_xlim(0.355, 0.385)
+    ins.set_ylim(0.36, 0.52)
+    ins.tick_params(labelsize=6)
+    ins.set_title(r'zoom; $+$: $A\rho^\sigma$', fontsize=7)
     ax.set_xlabel(r'$\psi(1/2)/c$')
     ax.set_ylabel(r"$\psi'(1/2)/c$")
     ax.set_title(r'(a) shooting, $d=3$, $q=2$', fontsize=10)
-    ax.legend(fontsize=7, loc='upper right')
+    ax.legend(fontsize=7, loc='upper left')
     rr = np.linspace(0, 1, 801)
     for ax, d in zip(axes[1:], (2, 3)):
         c, resonant, sols, _, _ = results[(d, q)]

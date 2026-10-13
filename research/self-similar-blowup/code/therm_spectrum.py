@@ -66,26 +66,34 @@ def predicted(model, l, lmin=-6.0):
     return sorted(out, reverse=True)
 
 
-def part_A():
-    print("(A) Chebyshev collocation in rho, eigenvalues with Re > -5.5")
+def part_A(cut=-1.6):
+    """Collocation is exact on polynomials (L maps P_N x P_N into itself), but the matrix is
+    highly non-normal, so in floating point only eigenvalues with Re > cut are resolved;
+    below that, rounding produces spurious complex pairs (pseudospectral pollution)."""
+    print(f"(A) Chebyshev collocation in rho, eigenvalues with Re > {cut}")
     worst = 0.0
     for model in ['reduced', 'full']:
         for d in [1, 2, 3, 4, 5]:
             for l in [0, 1, 2, 3, 4]:
                 if d == 1 and l > 1:
                     continue
-                ev = {}
-                for N in [24, 40]:
-                    lamN = np.linalg.eigvals(sector_matrix(d, l, model, N))
-                    ev[N] = np.sort(lamN[lamN.real > -5.5].real)[::-1]
-                pred = predicted(model, l, -5.5)
-                # match eigenvalues (multiset) to the prediction
-                e40 = ev[40]
-                err = max(abs(np.sort(e40) - np.sort(pred))) if len(e40) == len(pred) else np.inf
+                lamN = np.linalg.eigvals(sector_matrix(d, l, model, 32))
+                e = np.sort(lamN[lamN.real > cut].real)[::-1]
+                im = np.max(np.abs(lamN[lamN.real > cut].imag)) if len(e) else 0.0
+                pred = predicted(model, l, cut)
+                if len(pred) == 0 and len(e) == 0:
+                    err = 0.0
+                elif len(e) == len(pred):
+                    err = float(np.max(np.abs(np.sort(lamN[lamN.real > cut]) - np.sort(pred))))
+                else:
+                    err = np.inf
                 worst = max(worst, err)
-                if d in (1, 3) and l in (0, 1):
-                    print(f"  {model:7s} d={d} l={l}: N=40 -> {np.round(e40, 6)}   predicted {pred}   max err {err:.1e}")
+                if d in (1, 3) and l in (0, 1, 2):
+                    print(f"  {model:7s} d={d} l={l}: N=32 -> {np.round(e, 5)}  (max|Im| {im:.1e})"
+                          f"   predicted {pred}   max err {err:.1e}")
     print(f"  worst deviation over d=1..5, l=0..4, both models: {worst:.2e}")
+    print("  (double eigenvalues of the full model at -1 (l=0), -2 (l=1) split by O(sqrt(eps)):"
+          " signature of a Jordan block)")
 
 
 # ---------------------------------------------------------------------------

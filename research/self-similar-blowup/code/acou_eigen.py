@@ -143,17 +143,24 @@ def report_double(lmin=-3.2):
 
 
 def report_mp(lmin=-3.2, Ns=((41, 40), (61, 60))):
-    print("=== high precision (mpmath) ===")
+    print("=== high precision (mpmath); errors computed in working precision ===")
     data = {}
     for model, d, l in CASES:
         for N, dps in Ns:
-            ev, _ = spectrum_mp(N, d, l, model, dps)
-            sel = ev[ev.real > lmin]
+            ev, E = spectrum_mp(N, d, l, model, dps)
             pred = predicted(d, l, model, lmin)
-            ok = len(sel) == len(pred)
-            err = np.max(np.abs(np.sort(sel.real)[::-1] - pred)) if ok else np.inf
-            print(f"{model} d={d} l={l} N={N} dps={dps}: {np.round(sel.real, 12)}  "
-                  f"exact {pred}  count {'=' if ok else '!='}  max err {err:.1e}")
+            with mp.workdps(dps):
+                sel = [z for z in E if mp.re(z) > lmin]
+                ok = len(sel) == len(pred)
+                if ok:
+                    # exact values as mp numbers (pred are quarter-integers -> exact)
+                    exact = [mp.mpf(str(v)) for v in pred]
+                    err = max(abs(z - e) for z, e in zip(sel, exact))
+                    errs = mp.nstr(err, 3)
+                else:
+                    errs = "n/a"
+            print(f"{model} d={d} l={l} N={N} dps={dps}: {np.round(ev[ev.real > lmin].real, 12)}  "
+                  f"exact {pred}  count {'=' if ok else '!='}  max err {errs}")
             data[(model, d, l, N)] = ev
     return data
 
