@@ -316,7 +316,98 @@ all rates are measured only on the $\tau$-window where they agree to $1\%$.
 ($M=16000$, resp.\ $8000$) down to $\min w=0.02$ (resp.\ $0.03$), and fitted
 with $T$ as a free parameter.
 
-%%MEMSRESULTS%%
+\paragraph{Results.} In all four cases the minimum of $w$ is attained at the
+centre (also in $d=2$: no ring quenching was observed for $\lambda\ge0.7$). The
+main numbers are collected in \cref{num:tab-mems}; \cref{num:fig-mems,num:fig-mems2}
+show the evolution.
+
+\begin{table}[ht]
+\centering\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lccccccc@{}}
+\toprule
+case & $T$ & $\min(T-t)$ & $\omega_{\rm fit}$ & $\omega$, $c$ free & $C_\infty/c-1$ & $\frac{\psi_2+\frac23c}{\psi_1-c}$ & rate of $\operatorname{osc}W$\\
+\midrule
+$d=1$, $\gamma=0$ & $1.751942633160$ & $1.2\cdot10^{-7}$ & $0.66663$ & $0.6649$ & $2.1\cdot10^{-7}$ & $-1.3319$ & $0.995$\\
+$d=1$, $\gamma=1$ & $2.405075174190$ & $4.0\cdot10^{-8}$ & $0.66662$ & $0.6642$ & $2.6\cdot10^{-7}$ & $-1.3318$ & $0.994$\\
+$d=2$, $\gamma=0$ & $1.41984985$ & $1.8\cdot10^{-7}$ & $0.66666$ & $0.6627$ & $1.2\cdot10^{-6}$ & $-1.3312$ & $0.991$\\
+$d=2$, $\gamma=1$ & $2.2141540$ & $2.6\cdot10^{-7}$ & $0.66655$ & $0.6597$ & $3.8\cdot10^{-6}$ & $-1.3296$ & $0.985$\\
+\midrule
+prediction & & & $\frac23$ & $\frac23$ & $0$ & $-\frac43$ & $1$\\
+\bottomrule
+\end{tabular}
+\caption{Hyperbolic MEMS touchdown, $q=2$, $\lambda=0.5$ ($d=1$), $\lambda=0.8$
+($d=2$). $T$: bisection (digits shown are stable under changes of the
+light-cone resolution; in $d=2$ the stage-1 resolution changes $T$ by
+$8\cdot10^{-9}$ ($\gamma=0$) and $2\cdot10^{-7}$ ($\gamma=1$)). $\min(T-t)$: end of
+the validity window. $\omega_{\rm fit}$: fit of $W(\tau,0)-c$ by
+$Ae^{-\omega\tau}+Be^{-\tau}+Ce^{-4\tau/3}$ on $\tau\ge3$ ($e^{-4\tau/3}$ is the
+square of the gap mode); without the $C$ term one gets $0.6656$, $0.6651$,
+$0.6643$, $0.6625$. Next column: fit $W(\tau,0)=C_\infty+Ae^{-\omega\tau}+Be^{-\tau}$
+with $c$ unknown. Ratio column: at the end of the window, $\xi=0$. Last
+column: decay rate of $\max_\xi W-\min_\xi W$.}
+\label{num:tab-mems}
+\end{table}
+
+\begin{enumerate}[label=(\roman*),leftmargin=2em,itemsep=2pt]
+\item \emph{Exponent and constant.} With $T$ from the bisection, the local
+  slope $d\log w_{\min}/d\log(T-t)$ for $T-t<10^{-6}$ is $0.666656$,
+  $0.666655$, $0.666640$, $0.666627$, and $w_{\min}(T-t)^{-2/3}\to c$; leaving $c$
+  free in the fit returns $c=(9\lambda/2)^{1/3}$ to $2\cdot10^{-7}$ ($d=1$) and
+  $4\cdot10^{-6}$ ($d=2$). The approach is slow: the relative correction is
+  $(A/c)(T-t)^{2/3}$ with $A/c=-1.44,-2.18,-2.82,-3.87$, so that $w_{\min}$ is
+  within $1\%$ of $c(T-t)^{2/3}$ only for $T-t\lesssim10^{-4}$, i.e.\ $w_{\min}\lesssim
+  3\cdot10^{-3}$ (\cref{num:fig-mems}, middle; \cref{num:fig-mems2}, right).
+  Consequently, the independent physical-space fits over $w_{\min}\in[0.02,0.25]$
+  with $T$ free give $\beta=0.596,0.559,0.545,0.500$ for $w=C(T-t)^\beta$, and
+  still $\beta=0.644,0.627,0.614,0.589$ if the correction
+  $(1+e(T-t)^{2/3})$ is included; their $T$ deviates from the bisection value
+  by $10^{-4}$--$10^{-3}$. \emph{Exponents read off from moderate gaps are
+  biased low}; this matters when comparing with experiments or with
+  simulations that stop at $w_{\min}=O(10^{-2})$.
+\item \emph{Light-cone profile.} $W(t,\xi)=(T-t)^{-2/3}w(t,(T-t)\xi)$ converges
+  uniformly on $|\xi|\le1$ to the constant $c$ (\cref{num:fig-mems2}, left), with
+  $\|W-c\|_\infty\sim(T-t)^{\omega}$, $\omega=0.6666\pm0.0001$ when the
+  quadratic term of the gap mode is included, in agreement with
+  $\omega_0=\frac23$. The deviation is, to leading order, the spatially
+  \emph{constant} eigenfunction $(1,-\frac43)$ of $\lambda=-\frac23$ (ratio column),
+  i.e.\ the ODE-energy mode: $W(t,0)-c\approx A(T-t)^{2/3}$ with $A<0$, as for an
+  ODE solution of negative energy. The spatial oscillation $\operatorname{osc}_\xi W$
+  decays faster, like $(T-t)^{1}$, which is the next even eigenvalue
+  $\lambda=-1$ (eigenfunction $1+\frac{|\xi|^2}{3d}$ in the first component). Damping does not change
+  the rate (it enters at order $e^{-\tau}$), only the coefficients.
+\end{enumerate}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{figures/num_mems_touchdown.pdf}
+\caption{Hyperbolic MEMS touchdown. Left: $\min_xw$ versus $T-t$ (thin:
+physical-space leapfrog alone; thick: light-cone evolution). Middle:
+$w_{\min}/(c(T-t)^{2/3})$. Right: $\|W-c\|_{L^\infty(|\xi|\le1)}$ (solid) and
+$\max_\xi W-\min_\xi W$ (dashed) with the slopes $\frac23$ and $1$.}
+\label{num:fig-mems}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/num_mems_profiles.pdf}
+\caption{Left: light-cone profiles $W(t,\cdot)$, $d=1$, $\lambda=0.5$, $\gamma=0$,
+flattening to $c$ (dotted). Right: local exponent $d\log w_{\min}/d\log(T-t)$.}
+\label{num:fig-mems2}
+\end{figure}
+
+\paragraph{Comparison with \cite{GimperleinHeLacey2022}.} That work studies
+the same equation formally and numerically for radial data and predicts
+quenching at the origin with the ODE law $\kappa(T-t)^{2/(q+1)}$, stability of
+this profile up to time translation, and instability of the non-trivial
+self-similar profiles (as summarised in \cref{lit:sec}; we could not access
+the full text, so we do not compare individual numbers). Our computations
+agree on all three qualitative points: quenching at the centre, exponent
+$\frac23$ and constant $(9\lambda/2)^{1/3}$, and convergence to the ODE profile
+at the spectral-gap rate; starting from physical data we never observed an
+approach to a non-trivial profile. They add two quantitative points: the
+identification of the slowest correction as the ODE-energy mode, and the
+warning in (i) about pre-asymptotic exponents.
 
 %-----------------------------------------------------------------------------
 \subsection{Asymmetric data: flat or boosted profile?}
@@ -435,7 +526,11 @@ $q=2$, the slowest mode is \emph{not} spatially constant: the ODE energy mode
   meaning as $\mathcal H^k$-spectra requires $k\ge\frac d2-s+\omega_0$
   (\ref{num:D-buried}); the energy space is too small for MEMS in every
   dimension.
-\item %%DISC4%%
+\item No discrepancy in the nonlinear tests: exponent $\frac23$, constant
+  $(9\lambda/2)^{1/3}$, rate $\omega_0=\frac23$ (MEMS), $\omega_0=1$ ($e^u$) and flat
+  limit at the touchdown point are all confirmed. The hint that the profile
+  ``can also converge to a boosted profile'' is correct only at points $x_0\neq x^*$
+  of the blowup curve, with $a=T'(x_0)$.
 \end{enumerate}
 
 \paragraph{Caveats.}

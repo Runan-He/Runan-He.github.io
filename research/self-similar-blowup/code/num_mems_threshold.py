@@ -75,6 +75,16 @@ def dyn_threshold(gam, d, lo, hi, it=7):
     return lo, hi
 
 
+def touchdown_location(lam, gam, d, M=2000):
+    """argmin of w when min w first drops below 0.05 (coarse leapfrog)."""
+    F = lambda w: -lam / w ** 2
+    if d == 1:
+        x, W, _ = leapfrog1d(F, gam, M, stop=lambda W: W.min() < 0.05)
+    else:
+        x, W, _ = leapfrog_rad(F, gam, M // 2, d=2, stop=lambda W: W.min() < 0.05)
+    return x[np.argmin(W)]
+
+
 if __name__ == "__main__":
     for d in (1, 2):
         ls, ms = static_pullin(d)
@@ -83,3 +93,13 @@ if __name__ == "__main__":
             lo, hi = dyn_threshold(gam, d, 0.15 if d == 1 else 0.4, 1.0 if d == 1 else 1.5)
             print("      gam=%.0f: touchdown before t=%.0f iff lam > lam_dyn in [%.4f, %.4f]"
                   % (gam, TMAX, lo, hi))
+    print("location of the minimum of w when min w < 0.05 (grid spacing 1e-3):")
+    for d, lams in ((1, (0.35, 0.5, 1.0)), (2, (0.7, 0.8, 1.0, 1.2))):
+        for gam in (0.0, 1.0):
+            locs = []
+            for lam in lams:
+                try:
+                    locs.append("lam=%.2f: x=%.4f" % (lam, touchdown_location(lam, gam, d)))
+                except Exception:
+                    locs.append("lam=%.2f: none" % lam)
+            print("   d=%d gam=%.0f  " % (d, gam) + " ; ".join(locs))

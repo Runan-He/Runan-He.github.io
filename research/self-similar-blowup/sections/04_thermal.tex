@@ -55,7 +55,7 @@ $q=(kR\Theta_0^2/(EL))\,q'$, gives (primes dropped)
   \tau_*\, q_t+q=-\nabla\theta,
 \end{equation}
 with the FK parameter $\delta=QAEL^2e^{-E/(R\Theta_0)}/(kR\Theta_0^2)$ and the
-dimensionless relaxation time (Vernotte number) $\tau_*=\tau_r/t_0=\tau_rk/(\rho cL^2)$; the
+dimensionless relaxation time $\tau_*=\tau_r/t_0=\tau_rk/(\rho cL^2)$; the
 dimensionless thermal wave speed is $\tau_*^{-1/2}$.  Applying $(1+\tau_*\partial_t)$ to
 the balance law and subtracting the divergence of the flux law eliminates $q$:
 \begin{equation}\label{therm:eq:full}
@@ -120,8 +120,8 @@ all of the form $u=u_T+O((T-t)^2)$ with the \emph{ODE blowup}
   u_T(t)=\log\frac{2}{\delta}-2\log(T-t).
 \end{equation}
 \paragraph{Symmetries.}  Time and space translations, rotations, the scaling
-$u\mapsto u(\mu t,\mu x)+2\log\mu$, the shift $u\mapsto u+\kappa$, $\delta\mapsto
-\delta e^{-\kappa}$ (so $\delta$ can be normalised on $\mathbb{R}^d$), and Lorentz boosts.
+$u\mapsto u(\mu t,\mu x)+2\log\mu$, the shift $u\mapsto u+c_0$, $\delta\mapsto
+\delta e^{-c_0}$ (so $\delta$ can be normalised on $\mathbb{R}^d$), and Lorentz boosts.
 Boosting \cref{therm:eq:ode} and re-centring the singular hyperplane at $(T,0)$ gives
 the family (checked symbolically for $d=3$)
 \begin{equation}\label{therm:eq:boosted}
@@ -206,12 +206,13 @@ of the eigenvalue equation (see the proof of \cref{therm:prop:spec}) lie in
 $H^k$, so every such $\lambda$ is an eigenvalue.
 \end{proof}
 
-For the power case, Ostermann \cite{Ostermann2023} and Donninger--Sch\"orkhuber
-\cite{DonningerSchoerkhuber2017} construct an equivalent inner product in which
-$\mathbf L_0$ is dissipative modulo a finite-rank operator, with rate
-$s+k-\frac d2$; with $s=0$ this is the statement above.  Since $\mathbf L'$ is
-compact, $\sigma(\mathbf L)\cap\{\operatorname{Re}\lambda>\frac d2-k\}$ consists of isolated
-eigenvalues of finite algebraic multiplicity.
+In the power case the same energy structure (with top-order rate $s+k-\frac d2$)
+underlies the semigroup theory of \cite{DonningerSchoerkhuber2017,Ostermann2024},
+which works with suitable equivalent inner products; we have not checked that
+those constructions carry over verbatim to $s=0$, but the quotient argument
+above is all that is used below.  Since $\mathbf L'$ is compact,
+$\sigma(\mathbf L)\cap\{\operatorname{Re}\lambda>\frac d2-k\}$ consists of isolated eigenvalues of finite
+algebraic multiplicity.
 
 \begin{proposition}[Point spectrum, reduced model]\label{therm:prop:spec}
 Let $k>d/2$ and $\operatorname{Re}\lambda>\frac d2-k$.  Then $\lambda\in\sigma_p(\mathbf L)$ if and only if
@@ -314,13 +315,16 @@ basis, with diagonal blocks $\begin{psmallmatrix}-(\ell+2m)&1\\2&-(\ell+2m)-1\en
 eigenvalues are exactly $1-\ell-2m$ and $-2-\ell-2m$ -- a two-line proof that
 \cref{therm:eq:eigs} are eigenvalues (completeness needs the connection
 argument).  Consequently Chebyshev collocation in $\rho$ is exact in exact
-arithmetic; in floating point it reproduces \cref{therm:eq:eigs} to $\le10^{-6}$ for
-$\operatorname{Re}\lambda>-1.6$ ($d\le5$, $\ell\le4$), while non-normality produces spurious complex
-pairs for $\operatorname{Re}\lambda\lesssim-2.5$.  Independently, the connection coefficient computed
+arithmetic; in floating point ($N=32$) it reproduces \cref{therm:eq:eigs} to within
+$3\cdot10^{-5}$ for $\operatorname{Re}\lambda>-1.6$ ($d\le5$, $\ell\le4$), while non-normality produces
+spurious complex pairs for $\operatorname{Re}\lambda\lesssim-2.5$ (for the full model of
+\cref{therm:sec:full} the double eigenvalue $-1$ is split by up to $0.07$, the typical
+$\sqrt{\text{rounding}}$-sensitivity of a Jordan block).  Independently, the connection coefficient computed
 by direct numerical integration of the radial ODE agrees with the closed form to
 $10^{-20}$, and the argument principle applied to it counts exactly the zeros
 $\{1\}$ ($\ell=0$), $\{0\}$ ($\ell=1$), $\emptyset$ ($\ell=2$) in
-$[-0.45,2.45]\times[-3,3]$ (\texttt{code/therm\_spectrum.py}).
+$[-0.45,2.45]\times[-3,3]$, for this model with $d=2$ and for the full model of
+\cref{therm:sec:full} with $d=3$ (\texttt{code/therm\_spectrum.py}).
 \end{remark}
 
 % ---------------------------------------------------------------------------
@@ -330,7 +334,9 @@ $[-0.45,2.45]\times[-3,3]$ (\texttt{code/therm\_spectrum.py}).
 \begin{lemma}[Nonlinearity]\label{therm:lem:N}
 Let $k>d/2$ and $C_k$ the algebra constant of $H^k(B^d)$.  For
 $\|f\|_{H^k},\|g\|_{H^k}\le R$,
-$\|e^{f}-1-f-(e^g-1-g)\|_{H^k}\le(e^{C_kR}-1)\|f-g\|_{H^k}\le C_kRe^{C_kR}\|f-g\|_{H^k}$.
+\[
+\|e^{f}-1-f-(e^g-1-g)\|_{H^k}\le(e^{C_kR}-1)\|f-g\|_{H^k}\le C_kRe^{C_kR}\|f-g\|_{H^k}.
+\]
 Hence $\mathbf N:\mathcal H^k\to\mathcal H^k$ is locally Lipschitz with
 $\|\mathbf N(\varphi)-\mathbf N(\tilde\varphi)\|\lesssim(\|\varphi\|+\|\tilde\varphi\|)\|\varphi-\tilde\varphi\|$ on bounded sets, and the
 same holds for $\mathbf N_a(\varphi)=(0,V_a(e^{\varphi_1}-1-\varphi_1))$, $V_a=2/(A_0+a\cdot\xi)^2$.
@@ -359,7 +365,7 @@ For radial data, $a=0$.
 
 \begin{proof}[Proof sketch]
 We follow \cite{DonningerSchoerkhuber2012,DonningerSchoerkhuber2014} (modulation of
-$T$) and \cite{DonningerSchoerkhuber2017,Ostermann2023} (non-radial data and Lorentz
+$T$) and \cite{DonningerSchoerkhuber2017,Ostermann2024} (non-radial data and Lorentz
 modulation).
 \emph{Step 1.} For parameters $(T,a)$ near $(1,0)$ write $\psi=\Psi_a+\varphi$ in the
 similarity variables of $(T,0)$: $\partial_\tau\varphi=\mathbf L_a\varphi+\mathbf N_a(\varphi)$, with
@@ -397,9 +403,11 @@ profiles are only approximate solutions since damping breaks Lorentz invariance;
 the defect $O(\gamma(T-t))$ matches \cref{therm:eq:damped}).  Smallness of $\gamma T$ is
 no restriction: by the scaling symmetry it means $T-t_0\ll\tau_r$ at the
 starting time $t_0$, which can always be reached by Cauchy stability on
-$[0,t_0]$ for data close to the damped ODE blowup.  Note that the forcing decays
-exactly at the rate $e^{-\tau}$ of the eigenvalue $-1$, which explains the
-resonant $\log$ in \cref{therm:eq:damped} at the next order.
+$[0,t_0]$ for data close to the damped ODE blowup.  The forcing is spatially
+constant and decays like $e^{-\tau}$; it does not resonate with $\lambda=-1$ (whose
+$\ell=0$ eigenfunction $1-|\xi|^2/d$ is not constant), but its second-order effect at
+$e^{-2\tau}$ resonates with the constant mode $\lambda=-2$, which produces the logarithm in
+\cref{therm:eq:damped}.
 \end{remark}
 
 % ---------------------------------------------------------------------------
@@ -423,8 +431,10 @@ two solutions of the Hill equation $y''+\frac12(u_{\sigma\sigma}-\frac12u_\sigma
 diagonal action of $PSL(2,\mathbb{R})$ that leaves \cref{therm:eq:liouville} invariant.
 \end{proposition}
 
-For smooth Cauchy data, $F'$ and $G'$ never vanish ($u(0,\cdot)$ is finite), and the
-solution blows up exactly on $\{F(t+x)+G(t-x)=0\}$.  The ODE blowup corresponds
+For smooth Cauchy data, $F$ and $G$ are local diffeomorphisms into
+$\mathbb{R}\cup\{\infty\}$ ($F'$, $G'$ never vanish since $u(0,\cdot)$ is finite; a M\"obius
+normalisation makes $F,G$ finite near any given point), and the solution blows up
+exactly on $\{F(t+x)+G(t-x)=0\}$.  The ODE blowup corresponds
 to $F=(T-\sigma)/2$, $G=-\eta/2$.
 
 \begin{proposition}[Local structure of $1$D blowup]\label{therm:prop:liouville}
@@ -574,7 +584,7 @@ $|T-1|\le M\varepsilon$, and with some $|v|\le M\varepsilon$ the bounds of
 component, and $H^k\cdot H^{k-1}\subset H^{k-1}$ for $k>d/2$, so
 \cref{therm:lem:N} holds for $\mathbf N_{\rm F}$.  (ii) The non-compact term $\mathbf B$ shifts the
 free decay rate down by (at most) one; this only costs regularity ($k>\frac d2+2$
-instead of $k>\frac d2+1$ for a gap $1$).  (iii) There is no Lorentz symmetry; the
+instead of $k\ge\frac d2+1$ for a gap $1$).  (iii) There is no Lorentz symmetry; the
 $d$ neutral modes are produced by the tilted family \cref{therm:eq:tilted},
 which is all that the modulation in Step 4 needs (for $\gamma>0$ its defect is
 $O(\gamma|v|^2e^{-\tau})$, handled as in \cref{therm:rem:damping}).  (iv) The Jordan
@@ -582,8 +592,8 @@ block at $-1$ forces $\omega<1$, which is anyway required by the nonlinear argum
 The parts we have not checked in detail are the uniform-in-$v$ spectral
 perturbation for $\mathbf L_{{\rm F},v}$ (which is now a non-compact perturbation of
 $\mathbf L_{\rm F}$, but small in operator norm) and the precise semigroup bound.
-For the closest rigorous analogue with a time-derivative nonlinearity see
-\cite{LiuRaees2025} ($u_t^2$-type nonlinearities).
+For the closest rigorous analogues with time-derivative nonlinearities see
+\cite{LiuRaees2025} (quadratic $u_t^2$-type nonlinearities) and \cite{Gough2025} ($d=1$).
 
 \paragraph{Numerical evidence (\cref{therm:fig:blowup}(c)).}  For $d=1$, $\gamma\in\{0,1\}$ and
 generic smooth data, the similarity-variable evolution with bisection in $T$
@@ -644,7 +654,7 @@ Liouville's formula \cite{Liouville1853}; MCV law and both model forms
 surface with logarithmic behaviour for data near constants, any $d$
 \cite{Kichenassamy1996}; $1$D blowup curves and rates
 \cite{Godin2000,Godin2001,AzaiezMasmoudiZaag2016}; Donninger machinery for powers
-\cite{DonningerSchoerkhuber2012,DonningerSchoerkhuber2014,DonningerSchoerkhuber2017,Ostermann2023}.
+\cite{DonningerSchoerkhuber2012,DonningerSchoerkhuber2014,DonningerSchoerkhuber2017,Ostermann2024}.
 &
 Spectra \cref{therm:eq:eigs,therm:eq:eigsfull} with all integer/log cases;
 semisimplicity; Jordan block (full); free rates; \cref{therm:thm:reduced}
@@ -661,13 +671,15 @@ self-similar profiles were not searched for.\\
 \label{therm:tab:status}
 \end{table}
 
-\paragraph{Novelty.}  We did not find a Donninger-type (similarity variables,
+\paragraph{Novelty.}  For the method in general see the survey \cite{Donninger2024}.
+We did not find a Donninger-type (similarity variables,
 $H^k$, spectral) stability theorem for $u_{tt}-\Delta u=e^u$, nor any analysis of the
 MCV-consistent equation with the $\partial_t(e^u)$ nonlinearity.  However,
 Kichenassamy's result \cite{Kichenassamy1996} (Fuchsian reduction and Nash--Moser,
 data near constants, i.e.\ near the ODE blowup) already implies stability of the
 ODE blowup for $\square u=e^u$ in a high-regularity sense, including the
-logarithmic terms (absent iff the blowup surface has vanishing scalar curvature).
+logarithmic terms (absent iff the blowup surface has vanishing scalar
+curvature); we have only seen the abstract of \cite{Kichenassamy1996}.
 \Cref{therm:thm:reduced} should therefore be viewed as a routine but
 quantitative adaptation ($H^k$, $k>d/2$, explicit rate $(T-t)^\omega$, data only on a
 ball), while the full Cattaneo model (\cref{therm:sec:full}) appears to be new.
@@ -675,8 +687,9 @@ The literature search was limited (search budget), so this assessment is
 provisional.
 
 \paragraph{Caveats.}  (1) \Cref{therm:thm:reduced,therm:thm:full} are proof
-sketches; the equivalent-norm/dissipativity lemma for $s=0$ and the modulation in
-$(T,a)$ are adapted from the power case without writing out all details.
+sketches; the uniform semigroup bounds on the stable subspace (beyond the
+quasi-compactness of \cref{therm:lem:free}) and the modulation in $(T,a)$ are
+adapted from the power case without writing out all details.
 (2) For the full model only the crude essential bound $\frac d2+1-k$ is proved.
 (3) Damping requires $\gamma T$ small, reached by Cauchy stability.  (4) The
 analysis is local in a light cone; boundary conditions, the Gelfand threshold
