@@ -1,1 +1,124 @@
-% placeholder
+\section{Summary, engineering consequences and open problems}
+\label{concl:sec}
+
+\begin{table}[ht]
+\centering\footnotesize
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}p{0.14\textwidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Model (application) & Singularity & Non-negative modes & Gap $\omega_0$ & Status in these notes\\
+\midrule
+Hyperbolic MEMS $w^{-q}$, $q>1$ (electrostatic, vdW, Casimir actuators)
+ & touchdown $w\simeq c(T-t)^{\frac2{q+1}}$, flat in cone
+ & $1$ (time), $0$ (boosts)
+ & $\min\{1,\frac{2(q-1)}{q+1}\}$
+ & spectrum proved; stability modulo symmetries and with damping sketched
+   (\cref{mems:thm-main,mems:prop-damped}); new\\
+MEMS, focused profiles $\psi_n$, $d=2,3$
+ & touchdown at a point, $\psi_n(0)\to0$
+ & $n$ extra unstable
+ & --
+ & numerical; \cref{mems:conj-prof}\\
+Reduced hyperbolic Gelfand $u_{tt}-\Delta u=\delta e^u$ (Cattaneo heat, FK source)
+ & $u\simeq\log\frac2\delta-2\log(T-t)$
+ & $1$, $0$
+ & $1$ (sharp in $d=1$)
+ & stability sketched (\cref{therm:thm:reduced}); 1D exact check via Liouville;
+   cf.\ \cite{Kichenassamy1996}\\
+Full Cattaneo--FK model
+ & $\theta\simeq-\log(T-t)$ (parabolic rate)
+ & $1$, $0$ (tilts)
+ & $1$ (Jordan block at $-1$)
+ & sketched, less checked (\cref{therm:thm:full})\\
+Arrhenius source
+ & no blowup
+ & --
+ & --
+ & FK blowup only as an intermediate regime\\
+Softening foundation / $\varphi^4$ / NLKG, $|u|^{p-1}u$
+ & $u\simeq\kappa(T-t)^{-\frac2{p-1}}$
+ & $1$, $0$
+ & $1$
+ & known for $\gamma=m=0$ \cite{Ostermann2024}; lower-order lemma sketched
+   (\cref{power:thm-lower-order})\\
+Co-rotational wave maps (inertial director dynamics)
+ & $2\arctan\frac{r}{\sqrt{d-2}(T-t)}$
+ & $1$
+ & $\approx0.54$ ($d=3$)
+ & known (\cref{geom:thm:d3}); spectrum reproduced numerically\\
+Relativistic membranes / Born--Infeld
+ & shrinking spheres (lightlike collapse)
+ & infinitely many
+ & --
+ & Donninger method not applicable to spheres; general case open
+   (\cref{geom:sec:membranes})\\
+Acoustic toy model $u_{tt}-\Delta u=u_t^2$
+ & $u\simeq-\log(T-t)$
+ & $1$, $0$ (shift; tilts)
+ & $1$
+ & radial sketched (\cref{acou:thm-rad}); nonradial conjectural; cf.\ \cite{Speck2020}\\
+Inviscid Westervelt
+ & degeneration $1-2kp\propto(T-t)^{1/2}$
+ & $1$, $\frac14$ (tilt), $0$
+ & formal
+ & quasilinear, open (\cref{acou:sec})\\
+\bottomrule
+\end{tabularx}
+\caption{Status of the models. ``Non-negative modes'' lists the eigenvalues
+$\lambda\ge0$ of the linearisation in similarity variables together with
+their origin. ``Sketched'' means a proof sketch with all key estimates in
+the style of \cite{DonningerSchoerkhuber2017,Ostermann2024}.}
+\label{concl:tab}
+\end{table}
+
+\subsection{What the analysis says about the devices}
+\begin{enumerate}[leftmargin=1.5em]
+\item \emph{Rates are universal and robust.} Once inertia is retained, the
+final approach to touchdown or runaway is governed by the spatially
+homogeneous ODE. For the Coulomb MEMS force the gap closes like
+$(9\lambda/2)^{1/3}(T-t)^{2/3}$, against $(3\lambda(T-t))^{1/3}$ in the
+parabolic (overdamped) model. Damping, restoring forces and smooth variations
+of the permittivity change only lower-order corrections. They decay in
+similarity variables, so the hyperbolic rate is the true terminal one even
+for strongly damped devices. The parabolic rate is at most an intermediate
+regime.
+\item \emph{The terminal profile is flat.} In the backward light cone the
+stable profile is constant (or a Lorentz-tilted constant). Touchdown
+therefore occurs along a spacelike hypersurface $t=T^*(x)$, not at an
+isolated point as in the parabolic theory. Focused, point-like touchdown
+profiles exist for $d=2,3$ but are unstable. A generic device is not expected
+to show them.
+\item \emph{Boundaries do not matter locally.} The results are local in the
+light cone of the singular point. Clamping conditions, the geometry of the
+device and far-away material parameters enter only through the touchdown
+time $T^*$ and the tilt $a^*$.
+\item \emph{Which singularity actually forms is model-dependent.} The full
+Maxwell--Cattaneo thermal-explosion model blows up at the \emph{parabolic}
+logarithmic rate, not at the hyperbolic one of the frequently used reduced
+model. Arrhenius kinetics removes the blowup altogether. Viscous nonlinear
+acoustics leaves the light-cone setting entirely.
+\end{enumerate}
+
+\subsection{Open problems suggested by these notes}
+\begin{enumerate}[leftmargin=1.5em]
+\item Turn the proof sketches of
+\cref{mems:thm-main,mems:prop-damped,therm:thm:reduced} into complete
+proofs. The new ingredients relative to \cite{Ostermann2024} are the
+negative scaling exponent (finite-rank splitting of the free operator,
+\cref{mems:lem-free}) and the need to stay away from $w=0$, which the
+$L^\infty$ control gives.
+\item Prove the existence of the focused MEMS profiles $\psi_n$ in $d=2,3$
+(\cref{mems:conj-prof}) and determine their co-dimension. A shooting argument
+around the singular static solution $A|x|^{2/(q+1)}$, as in
+\cite{BizonMaisonWasserman2007}, looks feasible.
+\item Go beyond the light cone: regularity of the touchdown hypersurface,
+$a^*=\nabla T^*$, and the hyperboloidal approach of
+\cite{BiernatDonningerSchoerkhuber2021,ChenEtAl2024} for MEMS.
+\item Models not covered by the method in its present form: MEMS plates
+($\Delta^2$, no light cone), nonlocal MEMS, the full Cattaneo model in
+higher regularity, and the quasilinear problems (Westervelt degeneration,
+membranes).
+\item Compare the rigorous picture of \cref{mems:sec} in detail with the
+formal analysis and numerics of \cite{GimperleinHeLacey2022,He2021}. This
+could not be done here because the paper was not accessible.
+\end{enumerate}
