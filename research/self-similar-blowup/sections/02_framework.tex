@@ -7,8 +7,8 @@ work on wave maps \cite{Donninger2011} and was developed into a general
 scheme by Donninger and Schörkhuber
 \cite{DonningerSchoerkhuber2012,DonningerSchoerkhuber2014,DonningerSchoerkhuber2016,DonningerSchoerkhuber2017},
 with later refinements for mode stability \cite{CostinDonningerGlogic2017},
-high Sobolev spaces in all dimensions \cite{Ostermann2024,Glogic2022} and
-hyperboloidal similarity coordinates \cite{BiernatDonningerSchoerkhuber2021}.
+high Sobolev spaces in all dimensions \cite{Ostermann2024,Glogic2025} and
+hyperboloidal similarity coordinates \cite{BiernatDonningerSchoerkhuber2021}; see \cite{Donninger2024} for a survey.
 We use it here as a black box with five steps, and we point out the (few)
 places where the industrial models need something extra.
 
@@ -130,10 +130,9 @@ $(1-|\xi|^2)^{\gamma}$, $\gamma=\frac{d-1}{2}-s-\lambda$, possibly with a
 logarithm; such a function lies in $H^k(B^d)$ only if
 $\operatorname{Re}\gamma>k-\frac12$ or $\gamma\in\mathbb N_0$ without log term.
 For $\operatorname{Re}\lambda>-\omega_k$ we have $\operatorname{Re}\gamma<k-\frac12$,
-so $h$ must be analytic at $z=1$. By the connection formulae
-(DLMF 15.8.4 for $\gamma\notin\mathbb Z$, and 15.8.8--15.8.10 for the
-degenerate cases $\gamma\in\mathbb Z$, where the coefficients of the
-logarithm and of $(1-z)^{\gamma}$, $\gamma<0$, are proportional to
+so $h$ must be analytic at $z=1$. By the $z\mapsto1-z$ connection formulae \cite[\S15.8]{DLMF} (including the
+degenerate cases $\gamma\in\mathbb Z$, in which the coefficients of the logarithm
+and of $(1-z)^{\gamma}$, $\gamma<0$, are proportional to
 $1/(\Gamma(\alpha)\Gamma(\beta))$ resp.\ $1/(\Gamma(\alpha-m)\Gamma(\beta-m))$)
 this happens iff $\alpha\in-\mathbb N_0$ or $\beta\in-\mathbb N_0$, in which case $h$ is a
 polynomial. Solving $\alpha=-n$, $\beta=-n$ for $\lambda=a-s$ gives the two
@@ -169,7 +168,7 @@ $-s-m$ of $\mathbf L_0^{(s)}$, and for the MEMS case $s<0$ the constant
 wave $w\equiv1$ gives the \emph{positive} eigenvalue $-s=\sigma$. The rigorous
 version (inner products on $\mathcal H^k$ built from $\dot H^k$-type
 seminorms plus boundary/low-order terms, Lumer--Phillips) is
-\cite[Sec.~3]{Ostermann2024} and \cite{Glogic2022}: there is an equivalent
+\cite{Ostermann2024} and \cite{Glogic2025}: there is an equivalent
 inner product and a finite-rank operator $\mathbf K_0$ such that
 $\mathbf L_0^{(s)}-\mathbf K_0$ generates a semigroup of growth bound
 $\le-\omega$ for any prescribed $\omega<\omega_k$ (after possibly increasing
@@ -254,7 +253,7 @@ a high Sobolev norm, with an explicit exponential rate in $\tau$, i.e.\ a
 power rate in $T^*-t$. It does not, by itself, determine the global blowup
 set or describe the solution outside the cone; for the latter see the
 hyperboloidal variant \cite{BiernatDonningerSchoerkhuber2021} and
-\cite{ChenDonningerGlogicMcNultySchoerkhuber2024}. For the industrial models
+\cite{ChenEtAl2024}. For the industrial models
 we treat, it nevertheless yields exactly the information an engineer would
 ask for: the \emph{touchdown/runaway rate}, the \emph{local profile}, and the
 \emph{robustness} of both under perturbations of data and of lower-order

@@ -1,0 +1,401 @@
+% sections/01_models_literature.tex  (owner: lit)
+% Literature survey and novelty check. References: bib/lit.bib.
+% Literature state as found by web searches on 2026-10-13.
+\section{Industrial wave models with self-similar blowup: a survey}
+\label{lit:sec}
+
+All models collected below are, after nondimensionalisation, of the form
+\begin{equation}\label{lit:eq:generic}
+  \varepsilon^{2}\partial_t^2 u+\gamma\,\partial_t u-\Delta u+m^{2}u
+  =F(u)\quad\text{or}\quad F(u,\partial u),
+\end{equation}
+possibly with a fourth-order or quasilinear principal part. Near a
+singularity at $(T,x_0)$ the time scale $T-t$ is short compared with the
+relaxation time $\varepsilon^{2}/\gamma$, so after rescaling $t$ the
+principal part is the wave operator and $\gamma\partial_t u$, $m^2u$ are
+lower order (in the similarity variables of the notation file they carry
+the factors $e^{-\tau}$ and $e^{-2\tau}$). The prototype singularity is the
+spatially homogeneous (``ODE'') solution $u_T$ of $u''=F(u)$, which is
+self-similar: $u_T=\kappa(T-t)^{-s}$ or $u_T=-2\log(T-t)+\mathrm{const}$.
+We say \emph{blowup} if $|u|\to\infty$ and \emph{quenching} (in MEMS:
+\emph{touchdown}) if $u$ stays bounded while $F(u)$ and $\partial_tu$ become
+unbounded; in similarity variables the two cases differ only in the sign of
+the scaling exponent $s$ ($s<0$ for quenching). For each model class we
+record the equation and its industrial origin, known blowup/quenching
+results, self-similar solutions and stability results; a summary is given
+in Table~\ref{lit:tab:summary}.
+
+\subsection{Electrostatic MEMS with inertia: touchdown as quenching}
+\label{lit:mems}
+In the small-aspect-ratio limit, the deflection $u\in(-1,0]$ of an
+electrostatically actuated elastic membrane suspended above a rigid ground
+plate (gap $1+u$) satisfies
+\begin{equation}\label{lit:eq:mems}
+  \varepsilon^{2}u_{tt}+u_t-\Delta u=-\frac{\lambda f(x)}{(1+u)^{2}}
+  \quad\text{in }\Omega,\qquad u=0\ \text{on }\partial\Omega,
+\end{equation}
+where $\varepsilon^2$ is the ratio of inertial to damping forces,
+$\lambda\propto V^2$ measures the applied voltage and $f$ the dielectric
+profile; see the monographs
+\cite{PeleskoBernstein2002,EspositoGhoussoubGuo2010,KavallarisSuzuki2018},
+the survey \cite{LaurencotWalker2017}, and
+\cite{FloresEtAl2007,Flores2014} for the hyperbolic model
+\eqref{lit:eq:mems}. Variants include a nonlocal version, in which $\lambda$
+is replaced by $\lambda/(1+\alpha\int_\Omega(1+u)^{-1}\,dx)^{2}$ (device in
+series with a capacitor) \cite{KavallarisEtAl2011,KavallarisSuzuki2018}, a
+fringing-field correction \cite{Miyasita2017}, and plate models with
+$\Delta^2u$ \cite{LaurencotWalker2014,LaurencotWalker2017}. At nanometre
+gaps, van der Waals and Casimir forces (scaling like $w^{-3}$ and $w^{-4}$
+in the gap $w$) compete with the electrostatic force $w^{-2}$ and can cause
+collapse even without applied voltage
+\cite{SerryWalliserMaclay1998,BatraPorfiriSpinello2007}. With $w:=1+u$ and
+in the inertia-dominated regime one is led to the model
+\begin{equation}\label{lit:eq:memsq}
+  w_{tt}-\Delta w=-\lambda\,w^{-q},\qquad q>1\quad
+  (q=2 \text{ electrostatic},\ q=3 \text{ van der Waals},\ q=4\text{ Casimir}).
+\end{equation}
+
+\emph{ODE quenching.} Equation \eqref{lit:eq:memsq} has the self-similar
+solution
+\begin{equation}\label{lit:eq:memsode}
+  w_T(t)=\kappa_q\,(T-t)^{\sigma},\qquad \sigma=\tfrac{2}{q+1},\qquad
+  \kappa_q^{\,q+1}=\frac{\lambda(q+1)^{2}}{2(q-1)}
+  \qquad(q=2:\ \sigma=\tfrac23,\ \kappa_2^3=\tfrac{9\lambda}{2}),
+\end{equation}
+for which $w_T\to0$ and $\partial_tw_T\to-\infty$ as $t\to T$. In the
+notation file, $s=-\sigma$ and $V_0=F'(w_T)(T-t)^2=2q(q-1)/(q+1)^2$; the
+roots of $a^2+a-V_0=0$ are $a_1=1-\sigma$ and $a_2=-(2-\sigma)$, so the
+candidate eigenvalues are $1-\ell-2n$ and $-2(q-1)/(q+1)-\ell-2n$. The only
+non-negative eigenvalues are $1$ (time translation) and $0$ with $\ell=1$
+(Lorentz boosts), exactly as for focusing power nonlinearities.
+(This is the formal count; it is verified in the model sections.)
+
+\emph{Known results.} Local well-posedness, global existence for small
+$\lambda$ and finite-time touchdown for large $\lambda$ are known for
+\eqref{lit:eq:mems} and its variants
+\cite{ChangLevine1981,FloresEtAl2007,Guo2010,KavallarisEtAl2011,Flores2014,KavallarisEtAl2015,Miyasita2017};
+\cite{Flores2014} shows numerically that the dynamic pull-in threshold lies
+below the static one and depends on $\varepsilon$, and
+\cite{KavallarisEtAl2015} studies the quenching behaviour of
+$u_{tt}=u_{xx}+\lambda(1-u)^{-2}$ in one dimension. For
+\eqref{lit:eq:memsq} with radial data, Gimperlein, He and Lacey
+\cite{GimperleinHeLacey2022} (see also \cite{He2021}) obtain
+\emph{formally} a sequence of self-similar quenching solutions; formal
+asymptotics and numerics indicate that radial solutions increasing in $|x|$
+quench at the origin like \eqref{lit:eq:memsode}, that the trivial profile
+is stable up to the time-translation mode, and that the non-trivial
+profiles are unstable. For the parabolic MEMS problem, quenching profiles
+are constructed rigorously in self-similar variables, e.g.\
+\cite{LiaoNguyen2025}. We found \emph{no} rigorous stability result for the
+hyperbolic touchdown \eqref{lit:eq:memsode} (see
+Section~\ref{lit:novelty}).
+
+\subsection{Hyperbolic heat conduction and thermal explosion}
+\label{lit:heat}
+The Maxwell--Cattaneo--Vernotte law $\tau\boldsymbol q_t+\boldsymbol
+q=-k\nabla\theta$ \cite{Cattaneo1958,Vernotte1958} (reviews:
+\cite{JosephPreziosi1989,Straughan2011}) replaces Fourier's law when the
+time scale is comparable with the thermal relaxation time $\tau$ (pulsed
+laser heating, fast reactions). Combined with the energy balance $\rho
+c\,\theta_t+\nabla\!\cdot\boldsymbol q=Q(\theta)$ with an Arrhenius or
+Frank-Kamenetskii source $Q(\theta)=\delta e^{\theta}$ (thermal explosion,
+combustion \cite{BebernesEberly1989}), elimination of $\boldsymbol q$ gives
+\begin{equation}\label{lit:eq:mcv}
+  \tau\rho c\,\theta_{tt}+\rho c\,\theta_t-k\Delta\theta
+  =Q(\theta)+\tau Q'(\theta)\,\theta_t .
+\end{equation}
+The ``hyperbolic Gelfand problem'' usually studied is the semilinear model
+\begin{equation}\label{lit:eq:gelfand}
+  u_{tt}+\gamma u_t-\Delta u=\delta e^{u},\qquad
+  u_T(t)=\log\tfrac{2}{\delta}-2\log(T-t),
+\end{equation}
+i.e.\ \eqref{lit:eq:mcv} without the last term. A short computation shows
+that this omission matters: for the full system the flux of a spatially
+homogeneous state is divergence free, so homogeneous solutions obey the
+first-order ODE $\rho c\,\theta_t=Q(\theta)$ and blow up like
+$\theta\approx-\log(T-t)$ (parabolic Frank-Kamenetskii type), and near such
+a state $\tau Q'(\theta)\theta_t$ is of the same order as
+$\tau\rho c\,\theta_{tt}$. Thus the wave-type ODE blowup in
+\eqref{lit:eq:gelfand} is a feature of the semilinear model (and of
+Liouville-type equations), not of the Cattaneo system itself; we did not
+find the singularity formation of \eqref{lit:eq:mcv} treated in the
+literature.
+
+For \eqref{lit:eq:gelfand}: in $1+1$ dimensions $u_{tt}-u_{xx}=e^u$ is the
+classical Liouville equation, whose general solution is explicit.
+Kichenassamy \cite{Kichenassamy1996} constructs, by Fuchsian reduction and a
+Nash--Moser argument and in any dimension, solutions blowing up on a
+prescribed spacelike hypersurface with logarithmic behaviour, and according
+to the abstract treats Cauchy data close to constants (we have only seen
+the abstract). In one dimension, Godin \cite{Godin2000} shows for mixed
+problems that solutions are either global or blow up on a spacelike curve,
+and Azaiez--Masmoudi--Zaag \cite{AzaiezMasmoudiZaag2016} determine the
+blowup rate at non-characteristic points for low-regularity data.
+
+\subsection{Softening foundations and focusing Klein--Gordon equations}
+\label{lit:kg}
+A string or beam on a softening (Duffing-type) elastic foundation, after
+scaling, gives
+\begin{equation}\label{lit:eq:kg}
+  u_{tt}-u_{xx}+u=|u|^{p-1}u\quad(p=3)\qquad\text{or}\qquad
+  u_{tt}+u_{xxxx}+u=u^{3},
+\end{equation}
+the focusing Klein--Gordon ($\phi^4$) equation in the string case. Since
+the cubic law is a truncated Taylor expansion, blowup signals a loss of
+stability (snap-through, collapse) rather than physically infinite
+displacement. Fourth-order suspension-bridge models show finite-time blowup
+with wide oscillations, which is not self-similar
+\cite{GazzolaPavani2013,Gazzola2015}. For \eqref{lit:eq:kg} the ODE
+profile is $\kappa(T-t)^{-s}$, $s=2/(p-1)$, $\kappa^{p-1}=s(s+1)$
+($\sqrt2/(T-t)$ for $p=3$), and the mass term is an $e^{-2\tau}$
+perturbation. Blowup rates for focusing NLKG are due to Killip, Stovall and
+Visan \cite{KillipStovallVisan2014} and Hamza--Zaag \cite{HamzaZaag2013}
+(one dimension or radial). Donninger and Wallauch \cite{DonningerWallauch2021}
+show for a class of strongly perturbed supercritical equations in $d=3$
+that the ODE profile of the unperturbed equation still describes stable
+blowup. The damped analogue $u_{tt}+\gamma u_t-\Delta u=|u|^{p-1}u$ is
+covered by Lyapunov-functional methods in similarity variables, which give
+the blowup rate for lower-order perturbations
+\cite{HamzaZaag2010,HamzaZaag2012}; in one dimension, solutions converging
+exponentially to the ODE profile are constructed in \cite{HamzaSaidi2021}.
+
+\subsection{Nonlinear acoustics: derivative-quadratic wave equations}
+\label{lit:acoustics}
+High-intensity focused ultrasound (HIFU) and lithotripsy are modelled by the Westervelt and Kuznetsov equations
+\cite{Kaltenbacher2015}
+\begin{equation}\label{lit:eq:west}
+  p_{tt}-c^2\Delta p-b\Delta p_t=k\,(p^2)_{tt},\qquad
+  \psi_{tt}-c^2\Delta\psi-b\Delta\psi_t
+  =\partial_t\big(|\nabla\psi|^2+\tfrac{B}{2A}c^{-2}\psi_t^2\big).
+\end{equation}
+With viscosity $b>0$ there is global well-posedness for small data
+\cite{KaltenbacherLasiecka2009}. In the inviscid case \eqref{lit:eq:west}
+is a quasilinear wave equation with local well-posedness and an expected
+gradient blowup (shocks) \cite{DekkersRozanovaPierrat2017}. Two ODE-type
+mechanisms are relevant. (i) \emph{Degeneracy}: for $b=0$ the Westervelt
+equation reads $\partial_t^2(p-kp^2)=c^2\Delta p$; spatially homogeneous
+solutions have $p-kp^2=A+Bt$, so for $B>0$ the branch with $p<1/(2k)$ satisfies
+$1-2kp=\sqrt{4kB(T-t)}$, which vanishes
+at a finite time $T$ with $p_t\sim(T-t)^{-1/2}$: $p$ stays bounded while
+the equation degenerates, a quasilinear analogue of quenching (our
+observation; we found no study of it). (ii) \emph{Riccati-type
+nonlinearities}: the semilinear model $u_{tt}-\Delta u=(\partial_tu)^2$
+has the ODE blowup $u_T=-\log(T-t)$. Speck \cite{Speck2020} proves stable
+ODE-type blowup in $d=3$ for a class of quasilinear equations with such
+derivative-quadratic terms. In one dimension, Gough \cite{Gough2025} and
+Liu--Raees \cite{LiuRaees2025} show that no smooth exact self-similar
+profiles exist, construct generalised self-similar solutions with
+logarithmic growth, and prove asymptotic stability of the relevant branches
+(including the ODE branch). The spatial-derivative analogue is treated in
+\cite{GhoulLiuMasmoudi2025}. Note that $u_{tt}-\Delta u=u_t^2-|\nabla u|^2$
+is linearised by $v=e^{-u}$ ($\Box v=0$), so its blowup is the touchdown
+$v\to0$ of a free wave.
+
+\subsection{Nematic liquid crystals, \texorpdfstring{$\sigma$}{sigma}-models and wave maps}
+\label{lit:lc}
+If the inertia of the director field $\boldsymbol n$ is retained and the
+elastic anisotropy and the coupling to flow are neglected, a nematic
+director $\boldsymbol n:\mathbb{R}^{1+3}\to S^2$ formally obeys the wave
+map equation $\boldsymbol n_{tt}-\Delta\boldsymbol n=(|\nabla\boldsymbol
+n|^2-|\boldsymbol n_t|^2)\boldsymbol n$. With anisotropic (splay/bend)
+elasticity a planar director angle $\psi$ satisfies the variational wave
+equation $\psi_{tt}-c(\psi)(c(\psi)\psi_x)_x=0$, for which Glassey, Hunter
+and Zheng proved finite-time singularity formation (cusps; gradient
+blowup, not ODE-type) and nonlinear instability of constant states
+\cite{GlasseyHunterZheng1996}. Self-similar blowup for co-rotational wave
+maps $\mathbb{R}^{1+3}\to S^3$ goes back to Shatah \cite{Shatah1988} and
+Turok--Spergel \cite{TurokSpergel1990}, with excited profiles in
+\cite{Bizon2000} and explicit profiles $\mathbb{R}^{1+d}\to S^d$, $d\ge4$, in
+\cite{BiernatBizon2015}. These are the founding examples of the Donninger
+programme (Section~\ref{lit:donninger}). The stability theory is developed
+for targets $S^d$ with $d$ equal to the space dimension; we are not aware of
+results specific to the $S^2$-valued director in three dimensions.
+
+\subsection{Relativistic strings, membranes and Born--Infeld}
+\label{lit:membranes}
+Timelike extremal (zero mean curvature) hypersurfaces in Minkowski space
+model relativistic strings and membranes and, in $1+1$ dimensions, give
+the Born--Infeld equation
+$(1+u_x^2)u_{tt}-2u_tu_xu_{tx}-(1-u_t^2)u_{xx}=0$. The origin is physical
+rather than industrial. Eggers and Hoppe describe singularity formation by
+self-similar solutions \cite{EggersHoppe2009}, extended to membranes in
+\cite{EggersEtAl2015}. Yan constructs explicit self-similar solutions and
+proves their stability inside a strict sub-cone of the backward light cone
+\cite{Yan2018,Yan2019} (preprints). These equations are quasilinear and lie
+outside the semilinear framework below.
+
+\subsection{Further models}
+\label{lit:other}
+MEMS plates, $u_{tt}+\Delta^2u=-\lambda(1+u)^{-2}$
+\cite{LaurencotWalker2014,LaurencotWalker2017}, have no finite speed of
+propagation, and their natural scaling is $x\sim(T-t)^{1/2}$, so the
+light-cone method does not apply directly. Coupled MEMS models, in which
+the electric potential solves an elliptic problem in the moving gap, are
+analysed in \cite{He2021,LaurencotWalker2017}. Cattaneo-type (hyperbolic)
+chemotaxis models are a further candidate. % TODO verify references (hyperbolic Keller--Segel) -- not cited
+We have not reviewed their singularities.
+
+\begin{table}[htbp]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}p{0.11\linewidth}p{0.22\linewidth}p{0.12\linewidth}p{0.17\linewidth}p{0.14\linewidth}p{0.18\linewidth}@{}}
+\toprule
+\raggedright Model & \raggedright Equation & \raggedright Application & \raggedright Self-similar profile & \raggedright Symmetry modes & \raggedright Stability status \tabularnewline
+\midrule
+\raggedright Hyperbolic MEMS & \raggedright $w_{tt}+\gamma w_t-\Delta w=-\lambda w^{-q}$, $q=2,3,4$ & \raggedright MEMS/NEMS touchdown & \raggedright $\kappa_q(T-t)^{2/(q+1)}$ (quenching); formal non-trivial ones \cite{GimperleinHeLacey2022} & \raggedright $\lambda=1$ (time); $\lambda=0$, $\ell=1$ (boosts) & \raggedright Open in the literature (formal and numerical evidence only); target of this note \tabularnewline
+\raggedright Nonlocal MEMS & \raggedright as above, $\lambda\mapsto\lambda(1+\alpha\!\int\! w^{-1})^{-2}$ & \raggedright MEMS with series capacitor & \raggedright as above (formally) & \raggedright as above & \raggedright Open \tabularnewline
+\raggedright MEMS plate & \raggedright $w_{tt}+\Delta^2w=-\lambda w^{-2}$ & \raggedright MEMS plates & \raggedright parabolic scaling & \raggedright n/a & \raggedright Open; light-cone method not applicable \tabularnewline
+\raggedright Hyperbolic Gelfand & \raggedright $u_{tt}+\gamma u_t-\Delta u=\delta e^u$ & \raggedright thermal explosion (semilinear model) & \raggedright $\log\frac2\delta-2\log(T-t)$ & \raggedright $\lambda=1$; $\lambda=0$, $\ell=1$ & \raggedright Smooth data: \cite{Kichenassamy1996}; 1D: \cite{Godin2000,AzaiezMasmoudiZaag2016}; $H^k$ light-cone stability open \tabularnewline
+\raggedright Cattaneo system & \raggedright \eqref{lit:eq:mcv} & \raggedright laser heating, combustion & \raggedright $-\log(T-t)$ (parabolic type) & \raggedright not computed & \raggedright Open (not found) \tabularnewline
+\raggedright Focusing KG & \raggedright $u_{tt}-\Delta u+m^2u=|u|^{p-1}u$ & \raggedright softening foundations, $\phi^4$ & \raggedright $\kappa(T-t)^{-2/(p-1)}$ & \raggedright $\lambda=1$; $\lambda=0$, $\ell=1$ & \raggedright Rates \cite{KillipStovallVisan2014,HamzaZaag2013}; $m=0$: \cite{Ostermann2024}; $m>0$: expected \cite{DonningerWallauch2021} \tabularnewline
+\raggedright Damped power & \raggedright $u_{tt}+\gamma u_t-\Delta u=|u|^{p-1}u$ & \raggedright damped structures & \raggedright as above & \raggedright as above & \raggedright Rates \cite{HamzaZaag2010,HamzaZaag2012}; 1D \cite{HamzaSaidi2021}; $H^k$, $d\ge2$ open \tabularnewline
+\raggedright Riccati derivative & \raggedright $u_{tt}-\Delta u=(\partial_tu)^2$ & \raggedright nonlinear acoustics (model) & \raggedright $-\log(T-t)$; generalised SS in 1D & \raggedright $\lambda=1$ (time); $\lambda=0$ (shift $u\mapsto u+c$); no boosts & \raggedright 1D \cite{Gough2025,LiuRaees2025}; 3D (other method) \cite{Speck2020} \tabularnewline
+\raggedright Westervelt, $b=0$ & \raggedright $\partial_t^2(p-kp^2)=c^2\Delta p$ & \raggedright HIFU, lithotripsy & \raggedright $1-2kp\propto(T-t)^{1/2}$ & \raggedright not computed & \raggedright Open (quasilinear) \tabularnewline
+\raggedright Wave maps & \raggedright $\Box\boldsymbol n=-(|\partial_t\boldsymbol n|^2-|\nabla\boldsymbol n|^2)\boldsymbol n$ & \raggedright $\sigma$-models, nematics & \raggedright Shatah--Turok--Spergel, Biernat--Bizo\'n & \raggedright $\lambda=1$ & \raggedright Known (Section~\ref{lit:donninger}) \tabularnewline
+\raggedright Variational wave & \raggedright $\psi_{tt}-c(\psi)(c(\psi)\psi_x)_x=0$ & \raggedright nematic LC & \raggedright cusp singularities & \raggedright n/a & \raggedright Instability of constants \cite{GlasseyHunterZheng1996} \tabularnewline
+\raggedright Timelike minimal surfaces & \raggedright Born--Infeld & \raggedright strings, membranes & \raggedright \cite{EggersHoppe2009,EggersEtAl2015} & \raggedright n/a & \raggedright Partial (sub-cone) \cite{Yan2019} \tabularnewline
+\bottomrule
+\end{tabular}
+\caption{Wave-type models with self-similar singularities. ``Symmetry modes''
+are the non-negative eigenvalues of the formal linearisation around the
+ODE profile (notation file); for co-rotational wave maps only time
+translation survives the symmetry reduction. Lower-order terms ($\gamma$,
+$m$) break Lorentz invariance but decay like $e^{-\tau}$, $e^{-2\tau}$.}
+\label{lit:tab:summary}
+\end{table}
+
+\subsection{The Donninger et al.\ method: literature}
+\label{lit:donninger}
+The method writes the equation as a first-order system in similarity
+coordinates on the backward light cone, so that the self-similar profile
+becomes a static solution. The linearised operator is treated as a
+compact perturbation of a generator $\mathbf L_0$ with explicit growth
+bound, obtained by Lumer--Phillips in $H^k\times H^{k-1}$. One proves mode
+stability, removes the symmetry-induced unstable eigenvalues by Riesz
+projections, modulates the blowup time (and the boost parameters), and
+closes a fixed-point argument. A survey is \cite{Donninger2024}. All
+entries below were checked against arXiv and journal or repository records.
+\begin{itemize}[leftmargin=1.2em,itemsep=1pt]
+\item \emph{Wave maps and Yang--Mills, conditional and mode stability.}
+\cite{Donninger2011}: nonlinear stability of the Shatah--Turok--Spergel
+co-rotational wave map $\mathbb{R}^{1+3}\to S^3$, conditional on mode
+stability. \cite{DonningerSchoerkhuberAichelburg2012}: the linearised
+problem; it excludes unstable eigenvalues with large imaginary part or real
+part $>\frac12$. \cite{CostinDonningerXia2014}: rigorous mode stability of
+this wave map, completing the proof (note: wave maps, not Yang--Mills).
+\cite{Donninger2014}: conditional stability for $(1+5)$-dimensional
+equivariant Yang--Mills. \cite{CostinEtAl2016}: mode stability for that
+Yang--Mills profile, via explicit approximate (``quasi-'') solutions; this
+completes the stability proof. \cite{Glogic2022}: stable blowup for
+Yang--Mills in odd $d\ge5$.
+\cite{CostinDonningerGlogic2017}: mode stability of the Bizo\'n--Biernat
+wave maps for $d\ge4$. \cite{DonningerGlogic2019}: existence and stability
+of self-similar blowup for wave maps into negatively curved targets, $d\ge8$.
+\item \emph{Power nonlinearities, ODE blowup.} \cite{DonningerSchoerkhuber2012}:
+$1<p\le3$, $d=3$, radial, energy topology.
+\cite{DonningerSchoerkhuber2014}: $p>3$, $d=3$, radial, stronger topology.
+\cite{DonningerSchoerkhuber2016}: $d=3$ without symmetry, $H^2\times H^1$. \cite{DonningerSchoerkhuber2017}: odd $d\ge5$,
+radial. \cite{Donninger2017}: energy-critical $p=5$, $d=3$, radial; Strichartz
+estimates in similarity coordinates. \cite{DonningerRao2018}: the energy-critical
+case at optimal regularity (preprint). \cite{Wallauch2022}: energy-critical,
+$3\le d\le6$ (preprint). \cite{ChatzikaleasDonninger2019}: cubic, odd
+$d\ge5$, without symmetry. \cite{Ostermann2024}: all $d$, all $p>1$, without
+symmetry. \cite{DonningerWallauch2021}: strongly perturbed equations, $d=3$.
+\cite{Liu2025}: superconformal ODE family in all dimensions (preprint).
+\item \emph{Non-trivial self-similar profiles, finite codimension.}
+\cite{GlogicSchoerkhuber2021}: explicit profile of the cubic equation for
+$d\ge5$; codimension-one stability for $d=7$.
+\cite{CsoboGlogicSchoerkhuber2024}: quadratic equation, explicit profile for
+$d\ge7$, codimension-one stability for $d=9$, non-radial ODE stability for
+$d=7,9$.
+\item \emph{Beyond the light cone.} \cite{BiernatDonningerSchoerkhuber2021}:
+hyperboloidal similarity coordinates; global-in-space stability of the
+$S^3$ wave map. \cite{ChenEtAl2024}: quadratic equation, $d=7$, conditional
+codimension-one stability up to near the Cauchy horizon.
+\cite{DonningerOstermann2023}: global stability of the Yang--Mills profile,
+odd $d$. \cite{Glogic2023}: global-in-space stability for Yang--Mills in
+higher dimensions (preprint). \cite{Glogic2025}:
+globally stable wave-map profile in all $d\ge3$. \cite{DonningerOstermann2024}:
+wave maps and Yang--Mills in regions approaching the future light cone of
+the singularity (preprint).
+\item \emph{Optimal regularity and recent work.} \cite{DonningerWallauch2023}:
+wave maps $\mathbb{R}^{1+4}\to S^4$, small data in the critical Sobolev
+space. \cite{DonningerWallauch2025}: three-dimensional wave maps, fractional
+critical space. \cite{DonningerMoscatelli2026}: mode stability of
+self-similar wave maps without symmetry for $d\ge4$ (preprint).
+\cite{Gough2025,LiuRaees2025,GhoulLiuMasmoudi2025}: one-dimensional
+derivative nonlinearities (Section~\ref{lit:acoustics}).
+\item \emph{Complementary approaches.} Merle--Zaag: blowup rate
+\cite{MerleZaag2003}; existence and universality of the profile in one
+dimension \cite{MerleZaag2007}; in higher dimensions, the stability of
+non-characteristic points and of the profile, and the dynamics near the
+explicit (Lorentz-transformed) stationary solutions in similarity variables
+\cite{MerleZaag2015,MerleZaag2016}. Bizo\'n et al.: numerics and heuristics
+\cite{BizonChmajTabor2004}, countable families of self-similar profiles
+\cite{BizonMaisonWasserman2007}. Lyapunov functionals for perturbed and
+Klein--Gordon equations \cite{HamzaZaag2010,HamzaZaag2012,HamzaZaag2013},
+and rates for NLKG \cite{KillipStovallVisan2014}. Speck: quasilinear
+derivative-quadratic equations \cite{Speck2020}. Blowup surfaces via
+Fuchsian/Nash--Moser methods \cite{Kichenassamy1996}, and scattering
+constructions of stable ODE-type blowup on spacelike hypersurfaces
+\cite{KadarLi2026} (preprint).
+\end{itemize}
+
+\subsection{Novelty assessment}
+\label{lit:novelty}
+We ran several targeted web searches per question (arXiv listings, journal
+and repository pages, and citing papers), current to 13 October 2026.
+Absence of evidence is not proof of absence; in particular the full texts
+of \cite{KavallarisEtAl2015,Guo2010,Kichenassamy1996} were not accessible to
+us.
+\begin{enumerate}[leftmargin=1.4em,itemsep=2pt]
+\item \emph{Hyperbolic MEMS $w_{tt}-\Delta w=-\lambda w^{-q}$ (damped or
+not).} Existence, touchdown criteria and pull-in thresholds are rigorous
+\cite{ChangLevine1981,FloresEtAl2007,Guo2010,KavallarisEtAl2011,Flores2014,KavallarisEtAl2015,Miyasita2017}.
+The self-similar structure (ODE profile, non-trivial profiles, stability up
+to time translation) is established only formally and numerically
+\cite{GimperleinHeLacey2022,He2021}. We found no rigorous proof of the
+quenching rate, of the profile, or of the stability of
+\eqref{lit:eq:memsode}, in similarity coordinates or otherwise, for any
+$q>1$ and any $d$. \textbf{Open}; a Donninger-type result would be new.
+\item \emph{Exponential equation $u_{tt}-\Delta u=e^u$.} For smooth data
+near constants, Kichenassamy's Nash--Moser construction \cite{Kichenassamy1996}
+gives blowup on spacelike hypersurfaces in any dimension. In one dimension,
+blowup curves and rates are known \cite{Godin2000,AzaiezMasmoudiZaag2016},
+and the Liouville equation is explicitly solvable. We found no
+Donninger-type theorem (stability of
+$\log2-2\log(T-t)$ in $H^k\times H^{k-1}$ of the backward light cone with
+exponential decay in $\tau$, $d\ge2$) and no Merle--Zaag-type higher-dimensional
+profile result. \textbf{Partially known; the light-cone $H^k$ statement
+appears open.}
+\item \emph{Focusing Klein--Gordon with mass.} Blowup rates are known
+\cite{KillipStovallVisan2014,HamzaZaag2013}. Stability of ODE blowup is
+known for $m=0$ \cite{Ostermann2024}, and for strongly perturbed equations
+in $d=3$ \cite{DonningerWallauch2021} (from the abstract we could not
+confirm whether a mass term is included). Since $m^2u$ contributes an
+$O(e^{-2\tau})$ term, the extension is expected to be routine, but we found
+no explicit statement for general $d$ and $p$. \textbf{Expected, not found
+explicitly.}
+\item \emph{Damped power equation $u_{tt}+u_t-\Delta u=|u|^{p-1}u$.}
+Blowup rates are known via Lyapunov functionals \cite{HamzaZaag2010,HamzaZaag2012},
+and the one-dimensional profile in \cite{HamzaSaidi2021}. We found no
+similarity-coordinate stability result for $d\ge2$. The damping term is an
+$O(e^{-\tau})$ perturbation that is non-autonomous and breaks Lorentz
+invariance. \textbf{Open in the $H^k$ light-cone sense, expected
+perturbative.}
+\item \emph{$u_{tt}-\Delta u=(\partial_tu)^2$.} In one dimension, stability
+of the (generalised) self-similar blowup is proved
+\cite{Gough2025,LiuRaees2025}. In three dimensions, stable ODE-type blowup
+for a quasilinear class is proved by a different method \cite{Speck2020}.
+A 2026 preprint (arXiv:2606.22282) treats radial blowup on spheres in
+higher dimensions for a quadratic-derivative nonlinearity; we could not
+verify its author list. % TODO verify authors of arXiv:2606.22282 before citing
+\textbf{Largely known; a localised similarity-coordinate result for
+$d\ge2$ was not found.}
+\end{enumerate}
+For the models of Sections~\ref{lit:heat} (full Cattaneo system) and
+\ref{lit:acoustics} (Westervelt degeneracy) we found no singularity analysis
+at all; both are quasilinear in the relevant regime and outside the scope of
+the semilinear method.
