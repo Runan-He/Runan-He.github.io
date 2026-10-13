@@ -1,0 +1,733 @@
+\section{The power family, Klein--Gordon and lower-order perturbations}
+\label{power:sec}
+
+This section does three things. First, it puts the softening ``Duffing
+continua'', the focusing Klein--Gordon ($\phi^4$) equation and the MEMS
+touchdown equation into one family $\partial_t^2u-\Delta u=F_p(u)$ with a
+single real exponent $p\notin[-1,1]$, and proves the spectral theorem for the
+ODE blowup of this family in all angular sectors (a detailed version of
+\cref{fw:thm-spec}), including the degenerate (integer, logarithmic and
+Jordan) cases. Second, it compares this with what is actually proved in the
+literature. Third, it treats damping and restoring forces
+$\gamma\partial_tu+m^2u$, which destroy exact self-similarity, and formulates a
+general ``asymptotically autonomous'' stability lemma
+(\cref{power:lem-lower-order}) that the model sections can cite.
+Throughout, \textbf{(K)} marks known results (with reference), \textbf{(P)}
+statements proved here, \textbf{(S)} statements only sketched here, and
+\textbf{(N)} numerical or conjectural statements.
+All symbolic claims are checked in \texttt{code/power\_symbolic.py}, all
+numerical ones in \texttt{code/power\_spectrum.py}.
+
+\subsection{Industrial models and the unified family}
+\label{power:subsec-models}
+
+\paragraph{Duffing continua.} A string ($d=1$) or membrane ($d=2$) of areal
+density $\varrho$, tension $\mathcal T$ and viscous damping coefficient $c_v$,
+resting on a nonlinear Winkler foundation with restoring force
+$k_1u-k_3u^3$ per unit area, obeys
+\begin{equation}\label{power:eq-duffing}
+  \varrho\,\partial_t^2u+c_v\,\partial_tu-\mathcal T\Delta u+k_1u=k_3u^3 .
+\end{equation}
+A \emph{softening} foundation ($k_3>0$) is the continuum version of the
+softening Duffing oscillator \cite{NayfehMook1979,KovacicBrennan2011}; the
+potential $\tfrac12k_1u^2-\tfrac14k_3u^4$ has a barrier at
+$u_b=(k_1/k_3)^{1/2}$, and spatially homogeneous motions with energy above the
+barrier escape to infinity in finite time. With $t=t_*t'$,
+$x=(\mathcal T/\varrho)^{1/2}t_*x'$, $u=(\varrho/(k_3t_*^2))^{1/2}u'$
+(dropping primes)
+\begin{equation}\label{power:eq-nlkg}
+  \partial_t^2u+\gamma\,\partial_tu+m^2u-\Delta u=u^3,\qquad
+  \gamma=\frac{c_vt_*}{\varrho},\quad m^2=\frac{k_1t_*^2}{\varrho}.
+\end{equation}
+The time unit $t_*$ is free; choosing it equal to the blowup time shows that
+$\gamma$ and $m$ measure the damping time and the foundation period
+\emph{relative to the blowup time}, which is the small parameter exploited in
+\cref{power:subsec-lower}. For $\gamma=0$, \eqref{power:eq-nlkg} is the focusing
+cubic Klein--Gordon ($\phi^4$) equation; the general focusing NLKG is
+$\partial_t^2u-\Delta u+m^2u=|u|^{p-1}u$. A hardening foundation ($k_3<0$)
+gives the defocusing sign and no ODE blowup.
+Two caveats are physical rather than mathematical: (a) the cubic law is a
+truncation, so ``blowup'' of \eqref{power:eq-nlkg} means \emph{dynamic escape} over
+the barrier (snap-through), and the self-similar profile describes the
+\emph{shape} of the escaping region only until $|u|$ leaves the range of
+validity of the foundation law; (b) Euler--Bernoulli beams carry the operator
+$\partial_x^4$ instead of $-\Delta$ and are not covered (their scaling
+exponent is $4/(p-1)$ and the light-cone structure is absent).
+
+\paragraph{The unified family.} For $p\in\mathbb R\setminus[-1,1]$ we set
+\begin{equation}\label{power:eq-family}
+  \partial_t^2u-\Delta u=F_p(u):=\operatorname{sgn}(p-1)\,|u|^{p-1}u,\qquad
+  s:=\frac{2}{p-1}\in(-1,0)\cup(0,\infty).
+\end{equation}
+For $p>1$ this is the focusing power equation. For $p=-q<-1$ and $u=w>0$ it is
+$\partial_t^2w-\Delta w=-w^{-q}$, the MEMS equation for the gap $w=1+u$ (the
+factor $\lambda$ in $-\lambda w^{-q}$ is removed by $w\mapsto\lambda^{1/(q+1)}w$),
+with $s=-\sigma$, $\sigma=2/(q+1)$ as in the MEMS section (\cref{mems:sec}).
+The sign $\operatorname{sgn}(p-1)$ makes the force point \emph{towards} the
+singularity ($u\to\infty$ for $p>1$, $w\to0$ for $p<-1$). The scaling
+$u\mapsto\mu^su(\mu t,\mu x)$ leaves \eqref{power:eq-family} invariant, the
+critical Sobolev exponent is $s_c=\frac d2-s$, and
+\cref{power:tab-models} lists the cases used in this note.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+model & $p$ & $s$ & $V_0=(s+1)(s+2)$ & gap $\omega_0=\min\{1,2s+2\}$\\
+\midrule
+softening string/membrane, $\phi^4$, cubic NLKG & $3$ & $1$ & $6$ & $1$\\
+focusing NLKG / NLW, $p>1$ & $p$ & $\frac{2}{p-1}$ & $\frac{2p(p+1)}{(p-1)^2}$ & $1$\\
+MEMS, general $q>1$ & $-q$ & $-\frac{2}{q+1}$ & $\frac{2q(q-1)}{(q+1)^2}$ & $\min\{1,\frac{2(q-1)}{q+1}\}$\\
+MEMS, parallel plate & $-2$ & $-\frac23$ & $\frac49$ & $\frac23$\\
+\bottomrule
+\end{tabular}
+\caption{The unified family \eqref{power:eq-family}. The gap is proved in
+\cref{power:thm-spectrum,power:cor-gap}.}
+\label{power:tab-models}
+\end{table}
+
+\subsection{ODE blowup and the excluded range \texorpdfstring{$-1\le p\le1$}{-1<=p<=1}}
+\label{power:subsec-ode}
+
+\begin{proposition}[ODE profile, both ranges; \textbf{(P)}]\label{power:prop-ode}
+Let $p\neq\pm1$ and $s=2/(p-1)$. The equation $u''=F_p(u)$ has a solution
+$u_T(t)=\kappa(T-t)^{-s}$ with $\kappa>0$ iff $p\notin[-1,1]$, and then
+\[
+  \kappa^{p-1}=\operatorname{sgn}(p-1)\,s(s+1)=|s(s+1)|,\qquad
+  V_0:=F_p'(u_T)(T-t)^2=p\,s(s+1)=(s+1)(s+2).
+\]
+In the MEMS range this reads $\kappa^{q+1}=\lambda/(\sigma(1-\sigma))$ and
+$V_0=q\sigma(1-\sigma)=(1-\sigma)(2-\sigma)$; note that $F'(w)=+\lambda
+qw^{-q-1}>0$, so the linearised force is \emph{repulsive} from the profile in
+both ranges.
+\end{proposition}
+
+\begin{proof}
+$u_T''=s(s+1)\kappa(T-t)^{-s-2}$ and $F_p(u_T)=\operatorname{sgn}(p-1)\kappa^p(T-t)^{-sp}$
+with $sp=s+2$; hence the condition $\kappa^{p-1}=\operatorname{sgn}(p-1)s(s+1)$.
+For $s>0$ and for $s\in(-1,0)$ (i.e.\ $p<-1$) the right-hand side is positive.
+For $p\in(-1,1)$ we have $s<-1$, so $s(s+1)>0$ while $\operatorname{sgn}(p-1)=-1$:
+no solution. Euler's relation $uF_p'(u)=pF_p(u)$ gives
+$V_0=pF_p(u_T)u_T^{-1}(T-t)^2=p\,s(s+1)$, and $p\,s=s+2$.
+\end{proof}
+
+\begin{remark}[Why $-1\le p\le1$ is excluded; \textbf{(P)}]\label{power:rem-small-p}
+The exclusion is structural, not technical. (i) $p=1$ is linear. (ii) For
+$p\in(-1,1)$ the self-similar ansatz would need $s<-1$, i.e.\ $u_T\to0$
+\emph{and} $\partial_tu_T\to0$: even with the opposite sign (where $\kappa$
+exists) this is not a singularity of $(u,\partial_tu)$, and it is unstable: the
+second eigenvalue family below starts at $-2s-2>0$, the ODE direction
+corresponding to the conserved energy $\frac12u'^2\mp\frac{|u|^{p+1}}{p+1}$.
+Physically, for the MEMS sign and $0<q<1$ the gap closes \emph{with finite
+speed}, $w\approx\sqrt{2E}\,(T-t)$, which is not of self-similar type.
+(iii) $p=-1$ ($q=1$): $s=-1$, $s(s+1)=0$, and touchdown carries a logarithmic
+correction, $w\approx(T-t)\sqrt{2|\log(T-t)|}$ (from
+$\frac12w'^2+\log w=E$). Thus ODE blowup with self-similar rate exists
+exactly for $s\in(-1,0)\cup(0,\infty)$, which is also where the gap
+$\omega_0=\min\{1,2s+2\}$ below is positive.
+\end{remark}
+
+\paragraph{Symmetry families.} Besides time translation $T$, the family
+contains the boosted profiles \eqref{fw:boost},
+$u_{T,a}=\kappa(1-|a|^2)^{s/2}(T-t+a\cdot x)^{-s}$, $|a|<1$, which blow up on
+the spacelike hyperplane $\{t=T+a\cdot x\}$ and are stationary in similarity
+variables, $\Psi_a=(\psi_a,(s+\Lambda)\psi_a)$,
+$\psi_a(\xi)=\kappa(1-|a|^2)^{s/2}(1+a\cdot\xi)^{-s}$. This holds verbatim in
+the MEMS range (the constant again satisfies $C^{p-1}=|s(s+1)|(1-|a|^2)$).
+Space translations act trivially on $u_T$ and generate no eigenvalue.
+
+\subsection{The linearised operator and the free flow}
+\label{power:subsec-linear}
+
+In similarity variables \eqref{fw:psi}--\eqref{fw:system}, $\Psi=\Psi_*+\Phi$,
+$\Psi_*=(\kappa,s\kappa)$, the perturbation solves
+$\partial_\tau\Phi=\mathbf L\Phi+\mathbf N(\Phi)$ with
+\[
+  \mathbf L\Phi=\begin{pmatrix}-\Lambda\phi_1-s\phi_1+\phi_2\\ \Delta\phi_1-\Lambda\phi_2-(s+1)\phi_2+V_0\phi_1\end{pmatrix},\qquad
+  \mathbf N(\Phi)=\begin{pmatrix}0\\ F_p(\kappa+\phi_1)-F_p(\kappa)-V_0\phi_1\end{pmatrix},
+\]
+on $\mathcal H^k=H^k(B^d)\times H^{k-1}(B^d)$. Since $\kappa>0$, $F_p$ is
+smooth (indeed real analytic) near $\kappa$ for every real $p$, including
+non-integer $p>1$ and the singular MEMS force; with $k>\frac d2$ and
+$\|\phi_1\|_{L^\infty}\le\kappa/2$ the nonlinearity is locally Lipschitz with a
+quadratic bound. No regularity restriction on $p$ arises.
+
+\begin{lemma}[Polynomial invariance; \textbf{(P)}]\label{power:lem-poly}
+Let $\mathcal P_N$ be the polynomials in $\xi$ of degree $\le N$. Then
+$\mathbf L(\mathcal P_N\times\mathcal P_N)\subset\mathcal P_N\times\mathcal P_N$, and
+on homogeneous parts of degree $j$ (modulo $\mathcal P_{j-1}^2$) $\mathbf L$
+acts as the matrix
+$M_j=\bigl(\begin{smallmatrix}-s-j&1\\ V_0&-s-1-j\end{smallmatrix}\bigr)$, whose
+eigenvalues are $1-j$ and $-2s-2-j$. For $V_0=0$ (the free operator
+$\mathbf L_0$) they are $-s-j$ and $-s-1-j$. In particular
+$\mathbf L_0(1,0)=-s(1,0)$, and the restriction of $\mathbf L$ to constants has
+the eigenvalues $1$ (time translation) and $-2s-2$.
+\end{lemma}
+\begin{proof}
+$\Lambda$ multiplies homogeneous polynomials of degree $j$ by $j$ and $\Delta$
+lowers the degree by two; so $\mathbf L$ is block upper triangular with
+diagonal blocks $M_j$, and $\det(M_j-\mu)=(\mu+j-1)(\mu+j+2s+2)$ because
+$V_0=(s+1)(s+2)$.
+\end{proof}
+
+\Cref{power:lem-poly} already produces every eigenvalue of
+\cref{power:thm-spectrum} with a polynomial eigenfunction; the content of the
+theorem is that there are no others. It also has a practical consequence:
+any polynomial (collocation or Galerkin) discretisation of $\mathbf L$ is
+exact on $\mathcal P_N^2$ and hence \emph{cannot} detect non-polynomial
+eigenfunctions, which is why the numerical test in
+\cref{power:subsec-numerics} uses a different method.
+
+\begin{lemma}[Free flow; \textbf{(S)}]\label{power:lem-free}
+Let $\omega_k:=k-s_c=k-\frac d2+s$. (a) $-s$ is an eigenvalue of $\mathbf L_0$
+on every $\mathcal H^k$ (eigenfunction $(1,0)$, i.e.\ $u\equiv$ const), so the
+growth bound of $\mathbf S_0(\tau)=e^{\tau\mathbf L_0}$ is $\ge-s$; in the MEMS range
+$-s=\sigma>0$ and the free flow \emph{grows}. (b) For every $\varepsilon>0$
+there are a finite-rank operator $\mathbf K$ and an inner product equivalent
+to that of $\mathcal H^k$ in which $\mathbf L_0-\mathbf K$ is dissipative with
+bound $-(\omega_k-\varepsilon)$. Consequently, if $\omega_k>0$, the essential
+growth bound of $\mathbf L=\mathbf L_0+\mathbf L'$ is $\le-\omega_k$ and
+$\sigma(\mathbf L)\cap\{\operatorname{Re}\lambda>-\omega_k\}$ consists of
+isolated eigenvalues of finite algebraic multiplicity.
+\end{lemma}
+\begin{proof}[Sketch]
+(a) is \cref{power:lem-poly} with $j=0$. (b) For $|\beta|=k-1$ put
+$f=\partial^\beta\phi_1$, $g=\partial^\beta\phi_2$. Since $\partial^\beta\Lambda=(\Lambda+k-1)\partial^\beta$,
+the free system gives $\partial_\tau f=-(\Lambda+s+k-1)f+g$,
+$\partial_\tau g=\Delta f-(\Lambda+s+k)g$. With
+$\int_B\Lambda h\,h=-\frac d2\int_Bh^2+\frac12\int_{\partial B}h^2$ and one integration
+by parts in $\langle\Delta f,g\rangle$,
+\[
+  \tfrac12\tfrac{d}{d\tau}\bigl(\|\nabla f\|^2+\|g\|^2\bigr)
+  =-\omega_k\bigl(\|\nabla f\|^2+\|g\|^2\bigr)
+  -\tfrac12\int_{\partial B}\bigl(|\nabla f|^2-(\partial_rf)^2+(\partial_rf-g)^2\bigr)
+  \le-\omega_k\bigl(\|\nabla f\|^2+\|g\|^2\bigr):
+\]
+the boundary term has a favourable sign because $\partial B$ is the light cone.
+Hence the seminorm $E_k=\sum_{|\beta|=k-1}(\|\nabla\partial^\beta\phi_1\|^2+\|\partial^\beta\phi_2\|^2)$
+decays at rate $2\omega_k$ along the free flow. Its kernel
+$\mathcal N_k=\mathcal P_{k-1}\times\mathcal P_{k-2}$ is finite-dimensional and
+$\mathbf L_0$-invariant (\cref{power:lem-poly}), and $E_k^{1/2}$ is equivalent to
+the quotient norm on $\mathcal H^k/\mathcal N_k$ (Bramble--Hilbert lemma). Thus
+$\mathbf L_0$ is block-triangular with respect to $\mathcal N_k\oplus\mathcal N_k^\perp$,
+with a quotient block of growth bound $\le-\omega_k$ and a finite-rank remainder
+$\mathbf K$. The rest is \cite[Ch.~IV]{EngelNagel2000}; $\mathbf L'$ is compact
+because $(0,V_0\phi_1)\in\{0\}\times H^k\Subset\{0\}\times H^{k-1}$. Rigorous
+constructions of inner products of this type are in
+\cite{Ostermann2024,Glogic2025}.
+\end{proof}
+
+\begin{remark}[Regularity threshold and the Lumer--Phillips step]\label{power:rem-LP}
+The free decay rate is $\omega_k=k-s_c$: data must be \emph{strictly above}
+scaling-critical regularity, $k>s_c=\frac d2-s$, to see any exponential decay
+at all. At the scaling-critical regularity $k=s_c$ (e.g.\ the energy space for
+$d=3$, $p=5$) there is no exponential decay of the free flow in $\mathcal H^k$, and
+additional tools such as Strichartz estimates in similarity coordinates are
+needed \cite{Donninger2017,DonningerRao2018,Wallauch2022}. To see the full gap one needs
+$\omega_k>\omega_0$, i.e.\ $k>\frac d2-s+\omega_0$; in the MEMS range this is
+$k>\frac d2+\sigma+\omega_0$ (e.g.\ $d=1,q=2$: $k\ge2$; $d=2,q=2$: $k\ge3$).
+The simplest Lumer--Phillips argument -- an inner product in which
+$\mathbf L_0$ itself is dissipative with bound $-s$ -- is sharp by
+\cref{power:lem-free}(a); it yields decay at rate $\min\{1,s\}$, which we believe
+is the origin of the exponent $\min\{1,s_p\}$ in \cite{Ostermann2024} (see
+\cref{power:subsec-lit}). In the MEMS range it gives
+\emph{nothing}, since $-s=\sigma>0$: no inner product makes $\mathbf L_0$
+dissipative with a negative bound, and one must split off the finitely many
+free polynomial modes ($-s-j>-\omega_k$, $j<k-\frac d2$) as in
+\cref{power:lem-free}(b). Since these are absorbed into the compact part, the
+positive free eigenvalue $\sigma$ is harmless; it is \emph{not} an eigenvalue
+of $\mathbf L$.
+\end{remark}
+
+\subsection{The spectral theorem in all angular sectors}
+\label{power:subsec-spectrum}
+
+For $d\ge2$ let $\mathcal Y_\ell$ be the spherical harmonics of degree $\ell$
+on $S^{d-1}$; for $d=1$ set $\mathcal Y_0=\{1\}$, $\mathcal Y_1=\{\operatorname{sgn}\xi\}$
+(even/odd sector) and $\mathcal Y_\ell=\{0\}$ for $\ell\ge2$.
+
+\begin{theorem}[Spectrum of the ODE blowup; \textbf{(P)}]\label{power:thm-spectrum}
+Let $d\ge1$, $p\in\mathbb R\setminus[-1,1]$, $k\in\mathbb N$ with $\omega_k>0$,
+and $\lambda\in\mathbb C$ with $\operatorname{Re}\lambda>-\omega_k$. Then
+$\lambda$ is an eigenvalue of $\mathbf L$ on $\mathcal H^k$ iff
+\[
+  \lambda\in\Sigma_s:=\{1-\ell-2n\}\cup\{-2s-2-\ell-2n\},\qquad n\in\mathbb N_0,\ \mathcal Y_\ell\neq\{0\}.
+\]
+The eigenspace in the sector $\ell$ is spanned by
+$\Phi=(g,(\lambda+s+\Lambda)g)$, $g=|\xi|^\ell Y_\ell(\tfrac{\xi}{|\xi|})\,{}_2F_1(\alpha,\beta;\tfrac d2+\ell;|\xi|^2)$,
+$Y_\ell\in\mathcal Y_\ell$, with
+$\alpha=\frac{\lambda+\ell-1}{2}$, $\beta=\frac{\lambda+\ell+2s+2}{2}$; the
+hypergeometric function is a polynomial of degree $n$. In particular all
+eigenvalues are real, and:
+\begin{enumerate}[nosep,label=(\alph*)]
+\item $\lambda=1$ occurs only for $\ell=0$, $g\equiv1$, $\Phi=(1,s+1)$: the
+  time-translation mode $\partial_T\Psi$;
+\item $\lambda=0$ occurs only for $\ell=1$, $\Phi=(\xi_j,(s+1)\xi_j)$,
+  $j=1,\dots,d$: the boost modes $\partial_{a_j}\Psi_a|_{a=0}$ (up to the factor $-s\kappa$);
+\item both are semisimple. The two families collide,
+  $1-\ell-2n=-2s-2-\ell-2n'$, iff $s\in\frac12+\mathbb Z$, i.e.\
+  $p\in\{5,\tfrac73,\tfrac95,\dots\}$ or $q=3$; at the lowest collisions
+  ($s=-\frac12$, $\lambda=-1$; $s=\frac12$, $\lambda=-3$; $\ell=0$) there is a
+  Jordan block of length two.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\emph{Reduction.} An eigenfunction satisfies $\phi_2=(\lambda+s+\Lambda)\phi_1$
+and \eqref{fw:eig} for $g=\phi_1$ with $a=s+\lambda$; \eqref{fw:eig} is elliptic in
+the open ball (principal symbol $|\eta|^2-(\xi\cdot\eta)^2>0$), so $g\in C^\infty(B^d)$.
+Expanding in spherical harmonics, each component $|\xi|^\ell Y_\ell\,h(|\xi|^2)$
+of an $H^k$ eigenfunction is again an $H^k$ solution, and $h$ solves
+\eqref{fw:hyp} with $c=\frac d2+\ell$, $\alpha+\beta+1=a+\ell+\frac32$,
+$\alpha\beta=\frac14[(a+\ell)(a+\ell+1)-V_0]$ (equivalently: the sector $\ell$ in
+dimension $d$ is the radial problem in dimension $d+2\ell$ with
+$\lambda\mapsto\lambda+\ell$). Since $a_1=s+1$, $a_2=-(s+2)$ this gives the stated
+$\alpha,\beta$. \emph{At $z=0$} the exponents are $0$ and $1-c$; the second
+solution behaves like $|\xi|^{2-d-\ell}$ (or $\log|\xi|$ if $d=2,\ell=0$; or $|\xi|$
+if $d=1$, $\ell=0$), which is not smooth at the origin. Hence $h$ is a multiple of
+${}_2F_1(\alpha,\beta;c;z)$ ($c\notin-\mathbb N_0$).
+\emph{At $z=1$} the exponents are $0$ and $\mu:=c-\alpha-\beta=\frac{d-1}{2}-s-\lambda$.
+Any local solution is a combination of an analytic one and of
+$(1-z)^\mu\times$analytic, $(1-z)^m\log(1-z)\times$analytic ($\mu=m\in\mathbb N_0$),
+or $(1-z)^{-m}\times$analytic $+\,c\log(1-z)\times$analytic ($\mu=-m<0$). With
+$1-z=1-|\xi|^2$, the singular branches lie in $H^k$ near $\partial B$ only if
+$\operatorname{Re}\mu>k-\frac12$, i.e.\ $\operatorname{Re}\lambda<-\omega_k$. So for
+$\operatorname{Re}\lambda>-\omega_k$, $h$ is an eigenfunction iff it is analytic at
+$z=1$.
+\emph{Monodromy.} The hypergeometric equation is Fuchsian with singular points
+$0,1,\infty$ only. A solution analytic at $0$ and at $1$ has trivial
+monodromy around both, hence extends to an entire function; since $\infty$
+is a regular singular point it grows at most polynomially, hence is a
+polynomial. A polynomial solution regular at $0$ is ${}_2F_1(\alpha,\beta;c;z)$,
+whose series terminates iff $\alpha\in-\mathbb N_0$ or $\beta\in-\mathbb N_0$.
+Conversely these polynomials lie in every $H^k$. $\alpha=-n$ gives
+$\lambda=1-\ell-2n$, $\beta=-n$ gives $\lambda=-2s-2-\ell-2n$. (This argument
+treats the integer and logarithmic cases uniformly; equivalently one can use
+the connection formulae \cite[\S15.8]{OlverEtAl2010}.)
+\emph{(a),(b)}: $1-\ell-2n\ge0$ forces $(\ell,n)\in\{(0,0),(1,0)\}$, and
+$-2s-2-\ell-2n\le-2s-2<0$ for $s>-1$; for these the hypergeometric factor is $1$.
+\emph{(c)}: a generalised eigenvector solves $(\mathbf L-\lambda)\Phi=\Phi_\lambda$;
+eliminating $\phi_2$ gives an inhomogeneous hypergeometric equation with
+polynomial right-hand side, and the monodromy argument shows that an
+$\mathcal H^k$ solution must be a polynomial. By the triangular structure of
+\cref{power:lem-poly} its degree is at most $\max\{\deg\Phi_\lambda,j_*\}$, where
+$M_{j_*}-\lambda$ is singular, and the degree-$j_*$ block forces the top part of
+$\Phi_\lambda$ into $\operatorname{ran}(M_{j_*}-\lambda)$. For $\lambda=1$ ($j_*=0$) and
+$\lambda=0$ ($j_*=1$) this fails because $\lambda$ is a simple eigenvalue of
+$M_{j_*}$ when $s>-1$ (also checked in \texttt{power\_symbolic.py}). For a
+general non-colliding eigenvalue the same argument, or the identification of
+the algebraic multiplicity with the order of the zero of an Evans function
+(only one of $1/\Gamma(\alpha)$, $1/\Gamma(\beta)$ vanishes), indicates
+semisimplicity \textbf{(S)}. At the
+collisions $\alpha$ and $\beta$ are simultaneously non-positive integers and the
+eigenfunction is common to both families (e.g.\ $s=-\frac12$, $\lambda=-1$:
+$g\equiv1$); there one finds an explicit generalised eigenvector,
+$(\mathbf L+1)\Phi=(1,-\frac12)$ with $\phi_1=-|\xi|^2/3$ ($d=3$), and similarly for
+$s=\frac12$, $\lambda=-3$ with $\phi_1=-\frac23|\xi|^2+\frac2{15}|\xi|^4$. That
+\emph{every} collision is a Jordan block of length two is expected (double zero
+of $1/(\Gamma(\alpha)\Gamma(\beta))$) but checked only in these cases.
+\end{proof}
+
+\begin{corollary}[Spectral gap; \textbf{(P)}]\label{power:cor-gap}
+For $\omega_k>\omega_0$,
+$\sup\{\operatorname{Re}\lambda:\lambda\in\sigma(\mathbf L)\setminus\{0,1\}\}=-\omega_0$
+with
+\[
+  \omega_0=\min\{1,\,2s+2\}=\begin{cases}1,& p>1,\\[2pt]
+  \dfrac{2(q-1)}{q+1},& p=-q,\ 1<q\le3,\\[4pt]
+  1,& p=-q,\ q\ge3.\end{cases}
+\]
+The gap eigenvalue is $-1$ (from $\ell=0,n=1$ and $\ell=2,n=0$) for $p>1$ and
+$q\ge3$, and $-2s-2=-2(1-\sigma)$ (the spatially homogeneous ``second ODE
+direction'') for $q<3$; at $q=3$ both coincide in a Jordan block.
+For the parallel-plate MEMS force $q=2$: $\omega_0=\frac23$.
+\end{corollary}
+
+\subsection{What is proved in the literature}
+\label{power:subsec-lit}
+
+All results below concern $p>1$; we know of no Donninger-type treatment of the
+MEMS range other than the present note (\cref{mems:sec}). \textbf{(K)}
+\begin{itemize}[leftmargin=1.2em]
+% TODO verify the range 1<p<=3 in DS2012 (abstract wording recalled, not re-read)
+\item \cite{DonningerSchoerkhuber2012}: $d=3$, radial data, energy-subcritical
+  powers ($1<p\le3$), stability of $u_T$ in the energy topology
+  (complementing \cite{MerleZaag2003,MerleZaag2007}). Here $k=1$ and
+  $\omega_1=s-\frac12\ge\frac12$, consistent with \cref{power:rem-LP}.
+\item \cite{DonningerSchoerkhuber2014}: $d=3$, radial, $p>3$: an open set of
+  radial data (at regularity above the energy space) blows up via $u_T$.
+\item \cite{DonningerSchoerkhuber2016}: $d=3$, energy supercritical, \emph{no
+  symmetry assumption}: stability of the ODE blowup profile.
+\item \cite{DonningerSchoerkhuber2017}: radial data in odd dimensions $d\ge5$,
+  energy-supercritical powers, data in $H^{(d+1)/2}\times H^{(d-1)/2}$.
+  % TODO verify the exact range of p and the data space in DS2017 (full text not accessed)
+\item \cite{Ostermann2024}: all $d\ge1$, all $p>1$, no symmetry assumption; data
+  in $H^k\times H^{k-1}$ with $k>\frac d2$; the solution converges to a
+  Lorentz-boosted ODE profile with parameters $(T^*,\beta^*)$, the decay exponent
+  being governed by $\omega_p=\min\{1,s_p\}$. Dissipative inner products are
+  constructed on $H^k$ for all $d$ and all integer $k\ge0$.
+  % TODO verify: precise form of the rate in Ostermann Thm 1.1 (read from abstract/indexing data only)
+\item \cite{Liu2025}: superconformal powers in all dimensions; mode stability by
+  comparing the linearised operators under Lorentz transformations, and
+  asymptotic stability of the whole ODE blowup family (extending
+  \cite{MerleZaag2016} and \cite{Ostermann2024}).
+% TODO verify the content summary of MerleZaag2016 (from memory)
+\item \cite{MerleZaag2016}: subconformal powers in all dimensions, energy
+  space in similarity variables, dynamics near the explicit family $\Psi_a$
+  (Lorentz transforms of $u_T$), without symmetry. Critical case $d=3$, $p=5$:
+  \cite{Donninger2017,DonningerRao2018} (Strichartz estimates in similarity
+  coordinates, down to optimal regularity). Cubic in higher dimensions:
+  \cite{ChatzikaleasDonninger2019}.
+\end{itemize}
+\emph{Cross-check.} In all these works the only non-negative eigenvalues are
+$\lambda=1$ (time translation) and, nonradially, $\lambda=0$ (boosts), exactly
+as in \cref{power:thm-spectrum}. The decay exponent $\min\{1,s_p\}$ of
+\cite{Ostermann2024} coincides with the gap $\omega_0=1$ for $p\le3$ but is
+smaller for $p>3$; by \cref{power:rem-LP} it reflects the free eigenvalue $-s$
+of constants, not an eigenvalue of $\mathbf L$ (the second family starts at
+$-2s-2<-s$). Splitting off the free polynomial modes as in
+\cref{power:lem-free}(b) should improve the rate to $\min\{1,\omega_k\}-\varepsilon$,
+i.e.\ to $1-\varepsilon$ for $k$ large; we state this as \textbf{(S)}.
+\emph{Source check:} the full texts could not be accessed while preparing this
+section; the statements above are taken from the abstracts/indexing data
+and the bibliographic data in \texttt{bib/lit.bib}, and the bracketed
+details (ranges of $p$, spaces, rates) should be checked against the papers.
+
+\subsection{Lower-order perturbations: damping and restoring forces}
+\label{power:subsec-lower}
+
+Consider
+\begin{equation}\label{power:eq-pert}
+  \partial_t^2u+\gamma\,\partial_tu+m^2u-\Delta u=F_p(u),\qquad\gamma,m^2\in\mathbb R,
+\end{equation}
+which contains \eqref{power:eq-nlkg}, focusing NLKG ($\gamma=0$), and the
+damped MEMS equation ($p=-q$).
+
+\paragraph{Similarity system.} With $T-t=Te^{-\tau}$ and \eqref{fw:psi} one
+obtains \emph{exactly} (\textbf{(P)}, symbolic identity)
+\begin{equation}\label{power:eq-sim-pert}
+  \partial_\tau\Psi=\mathbf L_0\Psi+\begin{pmatrix}0\\F_p(\psi_1)\end{pmatrix}
+  -\begin{pmatrix}0\\ \gamma Te^{-\tau}\psi_2+m^2T^2e^{-2\tau}\psi_1\end{pmatrix}.
+\end{equation}
+The equation is non-autonomous with coefficients decaying like $e^{-\tau}$
+(damping) and $e^{-2\tau}$ (mass); $T$ enters the coefficients, which matters
+for the modulation of $T$.
+
+\begin{proposition}[Perturbed ODE blowup; \textbf{(P)} for the expansion,
+\textbf{(S)} for existence]\label{power:prop-ode-pert}
+For $\rho=T-t\downarrow0$ the spatially homogeneous solutions of
+\eqref{power:eq-pert} blowing up at $T$ form a one-parameter family (plus $T$),
+\[
+  U_T(t)=\kappa\rho^{-s}\Bigl(1+a_1\rho+a_2\rho^2+\dots\Bigr)+c\,\rho^{s+2}(1+\dots),\qquad
+  a_1=\frac{\gamma s}{2(2s+1)},\quad
+  a_2=\frac{\gamma^2(3s^2-5s-4)}{24(2s+1)^2}+\frac{m^2}{6s}.
+\]
+The order-$j$ coefficient is determined by $-(j+1)(2s+2-j)\,a_j=\text{(lower
+orders)}$; the indicial roots $j=-1$ and $j=2s+2$ are the eigenvalues $1$ and
+$-2s-2$ of \cref{power:lem-poly}. If $2s+2\in\mathbb N$ and the compatibility
+condition fails, $\rho^{2s+2}\log\rho$ terms appear: for $p=3$ iff
+$\gamma^2(9m^2-2\gamma^2)\neq0$ (the classical Painlevé condition for the damped
+Duffing equation), for $p=5$ iff $\gamma(16m^2-3\gamma^2)\neq0$, and for MEMS
+$q=3$ already at first order whenever $\gamma\neq0$:
+$U_T=\sqrt2\,\rho^{1/2}\bigl(1+\tfrac\gamma4\rho\log\rho+c\rho+\dots\bigr)$.
+Hence in similarity variables
+$\Psi_T(\tau)=\Psi_*+O(e^{-\tau})$ if $\gamma\neq0$ ($O(\tau e^{-\tau})$ for $q=3$) and
+$\Psi_*+O(e^{-2\tau})$ if $\gamma=0$.
+\end{proposition}
+
+\begin{lemma}[Tilted family survives damping; \textbf{(P)}]\label{power:lem-tilt}
+For $|a|<1$ and $\phi=T-t+a\cdot x$, the function $u=W(\phi)$ solves
+\eqref{power:eq-pert} iff $(1-|a|^2)W''-\gamma W'+m^2W=F_p(W)$. Consequently
+$u_{T,a}(t,x):=U^{\gamma_a}\bigl((T-t+a\cdot x)/\sqrt{1-|a|^2}\bigr)$, where
+$U^{\gamma_a}(\rho)$ is the perturbed ODE blowup solution of
+\cref{power:prop-ode-pert} (in the variable $\rho$) with damping
+$\gamma_a=\gamma/\sqrt{1-|a|^2}$, is an exact solution of \eqref{power:eq-pert}
+blowing up on the hyperplane $\{t=T+a\cdot x\}$, and its similarity profile
+satisfies $\Psi_{T,a}(\tau)=\Psi_a+O(e^{-\tau})$.
+\end{lemma}
+
+\begin{proof}
+$\partial_t^2u=W''$, $\Delta u=|a|^2W''$, $\partial_tu=-W'$; rescaling
+$\phi=\sqrt{1-|a|^2}\,\varrho$ turns the ODE into $U''-\gamma_aU'+m^2U=F_p(U)$.
+\end{proof}
+
+\noindent
+Thus the mass term preserves Lorentz invariance (for $\gamma=0$ the $u_{T,a}$
+are Lorentz boosts of $U_T$), and damping breaks it; but the boost modes
+$\lambda=0$ are \emph{not} lost, because the $d$-parameter tilted family is an
+exact family of solutions for every $\gamma$ (only translation invariance in
+$(t,x)$ is used). This removes the need for a dynamical modulation of the
+boost parameter anticipated in \cref{fw:subsec-lower}.
+
+\begin{lemma}[Asymptotically autonomous Lyapunov--Perron lemma; \textbf{(S)}]
+\label{power:lem-lower-order}
+Let $\mathbf L$ generate a $C_0$-semigroup $\mathbf S$ on a Hilbert space
+$\mathcal H$, and let $\mathbf P=\mathbf P_1+\mathbf P_0$ be a finite-rank
+projection commuting with $\mathbf S$ such that $\mathbf L\mathbf P_1=\mathbf P_1$,
+$\mathbf L\mathbf P_0=0$ and $\|\mathbf S(\tau)(\mathbf I-\mathbf P)\|\le Me^{-\omega\tau}$ for
+some $\omega\in(0,1]$. Let $\theta\mapsto(\mathbf B_\theta,\mathbf N_\theta,\mathbf u_\theta)$,
+$\theta\in\overline{B_r(\theta_0)}\subset\mathbb R^{\operatorname{rank}\mathbf P}$, be
+continuous, with $\mathbf B_\theta(\tau)\in\mathcal B(\mathcal H)$ strongly continuous,
+$\sup_{\tau,\theta}\|\mathbf B_\theta(\tau)\|\le\beta$, and
+$\|\mathbf N_\theta(\tau,\Phi)-\mathbf N_\theta(\tau,\tilde\Phi)\|\le C_N(\|\Phi\|+\|\tilde\Phi\|)\|\Phi-\tilde\Phi\|$
+for $\|\Phi\|,\|\tilde\Phi\|\le1$, $\mathbf N_\theta(\tau,0)=0$. Consider
+\begin{equation}\label{power:eq-abstract}
+  \partial_\tau\Phi=\mathbf L\Phi+e^{-\tau}\mathbf B_\theta(\tau)\Phi+\mathbf N_\theta(\tau,\Phi),\qquad\Phi(0)=\mathbf u_\theta .
+\end{equation}
+There are $\beta_0,\delta_0,C>0$ (depending on $M,\omega,C_N$) such that, if
+$\beta\le\beta_0$ and $\|\mathbf u_\theta\|\le\delta\le\delta_0$, then:
+\begin{enumerate}[nosep,label=(\roman*)]
+\item there is a unique $\Phi_\theta$ with
+  $\sup_\tau e^{\omega\tau}\|\Phi_\theta(\tau)\|\le C\delta$ solving the
+  \emph{corrected} Duhamel equation
+  $\Phi(\tau)=\mathbf S(\tau)[\mathbf u_\theta-\mathbf C_\theta(\Phi)]+\int_0^\tau\mathbf S(\tau-\sigma)\mathbf G_\theta(\sigma)\,d\sigma$,
+  where $\mathbf G_\theta=e^{-\sigma}\mathbf B_\theta\Phi+\mathbf N_\theta(\sigma,\Phi)$ and
+  $\mathbf C_\theta(\Phi)=\mathbf P\mathbf u_\theta+\int_0^\infty(e^{-\sigma}\mathbf P_1+\mathbf P_0)\mathbf G_\theta(\sigma)\,d\sigma\in\operatorname{ran}\mathbf P$;
+\item $\Phi_\theta$ solves \eqref{power:eq-abstract} iff $\mathbf C_\theta(\Phi_\theta)=0$;
+\item if $\theta\mapsto\mathbf P\mathbf u_\theta$ is a homeomorphism onto a
+  neighbourhood of $0$ in $\operatorname{ran}\mathbf P$ with inverse Lipschitz
+  constant independent of $\delta$ (``transversality''), then for $\delta$ small
+  there is $\theta^*$ with $\mathbf C_{\theta^*}(\Phi_{\theta^*})=0$ (Brouwer).
+\end{enumerate}
+An inhomogeneity $e^{-\tau}\mathbf g_\theta(\tau)$ with $\|\mathbf g_\theta\|\le g\le\delta$
+can be added; then (i)--(iii) hold with $\omega$ replaced by any
+$\omega'<\min\{\omega,1\}$ (the bound picks up a factor $1+\tau$ if $\omega=1$).
+\end{lemma}
+
+\begin{proof}[Sketch]
+On $\mathcal X=\{\Phi:\|\Phi\|_{\mathcal X}=\sup e^{\omega\tau}\|\Phi(\tau)\|<\infty\}$ the
+stable part obeys
+$\int_0^\tau Me^{-\omega(\tau-\sigma)}\bigl(\beta e^{-(1+\omega)\sigma}\|\Phi\|_{\mathcal X}+C_Ne^{-2\omega\sigma}\|\Phi\|_{\mathcal X}^2\bigr)d\sigma
+\le Me^{-\omega\tau}(\beta\|\Phi\|_{\mathcal X}+\omega^{-1}C_N\|\Phi\|_{\mathcal X}^2)$,
+and the corrected unstable/neutral parts are
+$-\int_\tau^\infty(e^{\tau-\sigma}\mathbf P_1+\mathbf P_0)\mathbf G_\theta\,d\sigma
+=O\bigl(\beta e^{-(1+\omega)\tau}\|\Phi\|_{\mathcal X}+C_Ne^{-2\omega\tau}\|\Phi\|_{\mathcal X}^2\bigr)$.
+Smallness of $\beta$ is needed for the contraction: the factor $e^{-\sigma}$
+makes the linear perturbation integrable but not small. The forcing is
+treated in the same way using
+$\int_0^\tau e^{-\omega(\tau-\sigma)}e^{-\sigma}d\sigma\le C(1+\tau)e^{-\min\{\omega,1\}\tau}$.
+(ii) and (iii) are as in \cite{DonningerSchoerkhuber2012,Ostermann2024}.
+\end{proof}
+
+\begin{remark}[How $\beta$ becomes small]\label{power:rem-small-beta}
+For \eqref{power:eq-sim-pert} linearised at the exact family $\Psi_{T,a}(\tau)$ of
+\cref{power:lem-tilt}, $e^{-\tau}\mathbf B_\theta(\tau)\Phi=(0,-\gamma Te^{-\tau}\phi_2-m^2T^2e^{-2\tau}\phi_1+[F_p'(\psi_{T,a,1}(\tau))-F_p'(\psi_a)]\phi_1)$
+plus $\mathbf L_a-\mathbf L$ (which is $O(|a|)$), so $\beta\lesssim|\gamma|T+m^2T^2$. Smallness is
+obtained by a \emph{reduction}: evolve the data up to $t_1=1-\eta$ by local
+well-posedness on balls (the solution stays $C(\eta)\varepsilon$-close to the
+reference on $B_{\eta+\delta}$ by finite speed of propagation), then rescale by
+$\eta$. The rescaled equation is \eqref{power:eq-pert} with
+$(\gamma,m^2)\mapsto(\gamma\eta,m^2\eta^2)$. Equivalently, one can start
+\eqref{power:eq-abstract} at a large $\tau_0$.
+\end{remark}
+
+\begin{theorem}[Stability of ODE blowup under lower-order terms; \textbf{(S)},
+conditional]\label{power:thm-lower-order}
+Let $d\ge1$, $p\in\mathbb R\setminus[-1,1]$, $\gamma,m^2\in\mathbb R$, $k\in\mathbb N$
+with $k>\frac d2$ and $k>s_c$, and $0<\omega<\min\{\omega_0,\omega_k\}$. Assume the
+\emph{autonomous linear estimate}
+$\|\mathbf S(\tau)(\mathbf I-\mathbf P)\|_{\mathcal H^k}\le Me^{-\omega\tau}$ (for $p>1$ and
+$\omega<\min\{1,s\}$ this is contained in the linear theory of \cite{Ostermann2024},
+as we read it; for general $\omega<\min\{\omega_0,\omega_k\}$, and in the MEMS
+range, it follows from \cref{power:thm-spectrum} and \cref{power:lem-free}(b),
+the latter only sketched). Let $U$ be a
+spatially homogeneous solution of \eqref{power:eq-pert} on $[0,1)$ with ODE
+blowup at $T=1$. Then there is $\varepsilon>0$ such that for data with
+$\|(u_0,u_1)-(U(0),U'(0))\|_{H^k\times H^{k-1}(B_{1+\varepsilon})}\le\varepsilon$
+there are $T^*$ near $1$ and $a^*\in\mathbb R^d$ small ($a^*=0$ for radial data)
+such that the solution blows up at $(T^*,0)$ and, with $\Psi_{T^*,a^*}$ the exact
+tilted solution of \cref{power:lem-tilt},
+\[
+  \|\Psi(\tau)-\Psi_{T^*,a^*}(\tau)\|_{\mathcal H^k}\lesssim e^{-\omega\tau},\qquad
+  \|\Psi(\tau)-\Psi_{a^*}\|_{\mathcal H^k}\lesssim e^{-\omega\tau}+\begin{cases}e^{-\tau}&\gamma\neq0\\ e^{-2\tau}&\gamma=0\end{cases}
+\]
+(with $\tau e^{-\tau}$ for $q=3$, $\gamma\ne0$). In physical variables:
+$(T^*-t)^su(t,(T^*-t)\xi)\to\kappa(1-|a^*|^2)^{s/2}(1+a^*\cdot\xi)^{-s}$ in $H^k(B^d)$
+at the rate $(T^*-t)^{\min\{\omega,1\}}$. The blowup point is not a modulation
+parameter: any $x_0$ near $0$ may be prescribed in place of $0$, and
+$(T^*,a^*)$ then depend on $x_0$; for the exact tilted solutions $a^*$ is the
+slope of the blowup surface, and we expect the same to leading order in
+general.
+\end{theorem}
+
+\begin{proof}[Sketch]
+Reduce to small $(\gamma,m^2)$ by \cref{power:rem-small-beta}. Linearise
+\eqref{power:eq-sim-pert} at $\Psi_{T,a}(\tau)$; the result is
+\eqref{power:eq-abstract} with $\theta=(T,a)$, no inhomogeneity, $\beta$ small,
+and $\mathbf N_\theta$ quadratic (\cref{power:subsec-linear}; uniform in $\tau$ because
+$\psi_{T,a,1}(\tau)$ stays within $\kappa/4$ of $\psi_a$). The initial datum $\mathbf u_\theta$ is
+the rescaled data minus $\Psi_{T,a}(0)$. Transversality: by \cref{power:lem-tilt}
+and \cref{power:prop-ode-pert},
+$\partial_T\Psi_{T,a}(0)$ and $\partial_{a_j}\Psi_{T,a}(0)$ equal, up to nonzero factors and
+errors $O(|\gamma|+m^2+|a|)$, the eigenfunctions $(1,s+1)$ and $(\xi_j,(s+1)\xi_j)$
+of \cref{power:thm-spectrum}(a),(b). Apply \cref{power:lem-lower-order}.
+The second estimate follows from $\Psi_{T,a}(\tau)-\Psi_a=O(e^{-\tau})$
+(resp.\ $O(e^{-2\tau})$).
+\end{proof}
+
+\begin{remark}[Rates, resonances and what is genuinely new]\label{power:rem-rates}
+(1) Since $\omega_0\le1$ throughout the family, the lower-order terms never
+decay \emph{slower} than the spectral gap: the forcing that appears if one
+linearises at the self-similar $\Psi_a$ instead of $\Psi_{T,a}(\tau)$ has rate $1$
+(damping) or $2$ (mass). If $\omega_0=1$ ($p>1$ or $q\ge3$), rate-$1$ forcing
+can resonate with the eigenvalue $-1$ and produce $\tau e^{-\tau}$ (for $a\neq0$
+the forcing has $\ell=2$ components); at $q=3$ the Jordan block at $-1$ gives
+the same effect even for $\gamma=0$. None of this affects stability, only the
+exponent in \cref{power:thm-lower-order}, which is $\min\{\omega,1\}$.
+(2) Lower-order \emph{nonlinear} terms $f(u)$ with $|f^{(j)}(u)|\lesssim|u|^{p'-j}$
+contribute $(T-t)^{s+2}f((T-t)^{-s}\psi_1)=O(e^{-s(p-p')\tau})$; they are perturbative
+iff $s(p-p')>0$ (i.e.\ $p'<p$ for powers, a weaker singularity $q'<q$ for
+MEMS; a constant load gives rate $s+2$). If $s(p-p')<\omega_0$ the
+convergence rate drops to $s(p-p')$, but \cref{power:lem-lower-order} still
+applies. This is the only situation in the family in which the
+perturbation decays more slowly than the gap.
+(3) Status: the reduction, the tilted family and the abstract lemma are
+elementary; the only deep input is the autonomous linear estimate, i.e.\ the
+same input as in \cite{Ostermann2024}. We have not written out the local
+well-posedness on balls for \eqref{power:eq-pert} or the Lipschitz bounds for
+$\mathbf B_\theta$ in $\theta$, which are routine.
+\end{remark}
+
+\paragraph{Literature on the perturbed equations. \textbf{(K)}} Hamza and Zaag
+constructed Lyapunov functionals in similarity variables for perturbed
+equations $\partial_t^2u=\Delta u+|u|^{p-1}u+f(u)+g(\partial_tu)$ with lower-order $f,g$
+-- a class containing the Klein--Gordon mass and linear damping -- and showed
+that the blowup rate is that of the ODE: subconformal case
+\cite{HamzaZaag2010}, conformal case \cite{HamzaZaag2012}, Klein--Gordon and
+other perturbations \cite{HamzaZaag2013}, superconformal case
+\cite{HamzaZaag2013b}. Killip, Stovall and Visan \cite{KillipStovallVisan2014}
+studied blowup for focusing NLKG and obtained ODE-type blowup rates, i.e.\ the
+mass is a lower-order effect at blowup. Merle and Zaag's results on the blowup
+rate, profile and stability \cite{MerleZaag2003,MerleZaag2007,MerleZaag2015,MerleZaag2016}
+are for the unperturbed power. The closest semigroup-type result we know is
+\cite{DonningerWallauch2021} on blowup of \emph{strongly perturbed} wave
+equations, where the blowup solution is no longer self-similar; we have not
+been able to check whether its class of perturbations contains $\gamma\partial_tu$.
+To our knowledge (search not exhaustive) there is no published
+Donninger-type stability theorem for the damped NLW or for NLKG with mass;
+\cref{power:thm-lower-order} indicates that none is needed beyond the
+autonomous theory.
+% TODO verify the precise classes of perturbations in Hamza--Zaag and the statements in KSV14 / DW21
+
+\subsection{Non-ODE self-similar profiles in the power family}
+\label{power:subsec-nontrivial}
+
+For $p>1$ there are self-similar solutions $u=(T-t)^{-s}U(|x|/(T-t))$ other than
+$U\equiv\kappa$ in the energy-supercritical range. \textbf{(K)}, with the formulas
+re-verified symbolically here \textbf{(P)}:
+\begin{itemize}[leftmargin=1.2em]
+\item Bizoń, Maison and Wasserman \cite{BizonMaisonWasserman2007} proved, for
+  $d=3$ and odd $p\ge7$, the existence of a countable family $U_n$ of smooth
+  self-similar profiles ($U_0=\kappa$), and found numerically that $U_n$ has
+  $n$ unstable modes besides time translation; $U_1$ is conjectured to be the
+  co-dimension-one critical solution at the threshold between ODE blowup and
+  dispersal \textbf{(N)}.
+  % TODO verify the exact parity/range of p and the mode count in BMW07
+\item Glogić and Schörkhuber \cite{GlogicSchoerkhuber2021}: for the cubic
+  equation an explicit profile exists in every $d\ge5$; one checks that
+  \[
+    u^*_T(t,x)=\frac{1}{T-t}\,\frac{2\sqrt2\sqrt{(d-1)(d-4)}}{d-4+3\rho^2},\qquad\rho=\frac{|x|}{T-t},
+  \]
+  solves $\partial_t^2u-\Delta u=u^3$ (for $d=7$: $u^*_T=4(T-t)/((T-t)^2+|x|^2)$). In
+  $d=7$ they prove, without symmetry assumptions, that it is stable modulo
+  symmetries on a co-dimension-one set of data (one genuine unstable
+  eigenvalue).
+  % TODO verify that this normalisation coincides with the formula in GS21
+% TODO verify dimensions (d>=7 existence, d=9 stability) in CGS24 and CDGMS24
+\item Csobo, Glogić and Schörkhuber \cite{CsoboGlogicSchoerkhuber2024}: for the
+  quadratic equation $\partial_t^2u-\Delta u=u^2$ an explicit radial profile exists in
+  $d\ge7$ and is co-dimension-one stable in $d=9$; Chen, Donninger, Glogić,
+  McNulty and Schörkhuber \cite{ChenEtAl2024} extend this beyond the light cone
+  (hyperboloidal similarity coordinates). One checks that in $d=9$
+  \[
+    u^*_T(t,x)=\frac{1}{(T-t)^2}\,\frac{240\,(7-\rho^2)}{(7+5\rho^2)^2}
+  \]
+  solves $\partial_t^2u-\Delta u=u^2$; it is positive in the light cone. We expect
+  (but have not confirmed) that this is the profile of \cite{CsoboGlogicSchoerkhuber2024}.
+\end{itemize}
+These profiles live in the high-dimensional, energy-supercritical regime and
+are not directly relevant for strings and membranes ($d\le2$), where the ODE
+profile is the generic one. Non-trivial MEMS profiles are discussed in
+\cref{mems:sec}.
+
+\subsection{Numerical confirmation}
+\label{power:subsec-numerics}
+
+Because of \cref{power:lem-poly}, plain Chebyshev collocation of $\mathbf L$
+reproduces the eigenvalues with polynomial eigenfunctions exactly and cannot
+detect others; in double precision the lower eigenvalues are moreover
+extremely ill-conditioned (spurious ``continuum'' for
+$\operatorname{Re}\lambda<\frac{d-1}{2}-s$, where the singular branch $(1-|\xi|^2)^\mu$ is
+continuous). We therefore use collocation ($N=24$, $V_0=F_p'(\kappa)$ computed
+numerically from $F_p$, so the MEMS sign conventions are tested) only for the
+well-conditioned eigenvalues $1,0,-1,-2s-2$, and test the full list by the
+\emph{monodromy test} that mirrors the proof: the Frobenius solution regular at
+$z=0$ is continued numerically (DOP853, tolerance $10^{-12}$) around the circle
+$|z-1|=\frac12$; it returns to itself iff it is single-valued at $z=1$, and
+single-valued solutions with a pole are rejected by computing their Laurent
+coefficients. \Cref{power:tab-num} shows the zeros found on a fine real grid
+($d=3$); all agree with $\Sigma_s$ to $\le10^{-6}$, no other zeros occur, and a
+scan of the complex box $\operatorname{Re}\lambda\in[-4.5,1.3]$,
+$\operatorname{Im}\lambda\in[0.2,3]$ gives a minimal defect $\ge4\cdot10^{-4}$ (no
+complex eigenvalues). At $q=3$ the defect vanishes quadratically at
+$\lambda=-1$ ($10^{-4},10^{-6},10^{-8}$ at distance $10^{-2},10^{-3},10^{-4}$), the
+signature of the Jordan block; at $q=2$ it vanishes linearly.
+\Cref{power:fig-gap} shows the gap over both ranges. \textbf{(N)}
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+case ($d=3$) & $\ell=0$ & $\ell=1$ & $\ell=2$\\
+\midrule
+$p=3$ ($s=1$) & $1,-1,-3,-4$ & $0,-2,-4$ & $-1,-3$\\
+$p=7$ ($s=\frac13$) & $1,-1,-\frac83,-3$ & $0,-2,-\frac{11}3,-4$ & $-1,-3$\\
+$p=-2$ (MEMS $q=2$) & $1,-\frac23,-1,-\frac83,-3$ & $0,-\frac53,-2,-\frac{11}3,-4$ & $-1,-\frac83,-3$\\
+$p=-3$ (MEMS $q=3$) & $1,-1^{(2)},-3^{(2)}$ & $0,-2^{(2)},-4^{(2)}$ & $-1,-3^{(2)}$\\
+\bottomrule
+\end{tabular}
+\caption{Eigenvalues in $[-4.6,1.3]$ found by the monodromy test (all within
+$10^{-6}$ of the values shown, which are those of $\Sigma_s$). Superscript $(2)$:
+collision of the two families (double zero, Jordan block). The candidate
+$\lambda=1$ for $p=3,\ell=2$, where ${}_2F_1=(1-z)^{-1}$ is single-valued but has a
+pole, is correctly rejected.}
+\label{power:tab-num}
+\end{table}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/power_gap.pdf}
+\caption{Spectral gap $\omega_0=\min\{1,2s+2\}$ of the ODE blowup over the MEMS
+range $p=-q<-1$ (left) and the power range $p>1$ (right); dashed: the top of the
+second eigenvalue family, $2s+2$; dotted: the exponent $\min\{1,s\}$ of
+\cite{Ostermann2024}, which reflects the free eigenvalue $-s$ rather than the
+spectrum of $\mathbf L$; dots: numerically confirmed gaps ($d=3$).}
+\label{power:fig-gap}
+\end{figure}
+
+\subsection{Summary and caveats}
+\label{power:subsec-summary}
+
+\begin{itemize}[leftmargin=1.2em]
+\item \textbf{(P)} For the whole family $p\notin[-1,1]$ (powers and MEMS):
+  $V_0=(s+1)(s+2)$; eigenvalues $1-\ell-2n$ and $-2s-2-\ell-2n$ in all sectors,
+  real, with polynomial eigenfunctions, complete in
+  $\operatorname{Re}\lambda>-\omega_k$, $\omega_k=k-s_c$; unstable $\lambda=1$, neutral
+  $\lambda=0$ ($d$-fold), both semisimple; gap $\min\{1,2s+2\}$; Jordan blocks at
+  the lowest collisions $s=\pm\frac12$. No ODE blowup of self-similar type for
+  $-1\le p\le1$.
+\item \textbf{(S)} The free-flow splitting (\cref{power:lem-free}(b)), the improved
+  rate $1-\varepsilon$ for all $p>1$, the asymptotically autonomous lemma and the
+  stability theorem under damping and mass, radial and nonradial, conditional
+  on the autonomous linear estimate (which for MEMS is the subject of
+  \cref{mems:sec}).
+\item \textbf{(N)} Monodromy confirmation of the eigenvalue list; Jordan
+  structure at all collisions; the co-dimension statements for the non-trivial
+  profiles of \cite{BizonMaisonWasserman2007}.
+\item Caveats: the Sobolev threshold $k>s_c$ is sharp for exponential decay
+  but the nonlinear argument uses $k>\frac d2$; the physical models are only
+  meaningful up to the amplitude where the cubic foundation law (or the
+  parallel-plate force) fails; and the literature statements in
+  \cref{power:subsec-lit} were checked against abstracts, not full texts.
+\end{itemize}

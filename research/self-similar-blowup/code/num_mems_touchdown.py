@@ -112,7 +112,7 @@ def run_case(case):
         lo2, hi2 = bisect_T(lambda T: run(T, fwv=(fits[0][0], fits[0][1])), lo - 1e-4, hi + 1e-4)
         out["T_coarse"] = 0.5 * (lo2 + hi2)
     # resolution check of T (other Ns)
-    lo3, hi3 = bisect_T(lambda T: run(T, Ns=(NS1 if geom == "1d" else NSR) + 8),
+    lo3, hi3 = bisect_T(lambda T: run(T, Ns=(NS1 if geom == "1d" else NSR) + 4),
                         lo - 1e-7, hi + 1e-7)
     out["T_Ns"] = 0.5 * (lo3 + hi3)
     # --- dense trajectories with T = lo and T = hi ------------------------
@@ -127,11 +127,11 @@ def run_case(case):
     for k, (T, sol) in enumerate(trajs):
         Y = sol.sol(taus)
         P1 = Y[:n]
-        D[k] = dict(dev=np.max(abs(P1 - c), axis=0), dev0=P1[i0] - c,
+        D[k] = dict(dev=np.max(abs(P1 - c), axis=0), dev0=P1[i0] - c, d20=Y[n + i0] + sig * c,
                     spat=P1.max(axis=0) - P1.min(axis=0), wmin=P1.min(axis=0),
                     dev2=np.max(abs(Y[n:] + sig * c), axis=0))
     # window where both trajectories agree (unstable mode negligible)
-    agree = abs(D[0]["dev0"] - D[1]["dev0"]) < 1e-2 * abs(D[0]["dev0"])
+    agree = abs(D[0]["dev0"] - D[1]["dev0"]) < 1e-3 * abs(D[0]["dev0"])
     jmax = np.argmin(agree) if not agree.all() else len(taus)
     jmax = max(jmax, 10)
     out["tau_valid"] = taus[jmax - 1]
@@ -139,6 +139,7 @@ def run_case(case):
     sel = slice(0, jmax)
     out["taus"], out["dev"], out["spat"], out["dev0"] = taus[sel], D[0]["dev"][sel], D[0]["spat"][sel], dev0[sel]
     out["dev2"] = D[0]["dev2"][sel]
+    out["ratio21"] = D[0]["d20"][jmax - 1] / D[0]["dev0"][jmax - 1]
     out["Tm"] = out["T"] - t1
     out["wmin_sim"] = (out["Tm"] * np.exp(-taus[sel])) ** sig * D[0]["wmin"][sel]
     # longer window for w_min itself: the two trajectories differ by < 1e-4 c
@@ -156,6 +157,13 @@ def run_case(case):
         p = least_squares(resid, [dev0[sel][win][0] * np.exp(2 * tt[win][0] / 3), 0.6, 0.0]).x
         out["omega_fit2"] = p[1]
         out["A_fit"] = p[0]
+        W0 = c + dev0[sel][win]
+
+        def resid4(p):   # c free: W(tau,0) = Cinf + A e^{-omega tau} + B e^{-tau}
+            Ci, A, om, B = p
+            return (Ci + A * np.exp(-om * tt[win]) + B * np.exp(-tt[win]) - W0) / abs(W0 - c)
+        p4 = least_squares(resid4, [c, p[0], p[1], p[2]]).x
+        out["Cinf"], out["omega_fit4"] = p4[0], p4[2]
         late = win & (tt > 0.5 * tt[win].max())
         out["omega_late"] = -np.polyfit(tt[late], np.log(abs(dev0[sel][late])), 1)[0]
         sw = (tt > 3) & (D[0]["spat"][sel] > 1e-11)
@@ -201,7 +209,7 @@ def main():
               % (o["t1"], o["data_err"], "" if o["geom"] == "1d" else
                  " (w_t: %.1e, grid noise in w_t %.1e, fit radius %.2f)" % (o["data_err_v"], o["noise_v"], o["R0"]),
                  o["front"], o["Tm"]))
-        print("  T (bisection) = %.15f ; with Ns+8: %.15f ; local-ODE estimate from t1: %.6f"
+        print("  T (bisection) = %.15f ; with Ns+4: %.15f ; local-ODE estimate from t1: %.6f"
               % (o["T"], o["T_Ns"], o["Test_ode"]) + ("" if o["geom"] == "1d" else
                                                       " ; with coarser data: %.12f" % o["T_coarse"]))
         print("  valid tau window [0, %.1f]  (T - t down to %.1e)" % (o["tau_valid"], o["Tm"] * np.exp(-o["tau_valid"])))
@@ -211,6 +219,9 @@ def main():
             print("  omega: fit A e^{-omega tau} + B e^{-tau}: %.5f ; late-window slope: %.5f ; "
                   "spatial variation rate: %.4f" % (o["omega_fit2"], o["omega_late"], o["omega_spat"]))
             print("  leading coefficient: W - c ~ A (T-t)^{2/3}, A = %.4f (A/c = %.4f)" % (o["A_fit"] * o["Tm"] ** (-2 / 3), o["A_fit"] * o["Tm"] ** (-2 / 3) / o["c"]))
+            print("  fit with c free: W(tau,0) = C + A e^{-omega tau} + B e^{-tau}: C = %.10f (C/c - 1 = %.1e), omega = %.5f"
+                  % (o["Cinf"], o["Cinf"] / o["c"] - 1, o["omega_fit4"]))
+            print("  (psi2(0) + 2c/3)/(psi1(0) - c) at end of window: %.4f  (gap eigenfunction (1, -4/3): -4/3)" % o["ratio21"])
         print("  physical-space fit on w_min in [%.3f, %.3f]:" % o["fit_window"])
         print("    w = C (T-t)^beta              : T=%.6f C=%.5f beta=%.5f" % tuple(o["fit3"]))
         print("    w = C (T-t)^beta (1+e (T-t)^{2/3}): T=%.6f C=%.5f beta=%.5f e=%.3f" % tuple(o["fit4"]))
@@ -245,11 +256,11 @@ def make_figures(res):
         axs[2].loglog(s_sim, o["dev"], "-", color=col, lw=1.5)
         axs[2].loglog(s_sim, o["spat"], "--", color=col, lw=1.0)
     ss = np.logspace(-11, -0.5, 10)
-    axs[0].loglog(ss, 1.3 * ss ** (2 / 3), "k:", lw=1)
-    axs[0].text(1e-8, 2e-6, r"slope $2/3$", fontsize=8)
+    axs[0].loglog(ss, 0.3 * ss ** (2 / 3), "k:", lw=1)
+    axs[0].text(3e-4, 4e-5, r"$\propto (T-t)^{2/3}$", fontsize=8)
     axs[0].set_xlabel(r"$T-t$")
     axs[0].set_ylabel(r"$\min_x w(t,x)$")
-    axs[0].legend(fontsize=7, loc="upper left")
+    axs[0].legend(fontsize=7, loc="lower left")
     axs[1].axhline(1, color="k", ls=":", lw=1)
     axs[1].set_xlabel(r"$T-t$")
     axs[1].set_ylabel(r"$w_{\min}/(c\,(T-t)^{2/3})$")

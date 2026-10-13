@@ -189,7 +189,7 @@ e2 = sp.simplify(e2)
 diffexpr = sp.simplify(sp.expand(e2 - 4 * hyp))
 ok(diffexpr, "G = r^l h(r^2): h solves 2F1 equation with alpha=(a+l-a1)/2, beta=(a+l-a2)/2, c=l+d/2")
 ok(sp.simplify(gm - al - be - ((dd - 1) / 2 + sig - mu)), "c-alpha-beta = (d-1)/2 + sigma - mu")
-ok(sp.simplify(al - be - (sig - sp.Rational(3, 2))), "alpha - beta = sigma - 3/2 (never an integer for q>1)")
+ok(sp.simplify(al - be - (sig - sp.Rational(3, 2))), "alpha - beta = sigma - 3/2 (an integer only for q = 3, sigma = 1/2)")
 
 # eigenvalues
 n = sp.symbols('n')

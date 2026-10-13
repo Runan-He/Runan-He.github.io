@@ -56,7 +56,7 @@ def main():
     Y = [s_[1].sol(taus) for s_ in sols]
     P1, P2 = Y[0][:n] - m.p1, Y[0][n:] - m.p2
     d0 = 0.5 * (Y[0][i0] + Y[1][i0]) - m.p1
-    agree = abs(Y[0][i0] - Y[1][i0]) < 1e-2 * abs(d0)
+    agree = abs(Y[0][i0] - Y[1][i0]) < 1e-3 * abs(d0)
     j = np.argmin(agree) if not agree.all() else len(taus)
     tt, P1, P2, d0 = taus[:j], P1[:, :j], P2[:, :j], d0[:j]
     dev = np.max(abs(P1), axis=0)

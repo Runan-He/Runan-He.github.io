@@ -251,7 +251,7 @@ def main():
     # ---------------- (2b) full model, generic data ----------------
     T0 = 1.0
     u0 = lambda x: -np.log(T0) + 0.3 * np.exp(-2 * (x - 0.3)**2) + 0.1 * x
-    u1 = lambda x: 1 / T0 + 0.2 * np.cos(2 * x)
+    u1 = lambda x: 1 / T0 + 0.2 * np.cos(2 * x) + 0.15 * np.sin(x)
     res_full = {}
     for g in [0.0, 1.0]:
         simF = Sim('full', gamma=g, N=32)
@@ -289,24 +289,26 @@ def main():
     print(f"(2c) reduced, gamma=1 (Liouville data): T = {TD:.10f}, boost v = {vD:.5f}, decay rate {slD:.4f} (predicted -1)")
     out['damped'] = (tausD, errD)
 
-    make_figure(out)
+    return out
 
 
 def make_figure(out):
     plt.rcParams.update({'font.size': 9, 'axes.titlesize': 9, 'legend.fontsize': 7.5})
     fig, ax = plt.subplots(1, 3, figsize=(10.0, 3.1))
-    # panel 1: ODE asymptotics
+    # panel 1: ODE asymptotics -- (T-t) theta_t -> 2 (reduced) and 1 (full)
     Tr, ttr, thr, Tf, ttf, thf, tau_r, delta = out['ode']
-    ax[0].semilogx(Tr - ttr[:-1], thr[:-1] + 2 * np.log(Tr - ttr[:-1]), color='C0',
-                   label=r'reduced: $\theta+2\log(T-t)$')
-    ax[0].semilogx(Tf - ttf[:-1], thf[:-1] + np.log(Tf - ttf[:-1]), color='C3',
-                   label=r'full: $\theta+\log(T-t)$')
-    ax[0].axhline(np.log(2 * tau_r / delta), color='C0', ls=':', lw=0.8)
-    ax[0].axhline(-np.log(delta), color='C3', ls=':', lw=0.8)
+    for (T_, tt_, th_, col, lab) in [(Tr, ttr, thr, 'C0', 'reduced'), (Tf, ttf, thf, 'C3', 'full')]:
+        dth = np.gradient(th_, tt_)
+        m = (T_ - tt_) > 2e-5
+        ax[0].semilogx((T_ - tt_)[m], ((T_ - tt_) * dth)[m], color=col, label=lab)
+    ax[0].axhline(2, color='C0', ls=':', lw=0.8)
+    ax[0].axhline(1, color='C3', ls=':', lw=0.8)
     ax[0].invert_xaxis()
+    ax[0].set_ylim(0, 2.6)
     ax[0].set_xlabel(r'$T-t$')
-    ax[0].set_title(r'(a) homogeneous blowup, $\tau_r=0.5,\ \delta=1$')
-    ax[0].legend(loc='lower left')
+    ax[0].set_ylabel(r'$(T-t)\,\theta_t$')
+    ax[0].set_title(r'(a) homogeneous blowup, $\tau_r=%g,\ \delta=%g$' % (tau_r, delta))
+    ax[0].legend(loc='center left')
     # panel 2: reduced (Liouville) rates
     taus, err_ex, err_num = out['liou']
     tausD, errD = out['damped']
@@ -319,20 +321,19 @@ def make_figure(out):
     ax[1].set_title(r'(b) reduced: $\|\Psi(\tau)-\Psi_{a}\|$')
     ax[1].set_ylim(1e-7, 10)
     ax[1].legend(loc='upper right')
-    # panel 3: full model
+    # panel 3: e^{tau} * error: linear growth (Jordan block, full) vs. constant (reduced)
     for g, col in [(0.0, 'C3'), (1.0, 'C4')]:
         tausF, errF, v_fit, v_curve = out['full'][g]
-        ax[2].semilogy(tausF, errF, color=col, label=f'full, $\\gamma={g:g}$')
-    tausF, errF, _, _ = out['full'][0.0]
-    i4 = np.argmin(abs(tausF - 4))
-    ax[2].semilogy(tausF, errF[i4] * (tausF / tausF[i4]) * np.exp(-(tausF - tausF[i4])), color='gray', ls=':',
-                   label=r'$\propto \tau e^{-\tau}$')
-    ax[2].semilogy(tausF, errF[i4] * np.exp(-(tausF - tausF[i4])), color='gray', ls='--', lw=0.7,
-                   label=r'$\propto e^{-\tau}$')
+        m = tausF < 12.5
+        ax[2].plot(tausF[m], (np.exp(tausF) * errF)[m], color=col,
+                   label=f'full, $\\gamma={g:g}$ ($v={v_fit:.3f}$)')
+    m = taus < 12.5
+    ax[2].plot(taus[m], (np.exp(taus) * err_ex)[m], color='k', label='reduced (Liouville)')
+    m = tausD < 12.5
+    ax[2].plot(tausD[m], (np.exp(tausD) * errD)[m], color='C2', ls='-.', label=r'reduced, $\gamma=1$')
     ax[2].set_xlabel(r'$\tau$')
-    ax[2].set_title(r'(c) full Cattaneo: $\|\Psi(\tau)-\Psi_{v}\|$')
-    ax[2].set_ylim(1e-7, 10)
-    ax[2].legend(loc='upper right')
+    ax[2].set_title(r'(c) $e^{\tau}\,\|\Psi(\tau)-\Psi_{\rm lim}\|$')
+    ax[2].legend(loc='upper left')
     for a in ax:
         a.grid(alpha=0.3, lw=0.5)
     fig.tight_layout()
@@ -341,4 +342,14 @@ def make_figure(out):
 
 
 if __name__ == "__main__":
-    main()
+    import pickle
+    cache = os.environ.get('THERM_CACHE')          # optional: reuse results for figure tweaks
+    if cache and os.path.exists(cache):
+        with open(cache, 'rb') as fh:
+            out = pickle.load(fh)
+    else:
+        out = main()
+        if cache:
+            with open(cache, 'wb') as fh:
+                pickle.dump(out, fh)
+    make_figure(out)

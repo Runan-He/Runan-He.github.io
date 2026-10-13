@@ -107,16 +107,24 @@ def blowup_time(x0, want_traj=False):
         n = len(xi)
         P = [s[1].sol(taus)[:n] for s in sols]
         c = m.c
-        i0 = n // 2
-        agree = abs(P[0][i0] - P[1][i0]) < 1e-2 * abs(P[0][i0] - c) + 1e-12
+
+        def boost_fit(P1):
+            r = (P1[0] / P1[-1]) ** 1.5          # xi = +1 is node 0, xi = -1 node n-1
+            a = (r - 1) / (r + 1)
+            Wa = c * (1 - a ** 2) ** (-1 / 3) * (1 + np.outer(xi, a)) ** (2 / 3)
+            return a, np.max(abs(P1 - Wa), axis=0)
+
+        a, perr = boost_fit(P[0])
+        # window: the trajectories for the two ends of the T-bracket differ by
+        # less than 10% of the distance to the boosted family
+        agree = np.max(abs(P[0] - P[1]), axis=0) < 0.1 * perr
         j = np.argmin(agree) if not agree.all() else len(taus)
-        P1 = P[0][:, :j]
-        r = (P1[0] / P1[-1]) ** 1.5          # xi = +1 is node 0, xi = -1 node n-1
-        a = (r - 1) / (r + 1)
-        Wa = c * (1 - a ** 2) ** (-1 / 3) * (1 + np.outer(xi, a)) ** (2 / 3)
-        out.update(taus=taus[:j], a=a, prof_err=np.max(abs(P1 - Wa), axis=0),
-                   flat_err=np.max(abs(P1 - c), axis=0), xi=xi, P_end=P1[:, -1],
-                   Tm=out["T"] - t1)
+        tt = taus[:j]
+        out.update(taus=tt, a=a[:j], prof_err=perr[:j],
+                   flat_err=np.max(abs(P[0][:, :j] - c), axis=0), xi=xi,
+                   P_end=P[0][:, j - 1], Tm=out["T"] - t1)
+        w = tt > 3
+        out["rate"] = -np.polyfit(tt[w], np.log(perr[:j][w]), 1)[0] if w.sum() > 10 else np.nan
     return out
 
 
@@ -176,12 +184,12 @@ def main():
           % (np.max(abs(np.polyval(p, X0 - xc) - TT)),
              np.max(abs(np.polyval(dp, X0 - xc) - np.polyval(np.polyder(p4), X0 - xc)))))
     print("\nboost parameter a of the light-cone profile (estimator from W(1)/W(-1))")
-    print("   x0-x*      T(x0)            a(end of window)   T'(x0)      T-t at end   |W - W_a|   |W - c|")
+    print("   x0-x*      T(x0)            a(end of window)   T'(x0)      T-t at end   |W - W_a|   |W - c|   rate of |W-W_a|")
     for o in tr:
         Tp = np.polyval(dp, o["x0"] - xc)
-        print("   %+.5f   %.13f   %+.6f          %+.6f   %.1e     %.1e     %.1e"
+        print("   %+.5f   %.13f   %+.7f         %+.7f   %.1e     %.1e     %.1e   %.3f"
               % (o["x0"] - xstar, o["T"], o["a"][-1], Tp, o["Tm"] * np.exp(-o["taus"][-1]),
-                 o["prof_err"][-1], o["flat_err"][-1]))
+                 o["prof_err"][-1], o["flat_err"][-1], o["rate"]))
         o["Tp"] = Tp
     make_figure(Ts, tr, p, dp, xc, xstar, c)
     print("total time %.0f s" % (time.time() - t0))
