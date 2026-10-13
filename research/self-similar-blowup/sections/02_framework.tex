@@ -1,0 +1,261 @@
+\section{The Donninger et al.\ method for ODE-type blowup}
+\label{fw:sec}
+
+This section fixes notation and isolates the part of the argument that is
+common to all models considered below. The method goes back to Donninger's
+work on wave maps \cite{Donninger2011} and was developed into a general
+scheme by Donninger and Schörkhuber
+\cite{DonningerSchoerkhuber2012,DonningerSchoerkhuber2014,DonningerSchoerkhuber2016,DonningerSchoerkhuber2017},
+with later refinements for mode stability \cite{CostinDonningerGlogic2017},
+high Sobolev spaces in all dimensions \cite{Ostermann2024,Glogic2022} and
+hyperboloidal similarity coordinates \cite{BiernatDonningerSchoerkhuber2021}.
+We use it here as a black box with five steps, and we point out the (few)
+places where the industrial models need something extra.
+
+\subsection{Setting and self-similar variables}
+We consider
+\begin{equation}\label{fw:eq}
+  \partial_t^2 u-\Delta u = F(u) \qquad\text{in } [0,T)\times\mathbb R^d,
+\end{equation}
+possibly with lower-order terms $\gamma\partial_t u+m^2u$ that will be treated
+as perturbations (\cref{fw:subsec-lower}). By finite speed of propagation it
+suffices to study \eqref{fw:eq} in the backward light cone
+$\Gamma_T=\{(t,x):0\le t<T,\ |x|\le T-t\}$ of the blowup point $(T,0)$; in
+particular boundary conditions of the engineering problem (clamped edges of a
+MEMS plate, Dirichlet temperature, \dots) are irrelevant as long as the cone
+base lies inside the physical domain.
+
+\emph{Similarity coordinates} are
+\[
+  \tau=-\log(T-t)+\log T,\qquad \xi=\frac{x}{T-t},\qquad (\tau,\xi)\in[0,\infty)\times\overline{B^d},
+\]
+so that $\partial_\tau=(T-t)\partial_t-x\cdot\nabla_x$ and
+$\nabla_\xi=(T-t)\nabla_x$. We write $\Lambda=\xi\cdot\nabla_\xi$.
+Suppose the nonlinearity has a scaling exponent $s\in\mathbb R$, i.e.\
+$u\mapsto \mu^{s}u(\mu t,\mu x)$ maps solutions to solutions. This holds for
+$F(u)=|u|^{p-1}u$ with $s=2/(p-1)$ and for the MEMS force $F(w)=-\lambda
+w^{-q}$ with $s=-2/(q+1)$ (a \emph{negative} exponent: the gap $w$ goes to
+zero). Setting
+\begin{equation}\label{fw:psi}
+  \psi_1(\tau,\xi)=(T-t)^{s}\,u(t,x),\qquad \psi_2(\tau,\xi)=(T-t)^{s+1}\,\partial_tu(t,x),
+\end{equation}
+equation \eqref{fw:eq} becomes the autonomous first-order system
+\begin{equation}\label{fw:system}
+  \partial_\tau\begin{pmatrix}\psi_1\\ \psi_2\end{pmatrix}
+  =\underbrace{\begin{pmatrix}-\Lambda\psi_1-s\psi_1+\psi_2\\ \Delta\psi_1-\Lambda\psi_2-(s+1)\psi_2\end{pmatrix}}_{=:\ \mathbf L_0^{(s)}\Psi}
+  +\begin{pmatrix}0\\ F(\psi_1)\end{pmatrix}.
+\end{equation}
+For the exponential nonlinearity $F(u)=\delta e^u$ one instead sets
+$\psi_1=u+2\log(T-t)$, $\psi_2=(T-t)\partial_tu$; the linear part is then
+$\mathbf L_0^{(0)}$ and an inhomogeneity $-2$ appears in the first component.
+The elementary but useful identity
+\begin{equation}\label{fw:shift}
+  \mathbf L_0^{(s)}=\mathbf L_0^{(0)}-s\,\mathbf I
+\end{equation}
+shows that the scaling exponent only \emph{shifts} the free spectrum; this is
+what makes the MEMS case ($s<0$) structurally identical to the classical one.
+
+\subsection{ODE blowup and a universal spectrum}
+\label{fw:subsec-ode}
+An \emph{ODE blowup} solution is a spatially homogeneous solution
+$u_T(t)=\kappa(T-t)^{-s}$ (respectively $u_T=\log\kappa-2\log(T-t)$), i.e.\ a
+constant fixed point $\Psi_*=(\kappa,s\kappa)$ of \eqref{fw:system}. Its
+symmetry orbit consists of
+\begin{itemize}[nosep]
+\item time translations $T\mapsto T'$ (in the fixed coordinates $(\tau,\xi)$
+  adapted to $T$, this is a genuine motion of the fixed point);
+\item Lorentz boosts: for $a\in\mathbb R^d$, $|a|<1$,
+  \begin{equation}\label{fw:boost}
+  u_{T,a}(t,x)=\kappa\,(1-|a|^2)^{s/2}\,\big(T-t+a\cdot x\big)^{-s},\qquad
+  \Psi_a(\xi)=\kappa(1-|a|^2)^{s/2}(1+a\cdot\xi)^{-s},
+  \end{equation}
+  which is again an exact self-similar solution, smooth on
+  $\overline{B^d}$ (direct substitution: with $f=T-t+a\cdot x$ one has
+  $\partial_t^2f^{-s}-\Delta f^{-s}=s(s+1)(1-|a|^2)f^{-s-2}$);
+\item space translations of the blowup point, which do not change $u_T$.
+\end{itemize}
+Linearising $F(\psi_1)$ at $\kappa$ gives the constant potential
+$V_0=F'(u_T)(T-t)^2$. The operator $\mathbf L=\mathbf
+L_0^{(s)}+\mathbf L'$, $\mathbf L'\Psi=(0,V_0\psi_1)$, has an eigenvalue
+$\lambda$ with eigenfunction $(g,(\lambda+s+\Lambda)g)$ iff
+$v=(T-t)^{-s-\lambda}g(x/(T-t))$ solves $\partial_t^2v-\Delta v=V_0(T-t)^{-2}v$,
+i.e.\ with $a:=s+\lambda$,
+\begin{equation}\label{fw:eig}
+  (\delta_{ij}-\xi_i\xi_j)\partial_i\partial_jg-2(a+1)\Lambda g-\big(a(a+1)-V_0\big)g=0\qquad\text{in }B^d.
+\end{equation}
+
+\begin{lemma}[$V_0$ is forced by the time-translation mode]\label{fw:lem-V0}
+For every ODE blowup with scaling exponent $s$ one has $V_0=(s+1)(s+2)$.
+\end{lemma}
+\begin{proof}
+$\partial_Tu_T\propto (T-t)^{-s-1}$ solves the linearised equation, so
+$a=s+1$ (i.e.\ $\lambda=1$, $g\equiv1$) solves \eqref{fw:eig}:
+$(s+1)(s+2)-V_0=0$.
+\end{proof}
+Thus $a^2+a-V_0=(a-a_1)(a-a_2)$ with $a_1=s+1$, $a_2=-(s+2)$, and for
+$F=|u|^{p-1}u$ one recovers $V_0=p\kappa^{p-1}=ps(s+1)$, for MEMS
+$V_0=q\lambda c^{-q-1}=2q(q-1)/(q+1)^2$ and for $F=\delta e^u$ $V_0=2$.
+
+Writing $g(\xi)=|\xi|^\ell Y_\ell(\xi/|\xi|)\,h(|\xi|^2)$ with a spherical
+harmonic $Y_\ell$, \eqref{fw:eig} becomes Gauss' hypergeometric equation
+\begin{equation}\label{fw:hyp}
+  z(1-z)h''+\big(c-(\alpha+\beta+1)z\big)h'-\alpha\beta h=0,\quad
+  c=\tfrac d2+\ell,\quad \alpha=\tfrac{a+\ell-a_1}{2},\quad \beta=\tfrac{a+\ell-a_2}{2},
+\end{equation}
+(verified symbolically in \texttt{code/}), with Frobenius exponents
+$\{0,1-c\}$ at $z=0$ and $\{0,\,c-\alpha-\beta\}$ at $z=1$, where
+$c-\alpha-\beta=\frac{d-1}{2}-s-\lambda$.
+
+\begin{theorem}[Spectrum of ODE blowup]\label{fw:thm-spec}
+Let $k\in\mathbb N$, $k>\frac d2-s$, and set $\omega_k:=k-\frac d2+s>0$. A
+number $\lambda$ with $\operatorname{Re}\lambda>-\omega_k$ is an eigenvalue
+of $\mathbf L$ on $\mathcal H^k:=H^k\times H^{k-1}(B^d)$ if and only if
+\[
+  \lambda\in\{\,1-\ell-2n\,\}\ \cup\ \{\,-2s-2-\ell-2n\,\},\qquad \ell,n\in\mathbb N_0,
+\]
+and the eigenfunctions are $|\xi|^\ell Y_\ell\cdot(\text{polynomial in }|\xi|^2)$.
+In particular, for $s>-1$ the only eigenvalues with $\operatorname{Re}\lambda\ge0$
+are $\lambda=1$ ($\ell=0$, time translation, $g\equiv1$) and $\lambda=0$
+($\ell=1$, $d$-fold, Lorentz boosts, $g=\xi_j$), and the spectral gap is
+\begin{equation}\label{fw:gap}
+  \omega_0(s)=\min\{1,\;2s+2\}.
+\end{equation}
+\end{theorem}
+\begin{proof}[Proof sketch]
+Since $\Gamma(c)\neq0$ and the second Frobenius solution at $z=0$ behaves like
+$|\xi|^{2-d-2\ell}$ (or $\log|\xi|$, or $|\xi|$ when $d=1,\ell=0$), an
+$H^k$ eigenfunction ($k\ge2$) must be a multiple of
+$h={}_2F_1(\alpha,\beta;c;z)$. At $z=1$ the second exponent produces
+$(1-|\xi|^2)^{\gamma}$, $\gamma=\frac{d-1}{2}-s-\lambda$, possibly with a
+logarithm; such a function lies in $H^k(B^d)$ only if
+$\operatorname{Re}\gamma>k-\frac12$ or $\gamma\in\mathbb N_0$ without log term.
+For $\operatorname{Re}\lambda>-\omega_k$ we have $\operatorname{Re}\gamma<k-\frac12$,
+so $h$ must be analytic at $z=1$. By the connection formulae
+(DLMF 15.8.4 for $\gamma\notin\mathbb Z$, and 15.8.8--15.8.10 for the
+degenerate cases $\gamma\in\mathbb Z$, where the coefficients of the
+logarithm and of $(1-z)^{\gamma}$, $\gamma<0$, are proportional to
+$1/(\Gamma(\alpha)\Gamma(\beta))$ resp.\ $1/(\Gamma(\alpha-m)\Gamma(\beta-m))$)
+this happens iff $\alpha\in-\mathbb N_0$ or $\beta\in-\mathbb N_0$, in which case $h$ is a
+polynomial. Solving $\alpha=-n$, $\beta=-n$ for $\lambda=a-s$ gives the two
+families. For $s>-1$ the second family is $\le -2s-2<0$, and $1-\ell-2n\ge0$
+only for $(\ell,n)\in\{(0,0),(1,0)\}$; the next eigenvalues are $-1$
+($\ell=0,n=1$ and $\ell=2,n=0$) and $-2s-2$, whence \eqref{fw:gap}.
+\end{proof}
+
+\begin{remark}
+\Cref{fw:thm-spec} contains, as special cases, the spectral statements of
+\cite{DonningerSchoerkhuber2012,DonningerSchoerkhuber2014,DonningerSchoerkhuber2017,Ostermann2024}
+for $F=|u|^{p-1}u$, $p>1$ ($s=2/(p-1)$, gap $\min\{1,\frac{2(p+1)}{p-1}\}=1$),
+and it extends verbatim to the MEMS range $p=-q<-1$
+($s=-\frac{2}{q+1}\in(-1,0)$, gap $\min\{1,\frac{2(q-1)}{q+1}\}$) and to the
+exponential case ($s=0$, gap $1$). The constraint $s>-1$ is exactly the
+condition $q>1$ for MEMS touchdown to be of self-similar ODE type
+(\cref{mems:sec}). Semisimplicity of $\lambda=1$ and $\lambda=0$ (no Jordan
+chains) is checked by showing that $(\mathbf L-\lambda)\mathbf u=\mathbf
+g_\lambda$ has no $\mathcal H^k$ solution, an ODE computation of the same
+type as in \cite{DonningerSchoerkhuber2017,Ostermann2024}; it is carried
+out model by model below.
+\end{remark}
+
+\subsection{The five steps}
+\label{fw:subsec-steps}
+\paragraph{Step 1: free evolution.} By \eqref{fw:shift} it suffices to
+understand $\mathbf L_0^{(0)}$. Heuristically, for a free wave
+$\|\nabla_\xi^k\psi_1(\tau)\|_{L^2(B^d)}=(T-t)^{k-d/2+s}\|\nabla_x^ku(t)\|_{L^2(B_{T-t})}$,
+and the last factor is bounded by local energy conservation, which suggests
+the decay rate $\omega_k=k-\frac d2+s$ on top-order seminorms. The low-order
+part is not dissipative: polynomial free waves of degree $m$ give eigenvalues
+$-s-m$ of $\mathbf L_0^{(s)}$, and for the MEMS case $s<0$ the constant
+wave $w\equiv1$ gives the \emph{positive} eigenvalue $-s=\sigma$. The rigorous
+version (inner products on $\mathcal H^k$ built from $\dot H^k$-type
+seminorms plus boundary/low-order terms, Lumer--Phillips) is
+\cite[Sec.~3]{Ostermann2024} and \cite{Glogic2022}: there is an equivalent
+inner product and a finite-rank operator $\mathbf K_0$ such that
+$\mathbf L_0^{(s)}-\mathbf K_0$ generates a semigroup of growth bound
+$\le-\omega$ for any prescribed $\omega<\omega_k$ (after possibly increasing
+$k$). Since the finite-rank part is absorbed into the compact perturbation in
+Step~2, the positive free eigenvalue in the MEMS case is harmless.
+
+\paragraph{Step 2: compact perturbation.} $\mathbf L'+\mathbf K_0$ is compact
+on $\mathcal H^k$ (Rellich), hence $\mathbf L$ generates a semigroup
+$\mathbf S(\tau)$ with the same essential growth bound $\le-\omega_k$, and
+$\sigma(\mathbf L)\cap\{\operatorname{Re}\lambda>-\omega_k\}$ consists of
+isolated eigenvalues of finite algebraic multiplicity
+\cite[Ch.~IV]{EngelNagel2000}.
+
+\paragraph{Step 3: mode stability.} Determine all eigenvalues in
+$\operatorname{Re}\lambda>-\omega_0$; for the ODE profile this is
+\cref{fw:thm-spec}. For non-explicit profiles (wave maps, Yang--Mills,
+non-trivial profiles of supercritical equations) this is the hard step and
+is done by supersymmetric removal of symmetry modes and the quasi-solution
+method of Costin, Donninger and Glogić \cite{CostinDonningerGlogic2017}.
+
+\paragraph{Step 4: linear stability.} With the Riesz projection $\mathbf P$
+onto the symmetry eigenvalues ($\lambda=1$, and $\lambda=0$ in the nonradial
+case), $\|\mathbf S(\tau)(\mathbf I-\mathbf P)\|\le M_\omega e^{-\omega\tau}$ for
+every $\omega<\min\{\omega_0,\omega_k\}$, because the growth bound of a
+semigroup equals the maximum of its spectral bound and its essential growth
+bound.
+
+\paragraph{Step 5: nonlinear stability.} Writing $\Psi=\Psi_*+\Phi$, the
+perturbation solves $\partial_\tau\Phi=\mathbf L\Phi+\mathbf N(\Phi)$ with
+$\mathbf N(\Phi)=(0,F(\kappa+\phi_1)-F(\kappa)-F'(\kappa)\phi_1)$. If $k>d/2$,
+$H^k(B^d)$ is an algebra embedded in $L^\infty$, so for smooth $F$ near
+$\kappa$ (for MEMS: away from $w=0$) one has
+$\|\mathbf N(\Phi)-\mathbf N(\tilde\Phi)\|\lesssim(\|\Phi\|+\|\tilde\Phi\|)\|\Phi-\tilde\Phi\|$.
+The Duhamel equation is solved in
+$\mathcal X_\omega=\{\Phi:\sup_\tau e^{\omega\tau}\|\Phi(\tau)\|_{\mathcal H^k}<\infty\}$
+after subtracting the Lyapunov--Perron correction
+$\mathbf C(\Phi,\mathbf u)=\mathbf P\mathbf u+\int_0^\infty e^{-\tau'}\mathbf P_1\mathbf N(\Phi(\tau'))\,d\tau'
++\int_0^\infty\mathbf P_0\mathbf N(\Phi(\tau'))\,d\tau'$. The correction is then
+removed by choosing the blowup time $T^*$ (and, nonradially, the boost
+parameter $a^*$ and the blowup point) via the Brouwer fixed point theorem:
+the derivative of the rescaled data with respect to $(T,a)$ at the
+background is a non-degenerate map onto $\operatorname{ran}\mathbf P$, because
+the symmetry eigenfunctions are precisely the generators of these
+transformations. The outcome is a statement of the following form.
+
+\begin{theorem}[template]\label{fw:thm-template}
+Let $k>\frac d2+\max\{0,-s\}$ be large enough and $0<\omega<\omega_0$.
+There is $\varepsilon>0$ such that for data $(u_0,u_1)$ with
+$\|(u_0,u_1)-(u_{1,0}(0),\partial_tu_{1,0}(0))\|_{H^k\times H^{k-1}(B_{1+\varepsilon})}\le\varepsilon$
+there exist $T^*\in(1-\varepsilon,1+\varepsilon)$, $x^*\in B_\varepsilon$,
+$a^*\in B_\varepsilon$ (with $x^*=a^*=0$ for radial data) such that the
+solution blows up at $(T^*,x^*)$ and
+\[
+  \big\|(T^*-t)^{s}u(t,x^*+(T^*-t)\,\cdot)-\Psi_{a^*}\big\|_{H^k(B^d)}
+  +\big\|(T^*-t)^{s+1}\partial_tu(t,x^*+(T^*-t)\,\cdot)-(\Lambda+s)\Psi_{a^*}\big\|_{H^{k-1}(B^d)}
+  \lesssim (T^*-t)^{\omega}.
+\]
+\end{theorem}
+
+\subsection{Lower-order terms}\label{fw:subsec-lower}
+Engineering models almost always contain damping or restoring forces. With
+$T-t=Te^{-\tau}$, a damping term $\gamma\partial_tu$ adds
+$-\gamma Te^{-\tau}\psi_2$ to the second line of \eqref{fw:system}, and a
+linear restoring force $m^2u$ adds $-m^2T^2e^{-2\tau}\psi_1$. Two
+consequences: (i) the ODE blowup solution is no longer exactly self-similar,
+$u(t)=\kappa(T-t)^{-s}(1+O(T-t))$, so the background in similarity variables is
+$\Psi_*+O(e^{-\tau})$; (ii) the linearised flow is an \emph{integrable}
+($\int_0^\infty\|e^{-\tau}\mathbf B\|\,d\tau<\infty$) bounded perturbation of
+$\mathbf S(\tau)$. Both are compatible with Steps~4--5 as long as the decay rate
+of the forcing ($1$ for damping) is not below the target rate $\omega$, which
+holds since $\omega<\omega_0\le1$. In the radial case only $T$ must be
+modulated. In the nonradial case, Lorentz invariance is broken and the
+neutral $\ell=1$ modes are no longer generated by an exact symmetry; this
+requires either a dynamical modulation of the boost parameter (driven by an
+integrable source) or an additional argument. The details are in
+\cref{power:sec} and in the model sections.
+
+\subsection{What the method gives, and what it does not}
+The output is \emph{local}: stability of the blowup profile inside the
+backward light cone of the (moving) blowup point, for perturbations small in
+a high Sobolev norm, with an explicit exponential rate in $\tau$, i.e.\ a
+power rate in $T^*-t$. It does not, by itself, determine the global blowup
+set or describe the solution outside the cone; for the latter see the
+hyperboloidal variant \cite{BiernatDonningerSchoerkhuber2021} and
+\cite{ChenDonningerGlogicMcNultySchoerkhuber2024}. For the industrial models
+we treat, it nevertheless yields exactly the information an engineer would
+ask for: the \emph{touchdown/runaway rate}, the \emph{local profile}, and the
+\emph{robustness} of both under perturbations of data and of lower-order
+model terms.
