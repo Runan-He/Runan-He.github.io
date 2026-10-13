@@ -15,6 +15,8 @@ Checks
  5. Constant (spatially homogeneous) sector: 2x2 matrix, eigenvalues 1, -2s-2.
  6. Jordan blocks at the collision exponents s = -1/2 (lambda=-1) and s = 1/2
     (lambda = -3), l = 0.
+ 8. Explicit non-ODE profiles (cubic, all d >= 5; quadratic, d = 9).
+ 9. Tilted ("boosted") plane-wave family u = W(T - t + a.x) for the perturbed equation.
  7. Expansion of the spatially homogeneous blowup solution of
     u'' + gamma u' + m^2 u = F(u):  u = kappa rho^{-s}(1 + a1 rho + a2 rho^2 + ...),
     resonance at j = 2s+2, log terms (p = 3 with damping; MEMS q = 3 with damping).
@@ -166,43 +168,48 @@ def L_apply(phi1, phi2, coords, s, V0):
     return (-Lam(phi1) - s*phi1 + phi2,
             Lap(phi1) - Lam(phi2) - (s+1)*phi2 + V0*phi1)
 
-def check_jordan(s_val, lam_val, d=3, deg=6):
+def check_jordan(s_val, lam_val, d=3, deg=6, l=0):
+    """Is there a generalized eigenvector (L - lam) phi = e for the eigenvector e
+    in the l-sector (l = 0: radial, l = 1: prefactor x1)?  Returns (g, solutions)."""
     coords = sp.symbols('x1:%d' % (d+1), real=True)
     r2 = sum(c**2 for c in coords)
+    P = sp.Integer(1) if l == 0 else coords[0]
     V0 = (s_val+1)*(s_val+2)
     z = sp.symbols('z')
-    # eigenfunction (radial) from the alpha / beta polynomial
-    A = s_val + lam_val
+    A = s_val + lam_val + l
     al, be = (A - (s_val+1))/2, (A + (s_val+2))/2
-    hpoly = sp.expand(sp.hyperexpand(sp.hyper([al, be], [sp.Rational(d, 2)], z)))
-    g = hpoly.subs(z, r2)
+    hpoly = sp.expand(sp.hyperexpand(sp.hyper([al, be], [sp.Rational(d, 2) + l], z)))
+    g = P*hpoly.subs(z, r2)
     Lam = lambda f: sum(c*sp.diff(f, c) for c in coords)
     e1, e2 = g, sp.expand((lam_val + s_val)*g + Lam(g))
     r1, r2_ = L_apply(e1, e2, coords, s_val, V0)
     assert sp.simplify(r1 - lam_val*e1) == 0 and sp.simplify(r2_ - lam_val*e2) == 0
-    # generalized eigenvector: polynomial ansatz in r^2
     cs = sp.symbols('c0:%d' % (deg+1))
-    phi1 = sum(cs[k]*r2**k for k in range(deg+1))
-    # first component fixes phi2:  -Lam phi1 - s phi1 + phi2 - lam phi1 = e1
+    phi1 = P*sum(cs[k]*r2**k for k in range(deg+1))
     phi2 = e1 + Lam(phi1) + (s_val + lam_val)*phi1
     o1, o2 = L_apply(phi1, phi2, coords, s_val, V0)
     eq = sp.expand(o2 - lam_val*phi2 - e2)
-    # collect coefficients in r2 by substituting radial point
     rr = sp.symbols('rr')
     eqr = sp.expand(eq.subs({coords[0]: rr, **{c: 0 for c in coords[1:]}}))
     sol = sp.solve(sp.Poly(eqr, rr).coeffs(), cs, dict=True)
     return g, sol
+
 
 def check_jordan_blocks():
     for s_val, lam_val in [(sp.Rational(-1, 2), -1), (sp.Rational(1, 2), -3)]:
         g, sol = check_jordan(s_val, lam_val)
         assert sol, "no generalized eigenvector"
         print(f"    s={s_val}, lambda={lam_val}: eigenfunction g={g}, generalized eigvec phi1 coeffs {sol[0]}")
-    # control: non-collision value must NOT have a generalized eigenvector
-    g, sol = check_jordan(sp.Rational(1, 3), -1)
-    assert not sol
+    # controls: no Jordan block at non-collision eigenvalues
+    for s_val in (sp.Rational(1, 3), sp.Rational(-2, 3), sp.Integer(1), sp.Rational(-1, 2)):
+        assert not check_jordan(s_val, 1)[1]            # time translation, l = 0
+        assert not check_jordan(s_val, 0, l=1)[1]       # Lorentz boosts, l = 1
+    assert not check_jordan(sp.Rational(1, 3), -1)[1]
+    assert not check_jordan(sp.Rational(-2, 3), sp.Rational(-2, 3))[1]   # MEMS q=2 gap eigenvalue
     ok("Jordan block (algebraic mult. 2, geometric 1) at the collision exponents "
-       "s=-1/2 (lambda=-1, MEMS q=3) and s=1/2 (lambda=-3, p=5); none for s=1/3, lambda=-1")
+       "s=-1/2 (lambda=-1, MEMS q=3) and s=1/2 (lambda=-3, p=5); lambda=1 (l=0) and "
+       "lambda=0 (l=1) semisimple for s in {1/3,-2/3,1,-1/2}; lambda=-2/3 simple for q=2")
+
 
 # ---------------------------------------------------------------- 7
 def ode_expansion(pv, gam, m, J=5, sign=1, extra_log=None):
@@ -275,6 +282,48 @@ def check_a2_general():
     ok("closed forms of a1, a2 (checked against direct expansion for p=3,7)")
     return sol1, sol2
 
+# ---------------------------------------------------------------- 8
+def check_explicit_profiles():
+    """Non-ODE self-similar profiles: cubic (Glogic-Schoerkhuber form) and quadratic d=9."""
+    r = sp.symbols('r', positive=True)
+    d = sp.symbols('d', positive=True)
+    def resid(U, s, p, dd):
+        Lam = lambda f: r*sp.diff(f, r)
+        Lap = lambda f: sp.diff(f, r, 2) + (dd-1)/r*sp.diff(f, r)
+        A = s*U + Lam(U)
+        return sp.simplify((s+1)*A + Lam(A) - Lap(U) - U**p)
+    Uc = 2*sp.sqrt(2)*sp.sqrt((d-1)*(d-4))/(d - 4 + 3*r**2)
+    assert resid(Uc, 1, 3, d) == 0
+    Uq = 240*(7 - r**2)/(7 + 5*r**2)**2
+    assert resid(Uq, 2, 2, 9) == 0
+    ok("explicit profiles: u=(T-t)^{-1} 2sqrt2 sqrt((d-1)(d-4))/(d-4+3rho^2) solves u_tt-Lap u=u^3 (all d); "
+       "u=(T-t)^{-2} 240(7-rho^2)/(7+5rho^2)^2 solves u_tt-Lap u=u^2 in d=9")
+
+def check_tilted_family():
+    """u = W(T - t + a.x) reduces u_tt + gam u_t + m^2 u - Lap u = F(u) to the ODE
+    (1-|a|^2) W'' - gam W' + m^2 W = F(W); for gam = m = 0, W = kappa (1-|a|^2)^{s/2} phi^{-s}."""
+    t, x, y, T, a1, a2, gam, m = sp.symbols('t x y T a1 a2 gamma m', real=True)
+    W = sp.Function('W')
+    phi = T - t + a1*x + a2*y
+    u = W(phi)
+    expr = sp.diff(u, t, 2) + gam*sp.diff(u, t) + m**2*u - sp.diff(u, x, 2) - sp.diff(u, y, 2)
+    ph = sp.symbols('phi')
+    target = (1 - a1**2 - a2**2)*sp.Derivative(W(ph), (ph, 2)) - gam*sp.Derivative(W(ph), ph) + m**2*W(ph)
+    diff = sp.simplify(expr.subs(phi, ph).doit() - target) if False else None
+    # compare via substitution of a concrete W
+    Wc = lambda z: sp.exp(sp.Rational(1, 3)*z) + z**5
+    uc = Wc(phi)
+    e1 = sp.diff(uc, t, 2) + gam*sp.diff(uc, t) + m**2*uc - sp.diff(uc, x, 2) - sp.diff(uc, y, 2)
+    zz = sp.symbols('zz')
+    e2 = ((1 - a1**2 - a2**2)*sp.diff(Wc(zz), zz, 2) - gam*sp.diff(Wc(zz), zz) + m**2*Wc(zz)).subs(zz, phi)
+    assert sp.simplify(e1 - e2) == 0
+    p = sp.Integer(5); s = 2/(p-1); kap = (s*(s+1))**(1/(p-1))
+    A2 = a1**2 + a2**2
+    Wb = kap*(1 - A2)**(s/2)*ph**(-s)
+    assert sp.simplify((1 - A2)*sp.diff(Wb, ph, 2) - Wb**p) == 0
+    ok("tilted family u = W(T-t+a.x): ODE (1-|a|^2)W'' - gamma W' + m^2 W = F(W); "
+       "exact boosted ODE profile kappa(1-|a|^2)^{s/2}(T-t+a.x)^{-s} (checked p=5)")
+
 
 if __name__ == "__main__":
     check_similarity_system()
@@ -284,3 +333,5 @@ if __name__ == "__main__":
     check_jordan_blocks()
     check_ode_expansion()
     check_a2_general()
+    check_explicit_profiles()
+    check_tilted_family()

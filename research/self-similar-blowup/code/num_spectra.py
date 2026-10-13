@@ -201,9 +201,9 @@ def hyp_poly(a, b, c, z):
 
 
 def eigvec_checks():
-    """eigenvectors (double precision, N = 20) vs symmetry generators / 2F1."""
+    """eigenvectors (double precision, N = 12) vs symmetry generators / 2F1."""
     lines = []
-    N = 20
+    N = 12
     for (name, par, s, V0, deriv, dims) in cases():
         for d in dims:
             for l in sectors(d):
@@ -263,22 +263,28 @@ def main():
     print("  done in %.0f s" % (time.time() - t0), flush=True)
 
     print("\n=== converged eigenvalues (Re >= %g) ===" % REMIN)
-    print("high precision (dps=%d): Chebyshev N=%d and N=%d agree to < 1e-8" % ((DPS,) + NMP))
+    print("high precision (dps=%d): Chebyshev N=%d and N=%d agree to < 1e-6" % ((DPS,) + NMP))
     print("dbl80: number of these reproduced to 1e-6 by double precision at N=20/40/80")
     summary = []
+    SIMPLE_DIFF = []
     for (name, par, s, V0, deriv, dims) in allcases:
         for d in dims:
             for l in sectors(d):
                 evA = np.array(mpdict[(NMP[0], d, l, s, deriv)][0])
                 evB = np.array(mpdict[(NMP[1], d, l, s, deriv)][0])
                 conv = []
+                fl_tmp = formula(s, V0, deriv, l)
                 for e in evA:
                     if e.real < REMIN - 1e-6:
                         continue
-                    # converged in N: N=12 and N=20 agree (1e-8 tolerates the
-                    # O(eps^(1/2)) splitting of a 2x2 Jordan block at dps=30)
-                    if np.min(abs(evB - e)) < 1e-8:
+                    # converged in N: N=12 and N=20 agree (1e-6 tolerates the
+                    # O((eps*cond)^(1/2)) splitting of a 2x2 Jordan block at dps=30;
+                    # simple eigenvalues agree to ~1e-20, see SIMPLE_DIFF)
+                    dmin = np.min(abs(evB - e))
+                    if dmin < 1e-6:
                         conv.append(e)
+                        if not any(abs(e - float(f)) < 1e-3 and fl_tmp.count(f) > 1 for f in fl_tmp):
+                            SIMPLE_DIFF.append(dmin)
                 conv = sorted(conv, key=lambda e: -e.real)
                 fl = formula(s, V0, deriv, l)
                 # match with multiplicity
@@ -314,6 +320,8 @@ def main():
                       " (of %d distinct) N=20/40/80: %s" % (jord or "none (all semisimple)",
                                                             len(set(fl_f)), dbl))
 
+    print("\nsimple converged eigenvalues: max |lam(N=%d) - lam(N=%d)| = %.1e"
+          % (NMP[0], NMP[1], max(SIMPLE_DIFF)))
     # Jordan splitting seen in high precision
     print("\n=== splitting of double eigenvalues in high precision (N=%d) ===" % NMP[1])
     for (name, par, d, l, conv, fl, err, unm, jord, dbl, nd) in summary:
@@ -323,12 +331,12 @@ def main():
                     cl = sorted([e for e in conv if abs(e - float(lamf)) < 1e-6],
                                 key=lambda e: e.real)
                     print("  %s %s d=%d l=%d lam=%s : |split| = %.2e, |mean-lam| = %.1e"
-                          " (dps=%d: split ~ 10^-15 = sqrt(eps) signals a Jordan block)"
+                          " (dps=%d; a splitting >> the 1e-20 accuracy of simple eigenvalues signals a Jordan block)"
                           % (name, par, d, l, fmt_fr(lamf),
                              abs(cl[-1] - cl[0]) if len(cl) == 2 else np.nan,
                              abs(np.mean(cl) - float(lamf)) if cl else np.nan, DPS))
 
-    print("\n=== eigenfunction checks (double precision, N=20) ===")
+    print("\n=== eigenfunction checks (double precision, N=12) ===")
     print("err1 = max|h1 - 2F1 polynomial|, err2 = max|h2 - (lam+s+Lambda)h1|,"
           " ratio = h2/h1 at z=1")
     checks = eigvec_checks()

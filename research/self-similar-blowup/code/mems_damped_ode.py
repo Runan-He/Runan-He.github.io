@@ -81,6 +81,18 @@ def main():
         print(f"undamped touchdown time from rest, q={q}, lam=1: {Tq:.10f}" +
               (f"  (pi/(2 sqrt 2) = {np.pi / (2 * np.sqrt(2)):.10f})" if q == 2 else ""))
 
+    # static pull-in values lambda* for Delta w = lam w^{-2} in the unit ball B_1 (d=1: interval (-1,1)),
+    # w = 1 on the boundary: lam(s) = s^2 / v(s)^3 along the scaled shooting solution v'' + (d-1)/s v' = v^{-2}
+    for d in (1, 2, 3):
+        f = (lambda s, y, d=d: [y[1], y[0] ** -2 - ((d - 1) / s * y[1] if s > 0 else 0.0)])
+        s0 = 1e-6
+        sol = solve_ivp(f, [s0, 50], [1 + s0 ** 2 / (2 * d), s0 / d], rtol=1e-12, atol=1e-14, dense_output=True)
+        ss = np.linspace(0.01, 50, 200000)
+        v = sol.sol(ss)[0]
+        lam_s = ss ** 2 / v ** 3
+        print(f"static pull-in (q=2), unit ball in d={d}: lambda* = {lam_s.max():.4f};  "
+              f"flat ODE touchdown from rest in the ball needs pi^2/8 = {np.pi ** 2 / 8:.4f}")
+
 
 if __name__ == "__main__":
     main()

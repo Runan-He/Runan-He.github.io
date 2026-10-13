@@ -166,13 +166,23 @@ def main():
     xs2 = [xstar, xstar - 0.12, xstar - 0.06, xstar + 0.06, xstar + 0.12]
     with Pool(4) as pool:
         tr = pool.map(lambda_traj, xs2, chunksize=1)
+    # refit the blowup curve with all 12 values of T(x0) (degree 6)
+    X0 = np.array([o["x0"] for o in Ts] + [o["x0"] for o in tr])
+    TT = np.array([o["T"] for o in Ts] + [o["T"] for o in tr])
+    p = np.polyfit(X0 - xc, TT, 6)
+    dp = np.polyder(p)
+    p4 = np.polyfit(X0 - xc, TT, 5)
+    print("degree-6 fit of T(x0) on 12 points: residual %.1e ; |T' (deg 6) - T' (deg 5)| <= %.1e on the points"
+          % (np.max(abs(np.polyval(p, X0 - xc) - TT)),
+             np.max(abs(np.polyval(dp, X0 - xc) - np.polyval(np.polyder(p4), X0 - xc)))))
     print("\nboost parameter a of the light-cone profile (estimator from W(1)/W(-1))")
-    print("   x0         T(x0)            a(end of window)   T'(x0)      T-t at end   |W - W_a|   |W - c|")
+    print("   x0-x*      T(x0)            a(end of window)   T'(x0)      T-t at end   |W - W_a|   |W - c|")
     for o in tr:
         Tp = np.polyval(dp, o["x0"] - xc)
-        print("   %+.5f  %.13f   %+.6f          %+.6f   %.1e     %.1e     %.1e"
-              % (o["x0"], o["T"], o["a"][-1], Tp, o["Tm"] * np.exp(-o["taus"][-1]),
+        print("   %+.5f   %.13f   %+.6f          %+.6f   %.1e     %.1e     %.1e"
+              % (o["x0"] - xstar, o["T"], o["a"][-1], Tp, o["Tm"] * np.exp(-o["taus"][-1]),
                  o["prof_err"][-1], o["flat_err"][-1]))
+        o["Tp"] = Tp
     make_figure(Ts, tr, p, dp, xc, xstar, c)
     print("total time %.0f s" % (time.time() - t0))
 
@@ -187,11 +197,11 @@ def make_figure(Ts, tr, p, dp, xc, xstar, c):
     import matplotlib.pyplot as plt
     plt.rcParams.update({"font.size": 9})
     fig, axs = plt.subplots(1, 3, figsize=(11, 3.4))
-    X0 = np.array([o["x0"] for o in Ts])
-    TT = np.array([o["T"] for o in Ts])
+    X0 = np.array([o["x0"] for o in Ts] + [o["x0"] for o in tr])
+    TT = np.array([o["T"] for o in Ts] + [o["T"] for o in tr])
     xx = np.linspace(X0.min() - 0.02, X0.max() + 0.02, 200)
     axs[0].plot(X0, TT, "ko", ms=4, label=r"$T(x_0)$ by bisection")
-    axs[0].plot(xx, np.polyval(p, xx - xc), "k-", lw=0.8, label="quartic fit")
+    axs[0].plot(xx, np.polyval(p, xx - xc), "k-", lw=0.8, label="polynomial fit")
     axs[0].axvline(xstar, color="r", ls="--", lw=0.8, label=r"$x^*=%.4f$" % xstar)
     axs[0].set_xlabel(r"$x_0$")
     axs[0].set_ylabel(r"blowup curve $T(x_0)$")
@@ -199,7 +209,7 @@ def make_figure(Ts, tr, p, dp, xc, xstar, c):
     cols = plt.cm.viridis(np.linspace(0, 0.9, len(tr)))
     for o, col in zip(sorted(tr, key=lambda o: o["x0"]), cols):
         s = o["Tm"] * np.exp(-o["taus"])
-        Tp = np.polyval(dp, o["x0"] - xc)
+        Tp = o["Tp"]
         axs[1].semilogx(s, o["a"], color=col, label=r"$x_0-x^*=%+.2f$" % (o["x0"] - xstar))
         axs[1].axhline(Tp, color=col, ls=":", lw=1)
         axs[2].loglog(s, o["prof_err"], color=col)

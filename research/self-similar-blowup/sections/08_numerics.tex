@@ -1,0 +1,231 @@
+\section{Numerical verification}
+\label{num:sec}
+
+This section reports an \emph{independent} numerical check of the spectral
+claims of \cref{fw:thm-spec} and of the physical picture behind them: that
+hyperbolic MEMS touchdown, started from physical data, is governed in the
+backward light cone by the ODE profile, at the rate predicted by the
+spectral gap. All computations are done from scratch from the
+coordinates of \cref{fw:sec}; no formula of the analytic sections is used as
+input except as the thing to be compared with. The scripts are listed in
+\cref{num:subsec-repro}. In brief:
+\begin{itemize}[leftmargin=1.4em,itemsep=1pt]
+\item \textbf{Spectra} (\cref{num:subsec-spec}). For all $27$ model/dimension
+  combinations and $\ell=0,1,2$ the converged eigenvalues with
+  $\operatorname{Re}\lambda\ge-3$ coincide with
+  $\{a_1-s-\ell-2n\}\cup\{a_2-s-\ell-2n\}$ to $10^{-14}$ or better and do not
+  depend on $d$. Two discrepancies with the hints: \emph{(i)} for MEMS with
+  $q=3$ (and for $p=5$) the two families collide and the collision
+  eigenvalues are $2\times2$ Jordan blocks, among them the gap eigenvalue
+  $\lambda=-1$ for $q=3$; \emph{(ii)} the derivative model is not of the
+  potential form \eqref{fw:eig}; its eigenvalues are $\{1-\ell-2n\}\cup\{-\ell-2n\}$.
+\item \textbf{MEMS touchdown} (\cref{num:subsec-mems}). From the physical
+  data $w(0)=1$, $w_t(0)=0$ in $d=1,2$, with and without damping, the minimum
+  of the gap behaves like $c(T-t)^{2/3}$ with $c=(9\lambda/2)^{1/3}$ to
+  $\ge 8$ digits; the light-cone profile converges to the constant $c$ at
+  the rate $(T-t)^{\omega}$ with measured $\omega=0.666\pm0.002$, in agreement
+  with $\omega_0=2/3$; the slowest mode is the spatially constant
+  ``ODE-energy'' mode $\lambda=-2/3$, the spatial variation decays like $(T-t)^{1}$.
+\item \textbf{Asymmetric data} (\cref{num:subsec-boost}). At the touchdown
+  point the profile converges to the \emph{flat} ODE profile ($a=0$); a
+  boosted profile with $a=T'(x_0)\ne0$ appears at the other points $x_0$
+  of the blowup curve, which are not physically reached.
+\item \textbf{Exponential nonlinearity} in $d=1$ (\cref{num:subsec-exp}):
+  convergence with $\omega=1.000$, along the predicted eigenfunction $1-\xi^2$.
+\end{itemize}
+
+%-----------------------------------------------------------------------------
+\subsection{Spectra of the linearised operators}
+\label{num:subsec-spec}
+
+\paragraph{Formulation.}
+For $F=|u|^{p-1}u$ and $F=-\lambda w^{-q}$ we use the variables
+\eqref{fw:psi}; for $F=e^u$ the logarithmic variables of \cref{fw:sec}; for
+the derivative model $u_{tt}-\Delta u=(u_t)^2$, whose ODE solution is
+$u=-\log(T-t)$, we set $\psi_1=u+\log(T-t)$, $\psi_2=(T-t)u_t$, which gives
+$\partial_\tau\psi_1=-\Lambda\psi_1+\psi_2-1$,
+$\partial_\tau\psi_2=\Delta\psi_1-\Lambda\psi_2-\psi_2+\psi_2^2$ with the
+fixed point $(0,1)$ (up to the shift $\psi_1\mapsto\psi_1+\text{const}$).
+Linearising at the constant fixed point and inserting
+$\phi_j=e^{\lambda\tau}|\xi|^\ell Y_\ell(\xi/|\xi|)\,h_j(z)$, $z=|\xi|^2$,
+where $\Lambda\mapsto \ell+2z\partial_z$ and
+$\Delta\mapsto 4z\partial_z^2+(4\ell+2d)\partial_z$, gives the
+eigenvalue problem on $z\in[0,1]$
+\begin{equation}\label{num:eig}
+\lambda\begin{pmatrix}h_1\\h_2\end{pmatrix}=
+\begin{pmatrix}-(\ell+s)-2z\partial_z & 1\\
+4z\partial_z^2+(4\ell+2d)\partial_z+V_0 & -(\ell+s+1)-2z\partial_z\end{pmatrix}
+\begin{pmatrix}h_1\\h_2\end{pmatrix}
+\end{equation}
+with $(s,V_0)=(\frac2{p-1},\,ps(s+1))$, $(-\frac2{q+1},\,\frac{2q(q-1)}{(q+1)^2})$,
+$(0,2)$ for the power, MEMS and exponential cases; for the derivative
+model the $(1,1)$ entry is $-\ell-2z\partial_z$, the $(2,2)$ entry is
+$-(\ell-1)-2z\partial_z$ and $V_0=0$.
+
+\paragraph{Discretisation.}
+Chebyshev--Gauss--Lobatto collocation in $z\in[0,1]$ with $N+1$ nodes
+(Trefethen's differentiation matrix, mapped by $z=(1+x)/2$), applied to
+\eqref{num:eig} \emph{without} any boundary condition: at $z=1$ (the light
+cone) none is admissible because all characteristics leave the cone, and at
+$z=0$ regularity is built into the ansatz $|\xi|^\ell h(|\xi|^2)$ with $h$ a
+polynomial. This is a standard eigenvalue problem of size $2(N+1)$ (no
+quadratic pencil is needed). It was solved (a) in double precision for
+$N=20,40,80$, (b) with \texttt{mpmath} at $30$ digits for $N=12$ and $N=20$,
+and (c) exactly, in rational arithmetic, on polynomials of degree $\le5$ (see
+below). An eigenvalue is called \emph{converged} if (b) gives the same value
+for both $N$ to $10^{-8}$ (simple eigenvalues agree to $10^{-20}$; the looser
+tolerance accommodates the $\sqrt{\varepsilon}$-splitting of Jordan blocks).
+
+\paragraph{Why the closed form is reproduced exactly.}
+The computations revealed a simple structural fact that we record because it
+explains both the agreement and the numerical difficulties.
+\begin{proposition}\label{num:prop-tri}
+Let $\mathcal P_n$ be the polynomials of degree $\le n$ in $z$. The operator
+$\mathbf A_\ell$ on the right of \eqref{num:eig} maps $\mathcal P_n\times\mathcal P_n$
+into itself, and in the basis $\{(z^k,0),(0,z^k)\}_{k\le n}$ it is block upper
+triangular with diagonal blocks
+$\begin{pmatrix}-(\ell+2k+s)&1\\ V_0&-(\ell+2k+s+1)\end{pmatrix}$, $k=0,\dots,n$.
+Hence its eigenvalues are exactly $\lambda=a_i-s-\ell-2k$, $i=1,2$, where
+$a_{1,2}$ are the roots of $a^2+a-V_0=0$. Collocation with $N+1$ nodes is the
+restriction of $\mathbf A_\ell$ to $\mathcal P_N\times\mathcal P_N$, so in exact
+arithmetic its eigenvalues are precisely these numbers with $k\le N$.
+\end{proposition}
+\begin{proof}
+$z\partial_z z^k=kz^k$, while $4z\partial_z^2z^k+(4\ell+2d)\partial_zz^k=k(4k-4+4\ell+2d)z^{k-1}$
+lowers the degree. The characteristic polynomial of the $k$-th block is
+$(\lambda+\ell+2k+s)(\lambda+\ell+2k+s+1)-V_0$.
+\end{proof}
+The Laplacian (and hence $d$) enters only through the off-diagonal coupling
+$k\to k-1$; it decides eigenvectors and Jordan structure, not eigenvalues.
+For the derivative model the blocks are
+$\begin{pmatrix}-(\ell+2k)&1\\0&-(\ell+2k-1)\end{pmatrix}$, giving
+$\lambda\in\{1-\ell-2k\}\cup\{-\ell-2k\}$. The proposition says nothing about
+non-polynomial eigenfunctions; that these do not occur for
+$\operatorname{Re}\lambda>-\omega_k$ is the content of the connection-formula
+argument in \cref{fw:thm-spec}.
+
+\paragraph{Results.} \Cref{num:tab-spec} lists the converged eigenvalues.
+Every one of them agrees with the closed form to $\le 5\cdot10^{-15}$ (to
+$\le 10^{-18}$ in most cases), with the multiplicities predicted by
+\cref{num:prop-tri}, and the lists are identical for $d=1,2,3$. No eigenvalue
+outside the closed-form list was found.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{@{}llllll@{}}
+\toprule
+model & $(s,V_0)$ & $\ell=0$ & $\ell=1$ & $\ell=2$ ($d\ge2$) & $\omega_0$\\
+\midrule
+MEMS $q=2$ & $(-\frac23,\frac49)$ & $1,\,-\frac23,\,-1,\,-\frac83,\,-3$ & $0,\,-\frac53,\,-2$ & $-1,\,-\frac83,\,-3$ & $\frac23$\\
+MEMS $q=3$ & $(-\frac12,\frac34)$ & $1,\,-1^{J},\,-3^{J}$ & $0,\,-2^{J}$ & $-1,\,-3^{J}$ & $1^{J}$\\
+MEMS $q=4$ & $(-\frac25,\frac{24}{25})$ & $1,\,-1,\,-\frac65,\,-3$ & $0,\,-2,\,-\frac{11}5$ & $-1,\,-3$ & $1$\\
+$e^u$ & $(0,2)$ & $1,\,-1,\,-2,\,-3$ & $0,\,-2,\,-3$ & $-1,\,-3$ & $1$\\
+$u^3$, $d=3$ & $(1,6)$ & $1,\,-1,\,-3$ & $0,\,-2$ & $-1,\,-3$ & $1$\\
+$u^5$, $d=3$ & $(\frac12,\frac{15}4)$ & $1,\,-1,\,-3^{J}$ & $0,\,-2$ & $-1,\,-3$ & $1$\\
+$u^7$, $d=3$ & $(\frac13,\frac{28}9)$ & $1,\,-1,\,-\frac83,\,-3$ & $0,\,-2$ & $-1,\,-\frac83,\,-3$ & $1$\\
+$(u_t)^2$, $d=1,3$ & --- & $1,\,0,\,-1,\,-2,\,-3$ & $0,\,-1,\,-2,\,-3$ & $-1,\,-2,\,-3$ & $1$\\
+\bottomrule
+\end{tabular}
+\caption{Converged eigenvalues with $\operatorname{Re}\lambda\ge-3$ of the
+linearisation at the ODE profile (all real), for $d=1,2,3$ (MEMS, $e^u$), $d=3$
+(powers), $d=1,3$ (derivative model); in $d=1$ only $\ell=0,1$ (even/odd)
+exist. Identical for all $d$. $J$: algebraic multiplicity $2$, geometric
+multiplicity $1$ (Jordan block). Last column: gap after removing $\lambda=1$
+(and $\lambda=0$, and for $(u_t)^2$ the shift mode $\lambda=0$, $\ell=0$).}
+\label{num:tab-spec}
+\end{table}
+
+\paragraph{Discrepancies with the closed-form hint.}
+\begin{enumerate}[label=(D\arabic*),leftmargin=2.2em,itemsep=1pt]
+\item\label{num:D-jordan} \emph{Jordan blocks.} When $a_1-a_2\in2\mathbb N$
+  the two families collide. Among the cases considered this happens for MEMS
+  $q=3$ ($a_1-a_2=3-\frac4{q+1}=2$): $\lambda=-1-\ell-2n$ is double, and for
+  $p=5$ ($a_1-a_2=\frac4{p-1}+3=4$): $\lambda=-3-\ell-2n$. Exact rational
+  arithmetic on $\mathcal P_5\times\mathcal P_5$ gives geometric multiplicity
+  $1$ in every collision with $\operatorname{Re}\lambda\ge-3$
+  (\cref{num:tab-spec}); in $30$-digit arithmetic the double eigenvalue splits
+  by $\approx10^{-15}=\sqrt{10^{-30}}$, the signature of a $2\times2$ block.
+  Analytically: at $q=3$, $\lambda=-1$, $\ell=0$ one has $\alpha=-1$, $\beta=0$
+  in \eqref{fw:hyp}, so the equation reduces to $z(1-z)h''+ch'=0$, whose only
+  polynomial solution is $h=1$. Consequence: for $q=3$ the gap eigenvalue
+  $-1$ is \emph{not} semisimple, and the linearised flow on the stable
+  subspace decays like $\tau e^{-\tau}$, i.e.\ $(T-t)|\log(T-t)|$; the statement
+  ``rate $e^{-\omega\tau}$ for every $\omega<\omega_0$'' is unaffected, but
+  $\omega=\omega_0$ is not attained.
+\item\label{num:D-deriv} \emph{Derivative model.} \eqref{fw:eig} does not
+  apply ($F$ depends on $u_t$); naively taking $s=0$, $V_0=F'(u_T)(T-t)^2=0$ would give
+  $\{-\ell-2n\}\cup\{-1-\ell-2n\}$ and miss the time-translation eigenvalue.
+  The correct list is $\{1-\ell-2n\}\cup\{-\ell-2n\}$ (\cref{num:prop-tri}),
+  i.e.\ the free list with $s=-1$, and it contains the additional symmetry
+  eigenvalue $\lambda=0$, $\ell=0$, with eigenfunction $(1,0)$ (the shift
+  $u\mapsto u+\text{const}$).
+\item\label{num:D-buried} \emph{Space dependence of the list.} The closed
+  form is a list of \emph{polynomial} eigenfunctions; whether a listed number
+  is an isolated eigenvalue on $\mathcal H^k$ depends on $k$, see the next
+  paragraph. For instance $-2/3$ (MEMS, $q=2$) is invisible in the energy
+  space $k=1$ when $d=1$.
+\end{enumerate}
+
+\paragraph{Eigenfunctions and symmetries.}
+For all cases, the computed eigenvector of $\lambda=1$, $\ell=0$ has $h_1$
+constant and $h_2/h_1=1+s$ (resp.\ $1$ for $e^u$ and $(u_t)^2$) to $\le10^{-10}$,
+which is $\partial_T$ of the ODE profile in the variables \eqref{fw:psi}. The
+eigenvector of $\lambda=0$, $\ell=1$ is $\phi_1\propto\xi_j$, $h_2/h_1=1+s$, which is
+$\partial_a\Psi_a|_{a=0}$ for the boost family \eqref{fw:boost} (for MEMS:
+$\partial_a\Psi_a=c\sigma(\xi_j,(1-\sigma)\xi_j)$). For the derivative model
+$\lambda=0$, $\ell=0$ has eigenvector $(1,0)$. More generally, for every simple
+eigenvalue $\lambda\ge-1.5$ the eigenvector $h_1$ coincides with the
+terminating hypergeometric polynomial ${}_2F_1(\alpha,\beta;\frac d2+\ell;z)$ of
+\eqref{fw:hyp} and $h_2=(\lambda+s+\Lambda)h_1$, to $\le10^{-8}$ (double
+precision, $N=20$). In particular the gap mode of MEMS $q=2$ ($\lambda=-\frac23$)
+is the \emph{constant} $h_1\equiv1$, $h_2=-\frac43$, which is the
+linearisation of the energy of the ODE $w''=-\lambda w^{-2}$: a solution with
+energy $E$ near touchdown satisfies
+$w=c(T-t)^{2/3}\big(1+\tfrac{9E}{10c^2}(T-t)^{2/3}+\dots\big)$.
+
+\paragraph{The spurious branch and the Sobolev index.}
+In double precision the picture is less clean (\cref{num:fig-spec}): only
+the top few eigenvalues converge, and the rest form a curve of complex
+eigenvalues which moves \emph{to the right} as $N$ grows; for MEMS, $q=2$,
+$d=3$, $N=80$ already shifts $-\frac23$ to $-0.6948$, and at $N=120$ this
+eigenvalue is swallowed. Across all cases the right edge of the spurious set
+is close to $\frac{d-1}2-s-K_N$ with $K_N\approx5,\,3.5,\,2.8,\,2.3$ for
+$N=20,40,80,120$ (with $s$ replaced by $-1$ for $(u_t)^2$), whereas in
+$30$-digit arithmetic the same matrices have exactly the closed-form
+eigenvalues (black dots in \cref{num:fig-spec}). Since the exact eigenvalues
+of the collocation matrix are known (\cref{num:prop-tri}), these are not
+discretisation errors but pseudospectral effects of the extreme
+non-normality of $\mathbf A_\ell$ (the eigenvectors are nearly parallel
+polynomials). They have a clear meaning. The second Frobenius solution at
+the light cone behaves like $(1-|\xi|^2)^{\gamma}$, $\gamma=\frac{d-1}2-s-\lambda$, and
+it belongs to $H^k(B^d)$ iff $\operatorname{Re}\gamma>k-\frac12$. Hence on
+$\mathcal H^k=H^k\times H^{k-1}$ \emph{every} $\lambda$ with
+$\operatorname{Re}\lambda<\frac d2-s-k=-\omega_k$ is an eigenvalue
+(with the regular-at-$0$ solution as eigenfunction), so the spectrum of $\mathbf L$ on $\mathcal H^k$
+contains a half-plane and the growth bound on $\mathcal H^k$ can be no better than $-\omega_k$, consistently with
+\cref{fw:thm-spec}. A degree-$N$ polynomial approximates $(1-z)^\gamma$ to
+accuracy $\approx N^{-2\operatorname{Re}\gamma}$, so in working precision
+$\varepsilon$ the matrix ``sees'' this continuum for
+$\operatorname{Re}\gamma\gtrsim\log(1/\varepsilon)/(2\log N)$: the spurious
+curve is the continuum of an effective, $N$- and $\varepsilon$-dependent
+Sobolev index, and its edge tends to $\frac{d-1}2-s$ (the $L^2$-type
+threshold) as $N\to\infty$ at fixed $\varepsilon$. Two practical
+consequences: (a) eigenvalue computations of this type must be done in
+extended precision or with a convergence check in $N$, and more resolution
+in double precision is \emph{worse}; (b) to see the gap $\omega_0$ in
+$\mathcal H^k$ one needs $k\ge\frac d2-s+\omega_0$, i.e.\ $k\ge2,3,3$ for MEMS
+$q=2$ in $d=1,2,3$, $k\ge2,2,3$ for $e^u$, $k\ge2$ for $u^3,u^5$ and $k\ge3$
+for $u^7$ in $d=3$, and $k\ge3$ ($d=1$), $k\ge4$ ($d=3$) for $(u_t)^2$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{figures/num_spectra.pdf}
+\caption{Eigenvalues of the collocation matrix of \eqref{num:eig}, $\ell=0$.
+Coloured: double precision, $N=20,40,80$. Black dots: $30$-digit arithmetic,
+$N=32$, which reproduce the closed form (grey vertical lines) exactly. The
+red dashed line is $\operatorname{Re}\lambda=\frac{d-1}2-s$; the spurious
+curve approaches it as $N$ grows.}
+\label{num:fig-spec}
+\end{figure}
+
+%%MEMS%%

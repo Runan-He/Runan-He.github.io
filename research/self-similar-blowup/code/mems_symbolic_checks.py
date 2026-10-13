@@ -343,14 +343,16 @@ ok(sp.simplify(radop + Fsrc), "q=3: g1 = |xi|^2/d solves the Jordan-chain equati
 # -------------------------------------------------- Jordan chain at mu=1 (l=0) and mu=0 (l=1): first-order reduction
 # P solves (1-r^2)P' + ((D-1)/r - 2(2-sigma) r) P = -(3-2 sigma); D = d (mu=1, P = G'), D = d+2 (mu=0, G = rK, P = K')
 Dd = sp.symbols('D', positive=True)
-Pf = sp.Function('P')(r)
+Pf = sp.exp(r) + r ** 2 / 3          # concrete test function (identity is linear in P)
 eqP = (1 - r ** 2) * Pf.diff(r) + ((Dd - 1) / r - 2 * (2 - sig) * r) * Pf
 Ifac = r ** (Dd - 1) * (1 - r ** 2) ** ((2 - sig) - (Dd - 1) / 2)
 # d/dr (I P) = I/(1-r^2) * [ (1-r^2) P' + (...) P ]
 lhsI = sp.diff(Ifac * Pf, r)
-ok(sp.simplify(lhsI - Ifac / (1 - r ** 2) * eqP), "integrating factor r^{D-1}(1-r^2)^{(2-sigma)-(D-1)/2} for the Jordan-chain ODE")
+ok(lhsI - Ifac / (1 - r ** 2) * eqP, "integrating factor r^{D-1}(1-r^2)^{(2-sigma)-(D-1)/2} for the Jordan-chain ODE")
 G1 = sp.Function('G1')(r)
 mu1op = (1 - r ** 2) * G1.diff(r, 2) + ((dd - 1) / r - 2 * (2 - sig) * r) * G1.diff(r)
-ok(sp.simplify(mu1op - eqP.subs(Pf, G1.diff(r)).subs(Dd, dd).doit()), "mu=1, l=0: radial op = first-order op on G' with D=d")
+Hf = G1.diff(r)
+eqH = (1 - r ** 2) * Hf.diff(r) + ((dd - 1) / r - 2 * (2 - sig) * r) * Hf
+ok(sp.simplify(mu1op - eqH), "mu=1, l=0: radial op = first-order op on G' with D=d")
 print("all additional checks passed")
 print("all checks passed")
