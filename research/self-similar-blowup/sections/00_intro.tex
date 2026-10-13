@@ -1,0 +1,80 @@
+\section{Introduction}
+\label{intro:sec}
+
+Many engineering devices are governed, at least in an inertial regime, by
+semilinear or quasilinear wave equations whose solutions can lose regularity
+in finite time. Examples are the \emph{touchdown} (pull-in) of an
+electrostatically actuated MEMS membrane, \emph{thermal runaway} under
+hyperbolic (Maxwell--Cattaneo) heat conduction, the collapse of strings and
+membranes on softening foundations, the degeneration of high-intensity
+acoustic waves, and singularities of director fields or relativistic
+membranes. In each case the most robust singularity is \emph{self-similar}:
+near the singular point $(T,x_0)$ the solution has the form
+$(T-t)^{-s}\,\Psi\big(\frac{x-x_0}{T-t}\big)$ (or a logarithmic analogue). For the
+engineer the relevant questions are: what is the singularity rate and the
+local profile, and are they \emph{robust} under perturbations of the data
+and of lower-order model terms (damping, restoring forces, inhomogeneous
+material parameters)?
+
+Over the last fifteen years Donninger and coauthors have developed a
+systematic way to answer the robustness question rigorously
+\cite{Donninger2011,DonningerSchoerkhuber2012,DonningerSchoerkhuber2014,DonningerSchoerkhuber2016,DonningerSchoerkhuber2017,CostinDonningerGlogic2017,Ostermann2024,Glogic2025,Donninger2024}.
+One passes to similarity coordinates in the backward light cone, which turns
+the self-similar solution into a stationary state of an autonomous
+evolution equation. One then shows that the linearised operator generates a
+semigroup on a high-order Sobolev space, with spectrum consisting of
+finitely many unstable eigenvalues that come from symmetries, plus a stable
+part with a gap. Finally one closes a nonlinear argument by modulating the
+symmetry parameters. These notes apply this programme to a list of wave
+models from engineering and applied physics.
+
+\paragraph{Results in brief.}
+\begin{enumerate}[leftmargin=1.5em]
+\item \emph{A universal spectrum for ODE-type blowup} (\cref{fw:thm-spec}).
+If $u_T(t)=\kappa(T-t)^{-s}$ is a spatially homogeneous blowup solution with
+scaling exponent $s>-1$, then the potential in the linearisation is forced
+to be $V_0=(s+1)(s+2)$. In the light cone the spectrum is
+$\{1-\ell-2n\}\cup\{-2s-2-\ell-2n\}$, $\ell,n\in\mathbb N_0$, with the time
+translation ($\lambda=1$) and Lorentz boosts ($\lambda=0$, $\ell=1$) as the
+only non-negative modes, and spectral gap $\min\{1,2s+2\}$. This covers
+focusing powers ($s=\frac2{p-1}$), the MEMS force $w^{-q}$ ($s=-\frac2{q+1}$),
+exponential sources ($s=0$), and, as the borderline $s=-1$, the
+derivative-quadratic acoustic toy model (\cref{acou:sec}).
+\item \emph{Hyperbolic MEMS} (\cref{mems:sec}). Touchdown of
+$w_{tt}+\gamma w_t-\Delta w=-\lambda w^{-q}$, $q>1$, is asymptotically
+self-similar with rate $w\simeq c(T-t)^{2/(q+1)}$ and a flat profile in the
+light cone. It is nonlinearly stable modulo time translation and Lorentz
+boosts, with convergence rate $(T-t)^{\omega}$, $\omega<\min\{1,\frac{2(q-1)}{q+1}\}$
+($=\frac23$ for the Coulomb force). Damping does not change this. In $d=1$ the
+ODE profile and its boosts are the only self-similar profiles. In $d=2,3$ we
+find numerically an infinite sequence of focused profiles, each with extra
+unstable directions. These results put the formal and numerical picture of
+\cite{GimperleinHeLacey2022,He2021} on a rigorous footing (up to the
+proof-sketch caveats listed in \cref{mems:sec-gaps}).
+\item \emph{Thermal explosion} (\cref{therm:sec}), \emph{softening
+foundations and Klein--Gordon} (\cref{power:sec}), \emph{wave maps and
+membranes} (\cref{geom:sec}), \emph{nonlinear acoustics}
+(\cref{acou:sec}). See \cref{concl:tab} for the status of each model.
+\item \emph{Independent numerics} (\cref{num:sec}). The spectra are confirmed
+by collocation in high precision. Direct simulations of the MEMS equation
+with clamped boundary conditions reproduce the touchdown rate, the constant
+$c$ and the convergence to the flat profile.
+\end{enumerate}
+
+\paragraph{How to read these notes.}
+\Cref{lit:sec} surveys the models and the literature, including a novelty
+check. \Cref{fw:sec} isolates the common part of the method. The model
+sections can then be read independently. Each one labels its statements as
+known, proved or sketched here, or conjectural/numerical.
+
+\paragraph{Provenance and status.}
+These notes were drafted by a team of AI agents: one for the literature, one
+for each model class and one independent numerical verifier. A coordinating
+agent cross-checked their results and assembled the text. All formulas were
+checked symbolically or numerically by scripts in \texttt{code/}. The
+nonlinear stability arguments are \emph{proof sketches} in the style of the
+cited works, not complete proofs. Several references could only be verified
+from abstracts (network access to arXiv was blocked); such places are marked
+\texttt{\%~TODO verify} in the sources. The text should be read as a
+detailed research plan and a set of verified computations, not as a
+finished paper.

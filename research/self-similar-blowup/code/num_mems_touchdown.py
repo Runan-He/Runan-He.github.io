@@ -164,6 +164,13 @@ def run_case(case):
             return (Ci + A * np.exp(-om * tt[win]) + B * np.exp(-tt[win]) - W0) / abs(W0 - c)
         p4 = least_squares(resid4, [c, p[0], p[1], p[2]]).x
         out["Cinf"], out["omega_fit4"] = p4[0], p4[2]
+
+        def resid3(p):   # c fixed, plus the quadratic term e^{-4 tau/3} of the gap mode
+            A, om, B, C2 = p
+            return (A * np.exp(-om * tt[win]) + B * np.exp(-tt[win]) + C2 * np.exp(-4 * tt[win] / 3)
+                    - dev0[sel][win]) / abs(dev0[sel][win])
+        p3b = least_squares(resid3, [p[0], p[1], p[2], 0.0]).x
+        out["omega_fit3"] = p3b[1]
         late = win & (tt > 0.5 * tt[win].max())
         out["omega_late"] = -np.polyfit(tt[late], np.log(abs(dev0[sel][late])), 1)[0]
         sw = (tt > 3) & (D[0]["spat"][sel] > 1e-11)
@@ -218,6 +225,7 @@ def main():
         if "omega_fit2" in o:
             print("  omega: fit A e^{-omega tau} + B e^{-tau}: %.5f ; late-window slope: %.5f ; "
                   "spatial variation rate: %.4f" % (o["omega_fit2"], o["omega_late"], o["omega_spat"]))
+            print("  omega: fit A e^{-omega tau} + B e^{-tau} + C e^{-4tau/3}: %.5f" % o["omega_fit3"])
             print("  leading coefficient: W - c ~ A (T-t)^{2/3}, A = %.4f (A/c = %.4f)" % (o["A_fit"] * o["Tm"] ** (-2 / 3), o["A_fit"] * o["Tm"] ** (-2 / 3) / o["c"]))
             print("  fit with c free: W(tau,0) = C + A e^{-omega tau} + B e^{-tau}: C = %.10f (C/c - 1 = %.1e), omega = %.5f"
                   % (o["Cinf"], o["Cinf"] / o["c"] - 1, o["omega_fit4"]))

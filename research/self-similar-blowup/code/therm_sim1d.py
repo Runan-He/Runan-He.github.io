@@ -51,9 +51,11 @@ def ode_blowup(model, tau_r=0.5, delta=1.0, th0=0.0, dth0=0.0, thmax=40.0):
     # blowup time from the leading asymptotics th' ~ k/(T-t), k = 2 (reduced) or 1 (full)
     k = 2.0 if model == 'reduced' else 1.0
     T = tend + k / dth_end
-    tt = np.linspace(0, tend, 4000)
-    th = sol.sol(tt)[0]
-    return T, tt, th
+    # sample log-uniformly in T - t (dense output is valid up to tend)
+    sgrid = np.logspace(np.log10(T - tend) + 0.2, np.log10(T), 600)
+    tt = np.sort(T - sgrid)
+    Y = sol.sol(tt)
+    return T, tt, Y[0], Y[1]
 
 
 # ---------------------------------------------------------------------------
@@ -198,9 +200,9 @@ def main():
     out = {}
     # ---------------- (1) ODEs ----------------
     tau_r, delta = 0.5, 1.0
-    Tr, ttr, thr = ode_blowup('reduced', tau_r, delta)
-    Tf, ttf, thf = ode_blowup('full', tau_r, delta)
-    print(f"(1) homogeneous ODEs (tau_r={tau_r}, delta={delta}, th(0)=th'(0)=0):")
+    Tr, ttr, thr, dthr = ode_blowup('reduced', tau_r, delta)
+    Tf, ttf, thf, dthf = ode_blowup('full', tau_r, delta)
+    print(f"(1) homogeneous ODEs (tau_*={tau_r}, delta={delta}, th(0)=th'(0)=0):")
     print(f"    reduced: T = {Tr:.10f}; th+2log(T-t) at end = {thr[-1] + 2*np.log(Tr-ttr[-1]):.6f}"
           f"  (predicted log(2 tau/delta) = {np.log(2*tau_r/delta):.6f})")
     print(f"    full   : T = {Tf:.10f}; th+ log(T-t) at end = {thf[-1] + np.log(Tf-ttf[-1]):.6f}"
@@ -216,7 +218,7 @@ def main():
         return sol.y[0, -1]
     Tf_exact = brentq(y_of_t, 0.5, 5.0, xtol=1e-14)
     print(f"    full   : T from the first-order reduction = {Tf_exact:.10f}")
-    out['ode'] = (Tr, ttr, thr, Tf, ttf, thf, tau_r, delta)
+    out['ode'] = (Tr, ttr, thr, dthr, Tf, ttf, thf, dthf, tau_r, delta)
 
     # ---------------- (2a) reduced, Liouville ----------------
     L = liouville_data()
@@ -296,18 +298,16 @@ def make_figure(out):
     plt.rcParams.update({'font.size': 9, 'axes.titlesize': 9, 'legend.fontsize': 7.5})
     fig, ax = plt.subplots(1, 3, figsize=(10.0, 3.1))
     # panel 1: ODE asymptotics -- (T-t) theta_t -> 2 (reduced) and 1 (full)
-    Tr, ttr, thr, Tf, ttf, thf, tau_r, delta = out['ode']
-    for (T_, tt_, th_, col, lab) in [(Tr, ttr, thr, 'C0', 'reduced'), (Tf, ttf, thf, 'C3', 'full')]:
-        dth = np.gradient(th_, tt_)
-        m = (T_ - tt_) > 2e-5
-        ax[0].semilogx((T_ - tt_)[m], ((T_ - tt_) * dth)[m], color=col, label=lab)
+    Tr, ttr, thr, dthr, Tf, ttf, thf, dthf, tau_r, delta = out['ode']
+    for (T_, tt_, dth, col, lab) in [(Tr, ttr, dthr, 'C0', 'reduced'), (Tf, ttf, dthf, 'C3', 'full')]:
+        ax[0].semilogx(T_ - tt_, (T_ - tt_) * dth, color=col, label=lab)
     ax[0].axhline(2, color='C0', ls=':', lw=0.8)
     ax[0].axhline(1, color='C3', ls=':', lw=0.8)
     ax[0].invert_xaxis()
     ax[0].set_ylim(0, 2.6)
     ax[0].set_xlabel(r'$T-t$')
     ax[0].set_ylabel(r'$(T-t)\,\theta_t$')
-    ax[0].set_title(r'(a) homogeneous blowup, $\tau_r=%g,\ \delta=%g$' % (tau_r, delta))
+    ax[0].set_title(r'(a) homogeneous blowup, $\tau_*=%g,\ \delta=%g$' % (tau_r, delta))
     ax[0].legend(loc='center left')
     # panel 2: reduced (Liouville) rates
     taus, err_ex, err_num = out['liou']

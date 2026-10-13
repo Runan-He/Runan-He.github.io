@@ -15,11 +15,11 @@ Checks
  5. Constant (spatially homogeneous) sector: 2x2 matrix, eigenvalues 1, -2s-2.
  6. Jordan blocks at the collision exponents s = -1/2 (lambda=-1) and s = 1/2
     (lambda = -3), l = 0.
- 8. Explicit non-ODE profiles (cubic, all d >= 5; quadratic, d = 9).
- 9. Tilted ("boosted") plane-wave family u = W(T - t + a.x) for the perturbed equation.
  7. Expansion of the spatially homogeneous blowup solution of
     u'' + gamma u' + m^2 u = F(u):  u = kappa rho^{-s}(1 + a1 rho + a2 rho^2 + ...),
     resonance at j = 2s+2, log terms (p = 3 with damping; MEMS q = 3 with damping).
+ 8. Explicit non-ODE profiles (cubic, all d >= 5; quadratic, d = 9).
+ 9. Tilted ("boosted") plane-wave family u = W(T - t + a.x) for the perturbed equation.
 """
 import sympy as sp
 
@@ -309,7 +309,6 @@ def check_tilted_family():
     expr = sp.diff(u, t, 2) + gam*sp.diff(u, t) + m**2*u - sp.diff(u, x, 2) - sp.diff(u, y, 2)
     ph = sp.symbols('phi')
     target = (1 - a1**2 - a2**2)*sp.Derivative(W(ph), (ph, 2)) - gam*sp.Derivative(W(ph), ph) + m**2*W(ph)
-    diff = sp.simplify(expr.subs(phi, ph).doit() - target) if False else None
     # compare via substitution of a concrete W
     Wc = lambda z: sp.exp(sp.Rational(1, 3)*z) + z**5
     uc = Wc(phi)
@@ -324,6 +323,16 @@ def check_tilted_family():
     ok("tilted family u = W(T-t+a.x): ODE (1-|a|^2)W'' - gamma W' + m^2 W = F(W); "
        "exact boosted ODE profile kappa(1-|a|^2)^{s/2}(T-t+a.x)^{-s} (checked p=5)")
 
+def check_q3_log():
+    """MEMS q=3 (s=-1/2) with damping: U = sqrt2 rho^{1/2}(1 + b rho log rho + c rho + ...), b = gamma/4."""
+    rho, gam, m, b, c, L = sp.symbols('rho gamma m b c L', positive=True)
+    U = sp.sqrt(2)*rho**sp.Rational(1, 2)*(1 + b*rho*sp.log(rho) + c*rho)
+    expr = sp.diff(U, rho, 2) - gam*sp.diff(U, rho) + m**2*U + U**(-3)
+    e = sp.expand(sp.series(sp.simplify(expr*rho**sp.Rational(3, 2)/sp.sqrt(2)), rho, 0, 2).removeO())
+    e = sp.expand(e.subs(sp.log(rho), L))
+    assert sp.solve(e.coeff(rho, 1).coeff(L, 0), b) == [gam/4]
+    ok("MEMS q=3 damped ODE blowup: log coefficient b = gamma/4 (c free)")
+
 
 if __name__ == "__main__":
     check_similarity_system()
@@ -335,3 +344,4 @@ if __name__ == "__main__":
     check_a2_general()
     check_explicit_profiles()
     check_tilted_family()
+    check_q3_log()
