@@ -7,11 +7,13 @@
 <meta name="description" content="Runan He is a postdoctoral researcher at the Instituto de Ciencias Matemáticas (ICMAT) in Madrid, working on the analysis of partial differential equations, nonlinear evolution equations, MEMS models, and surface plasmon polaritons." />
 <meta name="keywords" content="Runan He, ICMAT, mathematics, partial differential equations, PDE, MEMS, surface plasmons, postdoc, Madrid, Heriot-Watt, Halle-Wittenberg" />
 <meta name="author" content="Runan He" />
+<link rel="canonical" href="https://runan-he.github.io/" />
 
 <!-- Open Graph for social / search previews -->
 <meta property="og:title" content="Runan He — Mathematician at ICMAT, Madrid" />
 <meta property="og:description" content="Postdoctoral researcher in partial differential equations at Instituto de Ciencias Matemáticas, Madrid." />
 <meta property="og:type" content="profile" />
+<meta property="og:url" content="https://runan-he.github.io/" />
 <meta property="profile:first_name" content="Runan" />
 <meta property="profile:last_name" content="He" />
 
@@ -161,7 +163,15 @@
     background: none;
   }
   @media (max-width: 720px) {
-    nav.topnav ul { display: none; }
+    nav.topnav .inner { flex-wrap: wrap; padding: 12px 16px; gap: 8px; }
+    nav.topnav ul {
+      width: 100%;
+      gap: 18px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+    nav.topnav ul::-webkit-scrollbar { display: none; }
   }
 
   /* ————— LAYOUT ————— */
@@ -255,7 +265,8 @@
   .hero-meta a { color: var(--ink-soft); }
 
   .download-cv {
-    display: inline-flex;
+    display: flex;
+    width: fit-content;
     align-items: center;
     gap: 10px;
     margin-top: 20px;
@@ -813,19 +824,19 @@
             <span class="pub-badge preparation">In preparation</span>
           </li>
 
-  <li class="pub">
+          <li class="pub">
             <div class="year">2026</div>
             <div>
               <h3 class="pub-title">Analysis and Numerics of a Stationary Drift-Diffusion Model for Electrical Discharge in MEMS</h3>
               <p class="pub-authors"><span class="self">Runan He</span> and Wenjia Xie.</p>
               <p class="pub-venue">Submitted.</p>
               <div class="pub-links">
-                <a href="https://doi.org/10.48550/arXiv.2606.28223" target="_blank" rel="noopener">arXiv.2606.28223</a>
+                <a href="https://arxiv.org/abs/2606.28223" target="_blank" rel="noopener">arXiv:2606.28223</a>
               </div>
             </div>
             <span class="pub-badge submitted">Submitted</span>
           </li>
-          
+
           <li class="pub">
             <div class="year">2026</div>
             <div>
@@ -1235,7 +1246,7 @@
     </div>
     <div class="colophon">
       Set in Fraunces &amp; EB Garamond.<br/>
-      Last updated <span class="year">April 2026</span>.<br/>
+      Last updated <span class="year">October 2026</span>.<br/>
       © Runan He. All rights reserved.
     </div>
   </div>
