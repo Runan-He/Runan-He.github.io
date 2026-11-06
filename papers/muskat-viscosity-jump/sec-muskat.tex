@@ -1,0 +1,216 @@
+% ============================================================
+\section{Cauchy integrals and the Saffman--Taylor formulation of the Muskat problem}\label{sec:muskat}
+% ============================================================
+
+\subsection{Curves and notation}
+We identify $\R^2$ with $\C$, $x=x_1+ix_2$. For a vector $w=(w_1,w_2)$ we write $w^\flat:=w_1-iw_2$ (the complex conjugate of $w$ seen as a complex number);
+a vector field $w$ is divergence-free and curl-free in an open set if and only if $w^\flat$ is holomorphic there. We write $w^\perp=(-w_2,w_1)$.
+
+\begin{definition}\label{def:curves}
+For $k\ge1$ and $\gamma\in(0,1)$ let $\Zc^{k,\gamma}$ be the set of maps $z\in C^{k,\gamma}_{\rm loc}(\R;\R^2)$ such that $z(\alpha)-(\alpha,0)$ is $2\pi$-periodic and
+\[
+\delta(z):=\inf\Big\{\frac{|\sin\frac{z(\alpha)-z(\beta)}{2}|}{|\sin\frac{\alpha-\beta}{2}|}:\ \alpha,\beta\in\R,\ \alpha-\beta\notin2\pi\mathbb Z\Big\}>0,
+\]
+where $\sin$ is the complex sine. We norm $\Zc^{k,\gamma}$ by $\|z-(\cdot,0)\|_{C^{k,\gamma}(\T)}$.
+\end{definition}
+
+Since $|\sin\frac w2|^2=\sin^2\frac{\Rea w}2+\sinh^2\frac{\Ima w}2$, the condition $\delta(z)>0$ says that $z$ induces an embedding of $\T$ into the cylinder $\T\times\R$,
+quantitatively; in particular $|\partial_\alpha z|\ge\delta(z)$. The curve $\Gamma=z(\R)$ is invariant under $x\mapsto x+2\pi e_1$ and $\R^2\setminus\Gamma$ has two connected
+components $\Omega^+(z)$ and $\Omega^-(z)$, containing $\{x_2>\max z_2\}$ and $\{x_2<\min z_2\}$ respectively. We write
+\[
+\tau=\frac{\partial_\alpha z}{|\partial_\alpha z|},\qquad n=\tau^\perp\ \ (\text{so } n=i\tau\text{ as complex numbers}),\qquad \dd s=|\partial_\alpha z|\dd\alpha,
+\]
+so that $n$ points into $\Omega^+(z)$, and $n_2=\partial_\alpha z_1/|\partial_\alpha z|$. For a function $w$ defined near $\Gamma$ we denote by $w^\pm(\alpha)$ its limits at $z(\alpha)$
+from $\Omega^\pm(z)$, by $\jump{w}=w^+-w^-$ its jump and by $\avg{w}=\frac12(w^++w^-)$ its average. The constant $C$ may change from line to line.
+
+\subsection{Periodic Cauchy integrals}
+
+\begin{definition}\label{def:cauchy}
+Let $z\in\Zc^{1,\gamma}$ and $f\in C^{0,\gamma}(\T;\R^2)$. The \emph{Cauchy field} of $f$ along $z$ is the vector field $\Cf[z;f]$ on $\R^2\setminus\Gamma$ defined by
+\begin{equation}\label{eq:cauchy}
+\Cf[z;f]^\flat(x)=\frac1{4\pi i}\int_\T f^\flat(\beta)\,\partial_\beta z(\beta)\,\cot\frac{z(\beta)-x}{2}\dd\beta .
+\end{equation}
+\end{definition}
+
+Since $\frac12\cot\frac w2=\frac1w+O(w)$, formula \eqref{eq:cauchy} is the periodisation of the classical Cauchy integral
+\[
+\frac1{2\pi i}\int\frac{f^\flat(\zeta)\dd\zeta}{\zeta-x}.
+\]
+
+\begin{lemma}\label{lem:cauchy}
+Let $z\in\Zc^{1,\gamma}$, $f\in C^{0,\gamma}(\T;\R^2)$ and $\Cf=\Cf[z;f]$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item $\Cf$ is real analytic and $2\pi$-periodic in $x_1$ on $\R^2\setminus\Gamma$, with $\dvg\Cf=\curl\Cf=0$ there.
+\item \textup{(Plemelj--Privalov)} The restrictions of $\Cf$ to $\Omega^\pm(z)$ extend to $C^{0,\gamma}(\overline{\Omega^\pm(z)})$ with
+\[
+\|\Cf\|_{C^{0,\gamma}(\overline{\Omega^\pm})}\le C\|f\|_{C^{0,\gamma}},
+\]
+where $C$ depends on $\gamma$, $\delta(z)$ and $\|z\|_{\Zc^{1,\gamma}}$. Moreover
+$\jump{\Cf}=f$, and $\avg{\Cf}$ is given by \eqref{eq:cauchy} with $x=z(\alpha)$ and the integral understood in the principal value sense.
+\item As $x_2\to\pm\infty$, $\Cf(x)\to\Cf_{\pm\infty}$ uniformly in $x_1$, where $\Cf_{\pm\infty}^\flat=\pm\frac1{4\pi}\int_\T f^\flat\partial_\beta z\dd\beta$.
+In particular, for a constant vector $c$ we have $\Cf[z;c]=\pm\frac c2$ in $\Omega^\pm(z)$, and for a scalar $\phi$
+\begin{equation}\label{eq:limit-source}
+\Cf[z;\phi n]_{\pm\infty}=\pm\frac1{4\pi}\Big(\int_\T\phi\,|\partial_\beta z|\dd\beta\Big)\ee .
+\end{equation}
+\item If $j\ge0$, $z\in\Zc^{j+1,\gamma}$ and $f\in C^{j,\gamma}$, then $\Cf\in C^{j,\gamma}(\overline{\Omega^\pm(z)})$ and $\Cf^\pm\in C^{j,\gamma}(\T)$, with bounds.
+\item \textup{(Representation)} Let $w$ be a bounded vector field on $\R^2\setminus\Gamma$, $2\pi$-periodic in $x_1$, divergence-free and curl-free in $\R^2\setminus\Gamma$, whose restrictions
+to $\Omega^\pm(z)$ extend continuously to the closures with $\jump{w}\in C^{0,\gamma}(\T)$, and with $w(x)\to0$ as $x_2\to\pm\infty$. Then $w=\Cf[z;\jump{w}]$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) is immediate. (b) and (d) are the periodic versions of the Plemelj--Privalov theorem and are discussed in Appendix~\ref{app:cauchy}.
+(c) When $x_2\to+\infty$ (resp.\ $-\infty$), $\cot\frac{z(\beta)-x}2\to i$ (resp.\ $-i$) uniformly in $\beta$, which gives $\Cf_{\pm\infty}$. If $f=c$ is constant, then
+$\partial_x\int_\T c^\flat\partial_\beta z\cot\frac{z(\beta)-x}2\dd\beta=-c^\flat\int_\T\partial_\beta\big[\cot\frac{z(\beta)-x}{2}\big]\dd\beta=0$ by periodicity, so $\Cf[z;c]$ is constant
+in each component and equals its limit $\pm\frac1{4\pi}c^\flat\cdot2\pi=\pm\frac{c^\flat}{2}$; recall $\int_\T\partial_\beta z\dd\beta=2\pi$.
+For $f=\phi n$ we have $n^\flat\partial_\beta z=-i|\partial_\beta z|$, so $\Cf_{+\infty}^\flat=-\frac i{4\pi}\int\phi|\partial_\beta z|$, i.e.\ \eqref{eq:limit-source}.
+(e) The field $W=w-\Cf[z;\jump w]$ is bounded, periodic, continuous across $\Gamma$, and $W^\flat$ is holomorphic off $\Gamma$; hence $W^\flat$ is entire (Morera), and by Liouville's
+theorem on the cylinder it is constant. By (c), $W\to-\Cf_{+\infty}$ as $x_2\to+\infty$ and $W\to-\Cf_{-\infty}=\Cf_{+\infty}$ as $x_2\to-\infty$. Therefore $\Cf_{+\infty}=0$ and $W\equiv0$.
+\end{proof}
+
+\subsection{The adjoint Neumann--Poincar\'e operator}
+
+\begin{definition}\label{def:K}
+For $z\in\Zc^{2,\gamma}$ and a real function $\phi\in C^{0,\gamma}(\T)$ we set
+\[
+\Kop(z)\phi:=\avg{\Cf[z;\phi n]}\cdot n .
+\]
+\end{definition}
+Since the jump of $\Cf[z;\phi n]$ is normal, Lemma~\ref{lem:cauchy}(b) gives
+\begin{equation}\label{eq:K-traces}
+\Cf[z;\phi n]^\pm\cdot n=\Kop(z)\phi\pm\tfrac12\phi,\qquad \Cf[z;\phi n]^+\cdot\tau=\Cf[z;\phi n]^-\cdot\tau .
+\end{equation}
+In potential-theoretic terms, $\Cf[z;\phi n]$ is the gradient of the single layer potential of $\phi$ and $\Kop(z)$ is the (periodic) adjoint Neumann--Poincar\'e operator.
+
+\begin{lemma}\label{lem:K}
+Let $k\ge2$ and $z\in\Zc^{k,\gamma}$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item $\Kop(z)\phi(\alpha)=\int_\T k_z(\alpha,\beta)\phi(\beta)\dd\beta$, with
+\[
+k_z(\alpha,\beta)=\frac{|\partial_\beta z(\beta)|}{4\pi|\partial_\alpha z(\alpha)|}\,\Ima\Big[\partial_\alpha z(\alpha)\cot\frac{z(\beta)-z(\alpha)}{2}\Big],
+\]
+and $k_z$ extends from $\{\alpha\neq\beta\}$ to a function in $C^{k-2,\gamma}(\T\times\T)$. Consequently $\Kop(z)$ maps $C^0(\T)$ boundedly into $C^{k-2,\gamma}(\T)$, and for $k\ge3$ it is
+compact on $C^{j,\gamma}(\T)$ for $0\le j\le k-3$.
+\item $\int_\T\big(\Kop(z)\phi\big)\,|\partial_\alpha z|\dd\alpha=0$ for every $\phi\in C^{0,\gamma}(\T)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) The complex density of $\phi n$ is $\phi\, n^\flat\partial_\beta z=-i\phi|\partial_\beta z|$. Using $w\cdot n=\Rea(w^\flat n)$ and $n=i\partial_\alpha z/|\partial_\alpha z|$, the principal value formula of
+Lemma~\ref{lem:cauchy}(b) gives the stated kernel, once we show it is bounded (then no principal value is needed). Away from the diagonal $\{\alpha-\beta\in2\pi\mathbb Z\}$ the kernel is
+$C^{k-1,\gamma}$, because $\delta(z)>0$. Near the diagonal write $\cot\frac w2=\frac2w+g(w)$ with $g$ analytic for $|w|<2\pi$, and
+\[
+z(\beta)-z(\alpha)=(\beta-\alpha)Z_1(\alpha,\beta),\qquad \partial_\alpha z(\alpha)-Z_1(\alpha,\beta)=-(\beta-\alpha)Z_2(\alpha,\beta),
+\]
+with $Z_1=\int_0^1\partial_\alpha z(\alpha+s(\beta-\alpha))\dd s\in C^{k-1,\gamma}$, $Z_2=\int_0^1\!\!\int_0^1 s\,\partial^2_\alpha z(\alpha+rs(\beta-\alpha))\dd r\dd s\in C^{k-2,\gamma}$ and $|Z_1|\ge c>0$. Then
+\[
+\Ima\Big[\frac{2\partial_\alpha z(\alpha)}{z(\beta)-z(\alpha)}\Big]=\frac{2}{\beta-\alpha}\Ima\Big[\frac{\partial_\alpha z(\alpha)-Z_1}{Z_1}\Big]=-2\,\Ima\Big[\frac{Z_2}{Z_1}\Big]\in C^{k-2,\gamma},
+\]
+while $\partial_\alpha z(\alpha)g(z(\beta)-z(\alpha))\in C^{k-1,\gamma}$. Differentiating under the integral sign gives $\Kop(z):C^0\to C^{k-2,\gamma}$, and compactness follows from the compact
+embedding $C^{k-2,\gamma}(\T)\subset C^{j,\gamma}(\T)$ for $j\le k-3$.
+
+(b) Let $w=\Cf[z;\phi n]$. Since $w$ is divergence-free and periodic, its flux through $\Gamma$ from above equals its flux through $\{x_2=L\}$ for every large $L$, and letting $L\to\infty$ we get
+from \eqref{eq:limit-source} $\int_\T w^+\cdot n\,\dd s=2\pi(\Cf_{+\infty})_2=\frac12\int\phi\dd s$. Similarly $\int_\T w^-\cdot n\dd s=2\pi(\Cf_{-\infty})_2=-\frac12\int\phi\dd s$. Adding,
+$\int\avg{w}\cdot n\dd s=0$.
+\end{proof}
+
+\begin{proposition}\label{prop:invert}
+Let $|A|<1$, $k\ge3$ and $z\in\Zc^{k,\gamma}$. Then $I-2A\Kop(z)$ is an isomorphism of $C^{j,\gamma}(\T)$ for $0\le j\le k-3$. Moreover, if $f\in C^{j,\gamma}(\T)$ with $0\le j\le k-2$, the
+solution $\sig\in C^{0,\gamma}(\T)$ of $(I-2A\Kop(z))\sig=f$ belongs to $C^{j,\gamma}(\T)$, with $\|\sig\|_{C^{j,\gamma}}\le C\|f\|_{C^{j,\gamma}}$, and $\int\sig\dd s=\int f\dd s$.
+\end{proposition}
+
+\begin{proof}
+By Lemma~\ref{lem:K}(a) and the Riesz--Schauder theory, $I-2A\Kop(z)$ is a Fredholm operator of index zero on $C^{j,\gamma}(\T)$, $0\le j\le k-3$; so it suffices to prove injectivity on $C^{0,\gamma}$.
+Let $\phi\in C^{0,\gamma}$ with $\phi=2A\Kop(z)\phi$. If $A=0$ there is nothing to prove, so let $A\ne0$. By Lemma~\ref{lem:K}(b), $\int\phi\dd s=0$, so $w:=\Cf[z;\phi n]$ tends to $0$ as
+$x_2\to\pm\infty$, by \eqref{eq:limit-source}; being the conjugate of a periodic holomorphic function, it does so exponentially fast. Since the jump of $w$ is normal, $w$ is curl-free in $\mathcal D'(\R^2)$,
+and since its circulation along horizontal lines tends to zero, $w=\nabla\Phi$ for a periodic, Lipschitz function $\Phi$ which is $C^{1,\gamma}$ up to $\Gamma$ from both sides and bounded.
+By \eqref{eq:K-traces} and $\Kop(z)\phi=\phi/(2A)$,
+\[
+\frac{w^+\cdot n}{1+A}=\frac{w^-\cdot n}{1-A}=\frac{\phi}{2A}=:g .
+\]
+Integrating by parts on one period of $\Omega^\pm\cap\{|x_2|<L\}$ and letting $L\to\infty$ (the contributions of the horizontal boundaries vanish by the exponential decay, the lateral ones cancel by periodicity),
+\[
+\frac1{1+A}\int_{\Omega^+}|w|^2+\frac1{1-A}\int_{\Omega^-}|w|^2=-\int_\T\Phi\,\frac{w^+\cdot n}{1+A}\dd s+\int_\T\Phi\,\frac{w^-\cdot n}{1-A}\dd s=0,
+\]
+where the integrals over $\Omega^\pm$ are over one period. Hence $w\equiv0$ and $\phi=\jump{w}\cdot n=0$.
+
+For the regularity statement with $j=k-2$: the solution $\sig\in C^{k-3,\gamma}$ satisfies $\sig=f+2A\Kop(z)\sig$, and $\Kop(z)\sig\in C^{k-2,\gamma}$ by Lemma~\ref{lem:K}(a). Finally
+$\int\sig\dd s=\int f\dd s$ by Lemma~\ref{lem:K}(b).
+\end{proof}
+
+\subsection{The Muskat problem with viscosity jump}
+Let $z\in\Zc^{k,\gamma}$, $k\ge3$, and $\rho=\pm1$ in $\Omega^\pm(z)$. The \emph{instantaneous Darcy problem} consists in finding $u$ and $p$, $C^{0,\gamma}$ and $C^{1,\gamma}$ up to $\Gamma$ from
+both sides, such that
+\begin{equation}\label{eq:darcy-problem}
+\dvg u=0,\quad (1\pm A)\,u=-\nabla p\mp\ee\ \text{ in }\Omega^\pm(z),\qquad \jump{p}=0,\ \ \jump{u\cdot n}=0\ \text{ on }\Gamma,
+\end{equation}
+with $u\to0$ and $\nabla p+\rho\ee\to0$ as $x_2\to\pm\infty$ (the fluids are at rest at infinity). We introduce the \emph{Darcy field} and the \emph{Saffman--Taylor function}
+\[
+v:=\mu(\rho)u=-\nabla p-\rho\ee,\qquad \sig:=\jump{\partial_n p}=\partial_np^+-\partial_np^-\ \text{ on }\Gamma .
+\]
+
+\begin{proposition}\label{prop:sigma}
+Let $|A|<1$, $k\ge3$, $z\in\Zc^{k,\gamma}$, and let $\sig\in C^{k-2,\gamma}(\T)$ be the solution of
+\begin{equation}\label{eq:sigma-eq}
+\big(I-2A\Kop(z)\big)\sig=-2n_2 .
+\end{equation}
+Then \eqref{eq:darcy-problem} has a solution, unique up to an additive constant in $p$, given by
+\begin{equation}\label{eq:v-sigma}
+v=-\Cf[z;\sig n]\mp\ee\quad\text{and}\quad u=\frac{v}{1\pm A}\qquad\text{in }\Omega^\pm(z).
+\end{equation}
+Its Saffman--Taylor function is $\sig$, the normal velocity $U:=u\cdot n$ on $\Gamma$ is
+\begin{equation}\label{eq:U-sigma}
+U=-\Kop(z)\sig,
+\end{equation}
+and moreover $\sig=-2(n_2+AU)$ and $\int_\T\sig\dd s=-4\pi$.
+\end{proposition}
+
+\begin{proof}
+Define $v$ and $u$ by \eqref{eq:v-sigma}. By \eqref{eq:K-traces}, $v^\pm\cdot n=-\Kop\sig\mp\frac12\sig\mp n_2$, and \eqref{eq:sigma-eq} says $\frac12\sig+n_2=A\Kop\sig$. Therefore
+$v^\pm\cdot n=-(1\pm A)\Kop\sig$, i.e.\ $u^+\cdot n=u^-\cdot n=-\Kop\sig$, which gives $\jump{u\cdot n}=0$ and \eqref{eq:U-sigma}; then $\sig=-2n_2+2A\Kop\sig=-2(n_2+AU)$.
+Integrating \eqref{eq:sigma-eq} and using Lemma~\ref{lem:K}(b) and $\int n_2\dd s=\int\partial_\alpha z_1\dd\alpha=2\pi$, we get $\int\sig\dd s=-4\pi$; by \eqref{eq:limit-source},
+$v\to\mp\frac1{4\pi}(\int\sig\dd s)\ee\mp\ee=0$ as $x_2\to\pm\infty$. Next, $v+\rho\ee=-\Cf[z;\sig n]$ in $\R^2\setminus\Gamma$; this field is curl-free in $\mathcal D'(\R^2)$, because its jump is normal,
+and its circulation along horizontal lines vanishes (its limits at $\pm\infty$ are vertical). Hence $v+\rho\ee=-\nabla p$ for a continuous function $p$, periodic in $x_1$, and
+$\partial_np^\pm=\Cf[z;\sig n]^\pm\cdot n=\Kop\sig\pm\frac12\sig$, so that $\jump{\partial_np}=\sig$. The field $u$ is divergence-free in each $\Omega^\pm$ and has no normal jump, so $\dvg u=0$ in
+$\mathcal D'(\R^2)$. Regularity follows from Lemma~\ref{lem:cauchy}(d).
+
+For uniqueness, let $(u',p')$ be the difference of two solutions. Then $\dvg u'=0$, $(1\pm A)u'=-\nabla p'$ in $\Omega^\pm$, $p'$ is continuous, $u'\cdot n$ has no jump, and $u'\to0$ at infinity,
+exponentially fast since $u'$ is the gradient of a periodic harmonic function in $\{|x_2|>L\}$. Integrating by parts over one period,
+\[
+\int(1+A\rho)|u'|^2=-\int\nabla p'\cdot u'=\int_\T p'\,\big(u'^+-u'^-\big)\cdot n\dd s=0,
+\]
+so $u'=0$ and $\nabla p'=0$.
+\end{proof}
+
+Since the interface moves with the normal velocity of the fluid, Proposition~\ref{prop:sigma} gives the following formulation of the Muskat problem with viscosity jump, in which the only
+operator to be inverted acts on the Saffman--Taylor function.
+
+\begin{corollary}\label{cor:muskat}
+A family of curves $z(\cdot,t)\in\Zc^{k,\gamma}$, $k\ge3$, solves the Muskat problem with viscosity jump if and only if
+\[
+\partial_t z\cdot n=-\Kop(z)\sig,\qquad \big(I-2A\Kop(z)\big)\sig=-2n_2 .
+\]
+\end{corollary}
+
+\begin{remark}[Duality with the vorticity formulation]\label{rem:duality}
+For a real function $\gamma$, the complex densities of $\gamma\tau$ and $\gamma n$ are $\gamma|\partial_\beta z|$ and $-i\gamma|\partial_\beta z|$, so $\Cf[z;\gamma\tau]^\flat=i\,\Cf[z;\gamma n]^\flat$, i.e.\
+$\Cf[z;\gamma\tau]$ is obtained by rotating $\Cf[z;\gamma n]$ by $-\pi/2$. In particular
+$\avg{\Cf[z;\gamma\tau]}\cdot\tau=\avg{\Cf[z;\gamma n]}\cdot n=\Kop(z)\gamma$. The velocity is curl-free off $\Gamma$ with jump $\gamma\tau$, $\gamma=\jump{u\cdot\tau}$, hence
+$u=\Cf[z;\gamma\tau]$ by Lemma~\ref{lem:cauchy}(e): $\avg u$ is the Birkhoff--Rott integral of the vortex sheet. The tangential part of Darcy's law, $\jump{v\cdot\tau}=-\jump{\rho}\tau_2=-2\tau_2$, reads
+$\gamma+2A\avg u\cdot\tau=-2\tau_2$, i.e.\ \eqref{eq:classical}; with $\varpi=\gamma|\partial_\alpha z|$ this is the familiar equation $\varpi+2A\,\mathrm{BR}(z,\varpi)\cdot\partial_\alpha z=-2\partial_\alpha z_2$ of
+\cite{CCG11}. Thus the vorticity is obtained by inverting $I+2A\Kop(z)$, the Saffman--Taylor function by inverting $I-2A\Kop(z)$; both are covered by Proposition~\ref{prop:invert}. Note however
+that in the vorticity formulation the normal velocity $U=\avg u\cdot n=-\avg{\Cf[z;\gamma n]}\cdot\tau$ is a singular integral of $\gamma$, whereas in \eqref{eq:U-sigma} it is the smoothing operator
+$\Kop(z)$ applied to $\sig$. More importantly, the Saffman--Taylor formulation extends to subsolutions, where the vorticity formulation does not (Section~\ref{sec:ansatz}).
+\end{remark}
+
+\begin{definition}\label{def:unstable}
+Let $z_0\in\Zc^{k,\gamma}$, $k\ge3$. The Saffman--Taylor function of the Muskat data \eqref{eq:Muskat-data} is $\sig_0:=-2(I-2A\Kop(z_0))^{-1}[n_{0,2}]$, and the data are \emph{fully unstable}
+if $\sig_0<0$ on $\T$. We write $U_0:=-\Kop(z_0)\sig_0$ and $\Kop_0:=\Kop(z_0)$.
+\end{definition}
+
+\begin{example}
+For the flat interface $z_0(\alpha)=(\alpha,0)$ the kernel $k_{z_0}$ vanishes (the cotangent of a real number is real), so $\Kop_0=0$, $\sig_0\equiv-2$ and $U_0\equiv0$. If $A=0$, then
+$\sig_0=-2n_{0,2}$ for every $z_0$, and the data are fully unstable if and only if $\partial_\alpha z_{0,1}>0$, i.e.\ $z_0$ is a graph with the heavier fluid on top.
+\end{example}
+
+For $z_0\in\Zc^{6,\gamma}$, Proposition~\ref{prop:invert} (with $k=6$, $j=4$) and Lemma~\ref{lem:K}(a) give $\sig_0,U_0\in C^{4,\gamma}(\T)$.

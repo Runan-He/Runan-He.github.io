@@ -1,0 +1,171 @@
+% ============================================================
+\section{Piecewise constant subsolutions}\label{sec:ansatz}
+% ============================================================
+
+In this section $z_0\in\Zc^{6,\gamma}$, $\rhom\in(-1,1)$ and $\kappa\in C^{4,\gamma}(\T)$ with $\kappa>0$ are fixed, $\sig_0,U_0\in C^{4,\gamma}(\T)$ are as in Definition~\ref{def:unstable}, and
+\[
+\mum:=1+A\rhom,\qquad c^\pm:=(1\pm\rhom)\kappa .
+\]
+Moreover $a\in C^{3,\gamma}(\T)$ and a polynomial $h$ with $h(0)=h'(0)=0$ are given; they will be chosen in Section~\ref{sec:proof}.
+
+\subsection{Geometry}
+We define the central curve and the two boundary curves of the mixing zone,
+\begin{equation}\label{eq:curves}
+Z(\alpha,t):=z_0(\alpha)+\Big(tU_0(\alpha)+\tfrac{t^2}2a(\alpha)\Big)n_0(\alpha)+h(t)\ee,\qquad z^\pm(\alpha,t):=Z(\alpha,t)\pm t\,c^\pm(\alpha)\,n_0(\alpha),
+\end{equation}
+and the map
+\begin{equation}\label{eq:X}
+X(\alpha,\lambda,t):=\tfrac12(1-\lambda)\,z^-(\alpha,t)+\tfrac12(1+\lambda)\,z^+(\alpha,t),\qquad \partial_\lambda X=\tfrac12(z^+-z^-)=t\kappa\,n_0 .
+\end{equation}
+
+\begin{lemma}\label{lem:geometry}
+There is $T_1>0$ such that for $t\in(0,T_1]$: $z^\pm(\cdot,t)\in\Zc^{3,\gamma}$ with $\delta(z^\pm(\cdot,t))\ge\frac12\delta(z_0)$; $\Gamma^+(t)\subset\Omega^+(z^-(\cdot,t))$; and
+$X(\cdot,\cdot,t)$ is a $C^{3,\gamma}$ diffeomorphism from $\T\times[-1,1]$ onto the closure of the strip
+\[
+S_t:=\Omega^-(z^+(\cdot,t))\cap\Omega^+(z^-(\cdot,t)),
+\]
+mapping $\lambda=\pm1$ onto $\Gamma^\pm(t)$. Moreover $z^\pm$ are polynomials in $t$ with coefficients in $C^{3,\gamma}$, and $z^\pm(\cdot,t)\to z_0$ in $C^{3,\gamma}$ as $t\to0$.
+\end{lemma}
+
+\begin{proof}
+All statements follow from $z^\pm(\cdot,t)-z_0=O(t)$ in $C^{3,\gamma}$, the continuity of $\delta$ with respect to the $C^1$ norm, $z^+-z^-=2t\kappa n_0$ with $\kappa>0$, and the fact that
+$\partial_\alpha X=\partial_\alpha z_0+O(t)$ and $\partial_\lambda X=t\kappa n_0$ are linearly independent; injectivity of $X$ for small $t$ is the usual tubular neighbourhood argument.
+\end{proof}
+
+We denote by $n^\pm$ the upward unit normals of $\Gamma^\pm(t)$ and by
+\[
+V^\pm:=\partial_tz^\pm\cdot n^\pm
+\]
+their normal velocities. Note that the central curve $Z$ is the \emph{centre of mass} of the strip: since $(1-\rhom)c^+=(1+\rhom)c^-$,
+\begin{equation}\label{eq:com}
+Z=\tfrac12\big[(1-\rhom)z^++(1+\rhom)z^-\big].
+\end{equation}
+
+\subsection{The subsolution}
+Let $\jump{\rho}^+:=1-\rhom$ and $\jump{\rho}^-:=1+\rhom$ be the jumps of the density across $\Gamma^\pm$, and define
+\begin{equation}\label{eq:densities}
+f^\pm:=\jump{\rho}^\pm\Big(-\ee+\big(n_2^\pm+AV^\pm\big)n^\pm\Big),\qquad v:=\Cf[z^+;f^+]+\Cf[z^-;f^-]\quad\text{on }\R^2\setminus(\Gamma^+\cup\Gamma^-).
+\end{equation}
+Let $v_S^\pm(\alpha,t)$ be the limits of $v$ at $z^\pm(\alpha,t)$ from inside the strip:
+\begin{equation}\label{eq:vS}
+v_S^+=\Cf[z^+;f^+]^-+\Cf[z^-;f^-]\circ z^+,\qquad v_S^-=\Cf[z^-;f^-]^++\Cf[z^+;f^+]\circ z^-.
+\end{equation}
+We define the \emph{boundary fluxes} and the \emph{flux mismatch}
+\begin{align}
+F^+&:=|\partial_\alpha z^+|\Big\{\tfrac{2}{1+\rhom}\big(v_S^+\cdot n^+-(1-A)V^+\big)+2n_2^+\Big\},\label{eq:Fplus}\\
+F^-&:=|\partial_\alpha z^-|\Big\{\tfrac{2}{1-\rhom}\big((1+A)V^--v_S^-\cdot n^-\big)+2n_2^-\Big\},\label{eq:Fminus}\\
+M&:=F^+-F^-,\label{eq:M}
+\end{align}
+the functions $\Psi^\pm(\alpha,t):=\int_0^\alpha F^\pm(\beta,t)\dd\beta$, and the stream function $\Psi$ on $\overline{S_t}$ by
+\begin{equation}\label{eq:Psi}
+\Psi\big(X(\alpha,\lambda,t),t\big):=\tfrac12(1-\lambda)\Psi^-(\alpha,t)+\tfrac12(1+\lambda)\Psi^+(\alpha,t).
+\end{equation}
+Finally we set $\bar\rho(\cdot,0)=\rho_0$ and, for $0<t\le T_1$,
+\begin{equation}\label{eq:subsol}
+(\bar\rho,\bar u,\bar m):=
+\begin{cases}
+\Big(1,\ \dfrac{v}{1+A},\ \dfrac{v}{1+A}\Big)&\text{in }\Omega^+(z^+),\\[2mm]
+\Big(\rhom,\ v-A\bar m,\ \dfrac{(\rhom-A)v+\frac12(1-\rhom^2)(D-2\ee)}{1-A^2}\Big),\quad D:=\nabla^\perp\Psi, &\text{in }S_t,\\[2mm]
+\Big(-1,\ \dfrac{v}{1-A},\ -\dfrac{v}{1-A}\Big)&\text{in }\Omega^-(z^-).
+\end{cases}
+\end{equation}
+By construction, in $S_t$ the Darcy field of the state is $\bar u+A\bar m=v$, and the quantities \eqref{eq:Da} are $d=D-2\ee$, $D=\nabla^\perp\Psi$ and $a=\ee+\frac A\mum v$.
+
+\begin{lemma}[The linear equations]\label{lem:linear}
+Assume that
+\begin{equation}\label{eq:mass-cond}
+\int_\T M(\alpha,t)\dd\alpha=0\qquad\text{for all }t\in(0,T_1].
+\end{equation}
+Then $D$ is well defined and $2\pi$-periodic in $x_1$, $(\bar\rho,\bar u,\bar m)$ is bounded, and it solves \eqref{eq:linear} in the sense of distributions on $\T\times\R\times[0,T_1)$ with initial datum $\rho_0$.
+Outside the closure of $\bigcup_t S_t\times\{t\}$ it takes values in $\Kc$.
+\end{lemma}
+
+\begin{proof}
+\emph{Periodicity.} $\Psi^\pm(\alpha+2\pi,t)=\Psi^\pm(\alpha,t)+\Phi^\pm(t)$ with $\Phi^\pm=\int_\T F^\pm$, and $\Phi^+=\Phi^-$ by \eqref{eq:mass-cond}. Since $X(\alpha+2\pi,\lambda,t)=X(\alpha,\lambda,t)+2\pi e_1$, we get
+$\Psi(x+2\pi e_1)=\Psi(x)+\Phi^+$, so $D=\nabla^\perp\Psi$ is periodic. $\Psi$ is $C^1$ up to $\partial S_t$, hence $D$ is bounded.
+
+\emph{The equations in the open regions.} In each of the three open regions $\bar\rho$ is constant; $v$ is divergence-free and curl-free there by Lemma~\ref{lem:cauchy}(a), and $\dvg D=\dvg\nabla^\perp\Psi=0$.
+Hence $\dvg\bar m=0$, $\dvg\bar u=\dvg v-A\dvg\bar m=0$ and $\curl(\bar u+A\bar m)=\curl v=0$ in each region. Outside the strip, $\bar m=\bar\rho\bar u$ with $\bar\rho=\pm1$, i.e.\ the state is in $\Kc$.
+
+\emph{Jump conditions.} A piecewise $C^1$ bounded field satisfies \eqref{eq:linear} in $\mathcal D'$ if and only if it does so in each open region and satisfies the Rankine--Hugoniot conditions across the moving curves:
+\[
+\jump{\bar\rho}V=\jump{\bar m\cdot n},\qquad \jump{\bar u\cdot n}=0,\qquad \jump{(\bar u+A\bar m)\cdot\tau}=-\jump{\bar\rho}\tau_2 .
+\]
+(The initial condition holds because the fields are bounded and $\bar\rho(\cdot,t)\to\rho_0$ in $L^1_{\rm loc}$.) Consider $\Gamma^+$. The jump of $v$ across $\Gamma^+$ is $f^+$ (the field $\Cf[z^-;f^-]$ is
+continuous there), and $f^+\cdot\tau^+=-\jump{\rho}^+\tau_2^+$, $f^+\cdot n^+=A\jump{\rho}^+V^+$. Since $\bar u+A\bar m=v$ on both sides, the third condition holds. Next, the flux of $\nabla^\perp\Psi$ through
+$\Gamma^+$ per unit $\alpha$ is $\nabla\Psi\cdot\partial_\alpha z^+=\partial_\alpha(\Psi\circ z^+)=\partial_\alpha\Psi^+=F^+$, so on the strip side
+\[
+D\cdot n^+=\frac{F^+}{|\partial_\alpha z^+|},\qquad (D-2\ee)\cdot n^+=\frac{2}{1+\rhom}\big(v_S^+\cdot n^+-(1-A)V^+\big),
+\]
+and therefore
+\[
+(1-A^2)\,\bar m^{S}\cdot n^+=(\rhom-A)v_S^+\cdot n^++(1-\rhom)\big(v_S^+\cdot n^+-(1-A)V^+\big)=(1-A)\big(v_S^+\cdot n^+-(1-\rhom)V^+\big).
+\]
+Above $\Gamma^+$, $\bar m\cdot n^+=v^{\rm above}\cdot n^+/(1+A)=(v_S^+\cdot n^++A(1-\rhom)V^+)/(1+A)$. Subtracting, $\jump{\bar m\cdot n^+}=(1-\rhom)V^+=\jump{\bar\rho}V^+$. Moreover
+$\bar u^S\cdot n^+=v_S^+\cdot n^+-A\bar m^S\cdot n^+=(v_S^+\cdot n^++A(1-\rhom)V^+)/(1+A)=\bar u^{\rm above}\cdot n^+$. The computation on $\Gamma^-$ is identical: there
+$(D-2\ee)\cdot n^-=\frac{2}{1-\rhom}((1+A)V^--v_S^-\cdot n^-)$, which gives $(1-A^2)\bar m^S\cdot n^-=(1+A)\big((1+\rhom)V^--v_S^-\cdot n^-\big)$, while below $\Gamma^-$,
+$\bar m\cdot n^-=-(v_S^-\cdot n^--A(1+\rhom)V^-)/(1-A)$; hence $\jump{\bar m\cdot n^-}=(1+\rhom)V^-$ and $\jump{\bar u\cdot n^-}=0$.
+\end{proof}
+
+Thus the ansatz \eqref{eq:subsol} solves the linear system exactly, whatever the curves $z^\pm$ are, provided \eqref{eq:mass-cond} holds; the only remaining requirement for a subsolution is the
+open condition $D\cdot(D-2a)<0$ in $S_t$. The next lemma identifies \eqref{eq:mass-cond} with the conservation of mass.
+
+\begin{lemma}[Mass identity]\label{lem:mass}
+Let $\mathcal A^\pm(t):=\int_\T z_2^\pm\,\partial_\alpha z_1^\pm\dd\alpha$, so that $\frac{\dd}{\dd t}\mathcal A^\pm=\int_\T V^\pm|\partial_\alpha z^\pm|\dd\alpha$, and
+\[
+Q(t):=(1-\rhom)\tfrac{\dd}{\dd t}\mathcal A^+(t)+(1+\rhom)\tfrac{\dd}{\dd t}\mathcal A^-(t).
+\]
+Then for $t\in(0,T_1]$
+\[
+\int_\T M(\alpha,t)\dd\alpha=-\frac{2\,Q(t)}{1-\rhom^2}.
+\]
+\end{lemma}
+
+\begin{proof}
+The identity for $\frac{\dd}{\dd t}\mathcal A^\pm$ follows from an integration by parts: $\frac{\dd}{\dd t}\mathcal A=\int(\partial_tz_2\partial_\alpha z_1-\partial_\alpha z_2\partial_tz_1)=\int\partial_tz\cdot(\partial_\alpha z)^\perp$.
+By Lemma~\ref{lem:cauchy}(c), the constant parts $-\jump{\rho}^\pm\ee$ of the densities contribute $\mp\frac12\sum_\pm\jump{\rho}^\pm\ee=\mp\ee$ to $v_{\pm\infty}$, while by \eqref{eq:limit-source} the normal parts
+contribute $\pm\frac1{4\pi}\sum_\pm\jump{\rho}^\pm(2\pi+A\frac{\dd}{\dd t}\mathcal A^\pm)\ee$. Hence
+\[
+v_{\pm\infty}=\pm\frac{AQ}{4\pi}\ee .
+\]
+Since $v$ is divergence-free and periodic above $\Gamma^+$, the flux of $v$ through $\Gamma^+$ from above equals $2\pi(v_{+\infty})_2=\frac{AQ}2$; subtracting the jump $f^+\cdot n^+=A(1-\rhom)V^+$,
+\[
+\int_\T v_S^+\cdot n^+|\partial_\alpha z^+|\dd\alpha=\frac{AQ}{2}-A(1-\rhom)\tfrac{\dd}{\dd t}\mathcal A^+,\qquad
+\int_\T v_S^-\cdot n^-|\partial_\alpha z^-|\dd\alpha=-\frac{AQ}{2}+A(1+\rhom)\tfrac{\dd}{\dd t}\mathcal A^-,
+\]
+the second identity being obtained in the same way from below. Using $\int n_2^\pm|\partial_\alpha z^\pm|=2\pi$ we get
+\begin{align*}
+\int_\T F^+&=\frac{2}{1+\rhom}\Big(\frac{AQ}{2}-(1-A\rhom)\tfrac{\dd}{\dd t}\mathcal A^+\Big)+4\pi,\\
+\int_\T F^-&=\frac{2}{1-\rhom}\Big((1-A\rhom)\tfrac{\dd}{\dd t}\mathcal A^-+\frac{AQ}2\Big)+4\pi,
+\end{align*}
+and the difference is $\frac{2}{1-\rhom^2}\big(-\rhom AQ-(1-A\rhom)Q\big)=-\frac{2Q}{1-\rhom^2}$.
+\end{proof}
+
+\begin{remark}\label{rem:centre-of-mass}
+$Q=0$ means that $(1-\rhom)\mathcal A^++(1+\rhom)\mathcal A^-$ is constant, i.e.\ that the total mass $\int(\bar\rho-\rho_{\rm ref})$ over a period is conserved. In view of \eqref{eq:com},
+the central interface $Z$ separates, to first order in the width of the strip, the same amounts of heavy and light fluid as the strip itself; this is why $Z$ must move, to leading order, with the
+normal velocity of the Muskat problem (Lemma~\ref{lem:limits}).
+\end{remark}
+
+The following lemma shows that the tangential component of $D$ is controlled by the primitive of $M$, and its normal component by the boundary fluxes.
+
+\begin{lemma}[The state in the strip]\label{lem:stream}
+Assume \eqref{eq:mass-cond}, and that there are $C_1\ge1$ and $F_0\in C^0(\T)$ such that for $t\in(0,T_1]$
+\[
+\|M(\cdot,t)\|_{C^0(\T)}\le C_1t^2,\qquad \|F^\pm(\cdot,t)-F_0\|_{C^0(\T)}\le C_1t .
+\]
+Then there is $C$ such that, for $t\in(0,T_1]$ and $x=X(\alpha,\lambda,t)\in S_t$,
+\[
+\Big|D(x,t)-\frac{F_0(\alpha)}{|\partial_\alpha z_0(\alpha)|}\,n_0(\alpha)\Big|\le Ct .
+\]
+\end{lemma}
+
+\begin{proof}
+Differentiating \eqref{eq:Psi} and using \eqref{eq:X},
+\begin{align*}
+t\kappa\,\nabla\Psi\cdot n_0&=\partial_\lambda\big(\Psi\circ X\big)=\tfrac12(\Psi^+-\Psi^-)=\tfrac12\int_0^\alpha M(\beta,t)\dd\beta,\\
+\nabla\Psi\cdot\partial_\alpha X&=\partial_\alpha\big(\Psi\circ X\big)=\tfrac12(1-\lambda)F^-+\tfrac12(1+\lambda)F^+ .
+\end{align*}
+Hence $|\nabla\Psi\cdot n_0|\le\pi C_1t/\min\kappa$, and since $\partial_\alpha X=|\partial_\alpha z_0|\tau_0+O(t)$, $\nabla\Psi\cdot\tau_0=F_0/|\partial_\alpha z_0|+O(t)$. As
+$D=\nabla^\perp\Psi=(\nabla\Psi\cdot\tau_0)n_0-(\nabla\Psi\cdot n_0)\tau_0$, the claim follows.
+\end{proof}

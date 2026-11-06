@@ -1,0 +1,131 @@
+% ============================================================
+\section{Proof of Theorem~\ref{thm:main}}\label{sec:proof}
+% ============================================================
+
+We keep the notation of Section~\ref{sec:ansatz}. The proof consists in choosing the normal acceleration $a$ and the vertical correction $h$ in \eqref{eq:curves} so that $M=O(t^2)$ and
+\eqref{eq:mass-cond} holds, and then in checking the open condition $D\cdot(D-2a)<0$ in the strip by comparison with its limit as $t\to0$.
+
+\subsection{The limit $t\to0$: velocity matching}
+For the computation of the limits it is convenient to allow arbitrary normal velocities at $t=0$.
+
+\begin{lemma}\label{lem:limits}
+Let $z^\pm(\cdot,t)$ be polynomials in $t$ with coefficients in $C^{3,\gamma}$, with $z^\pm(\cdot,0)=z_0$ and $\partial_tz^\pm(\cdot,0)\cdot n_0=W^\pm\in C^{3,\gamma}(\T)$, such that the conclusions of
+Lemma~\ref{lem:geometry} hold, and define $f^\pm,v,F^\pm,M$ by \eqref{eq:densities}--\eqref{eq:M}. Let
+\[
+\overline W:=\tfrac12\big[(1-\rhom)W^++(1+\rhom)W^-\big],\qquad P:=2\Kop_0[n_{0,2}]+2A\Kop_0\overline W .
+\]
+Then, uniformly on $\T$ as $t\to0$, $v_S^\pm(\cdot,t)\to v_S^{(0)}:=\Cf[z_0;f_0^+]^-+\Cf[z_0;f_0^-]^+$, where $f_0^\pm=\jump\rho^\pm(-\ee+(n_{0,2}+AW^\pm)n_0)$, and
+\begin{align}
+v_S^{(0)}\cdot n_0&=P+\tfrac A2\big[(1+\rhom)W^--(1-\rhom)W^+\big],\label{eq:vS0}\\
+M(\cdot,t)&\to M_0:=-\frac{4|\partial_\alpha z_0|}{1-\rhom^2}\Big[\big(I-2A\Kop_0\big)\overline W-2\Kop_0[n_{0,2}]\Big].\label{eq:M0}
+\end{align}
+For the ansatz \eqref{eq:curves}, i.e.\ $W^\pm=U_0\pm c^\pm$, we have $\overline W=U_0$, $P=U_0$, $M_0=0$,
+\begin{equation}\label{eq:F0}
+v_S^{(0)}\cdot n_0=\mum U_0-A(1-\rhom^2)\kappa,\qquad F^\pm(\cdot,t)\to F_0:=|\partial_\alpha z_0|\big(-\sig_0-2(1-A\rhom)\kappa\big).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The convergence of $v_S^\pm$ follows from Lemma~\ref{lem:continuity}: for instance $\Cf[z^+;f^+]^-\to\Cf[z_0;f_0^+]^-$, and $\Cf[z^-;f^-](z^+(\alpha,t))\to\Cf[z_0;f_0^-]^+(\alpha)$ because $z^+(\alpha,t)$ lies above
+$\Gamma^-(t)$ and tends to $z_0(\alpha)$. By Lemma~\ref{lem:cauchy}(b),
+$v_S^{(0)}=\avg{\Cf[z_0;f_0^++f_0^-]}-\frac12f_0^++\frac12f_0^-$, and $f_0^++f_0^-=-2\ee+2(n_{0,2}+A\overline W)n_0$ because $\jump\rho^++\jump\rho^-=2$. Since $\avg{\Cf[z_0;\ee]}=0$ by
+Lemma~\ref{lem:cauchy}(c), $\avg{\Cf[z_0;f_0^++f_0^-]}\cdot n_0=P$, and \eqref{eq:vS0} follows from $f_0^\pm\cdot n_0=A\jump\rho^\pm W^\pm$. Passing to the limit in \eqref{eq:Fplus}--\eqref{eq:Fminus},
+\[
+\frac{M_0}{|\partial_\alpha z_0|}=\frac{2}{1-\rhom^2}\Big\{2v_S^{(0)}\cdot n_0-(1-\rhom)(1-A)W^+-(1+\rhom)(1+A)W^-\Big\}=\frac{4}{1-\rhom^2}\big(P-\overline W\big),
+\]
+which is \eqref{eq:M0}. For the ansatz, $(1-\rhom)c^+=(1+\rhom)c^-=(1-\rhom^2)\kappa$ gives $\overline W=U_0$. Applying $\Kop_0$ to $(I-2A\Kop_0)\sig_0=-2n_{0,2}$ and using $U_0=-\Kop_0\sig_0$ we get
+$(I-2A\Kop_0)U_0=2\Kop_0[n_{0,2}]$, i.e.\ $P=U_0$ and $M_0=0$. Then \eqref{eq:vS0} gives $v_S^{(0)}\cdot n_0=U_0+A\rhom U_0-A(1-\rhom^2)\kappa$, and inserting this in \eqref{eq:Fplus} and using
+$\sig_0=-2(n_{0,2}+AU_0)$ (Proposition~\ref{prop:sigma}),
+\[
+\frac{F_0}{|\partial_\alpha z_0|}=\frac{2}{1+\rhom}\Big(A(1+\rhom)U_0-(1+\rhom)\kappa\big[A(1-\rhom)+1-A\big]\Big)+2n_{0,2}=-\sig_0-2(1-A\rhom)\kappa .\qedhere
+\]
+\end{proof}
+
+Thus the vanishing of $M$ at order $t^0$ is precisely the statement that the centre of mass $Z$ of the strip starts with the normal velocity of the Muskat problem, which we built into the ansatz.
+
+\subsection{The relaxation condition at $t=0$}
+
+\begin{lemma}\label{lem:hull0}
+Let $D^{(0)}:=\frac{F_0}{|\partial_\alpha z_0|}n_0=\big(-\sig_0-2(1-A\rhom)\kappa\big)n_0$ and $a^{(0)}:=\ee+\frac A\mum v_S^{(0)}$. Then
+\[
+a^{(0)}\cdot n_0=-\frac{\sig_0}2-\frac{A^2(1-\rhom^2)\kappa}{\mum},\qquad
+D^{(0)}\cdot\big(D^{(0)}-2a^{(0)}\big)=-\frac{2\kappa(1-A^2)}{\mum}\Big(-\sig_0-2(1-A\rhom)\kappa\Big).
+\]
+In particular, under \eqref{eq:fully-unstable}--\eqref{eq:kappa-range}, $\max_\T D^{(0)}\cdot(D^{(0)}-2a^{(0)})=:-m_0<0$.
+\end{lemma}
+
+\begin{proof}
+By \eqref{eq:F0}, $a^{(0)}\cdot n_0=n_{0,2}+AU_0-\frac{A^2(1-\rhom^2)\kappa}{\mum}$, and $n_{0,2}+AU_0=-\sig_0/2$. Since $D^{(0)}$ is normal, $D^{(0)}\cdot(D^{(0)}-2a^{(0)})=D_n(D_n-2a_n)$ with
+$D_n=-\sig_0-2(1-A\rhom)\kappa$ and $a_n=a^{(0)}\cdot n_0$, and
+\[
+D_n-2a_n=-2\kappa\Big[(1-A\rhom)-\frac{A^2(1-\rhom^2)}{1+A\rhom}\Big]=-\frac{2\kappa(1-A^2)}{\mum}.\qedhere
+\]
+\end{proof}
+
+\begin{remark}
+Lemma~\ref{lem:hull0} explains the range \eqref{eq:kappa-range}: the normal component of the relaxed flux, $D_n$, must lie strictly between $0$ and $2a_n$; the upper bound holds automatically because
+$|A|<1$, and the lower bound is $2(1-A\rhom)\kappa<-\sig_0$. When $\sig_0\ge0$ somewhere, no $\kappa>0$ is admissible there; this is the Saffman--Taylor stability of the interface.
+\end{remark}
+
+\subsection{Time regularity and acceleration matching}
+The following lemma is proved in Appendix~\ref{app:cauchy}.
+
+\begin{lemma}\label{lem:timereg}
+Let $a\in C^{3,\gamma}(\T)$ and let $h$ be a polynomial with $h(0)=h'(0)=0$. There are $T_1>0$ and $C$ such that $F^\pm$ and $M$, extended to $t=0$ by their limits, belong to $C^1([0,T_1];C^0(\T))$,
+$\|\partial_tF^\pm(\cdot,t)-\partial_tF^\pm(\cdot,s)\|_{C^0}\le C|t-s|$, and
+\begin{equation}\label{eq:v-strip}
+\sup_{x=X(\alpha,\lambda,t)\in S_t}\big|v(x,t)-v_S^{(0)}(\alpha)\big|\le Ct^\gamma\qquad (0<t\le T_1).
+\end{equation}
+\end{lemma}
+
+\begin{lemma}\label{lem:accel}
+There is $G\in C^{3,\gamma}(\T)$, depending only on $z_0,\kappa,\rhom$ and $A$, such that for every $a\in C^{3,\gamma}(\T)$ and $h\equiv0$,
+\[
+\partial_tM(\cdot,0)=G-\frac{4|\partial_\alpha z_0|}{1-\rhom^2}\big(I-2A\Kop_0\big)a .
+\]
+\end{lemma}
+
+\begin{proof}
+For fixed $t$ the quantities $V^\pm$, $f^\pm$, $v$, $v_S^\pm$, $F^\pm$ and $M$ are affine functions of the velocities $(\partial_tz^+,\partial_tz^-)$, with coefficients depending only on the positions
+$z^\pm(\cdot,t)$: indeed $V^\pm$ is linear in $\partial_tz^\pm$, $f^\pm$ is affine in $V^\pm$, and $v$ is linear in $f^\pm$. Write accordingly $M(t)=\mathcal L_t[\partial_tz^+,\partial_tz^-]+\mathcal B_t$.
+By the formulas of Appendix~\ref{app:cauchy}, $\mathcal L_t$ and $\mathcal B_t$ are differentiable at $t=0$ and their derivatives only involve $z_0$ and $\partial_tz^\pm(\cdot,0)=(U_0\pm c^\pm)n_0$, which do not
+depend on $a$ (the term $\frac{t^2}2an_0$ in the positions does not contribute at $t=0$). Hence $\partial_tM(\cdot,0)=\mathcal L_0[\partial_t^2z^+,\partial_t^2z^-](\cdot,0)+G$ with $G$ independent of $a$. Since
+$\partial_t^2z^\pm(\cdot,0)=an_0$ and, by \eqref{eq:M0}, the linear part of the map $(W^+,W^-)\mapsto M_0$ is $-\frac{4|\partial_\alpha z_0|}{1-\rhom^2}(I-2A\Kop_0)\overline W$, we obtain the formula.
+The regularity $G\in C^{3,\gamma}$ is proved in Appendix~\ref{app:cauchy}.
+\end{proof}
+
+This is the second place where the operator $I-2A\Kop(z_0)$ appears: the vanishing of $M$ at order $t^1$ is an equation for the normal acceleration of the centre of mass, which we solve by
+Proposition~\ref{prop:invert}. Note that only the restriction of $\Kop$ to $z_0$ is needed; the instability of the Muskat problem plays no role in a time expansion of finite order.
+
+\begin{lemma}[Mass correction]\label{lem:shift}
+Let $a\in C^{3,\gamma}$ be such that $\partial_tM(\cdot,0)=0$ when $h\equiv0$, and let $Q^{(0)}$ be the function $Q$ of Lemma~\ref{lem:mass} computed with $h\equiv0$. Then
+$h(t):=-\frac1{4\pi}\int_0^tQ^{(0)}(s)\dd s$ is a polynomial with $|h(t)|\le Ct^3$, and the curves \eqref{eq:curves} with this $h$ satisfy \eqref{eq:mass-cond} and $\|M(\cdot,t)\|_{C^0}\le Ct^2$ for $t\in(0,T_1]$.
+\end{lemma}
+
+\begin{proof}
+Let $M^{(0)}$ be the mismatch for $h\equiv0$. By Lemmas~\ref{lem:limits} and \ref{lem:timereg}, $M^{(0)}(\cdot,0)=0$, $\partial_tM^{(0)}(\cdot,0)=0$ and $\partial_tM^{(0)}$ is Lipschitz in time, so
+$\|M^{(0)}(\cdot,t)\|_{C^0}\le Ct^2$, and by Lemma~\ref{lem:mass} $|Q^{(0)}(t)|\le Ct^2$. The areas $\mathcal A^\pm$ are polynomials in $t$ (the curves are), hence so are $Q^{(0)}$ and $h$, and
+$h(0)=h'(0)=0$, $|h'(t)|\le Ct^2$, $|h(t)|\le Ct^3$. Adding $h(t)\ee$ to both curves adds $2\pi h$ to $\mathcal A^\pm$, so $Q=Q^{(0)}+4\pi h'=0$ and \eqref{eq:mass-cond} holds by
+Lemma~\ref{lem:mass}. Finally, Cauchy fields commute with translations, $\Cf[z+h\ee;f](x+h\ee)=\Cf[z;f](x)$, so the new $F^\pm$ are obtained from the old ones by adding $h'\ee$ to the velocities;
+by the affine dependence on the velocities and Lemma~\ref{lem:cauchy}(b), $\|M-M^{(0)}\|_{C^0}\le C|h'(t)|\le Ct^2$.
+\end{proof}
+
+\subsection{Conclusion}
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Let $G$ be as in Lemma~\ref{lem:accel} and define
+\[
+a:=\big(I-2A\Kop_0\big)^{-1}\Big[\frac{(1-\rhom^2)\,G}{4|\partial_\alpha z_0|}\Big]\in C^{3,\gamma}(\T),
+\]
+which is possible by Proposition~\ref{prop:invert} with $k=6$, $j=3$. Then $\partial_tM(\cdot,0)=0$ when $h\equiv0$. Let $h$ be given by Lemma~\ref{lem:shift} and consider the curves \eqref{eq:curves} and the
+triple $(\bar\rho,\bar u,\bar m)$ of \eqref{eq:subsol}. By Lemma~\ref{lem:shift}, \eqref{eq:mass-cond} holds and $\|M\|_{C^0}\le Ct^2$; by Lemma~\ref{lem:timereg} and since $h'(0)=0$,
+$\|F^\pm(\cdot,t)-F_0\|_{C^0}\le Ct$ with $F_0$ given by \eqref{eq:F0}. By Lemma~\ref{lem:linear}, $(\bar\rho,\bar u,\bar m)$ is bounded, solves \eqref{eq:linear} with initial datum $\rho_0$, and lies in
+$\Kc$ outside the strip. By Lemma~\ref{lem:stream}, $|D-D^{(0)}(\alpha)|\le Ct$ in $S_t$, and by \eqref{eq:v-strip}, $|a-a^{(0)}(\alpha)|\le\frac{|A|}{\mum}Ct^\gamma$ in $S_t$, where $a=\ee+\frac A\mum v$ is the
+vector \eqref{eq:Da} of the state in the strip. Since all these quantities are bounded, Lemma~\ref{lem:hull0} gives in $S_t$
+\[
+D\cdot(D-2a)\le D^{(0)}\cdot\big(D^{(0)}-2a^{(0)}\big)+C't^\gamma\le-m_0+C't^\gamma<0
+\]
+for $0<t\le T$, provided $T\le T_1$ and $C'T^\gamma<m_0$. Hence, with $\Omega_{\rm mix}:=\{(x,t):0<t<T,\ x\in S_t\}$, which is open, $(\bar\rho,\bar u,\bar m)$ is continuous on $\Omega_{\rm mix}$ with values in
+$\Uc_A$ (Proposition~\ref{prop:hull}), i.e.\ a subsolution in the sense of Definition~\ref{def:subsol}. Theorem~\ref{thm:hprinciple} yields infinitely many weak solutions with $\rho=\bar\rho$ outside
+$\Omega_{\rm mix}$, mixing in $\Omega_{\rm mix}$, and a sequence converging weakly-$*$ to $\bar\rho$. Since $\Omega_{\rm mix}(t)=S_t$ is the strip between $\Gamma^\pm(t)$, and $Z$ has the form \eqref{eq:central}, all
+the assertions of Theorem~\ref{thm:main} follow.
+\end{proof}

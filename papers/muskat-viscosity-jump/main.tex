@@ -1,0 +1,92 @@
+\documentclass[11pt,a4paper]{amsart}
+
+\usepackage[margin=2.6cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=green!40!black,urlcolor=blue!60!black]{hyperref}
+\usepackage{bm}
+
+\numberwithin{equation}{section}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% ---------- macros ----------
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\Kop}{\mathcal{K}}
+\newcommand{\Cf}{\mathcal{C}}
+\newcommand{\Zc}{\mathcal{Z}}
+\newcommand{\Uc}{\mathcal{U}}
+\newcommand{\Kc}{\mathsf{K}}
+\newcommand{\pv}{\operatorname{p.v.}}
+\newcommand{\jump}[1]{[\![#1]\!]}
+\newcommand{\avg}[1]{\langle #1\rangle}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\dvg}{div}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\Rea}{Re}
+\newcommand{\ee}{e_2}
+\newcommand{\sig}{\sigma}
+\newcommand{\rhom}{\rho_{\mathrm m}}
+\newcommand{\mum}{\mu_{\mathrm m}}
+\newcommand{\bnu}{\nu}
+
+\title[Mixing solutions for unstable Muskat data with viscosity jump]{Mixing solutions for unstable Muskat data\\ with viscosity jump}
+
+\author{Independent reconstruction from a seminar abstract}
+\thanks{\textbf{Provenance.} This manuscript was written from the one-paragraph abstract of the talk
+\emph{``Mixing solutions for unstable Muskat data with viscosity jump''} by Paula Luna (Universidad de Sevilla),
+joint work with Francisco Mengual, announced for the Seminario EDPs y Mec\'anica de Fluidos (ICMAT, 12 November 2026).
+It was prepared \emph{without} access to their manuscript, as an exercise in reconstructing a research paper from an abstract.
+The result announced in that abstract is due to Luna and Mengual; the arguments, normalisations and any errors below are ours.
+This text is not intended for submission as original work.}
+
+\date{6 November 2026}
+
+\begin{document}
+
+\begin{abstract}
+We consider the incompressible porous media (IPM) equation for two fluids with different densities and different
+viscosities, in the regime where the interface is fully unstable in the sense of Saffman and Taylor, so that the classical Muskat
+problem is ill-posed. For every horizontally periodic initial interface of class $C^{6,\gamma}$ whose Saffman--Taylor function
+(the jump of the normal derivative of the pressure) is negative everywhere, we construct infinitely many \emph{mixing solutions}:
+weak solutions of IPM with viscosity jump whose density takes only the two pure values, coincides with the pure phases outside a strip,
+and mixes at arbitrarily small scales inside it. The strip opens linearly in time around an evolving central interface, at a local rate that is
+bounded by the Saffman--Taylor function. The construction combines the $h$-principle for IPM with viscosity jump with
+piecewise constant subsolutions defined through a second order expansion in time. The key ingredient is to write the Darcy field
+$\mu u=-\nabla p-\rho e_2$ of a subsolution as a sum of Cauchy integrals whose densities depend linearly on the Saffman--Taylor function,
+and to invert the resulting operator $I-2A\Kop$, where $A$ is the viscosity Atwood number and $\Kop$ is the adjoint Neumann--Poincar\'e operator of
+the interface. Thus the Birkhoff--Rott operator is inverted in terms of the Saffman--Taylor function rather than the vorticity, and at every order of the
+expansion one only has to invert the same Fredholm operator, which is a compact perturbation of the identity.
+\end{abstract}
+
+\maketitle
+
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+\input{sec-intro}
+\input{sec-muskat}
+\input{sec-relaxation}
+\input{sec-ansatz}
+\input{sec-proof}
+\input{sec-remarks}
+\appendix
+\input{app-cauchy}
+
+\input{biblio}
+
+\end{document}

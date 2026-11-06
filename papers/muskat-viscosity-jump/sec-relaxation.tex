@@ -1,0 +1,149 @@
+% ============================================================
+\section{Relaxation of IPM with viscosity jump}\label{sec:relax}
+% ============================================================
+
+\subsection{IPM as a differential inclusion}
+A pair $(\rho,u)\in L^\infty(\T\times\R\times(0,T))^{1+2}$ with $\rho^2=1$ a.e.\ is a \emph{weak solution} of \eqref{eq:IPM} with initial datum $\rho_0$ if for every
+$\varphi\in C^\infty_c(\T\times\R\times[0,T))$
+\begin{equation}\label{eq:weak}
+\begin{aligned}
+&\int_0^T\!\!\int\big(\rho\,\partial_t\varphi+\rho u\cdot\nabla\varphi\big)\dd x\dd t+\int\rho_0\varphi(\cdot,0)\dd x=0,\qquad \int_0^T\!\!\int u\cdot\nabla\varphi\dd x\dd t=0,\\
+&\int_0^T\!\!\int\big((1+A\rho)\,u\cdot\nabla^\perp\varphi+\rho\,\partial_1\varphi\big)\dd x\dd t=0,
+\end{aligned}
+\end{equation}
+where $\nabla^\perp=(-\partial_2,\partial_1)$; the last identity is the curl of Darcy's law, $\curl(\mu(\rho)u)=-\partial_1\rho$.
+Consider the linear system for $(\rho,u,m)\in\R\times\R^2\times\R^2$
+\begin{equation}\label{eq:linear}
+\partial_t\rho+\dvg m=0,\qquad \dvg u=0,\qquad \curl(u+Am)=-\partial_1\rho,
+\end{equation}
+and the constitutive set
+\[
+\Kc:=\{(\rho,u,m):\ \rho\in\{-1,1\},\ m=\rho u\}.
+\]
+Since $(1+A\rho)u=u+Am$ on $\Kc$, a pair $(\rho,u)$ is a weak solution if and only if $(\rho,u,\rho u)$ solves \eqref{eq:linear} in the sense of distributions, with initial datum $\rho_0$,
+and takes values in $\Kc$ a.e. This linearisation of Darcy's law is due to \cite{Men22}.
+
+For a state $(\rho,u,m)$ we define the \emph{Darcy field} $v:=u+Am$. In terms of $(\rho,v,m)$ the system \eqref{eq:linear} becomes
+\begin{equation}\label{eq:linear-v}
+\partial_t\rho+\dvg m=0,\qquad \curl v=-\partial_1\rho,\qquad \dvg v=-A\,\partial_t\rho,\qquad u=v-Am .
+\end{equation}
+The point of \eqref{eq:linear-v} is that \emph{$v$ is determined by $\rho$ and $\partial_t\rho$ alone} (modulo harmonic fields), whereas the vorticity of $u=v-Am$ depends on $\curl m$. On $\Kc$ we have
+$v=(1+A\rho)u=\mu(\rho)u=-\nabla p-\rho\ee$.
+
+\subsection{Laminates}
+The wave cone of \eqref{eq:linear} is the set $\Lambda$ of states $\bar W=(\bar\rho,\bar u,\bar m)$ for which there exist $\xi\in\R^2\setminus\{0\}$ and $c\in\R$ such that $\bar W h(\xi\cdot x+ct)$
+solves \eqref{eq:linear} for every $h\in C^1(\R)$, that is,
+\begin{equation}\label{eq:wavecone}
+c\bar\rho+\xi\cdot\bar m=0,\qquad \xi\cdot\bar u=0,\qquad \xi^\perp\cdot(\bar u+A\bar m)+\xi_1\bar\rho=0 .
+\end{equation}
+For a state $(\rho,u,m)$ with $|\rho|<1$ we introduce
+\begin{equation}\label{eq:Da}
+\mu:=1+A\rho,\quad v:=u+Am,\quad d:=\frac{2\big[(1-A^2)m-(\rho-A)v\big]}{1-\rho^2},\quad D:=d+2\ee,\quad a:=\ee+\frac A\mu v .
+\end{equation}
+For fixed $\rho$ the map $(u,m)\mapsto(v,d)$ is a linear isomorphism of $\R^4$, with inverse
+\[
+m=\frac{(\rho-A)v+\frac12(1-\rho^2)d}{1-A^2},\qquad u=v-Am .
+\]
+
+\begin{lemma}[First order laminates]\label{lem:laminates}
+Let $\rho\in(-1,1)$, $\lambda_\pm=\frac{1\pm\rho}2$, and $P_+=(1,u_+,u_+)$, $P_-=(-1,u_-,-u_-)\in\Kc$. Then $P_+-P_-\in\Lambda$ if and only if there is a unit vector $\nu$ with
+\begin{equation}\label{eq:laminate-cond}
+u_+\cdot\nu=u_-\cdot\nu,\qquad \big((1+A)u_+-(1-A)u_-\big)\cdot\nu^\perp=-2\nu_1 .
+\end{equation}
+In that case the barycentre $P=\lambda_+P_++\lambda_-P_-=(\rho,u,m)$ satisfies
+\begin{equation}\label{eq:D-laminate}
+D=2(a\cdot\nu)\nu,\qquad\text{in particular}\qquad |D-a|=|a| .
+\end{equation}
+Conversely, for every $\rho\in(-1,1)$, $v\in\R^2$ and unit vector $\nu$, the state with these values of $\rho$, $v$ and with $D=2(a\cdot\nu)\nu$ is such a barycentre.
+\end{lemma}
+
+\begin{proof}
+We have $P_+-P_-=(2,u_+-u_-,u_++u_-)$. Taking $\xi=\nu$ in \eqref{eq:wavecone}, the first condition only fixes $c$, the second is $\nu\cdot(u_+-u_-)=0$ and the third is
+$\nu^\perp\cdot(u_+-u_-+A(u_++u_-))+2\nu_1=0$, which is \eqref{eq:laminate-cond}. Let $v_\pm:=(1\pm A)u_\pm$ be the Darcy fields of the two phases and $\delta:=v_+-v_-$. Then
+$v=u+Am=\lambda_+v_++\lambda_-v_-$, so $v_+=v+\lambda_-\delta$, $v_-=v-\lambda_+\delta$, and
+\[
+(1-A^2)m=(1-A)\lambda_+v_+-(1+A)\lambda_-v_-=(\rho-A)v+2\lambda_+\lambda_-\delta=(\rho-A)v+\tfrac12(1-\rho^2)\delta,
+\]
+that is, $d=\delta$. The first condition in \eqref{eq:laminate-cond} reads $(1-A)v_+\cdot\nu=(1+A)v_-\cdot\nu$, i.e.\ $\delta\cdot\nu\,[(1-A)\lambda_-+(1+A)\lambda_+]=2A\,v\cdot\nu$; since
+$(1-A)\lambda_-+(1+A)\lambda_+=\mu$, this is $\delta\cdot\nu=\frac{2A}{\mu}v\cdot\nu$. The second condition reads $\delta\cdot\nu^\perp=-2\nu_1=-2\ee\cdot\nu^\perp$. Hence
+\[
+\delta=\frac{2A}{\mu}(v\cdot\nu)\nu-2(\ee\cdot\nu^\perp)\nu^\perp=-2\ee+2\Big(\big(\ee+\tfrac A\mu v\big)\cdot\nu\Big)\nu,
+\]
+where we used $\nu^\perp\otimes\nu^\perp=I-\nu\otimes\nu$. This is \eqref{eq:D-laminate}, and $|2(a\cdot\nu)\nu-a|^2=|a|^2$. The computation can be reversed: given $(\rho,v,\nu)$ put
+$\delta=-2\ee+2(a\cdot\nu)\nu$, $v_+=v+\lambda_-\delta$, $v_-=v-\lambda_+\delta$ and $u_\pm=v_\pm/(1\pm A)$.
+\end{proof}
+
+\begin{proposition}[The relaxed set]\label{prop:hull}
+The set
+\[
+\Uc_A:=\big\{(\rho,u,m)\in\R\times\R^2\times\R^2:\ |\rho|<1,\ |D-a|<|a|\big\}=\big\{|\rho|<1,\ D\cdot(D-2a)<0\big\},
+\]
+with $D,a$ given by \eqref{eq:Da}, is open, and every point of $\Uc_A$ is the barycentre of a $\Lambda$-segment whose endpoints are first order laminates of $\Kc$ as in Lemma~\ref{lem:laminates}.
+In particular $\Uc_A$ is contained in the lamination convex hull $\Kc^{lc}$, hence in the interior of the $\Lambda$-convex hull $\Kc^\Lambda$.
+\end{proposition}
+
+\begin{proof}
+Openness is clear. For $\bar m\ne0$ the state $\bar W=(0,-A\bar m,\bar m)$ belongs to $\Lambda$: take $\xi=\bar m^\perp$ and any $c$ in \eqref{eq:wavecone}. Moving along $\bar W$ leaves $\rho$ and
+$v=u+Am$ (hence $a$) unchanged and moves $d$, hence $D$, in the direction $\bar m$. Let $(\rho,u,m)\in\Uc_A$; then $D$ lies in the open disc $\{|D'-a|<|a|\}$, and any line through $D$ meets the circle
+$\{|D'-a|=|a|\}$ at two points $D_1,D_2$ with $D\in(D_1,D_2)$. The circle is exactly $\{2(a\cdot\nu)\nu:\ |\nu|=1\}$ (the circle through the origin with centre $a$), so by the converse part of
+Lemma~\ref{lem:laminates} the states with values $(\rho,v,D_j)$ are first order laminates. The equivalence of the two descriptions of $\Uc_A$ follows from $|D-a|^2-|a|^2=D\cdot(D-2a)$.
+\end{proof}
+
+\begin{remark}\label{rem:hull}
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item For $A=0$ we have $v=u$, $a=\ee$ and $D-a=\frac{2}{1-\rho^2}\big(m-\rho u+\frac12(1-\rho^2)\ee\big)$, so $\Uc_0$ is the interior of the hull
+$\{|m-\rho u+\frac12(1-\rho^2)\ee|\le\frac12(1-\rho^2)\}$ computed by Sz\'ekelyhidi \cite{Sze12}.
+\item The disc degenerates when $a=0$, i.e.\ $v=-\frac{\mu}{A}\ee$. For a state in a thin mixing zone around an interface, $a\cdot n$ is (up to lower order terms) $-\frac12\sig$ and $a\cdot\tau$ is related to the vorticity
+of the sheet (see Lemma~\ref{lem:hull0}); thus mixing is impossible where there is neither Saffman--Taylor instability nor vorticity, in agreement with the pinch singularity observed in \cite{Men22}.
+\item We only need $\Uc_A\subset\operatorname{int}\Kc^\Lambda$; we do not claim that $\Uc_A$ coincides with the interior of the $\Lambda$-convex hull.
+\end{enumerate}
+\end{remark}
+
+\subsection{Subsolutions and the $h$-principle}
+
+\begin{definition}\label{def:subsol}
+Let $T>0$ and $\rho_0\in L^\infty(\T\times\R)$ with $\rho_0^2=1$. A triple $(\bar\rho,\bar u,\bar m)\in L^\infty(\T\times\R\times(0,T))^{1+2+2}$ is a \emph{subsolution} with initial datum $\rho_0$ and
+mixing zone $\Omega_{\rm mix}$, an open subset of $\T\times\R\times(0,T)$, if
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \eqref{eq:linear} holds in the sense of distributions on $\T\times\R\times[0,T)$ with initial datum $\rho_0$, i.e.\ for every $\varphi\in C^\infty_c(\T\times\R\times[0,T))$
+\[
+\iint\big(\bar\rho\partial_t\varphi+\bar m\cdot\nabla\varphi\big)+\int\rho_0\varphi(\cdot,0)=0,\quad \iint\bar u\cdot\nabla\varphi=0,\quad \iint\big((\bar u+A\bar m)\cdot\nabla^\perp\varphi+\bar\rho\,\partial_1\varphi\big)=0;
+\]
+\item $(\bar\rho,\bar u,\bar m)$ is continuous on $\Omega_{\rm mix}$ and takes values in $\Uc_A$ there;
+\item $(\bar\rho,\bar u,\bar m)\in\Kc$ a.e.\ in the complement of $\Omega_{\rm mix}$.
+\end{enumerate}
+\end{definition}
+
+The following $h$-principle was proved by Mengual \cite{Men22} for $|A|<1$ (for $A=0$ see \cite{CFG11,Sze12,CCF21}); we state it in the form in which we use it. The convex integration scheme
+is local in space-time, so the horizontally periodic setting plays no role, and by Proposition~\ref{prop:hull} subsolutions in the sense of Definition~\ref{def:subsol} take values in the interior of the
+$\Lambda$-convex hull, as required in \cite{Men22}. We refer to \cite{Men22} for the precise functional framework.
+
+\begin{theorem}[$h$-principle \cite{Men22}]\label{thm:hprinciple}
+Let $(\bar\rho,\bar u,\bar m)$ be a subsolution with initial datum $\rho_0$ and mixing zone $\Omega_{\rm mix}$. Then there exist infinitely many weak solutions $(\rho,u)$ of \eqref{eq:IPM} with initial datum
+$\rho_0$ such that $(\rho,u)=(\bar\rho,\bar u)$ a.e.\ outside $\Omega_{\rm mix}$ and $\rho$ mixes in $\Omega_{\rm mix}$, i.e.\ both $\{\rho=1\}$ and $\{\rho=-1\}$ have positive measure in every open
+subset of $\Omega_{\rm mix}$. Moreover there is a sequence of such solutions with $(\rho_k,u_k)\overset{*}{\rightharpoonup}(\bar\rho,\bar u)$ in $L^\infty$.
+\end{theorem}
+
+\subsection{The flat interface}
+The following explicit subsolutions illustrate the role of the viscosity jump; the flat case is treated in \cite{Men22}.
+
+\begin{example}\label{ex:flat}
+Let $\theta\in(0,1)$ and $F_\theta(\rho):=\theta\frac{1-\rho^2}{1-A\rho}$ for $\rho\in[-1,1]$. Then $F_\theta(\pm1)=0$,
+\[
+F_\theta'(\rho)=\theta\,\frac{A-2\rho+A\rho^2}{(1-A\rho)^2},\qquad F_\theta''(\rho)=-\frac{2\theta(1-A^2)}{(1-A\rho)^3}<0,
+\]
+so $-F'_\theta$ increases from $-\frac{2\theta}{1+A}$ at $\rho=-1$ to $\frac{2\theta}{1-A}$ at $\rho=1$. Let $R_\theta:\R\to[-1,1]$ be equal to $-1$ on $(-\infty,-\frac{2\theta}{1+A}]$, to $1$ on
+$[\frac{2\theta}{1-A},\infty)$, and to the inverse of $-F_\theta'$ in between, and set
+\[
+\bar\rho(x,t)=R_\theta(x_2/t),\qquad \bar u=0,\qquad \bar m=-F_\theta(\bar\rho)\,\ee .
+\]
+Then $\partial_t\bar\rho+\partial_2\bar m_2=-\frac{R_\theta'}{t}\big(\frac{x_2}{t}+F_\theta'(R_\theta)\big)=0$ (a rarefaction wave), $\dvg\bar u=0$, and $\curl(\bar u+A\bar m)=-A\partial_1F_\theta(\bar\rho)=0=-\partial_1\bar\rho$;
+all fields are continuous, so \eqref{eq:linear} holds with initial datum $\mathrm{sign}(x_2)$. Outside the fan $\{-\frac{2\theta t}{1+A}<x_2<\frac{2\theta t}{1-A}\}$ the state is $(\pm1,0,0)\in\Kc$. Inside, $v=A\bar m$,
+$(1-A^2)\bar m-(\bar\rho-A)v=(1-A\bar\rho)\bar m$, hence
+\[
+D=2(1-\theta)\ee,\qquad a=\Big(1-\frac{A^2\theta(1-\bar\rho^2)}{1-A^2\bar\rho^2}\Big)\ee,\qquad D\cdot(D-2a)=-\frac{4\theta(1-\theta)(1-A^2)}{1-A^2\bar\rho^2}<0 .
+\]
+So $(\bar\rho,\bar u,\bar m)$ is a subsolution, and Theorem~\ref{thm:hprinciple} gives mixing solutions whose mixing zone is $\{-\frac{2\theta t}{1+A}<x_2<\frac{2\theta t}{1-A}\}$. For $A>0$ (the heavy fluid
+on top is the more viscous one) the mixing zone grows faster upwards: the less viscous light fluid fingers into the more viscous one, as predicted by Saffman and Taylor. Moreover
+$\int(\bar\rho-\mathrm{sign}\,x_2)\dd x_2=t\int_{-1}^1F'_\theta(r)\dd r=0$: the centre of mass of the mixing zone does not move.
+\end{example}
