@@ -2,40 +2,32 @@
 \section{Remarks and open problems}\label{sec:remarks}
 % ============================================================
 
-\subsection{Consistency with the case $A=0$}
-For $A=0$ we have $\sig_0=-2n_{0,2}$ and \eqref{eq:kappa-range} reads $0<\kappa<n_{0,2}$. The strip has normal width $2t\kappa$, i.e.\ vertical width $2t\kappa/n_{0,2}<2t$ (the curves are graphs).
-This is consistent with the maximal vertical opening speed $2$ of the mixing zone for equal viscosities in our normalisation \cite{Ott99,Sze12,CCF21,FS18}.
-
-\subsection{Optimal opening rates (formal)}
-Single-strip subsolutions do not exhaust the relaxation. Consider instead a mixing zone of width $O(t)$ around $Z$ in which the density has a continuous profile $\bar\rho=R(\xi)$, $\xi=(x-Z)\cdot n/t$,
-$R$ increasing from $-1$ at $\xi_-$ to $1$ at $\xi_+$, normalised so that $Z$ is the centre of mass, $\int_{\xi_-}^{\xi_+}\xi R'(\xi)\dd\xi=0$. Repeating the computations of Section~\ref{sec:proof} at leading
-order (the conservation law now determines the normal component of $D$ by an integration across the zone instead of the boundary fluxes \eqref{eq:Fplus}--\eqref{eq:Fminus}), one finds, with
-$\mathcal P(\xi):=-\int_{\xi_-}^{\xi}\eta R'(\eta)\dd\eta\ge0$ and $D\cdot\tau=0$,
+\subsection{Continuous profiles with tilt (formal)}
+Single strips do not exhaust the relaxation. Consider a mixing zone of width $O(t)$ around $Z$ in which the density has a continuous profile $\bar\rho=R(\xi)$, $\xi=(x-Z)\cdot n/t$, increasing from $-1$ at $\xi_-$
+to $1$ at $\xi_+$ and normalised so that $Z$ is the centre of mass. Repeating the computations of Section~\ref{sec:proof} at leading order gives, with $\mathcal P(\xi):=-\int_{\xi_-}^{\xi}\eta R'(\eta)\dd\eta\ge0$,
 \[
-D\cdot n=-\sig-\frac{2(1-AR)\,\mathcal P}{1-R^2},\qquad a\cdot n=-\frac{\sig}{2}-\frac{A^2\mathcal P}{1+AR},
+D\cdot n=-\sig-\frac{2(1-AR)\,\mathcal P}{1-R^2},\qquad a\cdot n=-\frac{\sig}{2}-\frac{A^2\mathcal P}{1+AR},\qquad a\cdot\tau=-\frac{(1-A^2)\gamma}{2(1+AR)},
 \]
-and $D\cdot(D-2a)<0$ if and only if $(1-AR)\mathcal P<-\frac{\sig}2(1-R^2)$ on the zone. The extremal profile $\mathcal P=-\frac\sig2\frac{1-R^2}{1-AR}$ corresponds to $\xi=\frac{\sig}{2}F_1'(R)$ with
-$F_1$ as in Example~\ref{ex:flat}, whose fronts are at
-\[
-\xi_+=-\frac{\sig}{1-A},\qquad \xi_-=\frac{\sig}{1+A}.
-\]
-Thus, formally, the upper and lower boundaries of the mixing zone may move away from the central interface with normal speeds up to $-\sig/(1-A)$ and $-\sig/(1+A)$, and the width may grow at any
-rate below $-2\sig/(1-A^2)$. For the flat interface ($\sig=-2$) this is Example~\ref{ex:flat} with $\theta\to1$. By analogy with \cite[Section~5]{FS18}, we expect that piecewise constant subsolutions with
-finitely many intermediate densities approximate these rates, and that the proof of Theorem~\ref{thm:main} extends to them with the same use of $(I-2A\Kop(z_0))^{-1}$.
+where for the last identity we used that, at leading order, the tangential component of the Darcy field is $v\cdot\tau=-\Top_0\sig-\tau_2R$ across the zone, together with \eqref{eq:gamma-sigma}. Without tilt the condition is $(1-AR)\mathcal P<-\frac{\sig}{2}(1-R^2)$, and its extremal
+profile has fronts at $\xi_+=-\sig/(1-A)$ and $\xi_-=\sig/(1+A)$; these are the opening speeds reached by the multilayer subsolutions of \cite[Section~7.5]{LM26} as the number of layers tends to infinity,
+and for the flat interface they give Example~\ref{ex:flat} with $\theta\to1$. With the optimal tilt the condition becomes $(D\cdot n-a\cdot n)^2<|a|^2$ pointwise in the zone, which again enlarges the
+admissible profiles wherever $\gamma\ne0$. We expect that multilayer subsolutions with a tilt in every layer realise these larger profiles, by the argument of Section~\ref{sec:proof} applied layer by layer;
+note that each layer carries its own stream function, so one tilt per layer is available, while the number of compatibility conditions per order in $t$ grows accordingly.
 
-\subsection{The role of the Saffman--Taylor function}
-The proof shows that, at the level of subsolutions, the Saffman--Taylor function plays three roles at once: it is the density of the source part of the Darcy field (so that the field of the
-subsolution is linear in $\sig$), it bounds the admissible opening rate, and it is the unknown of the only operator that has to be inverted. The gravitational and viscous contributions to the instability
-enter only through $\sig=-2(n_2+AU)$, which is why the mixing zone of Example~\ref{ex:flat} is asymmetric: the relaxed flux is weighted by the mobility $1/(1-A\rho)$, in the spirit of the Koval model for miscible
-viscous fingering \cite{Kov63,MO05}.
+\subsection{The role of the vortex sheet}
+Theorem~\ref{thm:B} shows that within single strips the vortex sheet is not an additional assumption but a structural part of the relaxation: the admissible opening is governed by $|a|$, which combines
+$-\frac12\sig_0$ and $-\frac{(1-A^2)\gamma_0}{2\mum}$. This is a porous-media counterpart of the vortex-sheet driven mixing for the Euler equations \cite{MS23}. Physically, on a Saffman--Taylor stable but
+inclined part of the interface, the heavy fluid slides down along the interface, and the relaxation allows this shear to produce a mixing zone of positive width. Whether such mixing zones are selected
+by a physical criterion, for instance Otto's relaxation \cite{Ott99} or maximal dissipation, is an interesting question; for $A=0$ and the flat interface the maximal mixing rate is selected \cite{Ott99,Sze12}.
 
 \subsection{Open problems}
 \begin{enumerate}[label=(\arabic*),leftmargin=*]
-\item \emph{Partially unstable data.} If $\sig_0$ changes sign, mixing should only occur where $\sig_0<0$, as in \cite{CFM22} for $A=0$. This requires $\kappa$ to vanish at the boundary of the unstable region,
-which is excluded by the lower bound $\min\kappa>0$ used in Lemma~\ref{lem:stream}.
-\item \emph{Longer times.} The time expansion only gives a short existence time. Continuing the construction requires an evolution equation for the central interface, as in \cite{CCF21,ACF21}; when $A\neq0$
-it should involve the averaged version of $(I-2A\Kop)^{-1}$ along the mixing zone.
-\item \emph{Regularity.} We assumed $z_0\in C^{6,\gamma}$, which is far from the $C^{3,\alpha}$ of \cite{FS18} for $A=0$. The losses come from the crude bookkeeping in Lemma~\ref{lem:timereg}.
-\item \emph{Selection.} For $A=0$, Otto's relaxation selects the maximal mixing rate \cite{Ott99,Sze12}; it would be interesting to know whether a similar selection principle singles out the rates of the previous
-subsection when $A\neq0$, see \cite{Men22} for the flat case.
+\item \emph{Pinch points.} When $\Pinch(z_0)\ne\emptyset$, Theorem~\ref{thm:B} forces $\kappa=0$ on $\Pinch(z_0)$, and a mixing zone must be localised, as in \cite{CFM22} for $A=0$. Extending Theorem~\ref{thm:A} to
+opening functions vanishing on $\Pinch(z_0)$ requires weighted versions of the estimates of Lemma~\ref{lem:stream}, since the margin in \eqref{eq:hull0} degenerates there.
+\item \emph{Asymptotically flat interfaces.} Our periodic setting simplifies the mass balance (Lemma~\ref{lem:mass}); the asymptotically flat setting of \cite{LM26} controls the primitive of $M$ by $L^1$-type
+estimates instead. The tilt requires the primitive of the first order part $-2\partial_\alpha(\kappa\delta)$ to be bounded, which holds when $\kappa\delta-\kappa_\infty\delta_\infty$ decays.
+\item \emph{Longer times and lower regularity.} The time expansion only gives a short existence time, and we assumed $z_0\in C^{6,\gamma}$, far from the $H^5$ of \cite{LM26} and the $C^{3,\alpha}$ of \cite{FS18} for $A=0$.
+\item \emph{Exact relaxation.} We only used that $\Uc_A$ consists of laminates; Luna-Velasco and Mengual \cite{LM26} prove that its closure is the full $\Lambda$-convex hull and the weak relaxation of
+\eqref{eq:IPM}. Our set $\Uc_A$ coincides with their set $O$: with $g(\rho,u,m):=(1-A\rho)|m-\rho u|^2+(1-\rho^2)(m-\rho u)\cdot(Au+\ee)$, a direct computation gives
+$D\cdot(D-2a)=\frac{4(1-A^2)}{(1-\rho^2)^2(1+A\rho)}\,g$. Hence Theorem~\ref{thm:B} cannot be improved by enlarging the target set of the subsolutions.
 \end{enumerate}

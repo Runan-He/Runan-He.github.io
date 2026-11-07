@@ -3,173 +3,136 @@
 % ============================================================
 
 \subsection{The equations}
-We study the motion of two incompressible fluids in a two-dimensional, horizontally periodic porous medium (or Hele-Shaw cell) under gravity.
-The fluids have different densities and different viscosities. Their evolution is governed by the transport equation for the density
-together with Darcy's law, the \emph{incompressible porous media equation with viscosity jump}:
+We study two incompressible fluids in a two-dimensional, horizontally periodic porous medium (or Hele-Shaw cell) under gravity. The fluids have different densities and
+different viscosities, and their evolution is governed by the \emph{incompressible porous media equation with viscosity jump}
 \begin{equation}\label{eq:IPM}
-\left\{\begin{aligned}
-&\partial_t\rho+\dvg(\rho u)=0,\\
-&\dvg u=0,\\
-&\mu(\rho)\,u=-\nabla p-\rho\,\ee,
-\end{aligned}\right.
-\qquad (x,t)\in \T\times\R\times(0,T),
+\partial_t\rho+\dvg(\rho u)=0,\qquad \dvg u=0,\qquad \mu(\rho)\,u=-\nabla p-\rho\,\ee,\qquad (x,t)\in\T\times\R\times(0,T),
 \end{equation}
-where $\T=\R/2\pi\mathbb{Z}$, $x=(x_1,x_2)$, $\ee=(0,1)$, $u$ is the velocity, $p$ the pressure, $\rho$ the density and $\mu(\rho)$ the viscosity.
-We have normalised the permeability and the gravity constant to one. Two-phase flows correspond to $\rho$ taking only two values.
-After subtracting a hydrostatic pressure and rescaling space, time and pressure, we may assume that
+where $\T=\R/2\pi\mathbb Z$, $\ee=(0,1)$, $u$ is the velocity, $p$ the pressure, $\rho$ the density and $\mu(\rho)$ the viscosity (permeability and gravity are normalised to one).
+After subtracting a hydrostatic pressure and rescaling,
 \begin{equation}\label{eq:normalisation}
 \rho\in\{-1,1\},\qquad \mu(\rho)=1+A\rho,\qquad A=\frac{\mu^+-\mu^-}{\mu^++\mu^-}\in(-1,1),
 \end{equation}
-where $\mu^{+}=1+A$ is the viscosity of the denser fluid ($\rho=1$) and $\mu^-=1-A$ that of the lighter one ($\rho=-1$); $A$ is the
-viscosity Atwood number. The case $A=0$ is the usual IPM equation. Since $\mu$ is affine in $\rho$ and $\rho^2=1$,
-the momentum $m=\rho u$ allows to write Darcy's law \emph{linearly} as $u+Am=-\nabla p-\rho\ee$; this observation, which goes back to
-\cite{Men22}, is the starting point of the convex integration theory for \eqref{eq:IPM}.
+where $\mu^\pm=1\pm A$ are the viscosities of the heavy ($\rho=1$) and light ($\rho=-1$) fluids and $A$ is the viscosity Atwood number. Since $\mu$ is affine in $\rho$ and
+$\rho^2=1$, Darcy's law can be written linearly as $u+Am=-\nabla p-\rho\ee$ with $m=\rho u$ \cite{Men22}.
 
-When the density is $\rho=1$ above a curve $\Gamma(t)$ and $\rho=-1$ below it, \eqref{eq:IPM} reduces to a free boundary problem for $\Gamma(t)$,
-the \emph{Muskat problem} \cite{Mus34}. Its well-posedness is governed by the sign of the jump of the normal derivative of the pressure across the interface,
-\begin{equation}\label{eq:STfunction-intro}
-\sig:=\partial_n p^+-\partial_n p^-\qquad\text{on }\Gamma(t),
+When $\rho=1$ above a curve $\Gamma(t)$ and $\rho=-1$ below it, \eqref{eq:IPM} is the \emph{Muskat problem} \cite{Mus34}. Two scalar quantities on the interface govern it:
+the \emph{Saffman--Taylor function} and the \emph{vortex-sheet strength}
+\begin{equation}\label{eq:sigma-gamma}
+\sig:=\partial_np^+-\partial_np^-,\qquad \gamma:=u^+\cdot\tau-u^-\cdot\tau,
 \end{equation}
-where $n$ is the upward unit normal and $p^\pm$ are the traces of the pressure from above and below. We call $\sig$ the \emph{Saffman--Taylor function}.
-If $\sig>0$ (the Rayleigh--Taylor, or Saffman--Taylor, condition) the problem is locally well-posed in Sobolev spaces
-\cite{Amb04,CG07,CCG11,Mat19,NP20}; see the surveys \cite{Gan17,GBL20}. If $\sig<0$ the problem is ill-posed in the sense of Hadamard
-\cite{SCH04,CG07}: this is the Saffman--Taylor instability \cite{ST58,Hom87}, responsible for the fingering patterns observed when a less viscous fluid
-displaces a more viscous one, or when a heavier fluid lies on top of a lighter one. In our normalisation (see Proposition~\ref{prop:sigma})
-\begin{equation}\label{eq:sigma-UN}
-\sig=-2\,(n_2+A\,U),
-\end{equation}
-where $U=u\cdot n$ is the normal velocity of the interface. The term $-2n_2$ is the gravitational (Rayleigh--Taylor) contribution and the term $-2AU$ the
-viscous (Saffman--Taylor) one: an interface is destabilised by gravity where the heavy fluid is on top ($n_2>0$), and by viscosity where the less viscous fluid
-pushes into the more viscous one ($AU>0$). We say that Muskat initial data are \emph{fully unstable} if $\sig<0$ along the whole initial interface.
+where $n$ and $\tau$ are the upward normal and the tangent, and $\pm$ denote traces from above and below. If $\sig>0$ the problem is locally well-posed
+\cite{Amb04,CG07,CCG11,Mat19,NP20} (see the surveys \cite{Gan17,GBL20}); if $\sig<0$ it is ill-posed \cite{SCH04,CG07}: this is the Saffman--Taylor instability \cite{ST58,Hom87}.
+In our normalisation $\sig=-2(n_2+AU)$, where $U=u\cdot n$, so the instability has a gravitational part ($n_2>0$: heavy fluid on top) and a viscous part ($AU>0$: the less viscous fluid
+pushes into the more viscous one).
 
 \subsection{Mixing solutions}
-In the unstable regime one does not expect classical solutions, and one is led to look for \emph{weak} solutions which describe the
-formation of a \emph{mixing zone}, a region where the two fluids mix at small scales. Otto \cite{Ott99} proposed a relaxation of
-\eqref{eq:IPM} (for flat interfaces) based on its gradient-flow structure, and showed that the mixing zone grows linearly in time.
-Using the convex integration method of De Lellis and Sz\'ekelyhidi \cite{DLS09} (see also \cite{KMS03}), C\'ordoba, Faraco and Gancedo \cite{CFG11} proved
-non-uniqueness of weak solutions of IPM (see also \cite{Shv11}), and Sz\'ekelyhidi \cite{Sze12} computed the relaxation of IPM with $A=0$ and constructed
-\emph{mixing solutions} for the flat unstable interface, recovering Otto's linear growth. For non-flat interfaces with $A=0$, Castro, C\'ordoba and Faraco \cite{CCF21}
-constructed mixing solutions for every fully unstable $H^5$ interface; the mixing zone grows linearly around an evolving \emph{pseudo-interface} whose
-evolution is governed by a delicate nonlocal equation, analysed with a semiclassical pseudodifferential calculus (see also \cite{ACF21}).
-F\"orster and Sz\'ekelyhidi \cite{FS18} found a much shorter route via \emph{piecewise constant} subsolutions which only involve the velocity and the acceleration of the
-interface at the initial time; Noisette and Sz\'ekelyhidi \cite{NS21} allowed variable opening speeds. Further developments include degraded mixing solutions \cite{CFM19},
-localised mixing zones for bubbles and turned interfaces in the partially unstable regime \cite{CFM22}, and related results for the Rayleigh--Taylor instability and
-for vortex sheets \cite{GKS21,MS23}. All these works concern equal viscosities, $A=0$.
+In the unstable regime one looks for weak solutions in which the fluids mix at small scales inside a growing \emph{mixing zone}. Otto \cite{Ott99} described the flat case by a
+relaxation based on the gradient-flow structure; Sz\'ekelyhidi \cite{Sze12}, building on \cite{DLS09,CFG11,Shv11}, computed the relaxation of IPM for $A=0$ and constructed mixing
+solutions by convex integration. For curved interfaces and $A=0$, mixing solutions were constructed for fully unstable data in \cite{CCF21} (see also \cite{ACF21}), by piecewise constant
+subsolutions in \cite{FS18,NS21}, with degraded profiles in \cite{CFM19}, and with mixing zones localised near the unstable part of bubbles and turned interfaces in \cite{CFM22}.
+For $|A|<1$, Mengual \cite{Men22} proved the $h$-principle and treated the flat interface, observing that a \emph{pinch singularity} of the relaxation prevents mixing wherever there is
+neither Rayleigh--Taylor instability nor vorticity.
 
-The case of different viscosities was addressed by Mengual \cite{Men22}, who proved an $h$-principle for \eqref{eq:IPM} with $|A|<1$ (weak solutions exist whenever a
-\emph{subsolution} exists), computed the relevant relaxation, constructed mixing solutions for the \emph{flat} unstable interface, and observed that the
-relaxation has a ``pinch'' singularity which prevents mixing where there is neither Rayleigh--Taylor instability nor vorticity at the interface.
+Very recently, Luna-Velasco and Mengual \cite{LM26} constructed mixing solutions for curved interfaces with viscosity jump, under the assumption that the data are \emph{fully unstable},
+$\sig_0<0$ everywhere. Their key idea is to formulate the inversion of the Birkhoff--Rott operator in terms of $\sig$ rather than the vorticity. Their subsolutions consist of one (or finitely many)
+strips of constant intermediate density around a central curve, defined through a second order expansion in time as in \cite{FS18,CFM22}; the opening speeds are proportional to $\sig_0$.
 
-The purpose of this paper is to construct mixing solutions with viscosity jump for \emph{non-flat}, fully unstable Muskat data. Such a result was announced by Luna and Mengual \cite{LM26}; the present text is an independent reconstruction written from the abstract of that announcement (see the note on the first page). The main difficulty with respect to
-\cite{CCF21,FS18,NS21} is that, when $A\neq0$, the velocity is no longer an explicit Birkhoff--Rott integral of the density: already for the sharp interface the
-vorticity is only implicitly determined by an integral equation (see \eqref{eq:classical} below), and for subsolutions the situation is worse, because the vorticity of $u$
-involves the curl of the (unknown) relaxed momentum.
-
-\subsection{Main result}
-Let $\Zc^{k,\gamma}$ denote the set of horizontally periodic, non-self-intersecting $C^{k,\gamma}$ curves $z:\R\to\R^2$ with $z(\alpha)-(\alpha,0)$ $2\pi$-periodic
-(Definition~\ref{def:curves}); $n_0$ is the upward unit normal of $z_0\in\Zc^{k,\gamma}$ and $\Omega^\pm(z_0)$ the regions above and below $z_0$. The Muskat data are
-\begin{equation}\label{eq:Muskat-data}
-\rho_0=\mathbf 1_{\Omega^+(z_0)}-\mathbf 1_{\Omega^-(z_0)}.
+\subsection{Main results}
+Let $z_0\in\Zc^{k,\gamma}$, $k\ge3$, be a horizontally periodic interface (Definition~\ref{def:curves}) with upward normal $n_0$ and tangent $\tau_0$. By Propositions~\ref{prop:sigma}
+and \ref{prop:gamma}, the Saffman--Taylor function, the normal velocity and the vortex-sheet strength of the Muskat problem at $t=0$ are
+\begin{equation}\label{eq:data}
+\sig_0=-2\big(I-2A\Kop_0\big)^{-1}[n_{0,2}],\qquad U_0=-\Kop_0\sig_0,\qquad \gamma_0=-2\big(I+2A\Kop_0\big)^{-1}[\tau_{0,2}],
 \end{equation}
-In Proposition~\ref{prop:sigma} we show that the Saffman--Taylor function $\sig_0$ and the normal velocity $U_0$ of the Muskat problem at $t=0$ are given by
-\begin{equation}\label{eq:sigma0-intro}
-\sig_0=-2\big(I-2A\Kop(z_0)\big)^{-1}[n_{0,2}],\qquad U_0=-\Kop(z_0)\sig_0,
+where $\Kop_0$ is the adjoint Neumann--Poincar\'e operator of $z_0$. For an intermediate density $\rhom\in(-1,1)$ let $\mum=1+A\rhom$ and define the \emph{admissibility function} and the
+\emph{maximal opening function}
+\begin{equation}\label{eq:Phi}
+\Phi(\kappa):=\kappa\big(2(1-A\rhom)\kappa+\sig_0\big)-\frac{(1-A^2)\gamma_0^2}{8\mum},\quad
+\kmax:=\frac{-\sig_0+\sqrt{\sig_0^2+(1-A\rhom)(1-A^2)\gamma_0^2/\mum}}{4(1-A\rhom)} .
 \end{equation}
-where $\Kop(z_0)$ is the adjoint Neumann--Poincar\'e operator of the curve (Definition~\ref{def:K}). A weak solution of \eqref{eq:IPM} is a pair
-$(\rho,u)\in L^\infty(\T\times\R\times(0,T))^{1+2}$ with $\rho^2=1$ a.e.\ such that the three equations in \eqref{eq:IPM} hold in the sense of distributions on
-$\T\times\R\times[0,T)$ with initial datum $\rho_0$, where in the third one $\mu(\rho)u=u+A\rho u$ and the pressure is eliminated by taking the curl
-(see \eqref{eq:weak}).
-
-\begin{theorem}\label{thm:main}
-Let $A\in(-1,1)$, $\gamma\in(0,1)$ and $z_0\in\Zc^{6,\gamma}$. Assume that the Muskat data \eqref{eq:Muskat-data} are fully unstable:
-\begin{equation}\label{eq:fully-unstable}
-\sig_0(\alpha)<0\qquad\text{for every }\alpha\in\T .
-\end{equation}
-Fix $\rhom\in(-1,1)$ and a function $\kappa\in C^{4,\gamma}(\T)$ with
-\begin{equation}\label{eq:kappa-range}
-0<\kappa(\alpha)<\frac{-\sig_0(\alpha)}{2(1-A\rhom)}\qquad\text{for every }\alpha\in\T.
-\end{equation}
-Then there exist $T>0$ and curves $Z(\cdot,t)\in\Zc^{3,\gamma}$, $t\in[0,T]$, of the form
-\begin{equation}\label{eq:central}
-Z(\alpha,t)=z_0(\alpha)+\Big(tU_0(\alpha)+\tfrac{t^2}{2}\,a(\alpha)\Big)n_0(\alpha)+h(t)\,\ee,\qquad a\in C^{3,\gamma}(\T),\quad |h(t)|\le Ct^3,
-\end{equation}
-with the following property. Let
+For $\kappa\ge0$, $\Phi(\kappa)<0$ if and only if $\kappa<\kmax$. Finally, the \emph{pinch set} of $z_0$ is
 \[
-z^\pm(\alpha,t):=Z(\alpha,t)\pm t\,(1\pm\rhom)\,\kappa(\alpha)\,n_0(\alpha),
+\Pinch(z_0):=\{\alpha\in\T:\ \sig_0(\alpha)\ge0\ \text{ and }\ \gamma_0(\alpha)=0\}=\{\kmax=0\}.
 \]
-let $\Gamma^\pm(t)$ be the curves parametrised by $z^\pm(\cdot,t)$ and let $\Omega_{\rm mix}(t)$ be the open strip between them. Then there exist infinitely many weak
-solutions $(\rho,u)$ of \eqref{eq:IPM} on $[0,T]$ with initial datum $\rho_0$ such that
+Note that $\kmax\ge-\sig_0/(2(1-A\rhom))$, with equality where $\gamma_0=0$ and $\sig_0<0$.
+
+\begin{theorem}[Existence with sharp opening rate]\label{thm:A}
+Let $A\in(-1,1)$, $\gamma\in(0,1)$, $z_0\in\Zc^{6,\gamma}$, $\rhom\in(-1,1)$, and let $\kappa\in C^{4,\gamma}(\T)$ satisfy
+\begin{equation}\label{eq:kappa-range}
+0<\kappa(\alpha)<\kmax(\alpha)\qquad\text{for every }\alpha\in\T .
+\end{equation}
+Then there exist $T>0$, $a\in C^{3,\gamma}(\T)$ and a polynomial $h$ with $|h(t)|\le Ct^3$ such that, setting
+\begin{equation}\label{eq:central}
+Z(\alpha,t)=z_0(\alpha)+\Big(tU_0(\alpha)+\tfrac{t^2}{2}a(\alpha)\Big)n_0(\alpha)+h(t)\ee,\qquad z^\pm(\alpha,t)=Z(\alpha,t)\pm t(1\pm\rhom)\kappa(\alpha)n_0(\alpha),
+\end{equation}
+and denoting by $\Omega_{\rm mix}(t)$ the open strip between the curves $\Gamma^\pm(t)=z^\pm(\T,t)$, there are infinitely many weak solutions $(\rho,u)$ of \eqref{eq:IPM} on $[0,T]$ with the
+Muskat initial datum $\rho_0=\mathbf 1_{\Omega^+(z_0)}-\mathbf 1_{\Omega^-(z_0)}$ such that
 \begin{enumerate}[label=\textup{(\roman*)}]
-\item $\rho(x,t)=1$ for a.e.\ $x$ above $\Gamma^+(t)$ and $\rho(x,t)=-1$ for a.e.\ $x$ below $\Gamma^-(t)$;
-\item $\rho$ \emph{mixes} in $\Omega_{\rm mix}$: for every open set $B\subset\{(x,t):0<t<T,\ x\in\Omega_{\rm mix}(t)\}$ both $\{\rho=1\}\cap B$ and $\{\rho=-1\}\cap B$ have
-positive measure;
-\item the coarse-grained density in $\Omega_{\rm mix}$ is $\rhom$: there is a sequence of such solutions converging weakly-$*$ in $L^\infty$ to the function equal to $1$ above
-$\Gamma^+(t)$, $\rhom$ in $\Omega_{\rm mix}(t)$, and $-1$ below $\Gamma^-(t)$.
+\item $\rho=1$ above $\Gamma^+(t)$ and $\rho=-1$ below $\Gamma^-(t)$;
+\item $\rho$ mixes in $\Omega_{\rm mix}$: both phases have positive measure in every open subset of $\{(x,t):0<t<T,\ x\in\Omega_{\rm mix}(t)\}$;
+\item a sequence of such solutions converges weakly-$*$ to the density equal to $1$, $\rhom$, $-1$ above, inside and below the strip.
 \end{enumerate}
 \end{theorem}
 
-Thus the mixing zone has width $2t\kappa(\alpha)$ in the direction $n_0(\alpha)$; it grows linearly in time around the evolving central interface $Z(\cdot,t)$,
-which starts with the normal velocity $U_0$ of the Muskat problem, and its upper and lower boundaries move away from $Z$ with normal speeds $(1+\rhom)\kappa$ and $(1-\rhom)\kappa$.
-By \eqref{eq:kappa-range} the opening rate $2\kappa$ is bounded by $-\sig_0/(1-A\rhom)$, i.e.\ by the Saffman--Taylor function: the more unstable the interface,
-the faster the mixing zone may open. Note that the central interface $Z$ is the ``centre of mass'' of the mixing zone, see Remark~\ref{rem:centre-of-mass}.
+The condition \eqref{eq:kappa-range} is sharp within the natural class of single-strip subsolutions (Definition~\ref{def:single-strip}):
 
-\begin{remark}
-\begin{enumerate}[label=(\alph*),leftmargin=*]
-\item For $A=0$ one has $\sig_0=-2n_{0,2}$, so \eqref{eq:fully-unstable} says that $z_0$ is a graph with the heavy fluid on top, and Theorem~\ref{thm:main} reduces to a result
-of the type of \cite{CCF21,FS18,NS21} (with more regularity than needed there). For $A\neq0$ condition \eqref{eq:fully-unstable} is not a priori a graph condition, since the viscous
-term $-2AU_0$ in \eqref{eq:sigma-UN} may compensate $n_{0,2}$.
-\item The admissible range \eqref{eq:kappa-range} is the one allowed by a subsolution with a single intermediate density $\rhom$. In Section~\ref{sec:remarks} we show (formally)
-that subsolutions with continuous profiles allow the upper and lower boundaries to move away from the central interface with normal speeds arbitrarily close to
-$-\sig_0/(1-A)$ and $-\sig_0/(1+A)$ respectively (with a common factor $\theta<1$); for the flat interface ($\sig_0\equiv-2$) this gives the asymmetric speeds $2/(1-A)$ and $2/(1+A)$ of Example~\ref{ex:flat}.
-\item We have not tried to optimise the regularity of $z_0$.
+\begin{theorem}[Necessary conditions]\label{thm:B}
+Let $z_0\in\Zc^{3,\gamma}$ and $\rhom\in(-1,1)$, and let $(\bar\rho,\bar u,\bar m)$ be a single-strip subsolution with intermediate density $\rhom$ emanating from $z_0$, whose boundary curves have initial
+normal velocities $W^\pm$. Then
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item the centre of mass starts with the Muskat velocity: $\frac12[(1-\rhom)W^++(1+\rhom)W^-]=U_0$; equivalently $W^\pm=U_0\pm(1\pm\rhom)\kappa$ with $\kappa=\frac12(W^+-W^-)\ge0$;
+\item $\Phi(\kappa)\le0$ on $\T$; that is, $\kappa\le\kmax$, and in particular $\kappa=0$ on $\Pinch(z_0)$.
 \end{enumerate}
-\end{remark}
+\end{theorem}
 
-\subsection{The key idea: the Saffman--Taylor function as unknown}
-Let us explain the main new ingredient. In the classical treatment of the Muskat problem with viscosity jump \cite{CCG11} one writes the velocity as the Birkhoff--Rott
-integral of its vorticity $\omega=\gamma\,\delta_\Gamma$, $\gamma=\jump{u\cdot\tau}$. Darcy's law and the continuity of the pressure then give the implicit equation
-\begin{equation}\label{eq:classical}
-\big(I+2A\Kop(z)\big)\gamma=-2\tau_2,
-\end{equation}
-see Remark~\ref{rem:duality}. We proceed differently and work with the \emph{Darcy field}
-\[
-v:=\mu(\rho)\,u=-\nabla p-\rho\ee .
-\]
-Its jump across the interface is $\jump{v}=-\jump{\nabla p}-\jump{\rho}\ee=-\sig n-2\ee$, because the pressure is continuous. Hence $v$ is the Cauchy integral of the density
-$-\sig n-2\ee$, which is \emph{linear in the Saffman--Taylor function}, and the continuity of $u\cdot n=v\cdot n/\mu$ becomes the equation
-$(I-2A\Kop(z))\sig=-2n_2$ in \eqref{eq:sigma0-intro}. In other words, we invert the Birkhoff--Rott operator in terms of $\sig$ instead of $\gamma$.
+The single-layer subsolutions of \cite{LM26} (with $\rhom=A$) have the properties of Definition~\ref{def:single-strip} in the asymptotically flat setting, and the proof of Theorem~\ref{thm:B} applies to
+them verbatim. Combining the two theorems:
 
-The advantage becomes decisive for subsolutions. For a relaxed state $(\rho,u,m)$ the Darcy field $v=u+Am$ satisfies
-\[
-\curl v=-\partial_1\rho,\qquad \dvg v=-A\,\partial_t\rho,
-\]
-so $v$ is \emph{explicitly} determined by $\rho$ and $\partial_t\rho$, whereas the vorticity of $u$ is not (it involves $\curl m$). For a piecewise constant subsolution with
-two boundary curves $z^\pm$ moving with normal velocities $V^\pm$, the field $v$ is the sum of two Cauchy integrals with densities
-$\jump{\rho}^\pm\big(-\ee+(n_2^\pm+AV^\pm)n^\pm\big)$, and the relaxation conditions only involve $v$, the normal velocities and a divergence-free field in the strip.
-When the strip collapses, the relevant combination of the densities is precisely $-\sig n-2\ee$, the opening rate is controlled by $\sig$, and the condition that the
-centre of mass of the mixing zone moves with the fluid is, at every order of the time expansion, an equation of the form $(I-2A\Kop(z_0))X=Y$.
-Since $\Kop(z_0)$ is a smoothing operator, $I-2A\Kop(z_0)$ is a compact perturbation of the identity, and its invertibility follows from a short energy argument.
+\begin{corollary}[Pinch-free data]\label{cor:pinch}
+Let $z_0\in\Zc^{6,\gamma}$. A single-strip subsolution emanating from $z_0$ with everywhere positive opening exists if and only if $\Pinch(z_0)=\emptyset$. In that case the conclusions of Theorem~\ref{thm:A}
+hold with $\kappa=\theta\kmax$ for every $\theta\in(0,1)$. In particular, mixing solutions exist for data that are \emph{not} fully unstable: on the part of the interface where $\sig_0\ge0$ the mixing is
+driven by the vortex sheet.
+\end{corollary}
 
-\subsection{Strategy}
-The proof has four steps.
-\begin{enumerate}[label=\textbf{Step \arabic*.},leftmargin=*]
-\item \emph{Relaxation} (Section~\ref{sec:relax}). In the variables $(\rho,v,m)$ we compute the first and second order laminates of the constitutive set and obtain the open set
+\begin{corollary}[Equal viscosities]\label{cor:A0}
+Let $A=0$ and $z_0\in\Zc^{6,\gamma}$. Then $\kmax=\frac12(1+n_{0,2})$ and $\Pinch(z_0)=\{\alpha:\ \tau_0(\alpha)=-e_1\}$. Hence, if the unit tangent of $z_0$ never equals $-e_1$, mixing solutions exist with any opening
+$0<\kappa<\frac12(1+n_{0,2})$; this includes overturned interfaces, which are Rayleigh--Taylor stable on the overturned part.
+\end{corollary}
+
+\begin{corollary}[Viscous fingering]\label{cor:injection}
+The results above apply, after a change of frame and of time scale, to the problem with a uniform injection velocity $V\ee$ at infinity and a gravity constant $G\ge0$, provided $G+AV>0$.
+In particular, for fluids of equal density ($G=0$), mixing solutions exist whenever the less viscous fluid is injected into the more viscous one ($AV>0$) and the data are pinch-free; see
+Corollary~\ref{cor:injection-precise}.
+\end{corollary}
+
+Figure~\ref{fig:turned} illustrates Corollary~\ref{cor:pinch} on an overturned interface.
+
+\subsection{The mechanism: tilting the relaxed flux}
+The relaxation of \eqref{eq:IPM} is described in Section~\ref{sec:relax} by a vector $D$ (a normalised relaxed flux) lying in the open disc $|D-a|<|a|$, where $a=\ee+\frac{A}{\mu}v$ is computed from the
+Darcy field $v=\mu u$. In a thin mixing zone, mass conservation and the Rankine--Hugoniot conditions fix the \emph{normal} component of $D$, namely $D\cdot n=-\sig_0-2(1-A\rhom)\kappa$ at leading order.
+The \emph{tangential} component of $D$, on the other hand, is the transverse derivative of a stream function across a strip of width $O(t)$, and it is controlled by the $O(t)$ part of the flux
+mismatch between the two boundaries. That part is in turn governed by the normal acceleration of the central curve, which is the unknown of the second order compatibility condition. In
+\cite{LM26} this freedom is used to make the tangential component vanish. We use it instead to place $D$ on the line through the centre of the disc. Since
 \[
-\Uc_A=\big\{(\rho,u,m):\ |\rho|<1,\ |D-a|<|a|\big\},\qquad D=\tfrac{2[(1-A^2)m-(\rho-A)v]}{1-\rho^2}+2\ee,\quad a=\ee+\tfrac{A}{1+A\rho}\,v,
+a\cdot n=-\tfrac12\sig_0+O(\kappa),\qquad a\cdot\tau=-\frac{(1-A^2)\gamma_0}{2\mum},
 \]
-which is contained in the interior of the $\Lambda$-convex hull. Subsolutions with values in $\Uc_A$ yield mixing solutions by the $h$-principle of \cite{Men22}.
-\item \emph{Ansatz} (Section~\ref{sec:ansatz}). Given two curves $z^\pm$ bounding a strip with density $\rhom$, we define $v$ as a sum of Cauchy integrals, the relaxed momentum
-outside the strip by the constitutive relation, and inside the strip through a stream function interpolating the fluxes prescribed by the Rankine--Hugoniot conditions.
-The linear equations then hold \emph{exactly}, for any curves which conserve the total mass. The only remaining condition is the open inequality $|D-a|<|a|$, and it is
-controlled by a scalar \emph{flux mismatch} $M(\alpha,t)$.
-\item \emph{Expansion in time} (Section~\ref{sec:proof}). Following \cite{FS18}, we take curves which are second order polynomials in $t$. The vanishing of $M$ at order $t^0$ is
-the Muskat equation \eqref{eq:sigma0-intro} for the normal velocity; at order $t^1$ it is an equation $(I-2A\Kop(z_0))a=R_1$ for the normal acceleration $a$.
-A small vertical translation restores exact mass conservation, and then $M=O(t^2)$.
-\item \emph{Conclusion}. With $M=O(t^2)$ the state in the strip is $O(t^\gamma)$-close to its limit as $t\to0$, which lies in $\Uc_A$ exactly when \eqref{eq:kappa-range} holds.
-\end{enumerate}
+the admissible range is then governed by $|a|$, which combines the Saffman--Taylor function and the vortex-sheet strength, instead of $a\cdot n$ alone. This gives \eqref{eq:kappa-range}.
+Theorem~\ref{thm:B} shows that nothing better can be achieved with a single strip: the normal component of $D$ on the boundary of the strip is forced, and the hull condition at $t=0$ is exactly
+$\Phi(\kappa)\le0$.
+
+\subsection{Relation to \cite{LM26}}
+Sections~\ref{sec:muskat}--\ref{sec:ansatz} give a self-contained account, in a horizontally periodic H\"older setting, of the Saffman--Taylor formulation and of the single-strip ansatz of \cite{LM26}.
+The new results are the following.
+\begin{itemize}[leftmargin=*]
+\item The opening range is enlarged from $0<\kappa<-\sig_0/(2(1-A\rhom))$, i.e.\ $c<-\frac12\sig_0$ in the notation of \cite{LM26} with $\rhom=A$, to the sharp range $0<\kappa<\kmax$
+(Theorems~\ref{thm:A} and \ref{thm:B}).
+\item Data need not be fully unstable: it suffices that $\Pinch(z_0)=\emptyset$ (Corollary~\ref{cor:pinch}), which quantifies the pinch-singularity heuristics of \cite{Men22} for curved interfaces.
+\item For $A=0$ this gives mixing zones along the \emph{whole} of an overturned interface (Corollary~\ref{cor:A0}); compare with the localised mixing zones of \cite{CFM22}.
+\item Injection-driven viscous fingering without density contrast is covered (Corollary~\ref{cor:injection}).
+\item The intermediate density $\rhom$ is arbitrary, which produces a one-parameter family of asymmetric mixing zones; \cite{LM26} take $\rhom=A$.
+\end{itemize}
 
 \subsection*{Organisation}
-Section~\ref{sec:muskat} introduces periodic Cauchy integrals, the operator $\Kop(z)$ and the Saffman--Taylor formulation of the Muskat problem. Section~\ref{sec:relax}
-contains the relaxation and the $h$-principle, together with the explicit flat case. Section~\ref{sec:ansatz} introduces the piecewise constant ansatz and Section~\ref{sec:proof}
-proves Theorem~\ref{thm:main}. Section~\ref{sec:remarks} contains remarks on optimal opening rates and open problems. The appendix collects the properties of Cauchy integrals
-that we use.
+Section~\ref{sec:muskat} recalls periodic Cauchy integrals and the Saffman--Taylor formulation, and relates the vortex-sheet strength to $\sig$. Section~\ref{sec:relax} contains the relaxation and the
+$h$-principle. Section~\ref{sec:ansatz} introduces the single-strip ansatz. Section~\ref{sec:proof} proves Theorem~\ref{thm:A}, Section~\ref{sec:necessity} proves Theorem~\ref{thm:B}, and
+Section~\ref{sec:applications} proves the corollaries and discusses an example. Section~\ref{sec:remarks} contains remarks and open problems, and the appendix collects facts on Cauchy integrals.

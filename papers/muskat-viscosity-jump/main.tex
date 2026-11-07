@@ -6,6 +6,7 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=green!40!black,urlcolor=blue!60!black]{hyperref}
 \usepackage{bm}
+\usepackage{graphicx}
 
 \numberwithin{equation}{section}
 
@@ -44,33 +45,39 @@
 \newcommand{\mum}{\mu_{\mathrm m}}
 \newcommand{\bnu}{\nu}
 
-\title[Mixing solutions for unstable Muskat data with viscosity jump]{Mixing solutions for unstable Muskat data\\ with viscosity jump}
+\newcommand{\Top}{\mathcal{T}}
+\newcommand{\kmax}{\kappa_{\max}}
+\newcommand{\Pinch}{\Pi}
 
-\author{Independent reconstruction from a seminar abstract}
-\thanks{\textbf{Provenance.} This manuscript was written from the one-paragraph abstract of the talk
-\emph{``Mixing solutions for unstable Muskat data with viscosity jump''} by Paula Luna (Universidad de Sevilla),
-joint work with Francisco Mengual, announced for the Seminario EDPs y Mec\'anica de Fluidos (ICMAT, 12 November 2026).
-It was prepared \emph{without} access to their manuscript, as an exercise in reconstructing a research paper from an abstract.
-The result announced in that abstract is due to Luna and Mengual; the arguments, normalisations and any errors below are ours.
-This text is not intended for submission as original work.}
+\title[Vorticity-assisted mixing for the Muskat problem with viscosity jump]{Vorticity-assisted mixing and sharp opening rates\\ for the Muskat problem with viscosity jump}
 
-\date{6 November 2026}
+\author{Draft manuscript}
+\thanks{\textbf{Provenance and credit.} The existence of mixing solutions for \emph{fully unstable} Muskat data with viscosity jump, the
+Saffman--Taylor formulation of the Muskat problem and the single-layer construction with a second order expansion in time are due to
+P.~Luna-Velasco and F.~Mengual \cite{LM26}. Sections~\ref{sec:muskat}--\ref{sec:ansatz} contain a self-contained (horizontally periodic, H\"older)
+account of that framework, written independently from the abstract of \cite{LM26} before the paper was read; see \texttt{COMPARISON.md} in the
+source repository. The new contributions are Theorems~\ref{thm:A} and \ref{thm:B}, Corollaries~\ref{cor:pinch}--\ref{cor:injection} and the
+tilting mechanism of Section~\ref{sec:proof}; their novelty with respect to \cite{CFM22} for equal viscosities has not been checked against the full text of that paper.}
+
+\date{7 November 2026}
 
 \begin{document}
 
 \begin{abstract}
-We consider the incompressible porous media (IPM) equation for two fluids with different densities and different
-viscosities, in the regime where the interface is fully unstable in the sense of Saffman and Taylor, so that the classical Muskat
-problem is ill-posed. For every horizontally periodic initial interface of class $C^{6,\gamma}$ whose Saffman--Taylor function
-(the jump of the normal derivative of the pressure) is negative everywhere, we construct infinitely many \emph{mixing solutions}:
-weak solutions of IPM with viscosity jump whose density takes only the two pure values, coincides with the pure phases outside a strip,
-and mixes at arbitrarily small scales inside it. The strip opens linearly in time around an evolving central interface, at a local rate that is
-bounded by the Saffman--Taylor function. The construction combines the $h$-principle for IPM with viscosity jump with
-piecewise constant subsolutions defined through a second order expansion in time. The key ingredient is to write the Darcy field
-$\mu u=-\nabla p-\rho e_2$ of a subsolution as a sum of Cauchy integrals whose densities depend linearly on the Saffman--Taylor function,
-and to invert the resulting operator $I-2A\Kop$, where $A$ is the viscosity Atwood number and $\Kop$ is the adjoint Neumann--Poincar\'e operator of
-the interface. Thus the Birkhoff--Rott operator is inverted in terms of the Saffman--Taylor function rather than the vorticity, and at every order of the
-expansion one only has to invert the same Fredholm operator, which is a compact perturbation of the identity.
+We study mixing solutions of the incompressible porous media equation for two fluids with different densities and different viscosities.
+Luna-Velasco and Mengual recently constructed such solutions for \emph{fully unstable} Muskat data, i.e.\ when the Saffman--Taylor function $\sig_0$ of the
+initial interface is negative everywhere. We show that the second order compatibility condition in their time expansion contains a free function, which can be used to
+\emph{tilt} the relaxed flux inside the mixing zone towards the centre of the relaxation disc. This yields a sharp description of single-strip mixing zones:
+a strip with intermediate density $\rhom$ and opening function $\kappa$ emanating from an interface $z_0$ exists only if its centre of mass starts with the Muskat velocity and
+\[
+\kappa\big(2(1-A\rhom)\kappa+\sig_0\big)\le\frac{(1-A^2)\,\gamma_0^2}{8(1+A\rhom)},
+\]
+and it exists whenever the strict inequality holds. Here $A$ is the viscosity Atwood number and $\gamma_0$ is the strength of the vortex sheet carried by the interface. Consequently,
+mixing solutions exist for every initial interface of class $C^{6,\gamma}$ outside the \emph{pinch set} $\{\sig_0\ge0,\ \gamma_0=0\}$, including interfaces that are partially
+Saffman--Taylor \emph{stable}, where mixing is driven by the vortex sheet; for equal viscosities this covers every overturned interface whose tangent never points backwards.
+The results also apply, after a change of frame, to viscous fingering driven by injection without any density contrast. The analysis rests on writing the Darcy field
+$\mu u=-\nabla p-\rho e_2$ of a subsolution as Cauchy integrals whose densities are linear in the Saffman--Taylor function, and on the invertibility of $I\mp2A\Kop$, where
+$\Kop$ is the adjoint Neumann--Poincar\'e operator of the interface.
 \end{abstract}
 
 \maketitle
@@ -83,6 +90,8 @@ expansion one only has to invert the same Fredholm operator, which is a compact 
 \input{sec-relaxation}
 \input{sec-ansatz}
 \input{sec-proof}
+\input{sec-necessity}
+\input{sec-applications}
 \input{sec-remarks}
 \appendix
 \input{app-cauchy}

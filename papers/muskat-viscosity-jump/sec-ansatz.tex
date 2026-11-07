@@ -56,7 +56,12 @@ F^+&:=|\partial_\alpha z^+|\Big\{\tfrac{2}{1+\rhom}\big(v_S^+\cdot n^+-(1-A)V^+\
 F^-&:=|\partial_\alpha z^-|\Big\{\tfrac{2}{1-\rhom}\big((1+A)V^--v_S^-\cdot n^-\big)+2n_2^-\Big\},\label{eq:Fminus}\\
 M&:=F^+-F^-,\label{eq:M}
 \end{align}
-the functions $\Psi^\pm(\alpha,t):=\int_0^\alpha F^\pm(\beta,t)\dd\beta$, and the stream function $\Psi$ on $\overline{S_t}$ by
+the functions
+\begin{equation}\label{eq:Psi-pm}
+\Psi^-(\alpha,t):=\int_0^\alpha F^-(\beta,t)\dd\beta,\qquad \Psi^+(\alpha,t):=\int_0^\alpha F^+(\beta,t)\dd\beta+C_\Psi(t),
+\end{equation}
+where $C_\Psi$ is a continuous function of time to be chosen (it fixes the relative normalisation of the two boundary values and will produce the tilt in Section~\ref{sec:proof};
+$C_\Psi\equiv0$ is allowed), and the stream function $\Psi$ on $\overline{S_t}$ by
 \begin{equation}\label{eq:Psi}
 \Psi\big(X(\alpha,\lambda,t),t\big):=\tfrac12(1-\lambda)\Psi^-(\alpha,t)+\tfrac12(1+\lambda)\Psi^+(\alpha,t).
 \end{equation}
@@ -150,22 +155,33 @@ normal velocity of the Muskat problem (Lemma~\ref{lem:limits}).
 The following lemma shows that the tangential component of $D$ is controlled by the primitive of $M$, and its normal component by the boundary fluxes.
 
 \begin{lemma}[The state in the strip]\label{lem:stream}
-Assume \eqref{eq:mass-cond}, and that there are $C_1\ge1$ and $F_0\in C^0(\T)$ such that for $t\in(0,T_1]$
-\[
-\|M(\cdot,t)\|_{C^0(\T)}\le C_1t^2,\qquad \|F^\pm(\cdot,t)-F_0\|_{C^0(\T)}\le C_1t .
-\]
+Assume \eqref{eq:mass-cond}, and that there are $C_1\ge1$, $F_0\in C^0(\T)$ and $\delta\in C^0(\T)$ such that for $t\in(0,T_1]$
+\begin{equation}\label{eq:stream-hyp}
+\begin{gathered}
+\|F^\pm(\cdot,t)-F_0\|_{C^0(\T)}\le C_1t,\qquad \|M(\cdot,t)\|_{C^0(\T)}\le C_1t,\\
+\sup_{\alpha\in[0,2\pi]}\Big|\int_0^\alpha M(\beta,t)\dd\beta+C_\Psi(t)+2t\kappa(\alpha)\delta(\alpha)\Big|\le C_1t^2 .
+\end{gathered}
+\end{equation}
 Then there is $C$ such that, for $t\in(0,T_1]$ and $x=X(\alpha,\lambda,t)\in S_t$,
 \[
-\Big|D(x,t)-\frac{F_0(\alpha)}{|\partial_\alpha z_0(\alpha)|}\,n_0(\alpha)\Big|\le Ct .
+\Big|D(x,t)-\frac{F_0(\alpha)}{|\partial_\alpha z_0(\alpha)|}\,n_0(\alpha)-\delta(\alpha)\,\tau_0(\alpha)\Big|\le Ct .
 \]
+In particular, if $\|M(\cdot,t)\|_{C^0}\le C_1t^2$ and $C_\Psi\equiv0$, the conclusion holds with $\delta\equiv0$.
 \end{lemma}
 
 \begin{proof}
 Differentiating \eqref{eq:Psi} and using \eqref{eq:X},
 \begin{align*}
-t\kappa\,\nabla\Psi\cdot n_0&=\partial_\lambda\big(\Psi\circ X\big)=\tfrac12(\Psi^+-\Psi^-)=\tfrac12\int_0^\alpha M(\beta,t)\dd\beta,\\
+t\kappa\,\nabla\Psi\cdot n_0&=\partial_\lambda\big(\Psi\circ X\big)=\tfrac12(\Psi^+-\Psi^-)=\tfrac12\Big(\int_0^\alpha M(\beta,t)\dd\beta+C_\Psi(t)\Big),\\
 \nabla\Psi\cdot\partial_\alpha X&=\partial_\alpha\big(\Psi\circ X\big)=\tfrac12(1-\lambda)F^-+\tfrac12(1+\lambda)F^+ .
 \end{align*}
-Hence $|\nabla\Psi\cdot n_0|\le\pi C_1t/\min\kappa$, and since $\partial_\alpha X=|\partial_\alpha z_0|\tau_0+O(t)$, $\nabla\Psi\cdot\tau_0=F_0/|\partial_\alpha z_0|+O(t)$. As
-$D=\nabla^\perp\Psi=(\nabla\Psi\cdot\tau_0)n_0-(\nabla\Psi\cdot n_0)\tau_0$, the claim follows.
+By \eqref{eq:stream-hyp}, $\nabla\Psi\cdot n_0=-\delta+O(t)$ (we use $\min\kappa>0$) and the right-hand side of the second identity is $F_0+O(t)$. Since
+$\partial_\alpha X=|\partial_\alpha z_0|\tau_0+O(t)$ and $\nabla\Psi$ is bounded, $\nabla\Psi\cdot\tau_0=F_0/|\partial_\alpha z_0|+O(t)$. As
+$D=\nabla^\perp\Psi=(\nabla\Psi\cdot\tau_0)\,n_0-(\nabla\Psi\cdot n_0)\,\tau_0$, the claim follows.
 \end{proof}
+
+\begin{remark}\label{rem:tilt}
+Lemma~\ref{lem:stream} isolates the two components of the relaxed flux $D$ in the strip. The normal component is fixed by the boundary fluxes $F^\pm$, i.e.\ by the Rankine--Hugoniot conditions;
+the tangential component $D\cdot\tau_0$ is the transverse difference quotient $-(\Psi^+-\Psi^-)/(2t\kappa)$, and it is of order one exactly when the primitive of the flux mismatch is of order $t$.
+Making $M=O(t^2)$, as in \cite{LM26}, forces $D\cdot\tau_0=O(t)$; prescribing instead the $O(t)$ part of $M$ produces any desired tilt $\delta$.
+\end{remark}

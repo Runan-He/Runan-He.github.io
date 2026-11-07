@@ -1,19 +1,24 @@
-# Mixing solutions for unstable Muskat data with viscosity jump — reconstruction from an abstract
+# Vorticity-assisted mixing and sharp opening rates for the Muskat problem with viscosity jump
 
-This folder contains a research-paper-style manuscript written **only from the one-paragraph abstract** of the talk
-*"Mixing solutions for unstable Muskat data with viscosity jump"* by Paula Luna (Universidad de Sevilla), joint work with
-Francisco Mengual (Seminario EDPs y Mecánica de Fluidos, ICMAT, 12 November 2026).
+This folder started as a paper reconstructed **only from the one-paragraph abstract** of the talk
+*"Mixing solutions for unstable Muskat data with viscosity jump"* by Paula Luna(-Velasco), joint work with Francisco Mengual
+(ICMAT, 12 November 2026); the actual paper is arXiv:2610.34504. The first version (commit `e8efc0f`) was written before that paper was read.
 
-It was written without access to the authors' manuscript, as an exercise in reconstructing a paper from an abstract.
-The announced result is due to Luna and Mengual; this text is **not** intended for submission as original work.
+The current version (`main.pdf`, 24 pages) builds on arXiv:2610.34504, which it credits for the fully unstable result, and adds:
+- a sharp, necessary and sufficient range for single-strip mixing zones that involves the vortex-sheet strength;
+- mixing solutions for pinch-free data, including partially Saffman–Taylor stable interfaces;
+- mixing along entire overturned interfaces when A = 0;
+- injection-driven viscous fingering.
 
-* `COMPARISON.md` — comparison with the actual paper, P. Luna-Velasco & F. Mengual, *Mixing zone dynamics for the
-  Saffman–Taylor instability with viscosity jump*, arXiv:2610.34504 (read only after the reconstruction was committed).
-* `main.pdf` — compiled manuscript (20 pages).
-* `main.tex` + `sec-*.tex`, `app-cauchy.tex`, `biblio.tex` — LaTeX sources (`latexmk -pdf main.tex`).
-* `checks/check_sigma.py` — numerical check that the Saffman–Taylor formulation `(I-2A K)σ = -2n₂, U = -Kσ`
-  gives the same interface velocity as the classical vorticity formulation `(I+2A K)γ = -2τ₂` (agreement ~1e-14).
-* `checks/check_algebra.py` — symbolic checks (sympy) of the jump conditions, the mass identity, the t=0 limits,
-  the relaxation inequality at t=0, the flat-interface example and the laminate lemma.
-* `checks/compare_hulls.py` — checks that the relaxed set `|D−a|<|a|` used here coincides with the set `O` of
-  arXiv:2610.34504 (200,000 random states, full agreement).
+See `COMPARISON.md`.
+
+* `COMPARISON.md`: what is new relative to arXiv:2610.34504, and the original comparison.
+* `main.pdf`: compiled manuscript.
+* `main.tex`, `sec-*.tex`, `app-cauchy.tex`, `biblio.tex`, `fig-turned.pdf`: LaTeX sources; build with `latexmk -pdf main.tex`.
+* `checks/check_sigma.py`: the Saffman–Taylor and vorticity formulations give the same interface velocity (agreement ~1e-14).
+* `checks/check_algebra.py`: symbolic checks of the jump conditions, mass identity, t=0 limits, flat example and laminate lemma.
+* `checks/check_vorticity.py`: the vortex-strength identity and the pinch-free overturned example.
+* `checks/check_sharp.py`: the sharp opening-range algebra (κ_max, optimal tilt).
+* `checks/check_hull_equiv.py`: the relaxed set equals the set O of arXiv:2610.34504 (exact factor).
+* `checks/compare_hulls.py`: the same equality on 200,000 random states.
+* `checks/make_figure.py`: generates `fig-turned.pdf` (`python3 make_figure.py fig-turned.pdf preview.png`).

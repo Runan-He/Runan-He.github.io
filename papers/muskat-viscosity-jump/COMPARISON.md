@@ -1,5 +1,42 @@
 # Reconstruction vs. the actual paper
 
+## Revision of 7 Nov 2026: results beyond the actual paper
+
+The manuscript has been revised to go beyond Luna-Velasco & Mengual (arXiv:2610.34504, "LM26") and is now titled
+*Vorticity-assisted mixing and sharp opening rates for the Muskat problem with viscosity jump*. LM26 is cited as the source of the
+fully unstable result, the Saffman–Taylor formulation and the single-layer construction.
+
+| | LM26 | Revised manuscript |
+|---|---|---|
+| Admissible data | fully unstable (`σ₀ < 0` everywhere) | **pinch-free**: no point with `σ₀ ≥ 0` and `γ₀ = 0` (Cor. 1.3) — includes partially Saffman–Taylor *stable* interfaces |
+| Single-layer opening range | `c̄ < 1/2`, i.e. `2(1−Aρ_m)κ < −σ₀` (σ only) | `κ(2(1−Aρ_m)κ + σ₀) < (1−A²)γ₀²/(8(1+Aρ_m))` — uses the vortex-sheet strength γ₀ too (Thm 1.1) |
+| Sharpness | not addressed | **necessary** within single-strip subsolutions (Thm 1.2); also applies to LM26's single layer |
+| Second-order step | `z^{(2)}` chosen to cancel the mismatch (no tilt) | the same freedom used to **tilt** the relaxed flux toward the centre of the relaxation disc |
+| Equal viscosities, A = 0 | — | mixing along the whole of any overturned interface whose tangent never equals −e₁ (Cor. 1.4) |
+| Injection-driven viscous fingering (no gravity) | not covered | covered via effective gravity `G + AV` (Cor. 1.5) |
+| Intermediate density | `θ_mix = A` | any `ρ_m ∈ (−1,1)` |
+| Vortex strength vs σ | — | `γ = −2(τ₂ − A𝒯σ)/(1−A²)` (Prop. 2.10) |
+| Relaxed set | `O` | `𝒰_A`; proved equal to `O`: `D·(D−2a) = 4(1−A²) g / ((1−ρ²)²(1+Aρ))` |
+
+**How the gain arises.** The relaxed flux `D` must lie in the disc `|D−a|<|a|`. Its normal part is fixed by the Rankine–Hugoniot conditions.
+Its tangential part is set by the `O(t)` term of the flux mismatch, which the second-order acceleration controls. LM26 make that term vanish;
+we instead tilt `D` toward the centre of the disc. The centre `a` has normal component `−σ₀/2` and tangential component `−(1−A²)γ₀/(2μ_m)`,
+so the admissible range is governed by `|a|`, which combines the Saffman–Taylor function σ₀ and the vortex sheet γ₀.
+
+**Checks (in `checks/`):**
+- `check_vorticity.py`: the identity for γ holds to ~1e-13. On the overturned interface `(α−1.5 sin α, 0.8 sin α)`, σ₀ ≥ 0 on 16–27% of the curve, yet `|γ₀| ≥ 1.7` there, so the data are pinch-free; κ_max ≥ 0.22, while the old range is empty on that part.
+- `check_sharp.py`: the sharp-range algebra.
+- `check_hull_equiv.py`: the equality `𝒰_A = O`.
+- `make_figure.py`: produces Figure 1.
+
+**Caveats.**
+- For A = 0, the novelty with respect to Castro–Faraco–Mengual (Ann. PDE 2022), which constructs mixing zones *localised* near the unstable part of turned interfaces, could not be checked against the full text (no network access to it).
+- The time-regularity lemma is still proved at sketch level, as in the first version.
+
+---
+
+## Original comparison (reconstruction from the abstract vs. LM26)
+
 **Reconstruction:** `main.pdf` in this folder (20 pp.). It was written from the seminar abstract only and committed
 (`e8efc0f`) before the actual paper was opened.
 

@@ -197,20 +197,51 @@ For a real function $\gamma$, the complex densities of $\gamma\tau$ and $\gamma 
 $\Cf[z;\gamma\tau]$ is obtained by rotating $\Cf[z;\gamma n]$ by $-\pi/2$. In particular
 $\avg{\Cf[z;\gamma\tau]}\cdot\tau=\avg{\Cf[z;\gamma n]}\cdot n=\Kop(z)\gamma$. The velocity is curl-free off $\Gamma$ with jump $\gamma\tau$, $\gamma=\jump{u\cdot\tau}$, hence
 $u=\Cf[z;\gamma\tau]$ by Lemma~\ref{lem:cauchy}(e): $\avg u$ is the Birkhoff--Rott integral of the vortex sheet. The tangential part of Darcy's law, $\jump{v\cdot\tau}=-\jump{\rho}\tau_2=-2\tau_2$, reads
-$\gamma+2A\avg u\cdot\tau=-2\tau_2$, i.e.\ \eqref{eq:classical}; with $\varpi=\gamma|\partial_\alpha z|$ this is the familiar equation $\varpi+2A\,\mathrm{BR}(z,\varpi)\cdot\partial_\alpha z=-2\partial_\alpha z_2$ of
+$\gamma+2A\avg u\cdot\tau=-2\tau_2$, i.e.\ $(I+2A\Kop(z))\gamma=-2\tau_2$; with $\varpi=\gamma|\partial_\alpha z|$ this is the familiar equation $\varpi+2A\,\mathrm{BR}(z,\varpi)\cdot\partial_\alpha z=-2\partial_\alpha z_2$ of
 \cite{CCG11}. Thus the vorticity is obtained by inverting $I+2A\Kop(z)$, the Saffman--Taylor function by inverting $I-2A\Kop(z)$; both are covered by Proposition~\ref{prop:invert}. Note however
 that in the vorticity formulation the normal velocity $U=\avg u\cdot n=-\avg{\Cf[z;\gamma n]}\cdot\tau$ is a singular integral of $\gamma$, whereas in \eqref{eq:U-sigma} it is the smoothing operator
 $\Kop(z)$ applied to $\sig$. More importantly, the Saffman--Taylor formulation extends to subsolutions, where the vorticity formulation does not (Section~\ref{sec:ansatz}).
 \end{remark}
 
+\subsection{The vortex-sheet strength and the pinch set}
+For $z\in\Zc^{2,\gamma}$ and a real function $\phi\in C^{0,\gamma}(\T)$ we also set
+\[
+\Top(z)\phi:=\avg{\Cf[z;\phi n]}\cdot\tau .
+\]
+Unlike $\Kop(z)$, the operator $\Top(z)$ is a singular integral operator (a Hilbert transform plus a smoothing operator); it is bounded on $C^{j,\gamma}(\T)$ for $z\in\Zc^{j+1,\gamma}$ by
+Lemma~\ref{lem:cauchy}(d). The vortex-sheet strength of the Muskat problem is a local function of $\sig$ and $\Top(z)\sig$:
+
+\begin{proposition}\label{prop:gamma}
+In the setting of Proposition~\ref{prop:sigma}, the vortex-sheet strength $\gamma=\jump{u\cdot\tau}$ is
+\begin{equation}\label{eq:gamma-sigma}
+\gamma=-\frac{2\big(\tau_2-A\,\Top(z)\sig\big)}{1-A^2},
+\end{equation}
+and it is the unique solution in $C^{0,\gamma}(\T)$ of $(I+2A\Kop(z))\gamma=-2\tau_2$. In particular $\gamma\in C^{k-2,\gamma}(\T)$.
+\end{proposition}
+
+\begin{proof}
+By \eqref{eq:v-sigma}, $v^\pm\cdot\tau=-\Top(z)\sig\mp\tau_2$ (the tangential traces of $\Cf[z;\sig n]$ coincide). Since $u^\pm=v^\pm/(1\pm A)$,
+\[
+\gamma=\frac{-\Top\sig-\tau_2}{1+A}-\frac{-\Top\sig+\tau_2}{1-A}=\frac{2A\,\Top\sig-2\tau_2}{1-A^2}.
+\]
+The velocity is curl-free and divergence-free off $\Gamma$, has no normal jump, tends to $0$ at infinity and has tangential jump $\gamma$, so $u=\Cf[z;\gamma\tau]$ by Lemma~\ref{lem:cauchy}(e);
+Remark~\ref{rem:duality} then gives $(I+2A\Kop(z))\gamma=-2\tau_2$, and uniqueness and regularity follow from Proposition~\ref{prop:invert} applied with $-A$ in place of $A$.
+\end{proof}
+
 \begin{definition}\label{def:unstable}
-Let $z_0\in\Zc^{k,\gamma}$, $k\ge3$. The Saffman--Taylor function of the Muskat data \eqref{eq:Muskat-data} is $\sig_0:=-2(I-2A\Kop(z_0))^{-1}[n_{0,2}]$, and the data are \emph{fully unstable}
-if $\sig_0<0$ on $\T$. We write $U_0:=-\Kop(z_0)\sig_0$ and $\Kop_0:=\Kop(z_0)$.
+Let $z_0\in\Zc^{k,\gamma}$, $k\ge3$, and $\Kop_0:=\Kop(z_0)$, $\Top_0:=\Top(z_0)$. The Saffman--Taylor function, the normal velocity and the vortex-sheet strength of the Muskat data
+$\rho_0=\mathbf 1_{\Omega^+(z_0)}-\mathbf 1_{\Omega^-(z_0)}$ are
+\[
+\sig_0:=-2\big(I-2A\Kop_0\big)^{-1}[n_{0,2}],\qquad U_0:=-\Kop_0\sig_0,\qquad \gamma_0:=-2\big(I+2A\Kop_0\big)^{-1}[\tau_{0,2}] .
+\]
+The data are \emph{fully unstable} if $\sig_0<0$ on $\T$. The \emph{pinch set} is $\Pinch(z_0):=\{\alpha:\ \sig_0(\alpha)\ge0,\ \gamma_0(\alpha)=0\}$.
 \end{definition}
 
-\begin{example}
-For the flat interface $z_0(\alpha)=(\alpha,0)$ the kernel $k_{z_0}$ vanishes (the cotangent of a real number is real), so $\Kop_0=0$, $\sig_0\equiv-2$ and $U_0\equiv0$. If $A=0$, then
-$\sig_0=-2n_{0,2}$ for every $z_0$, and the data are fully unstable if and only if $\partial_\alpha z_{0,1}>0$, i.e.\ $z_0$ is a graph with the heavier fluid on top.
+\begin{example}\label{ex:A0}
+For the flat interface $z_0(\alpha)=(\alpha,0)$ the kernel $k_{z_0}$ vanishes (the cotangent of a real number is real), so $\Kop_0=0$, $\sig_0\equiv-2$, $U_0\equiv0$ and $\gamma_0\equiv0$.
+If $A=0$, then $\sig_0=-2n_{0,2}$ and $\gamma_0=-2\tau_{0,2}$ for every $z_0$: the data are fully unstable if and only if $z_0$ is a graph, and $\Pinch(z_0)=\{n_0=-\ee\}=\{\tau_0=-e_1\}$.
 \end{example}
 
-For $z_0\in\Zc^{6,\gamma}$, Proposition~\ref{prop:invert} (with $k=6$, $j=4$) and Lemma~\ref{lem:K}(a) give $\sig_0,U_0\in C^{4,\gamma}(\T)$.
+For $z_0\in\Zc^{6,\gamma}$, Propositions~\ref{prop:invert} (with $k=6$, $j=4$) and \ref{prop:gamma}, and Lemma~\ref{lem:K}(a), give $\sig_0,U_0,\gamma_0\in C^{4,\gamma}(\T)$. The quantities
+$\Phi$ and $\kmax$ of \eqref{eq:Phi} are then well defined, $\kmax=0$ exactly on $\Pinch(z_0)$, and since the expression under the square root can only vanish where
+$\sig_0=\gamma_0=0$, we have $\kmax\in C^{4,\gamma}(\T)$ whenever $\Pinch(z_0)=\emptyset$.

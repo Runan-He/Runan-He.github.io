@@ -1,0 +1,82 @@
+% ============================================================
+\section{Consequences: partially stable data, equal viscosities and viscous fingering}\label{sec:applications}
+% ============================================================
+
+\subsection{Pinch-free data}
+\begin{proof}[Proof of Corollary~\ref{cor:pinch}]
+If $\Pinch(z_0)=\emptyset$, then $\kmax>0$ on $\T$ and $\kmax\in C^{4,\gamma}(\T)$ (end of Section~\ref{sec:muskat}), so $\kappa:=\theta\kmax$, $\theta\in(0,1)$, satisfies \eqref{eq:kappa-range}, and
+Theorem~\ref{thm:A} applies. Conversely, if a single-strip subsolution with opening $\kappa>0$ everywhere exists, Theorem~\ref{thm:B} gives $\kappa\le\kmax$, hence $\kmax>0$ everywhere, i.e.\
+$\Pinch(z_0)=\emptyset$. On $\{\sig_0\ge0\}$ the untilted condition $2(1-A\rhom)\kappa<-\sig_0$ fails for every $\kappa>0$, so there the admissible opening comes entirely from the term
+$(1-A^2)\gamma_0^2/(8\mum)$ in $\Phi$, i.e.\ from the vortex sheet.
+\end{proof}
+
+The pinch set is the curved-interface version of the pinch singularity of \cite{Men22}: by \eqref{eq:a0}, $a^{(0)}=-\frac{\sig_0}{2}n_0-\frac{(1-A^2)\gamma_0}{2\mum}\tau_0+O(\kappa)$, and the relaxation disc
+$\{|D-a|<|a|\}$ collapses as $\kappa\to0$ exactly where $\sig_0\ge0$ and $\gamma_0=0$. Note also that in the horizontally periodic setting the data are never fully stable: integrating
+\eqref{eq:sigma-eq} gives $\int_\T\sig_0\dd s=-4\pi$ (Proposition~\ref{prop:sigma}), so $\sig_0<0$ somewhere.
+
+\subsection{Equal viscosities}
+\begin{proof}[Proof of Corollary~\ref{cor:A0}]
+For $A=0$, Example~\ref{ex:A0} gives $\sig_0=-2n_{0,2}$ and $\gamma_0=-2\tau_{0,2}$, so $\Pinch(z_0)=\{\tau_0=-e_1\}$ and, since $n_{0,2}^2+\tau_{0,2}^2=1$,
+\[
+\kmax=\frac{2n_{0,2}+\sqrt{4n_{0,2}^2+4\tau_{0,2}^2}}{4}=\frac{1+n_{0,2}}{2}.
+\]
+The result follows from Corollary~\ref{cor:pinch} and Theorem~\ref{thm:A}; the regularity of $\kmax$ is clear.
+\end{proof}
+
+For $A=0$ the untilted range is $0<\kappa<n_{0,2}$, which only allows mixing where the interface is a graph. The tilted range $0<\kappa<\frac12(1+n_{0,2})$ coincides with it at horizontal points
+($n_{0,2}=1$, total opening speed $2$, the maximal speed of \cite{Ott99,Sze12}) and is strictly larger elsewhere. On the overturned part ($n_{0,2}<0$) the tangential component of gravity drives the heavy fluid
+along the interface, the interface carries a vortex sheet $\gamma_0=-2\tau_{0,2}\neq0$, and the relaxation allows a mixing zone of normal width up to $(1+n_{0,2})t$. Mixing is only impossible where the interface
+is horizontal with the heavy fluid below. In \cite{CFM22}, mixing zones for turned interfaces and bubbles are instead localised near the unstable region; a closed bubble always has a point with
+$n_0=-\ee$, where by Theorem~\ref{thm:B} a single strip cannot open.
+
+\subsection{Viscous fingering driven by injection}
+The original experiments of Saffman and Taylor \cite{ST58} concern a less viscous fluid injected into a more viscous one, without gravity. Consider the problem with gravity constant $G\ge0$ and a uniform
+velocity $V\ee$ at infinity:
+\begin{equation}\label{eq:IPM-injection}
+\partial_t\rho+\dvg(\rho u)=0,\qquad \dvg u=0,\qquad (1+A\rho)u=-\nabla p-G\rho\,\ee,\qquad u(x,t)\to V\ee\ \text{ as }|x_2|\to\infty .
+\end{equation}
+
+\begin{corollary}\label{cor:injection-precise}
+Let $G\ge0$, $A\in(-1,1)$ and $V\in\R$ with $G_{\rm eff}:=G+AV>0$. Let $z_0\in\Zc^{6,\gamma}$, $\rhom\in(-1,1)$ and $\kappa\in C^{4,\gamma}(\T)$ with $0<\kappa<\kmax$, where $\kmax$ and $\Pinch(z_0)$ are computed
+from $z_0$ and $A$ as in \eqref{eq:Phi} (they do not depend on $G$ and $V$). Let $T$, $Z$ and $z^\pm$ be given by Theorem~\ref{thm:A}. Then there are infinitely many weak solutions of
+\eqref{eq:IPM-injection} on $[0,T/G_{\rm eff}]$ with initial datum $\mathbf 1_{\Omega^+(z_0)}-\mathbf 1_{\Omega^-(z_0)}$ which are pure outside, and mixing inside, the strip between the curves
+\[
+z^\pm\big(\cdot,G_{\rm eff}\,t\big)+Vt\,\ee .
+\]
+In particular, for $G=0$ and $AV>0$ (the displacing fluid is the less viscous one), mixing solutions exist for all pinch-free data.
+\end{corollary}
+
+\begin{proof}
+Let $(\tilde\rho,\tilde u)$ be one of the solutions given by Theorem~\ref{thm:A}, and set
+\[
+\rho(x,t):=\tilde\rho\big(x-Vt\ee,\,G_{\rm eff}t\big),\qquad u(x,t):=V\ee+G_{\rm eff}\,\tilde u\big(x-Vt\ee,\,G_{\rm eff}t\big).
+\]
+Then $\dvg u=0$, and $\partial_t\rho+u\cdot\nabla\rho=G_{\rm eff}\big(\partial_t\tilde\rho+\tilde u\cdot\nabla\tilde\rho\big)=0$ in the weak sense. Moreover, $(1+A\rho)u+G\rho\ee=(1+A\rho)V\ee+G\rho\ee+G_{\rm eff}(1+A\rho)\tilde u
+=V\ee+G_{\rm eff}\big((1+A\tilde\rho)\tilde u+\tilde\rho\ee\big)$, whose curl vanishes because $\curl((1+A\tilde\rho)\tilde u)=-\partial_1\tilde\rho$. Hence $(1+A\rho)u=-\nabla p-G\rho\ee$ for some pressure, and
+$u\to V\ee$ at infinity. The mixing properties are invariant under this change of variables.
+\end{proof}
+
+Thus injection enters only through the effective gravity $G_{\rm eff}=G+AV$: the viscous contribution $AV$ to the Saffman--Taylor function of the flat interface adds to the gravitational one, and in the frame
+moving with the injection the problem is the one studied above. For $G=0$ the instability is purely viscous, and the vortex-sheet term $\gamma_0$ in $\kmax$ comes entirely from the viscosity contrast.
+
+\subsection{An example}
+Let $z_0(\alpha)=(\alpha-1.5\sin\alpha,\ 0.8\sin\alpha)$. Then $\partial_\alpha z_0=(1-1.5\cos\alpha,\ 0.8\cos\alpha)\ne0$, and $z_0$ is injective modulo $2\pi e_1$: if $z_{0,2}(\alpha)=z_{0,2}(\beta)$ with
+$\beta\not\equiv\alpha$ then $\beta\equiv\pi-\alpha$ (mod $2\pi$), and $z_{0,1}(\alpha)-z_{0,1}(\pi-\alpha)=2\alpha-\pi$ lies in $2\pi\mathbb Z$ only if $\alpha\equiv\frac\pi2$ (mod $\pi$), in which case
+$\beta\equiv\alpha$. Hence $z_0\in\Zc^{k,\gamma}$ for every $k$. The interface is overturned:
+$n_{0,2}<0$ for $\cos\alpha>2/3$. The tangent is horizontal only where $\cos\alpha=0$, and there $\tau_0=e_1$. By Corollary~\ref{cor:A0}, for $A=0$ the data are pinch-free although Rayleigh--Taylor stable on about
+$27\%$ of the interface, and mixing solutions exist with any opening $0<\kappa<\frac12(1+n_{0,2})$.
+
+For $A\ne0$ we computed $\sig_0$ and $\gamma_0$ numerically, solving the second kind equations \eqref{eq:data} with the trapezoidal rule on $512$ nodes (the kernel of $\Kop_0$ is smooth). We checked the
+identity \eqref{eq:gamma-sigma}, with $\Top_0$ evaluated by the alternating-point rule, to a relative accuracy of $10^{-13}$. For $A\in\{0.3,-0.6,0.9\}$ the Saffman--Taylor function is non-negative on
+$16\%$ to $26\%$ of the interface, while $|\gamma_0|\ge1.7$ there; so the data are pinch-free and $\kmax\ge0.22$ on $\T$ (with $\rhom=A$). Figure~\ref{fig:turned} shows the case $A=0.3$. The scripts are in
+the \texttt{checks/} folder of the source repository.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{fig-turned.pdf}
+\caption{Overturned interface $z_0(\alpha)=(\alpha-1.5\sin\alpha,0.8\sin\alpha)$ with $A=0.3$ and $\rhom=A$. (a) The interface, coloured by the sign of the Saffman--Taylor function $\sig_0$, and the strip between
+$z_0+t(U_0\pm(1\pm\rhom)\kappa)n_0$ at $t=0.25$ for $\kappa=0.8\,\kmax$ (the first order part of the mixing zone of Theorem~\ref{thm:A}). The mixing zone surrounds the whole interface, including the stable
+part. (b) The maximal opening function $\kmax$ of Theorem~\ref{thm:A} compared with the untilted bound $\max(-\sig_0,0)/(2(1-A\rhom))$; the shaded region is $\{\sig_0\ge0\}$, where the untilted bound
+vanishes.}
+\label{fig:turned}
+\end{figure}
