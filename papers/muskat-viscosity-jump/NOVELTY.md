@@ -104,7 +104,7 @@ hides it. The optimal tilt δ* adds:
 
 The title-page note said Sections 2–4 were written from the seminar abstract before LM26 was read. git shows the
 following were added in `a1c40e3` (7 Nov), after the comparison commit `164466a` (6 Nov):
-- Sec. 2.6 (𝒯, Prop. 2.10, γ₀ and the pinch set);
+- Sec. 2.5 (𝒯, Prop. 2.10, γ₀ and the pinch set);
 - the constant C_Ψ and the tilt hypothesis in Lemma 4.5;
 - Remark 4.6.
 
@@ -178,12 +178,19 @@ its abstract claimed, and it contained false statements about LM26.
 
 ## 8. Corrections to the manuscript
 
-This file is committed first, as the audit record. The manuscript corrections based on it follow in the next commit
-on this branch:
-- removing the false statements about LM26;
-- adding the missing credits;
-- correcting the provenance note;
-- restating the novelty as in §6, covering the title, abstract, Sections 1–8, COMPARISON.md, README.md, the figure
-  and the check scripts.
+This file was committed first (`66d5a96`) as the audit record of the revision of 7 Nov (`a1c40e3`). The corrections based on
+it are in the next commit on this branch. They:
+- remove the false statements about LM26 (§1): the manuscript now says that LM26's single layer is tilted by δ_LM, that its
+  exact hull condition (4.14) is the disc |D−a| < |a| and contains γ₀, that c̄ < 1/2 comes only from the last estimate of
+  LM26 §7.4, and that the δ = 0 strip is a different subsolution;
+- state LM26's exact-hull range κ(2(1−A²)κ+σ₀) < (1−A²)γ₀²/(2(2+A²)²) (eq. (1.8) of the manuscript, Remark 5.8) and plot it
+  in Fig. 1(b) next to κ_max and LM26's stated range;
+- add the missing credits of §2, in the title-page note and at each lemma, and correct the provenance note (§3);
+- restate the novelty as in §6, with the new title *Sharp opening rates of single-strip subsolutions for the Muskat problem
+  with viscosity jump*, in the abstract, Secs. 1–8, `COMPARISON.md` and `README.md`, and hedge the A = 0 statements and the
+  FS18/CFM22 descriptions as in §4;
+- fix the errors listed in §5 (total opening speed against Ott99/Sze12, arclength percentages, Fig. 1 caption, the disc on
+  Π, Remark 3.3, the factor printed by `checks/compare_hulls.py`, "horizontally periodic" in the abstract, Sec. 8.1);
+- add `checks/check_lm26_layer.py`, which verifies F1–F4 of this audit symbolically and on the example.
 
-See `git log` for that commit.
+Correction to this record: the vortex-sheet subsection of `a1c40e3` is Sec. 2.5, not 2.6 (fixed in §3 above).

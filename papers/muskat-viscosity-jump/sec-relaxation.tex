@@ -27,11 +27,13 @@ For a state $(\rho,u,m)$ we define the \emph{Darcy field} $v:=u+Am$. In terms of
 \begin{equation}\label{eq:linear-v}
 \partial_t\rho+\dvg m=0,\qquad \curl v=-\partial_1\rho,\qquad \dvg v=-A\,\partial_t\rho,\qquad u=v-Am .
 \end{equation}
-The point of \eqref{eq:linear-v} is that \emph{$v$ is determined by $\rho$ and $\partial_t\rho$ alone} (modulo harmonic fields), whereas the vorticity of $u=v-Am$ depends on $\curl m$. On $\Kc$ we have
-$v=(1+A\rho)u=\mu(\rho)u=-\nabla p-\rho\ee$.
+The point of \eqref{eq:linear-v} is that \emph{$v$ is determined by $\rho$ and $\partial_t\rho$ alone} (modulo harmonic fields), whereas the vorticity of $u=v-Am$ depends on $\curl m$.
+This is the observation behind the pressure formulation of \cite{LM26}: writing $v=-\nabla p-\rho\ee$, \eqref{eq:linear-v} gives $\Delta p=A\partial_t\rho-\partial_2\rho$
+\cite[Sec.~3.1.5]{LM26}, so the pressure is harmonic in every region where $\rho$ is constant, for instance in each region of a strip subsolution \cite[Secs.~3.3.2 and~3.3.5]{LM26}.
+On $\Kc$ we have $v=(1+A\rho)u=\mu(\rho)u=-\nabla p-\rho\ee$.
 
 \subsection{Laminates}
-The wave cone of \eqref{eq:linear} is the set $\Lambda$ of states $\bar W=(\bar\rho,\bar u,\bar m)$ for which there exist $\xi\in\R^2\setminus\{0\}$ and $c\in\R$ such that $\bar W h(\xi\cdot x+ct)$
+Following \cite{Men22} (see also \cite[Sec.~2.1]{LM26}), the wave cone of \eqref{eq:linear} is the set $\Lambda$ of states $\bar W=(\bar\rho,\bar u,\bar m)$ for which there exist $\xi\in\R^2\setminus\{0\}$ and $c\in\R$ such that $\bar W h(\xi\cdot x+ct)$
 solves \eqref{eq:linear} for every $h\in C^1(\R)$, that is,
 \begin{equation}\label{eq:wavecone}
 c\bar\rho+\xi\cdot\bar m=0,\qquad \xi\cdot\bar u=0,\qquad \xi^\perp\cdot(\bar u+A\bar m)+\xi_1\bar\rho=0 .
@@ -44,6 +46,8 @@ For fixed $\rho$ the map $(u,m)\mapsto(v,d)$ is a linear isomorphism of $\R^4$, 
 \[
 m=\frac{(\rho-A)v+\frac12(1-\rho^2)d}{1-A^2},\qquad u=v-Am .
 \]
+Lemma~\ref{lem:laminates} and Proposition~\ref{prop:hull} re-derive, in this chart at fixed Darcy field $v$, the inclusion of the relaxed set $O$ of Mengual \cite{Men22} in the
+lamination convex hull of $\Kc$ \cite{Men22} (Sz\'ekelyhidi \cite{Sze12} for $A=0$); the identification of $\Uc_A$ with $O$ is given after Proposition~\ref{prop:hull}.
 
 \begin{lemma}[First order laminates]\label{lem:laminates}
 Let $\rho\in(-1,1)$, $\lambda_\pm=\frac{1\pm\rho}2$, and $P_+=(1,u_+,u_+)$, $P_-=(-1,u_-,-u_-)\in\Kc$. Then $P_+-P_-\in\Lambda$ if and only if there is a unit vector $\nu$ with
@@ -89,13 +93,39 @@ $\{|D'-a|=|a|\}$ at two points $D_1,D_2$ with $D\in(D_1,D_2)$. The circle is exa
 Lemma~\ref{lem:laminates} the states with values $(\rho,v,D_j)$ are first order laminates. The equivalence of the two descriptions of $\Uc_A$ follows from $|D-a|^2-|a|^2=D\cdot(D-2a)$.
 \end{proof}
 
+\emph{Identification with the relaxed set of \cite{Men22}.} The set $\Uc_A$ is the open set $O$ of \cite{Men22}, written (O) in \cite{LM26}, which consists of the states with
+\[
+\big|2(1-A\rho)(m-\rho u)+(1-\rho^2)(Au+\ee)\big|<(1-\rho^2)\,|Au+\ee| ;
+\]
+this inequality forces $|\rho|<1$. Let $g:=(1-A\rho)|m-\rho u|^2+(1-\rho^2)(m-\rho u)\cdot(Au+\ee)$ be the function of \cite[(A.1)]{LM26}, which characterises $\overline O$ as
+$\{|\rho|\le1,\ g\le0\}$ (\cite[Lemmas~4.1--4.2]{Men22}; \cite[Prop.~2.3]{Sze12} for $A=0$). For $|\rho|<1$, a direct computation from \eqref{eq:Da} gives
+\begin{equation}\label{x:UA-O}
+\begin{gathered}
+(1-\rho^2)\big(D-(Au+\ee)\big)=2(1-A\rho)(m-\rho u)+(1-\rho^2)(Au+\ee),\\
+D\cdot\big(D-2(Au+\ee)\big)=\frac{4(1-A\rho)\,g}{(1-\rho^2)^2},\qquad D\cdot(D-2a)=\frac{4(1-A^2)\,g}{(1-\rho^2)^2(1+A\rho)} .
+\end{gathered}
+\end{equation}
+Hence (O) reads $|D-(Au+\ee)|<|Au+\ee|$, and $O=\{|\rho|<1,\ g<0\}=\Uc_A$. Thus our disc $|D-a|<|a|$ is the
+disc $|D-(Au+\ee)|<|Au+\ee|$ of \cite{Men22,LM26}, re-centred by slicing at fixed Darcy field $v$ instead of fixed velocity $u$; the two centres differ by
+$a-(Au+\ee)=\frac{A^2}{\mu}(m-\rho u)$. Moreover $\Kc^{lc}=\overline O$ by \cite{Men22}, and $\overline O$ is also the $\Lambda$-convex hull $\Kc^\Lambda$ and the weak relaxation in the
+sense of \cite[Sec.~2.1]{LM26} by \cite[Thm.~2.4]{LM26}; for $A=0$ all these identities are due to \cite{Sze12}.
+
 \begin{remark}\label{rem:hull}
 \begin{enumerate}[label=(\alph*),leftmargin=*]
 \item For $A=0$ we have $v=u$, $a=\ee$ and $D-a=\frac{2}{1-\rho^2}\big(m-\rho u+\frac12(1-\rho^2)\ee\big)$, so $\Uc_0$ is the interior of the hull
 $\{|m-\rho u+\frac12(1-\rho^2)\ee|\le\frac12(1-\rho^2)\}$ computed by Sz\'ekelyhidi \cite{Sze12}.
-\item The disc degenerates when $a=0$, i.e.\ $v=-\frac{\mu}{A}\ee$. For a state in a thin mixing zone around an interface, $a\cdot n$ is (up to lower order terms) $-\frac12\sig$ and $a\cdot\tau$ is related to the vorticity
-of the sheet (see Lemma~\ref{lem:hull0}); thus mixing is impossible where there is neither Saffman--Taylor instability nor vorticity, in agreement with the pinch singularity observed in \cite{Men22}.
-\item We only need $\Uc_A\subset\operatorname{int}\Kc^\Lambda$; we do not claim that $\Uc_A$ coincides with the interior of the $\Lambda$-convex hull.
+\item The disc degenerates (it is empty) exactly when $a=0$, i.e.\ $v=-\frac{\mu}{A}\ee$; for $A=0$ we have $a=\ee$, and it never degenerates. For a state in a thin strip around an interface
+$z_0$, at leading order $a\cdot n_0=-\frac12\sig_0-\frac{A^2(1-\rhom^2)\kappa}{\mum}$ and $a\cdot\tau_0=-\frac{(1-A^2)\gamma_0}{2\mum}$ (Lemma~\ref{lem:hull0}), so as $\kappa\to0$ the disc
+degenerates only where $\sig_0=\gamma_0=0$. On a Muskat interface, $\sig=\gamma=0$ holds exactly where $A\avg u+\ee=0$ \cite[(3.7a)]{LM26}, i.e.\ where the right-hand side of (O)
+vanishes for $u=\avg u$: this is the trace on the interface of the pinch singularity of \cite{Men22}. In the chart of \cite{Men22,LM26}, where the disc is
+$|D-(Au+\ee)|<|Au+\ee|$, the corresponding non-degeneracy is a positive lower bound for $|Au+\ee|$, which \cite{LM26} single out as the additional ingredient required by
+the viscosity jump and obtain from its normal component \cite[Sec.~3.3.4 and Prop.~7.4]{LM26}. On the rest of $\Pinch(z_0)$, where $\sig_0>0$ and $\gamma_0=0$, the disc does not degenerate (at leading
+order its radius is at least $\frac12\sig_0$), but the normal component of $D$ forced by the Rankine--Hugoniot conditions, $D\cdot n_0=-\sig_0-2(1-A\rhom)\kappa$ at leading order, lies outside
+it for every $\kappa>0$, because $a\cdot\tau_0=0$ and $D\cdot n_0-2a\cdot n_0=-\frac{2(1-A^2)\kappa}{\mum}<0$ there (proof of Lemma~\ref{lem:hull0}). Theorem~\ref{thm:B} makes this precise
+within single strips: a single-strip subsolution cannot open at linear order in $t$ on $\Pinch(z_0)$. Strips opening at rate $o(t)$, localised mixing zones and other classes of subsolutions
+are not excluded.
+\item By \eqref{x:UA-O} and \cite[Thm.~2.4]{LM26}, $\overline{\Uc_A}=\overline O=\Kc^\Lambda$; since the points of the boundary circles $|D-a|=|a|$ and the states with $|\rho|=1$ are not
+interior points of $\overline O$, also $\Uc_A=O=\operatorname{int}\Kc^\Lambda$. We only use the inclusion $\Uc_A\subset\operatorname{int}\Kc^\Lambda$ of Proposition~\ref{prop:hull}.
 \end{enumerate}
 \end{remark}
 
@@ -114,18 +144,34 @@ mixing zone $\Omega_{\rm mix}$, an open subset of $\T\times\R\times(0,T)$, if
 \end{enumerate}
 \end{definition}
 
-The following $h$-principle was proved by Mengual \cite{Men22} for $|A|<1$ (for $A=0$ see \cite{CFG11,Sze12,CCF21}); we state it in the form in which we use it. The convex integration scheme
-is local in space-time, so the horizontally periodic setting plays no role, and by Proposition~\ref{prop:hull} subsolutions in the sense of Definition~\ref{def:subsol} take values in the interior of the
-$\Lambda$-convex hull, as required in \cite{Men22}. We refer to \cite{Men22} for the precise functional framework.
+The following $h$-principle is \cite[Thm.~2.3]{LM26}; it was proved by Sz\'ekelyhidi \cite{Sze12} for $A=0$ (see also \cite{CFG11,CCF21}) and by Mengual \cite{Men22} for $|A|<1$. In
+\cite[Thm.~2.3]{LM26} it is stated on $(0,T]\times\R^2$, for subsolutions that are continuous with values in the set $O$ of \cite{Men22} in the mixing zone and that are pure phases
+($\bar\rho=\pm1$, $\bar m=\bar\rho\bar u$) in two open sets which, together with the mixing zone, cover every time slice up to a null set. Since $O=\Uc_A$ by \eqref{x:UA-O}, the first
+requirement is condition (ii) of Definition~\ref{def:subsol}; in our applications the pure phases are the open regions above and below a strip. We apply the theorem to the $2\pi$-periodic
+lift to $\R^2$ of a subsolution in the sense of Definition~\ref{def:subsol}. The resulting solutions are defined on $\R^2$ and need not be $2\pi$-periodic in $x_1$; we do not discuss
+whether the convex integration scheme can be run on $\T\times\R$. We refer to \cite{Men22} and \cite[Sec.~2]{LM26} for the precise functional framework, which also requires weak-$*$
+continuity in time \cite[Def.~2.1]{LM26}.
 
-\begin{theorem}[$h$-principle \cite{Men22}]\label{thm:hprinciple}
-Let $(\bar\rho,\bar u,\bar m)$ be a subsolution with initial datum $\rho_0$ and mixing zone $\Omega_{\rm mix}$. Then there exist infinitely many weak solutions $(\rho,u)$ of \eqref{eq:IPM} with initial datum
-$\rho_0$ such that $(\rho,u)=(\bar\rho,\bar u)$ a.e.\ outside $\Omega_{\rm mix}$ and $\rho$ mixes in $\Omega_{\rm mix}$, i.e.\ both $\{\rho=1\}$ and $\{\rho=-1\}$ have positive measure in every open
-subset of $\Omega_{\rm mix}$. Moreover there is a sequence of such solutions with $(\rho_k,u_k)\overset{*}{\rightharpoonup}(\bar\rho,\bar u)$ in $L^\infty$.
+\begin{theorem}[{$h$-principle \cite{Sze12,Men22}, \cite[Thm.~2.3]{LM26}}]\label{thm:hprinciple}
+Let $(\bar\rho,\bar u,\bar m)$ be a subsolution with initial datum $\rho_0$ and mixing zone $\Omega_{\rm mix}$, and denote by the same symbols the $2\pi$-periodic lifts of $(\bar\rho,\bar u,\bar m)$
+and $\Omega_{\rm mix}$ to $\R^2\times(0,T)$ and of $\rho_0$ to $\R^2$. Then there exist infinitely many weak solutions $(\rho,u)$ of \eqref{eq:IPM} in $\R^2\times(0,T)$, i.e.\ satisfying
+\eqref{eq:weak} with $\T\times\R$ replaced by $\R^2$, with initial datum $\rho_0$, such that $(\rho,u)=(\bar\rho,\bar u)$ a.e.\ outside $\Omega_{\rm mix}$ and $\rho$ mixes in $\Omega_{\rm mix}$,
+i.e.\ both $\{\rho=1\}$ and $\{\rho=-1\}$ have positive measure in every open subset of $\Omega_{\rm mix}$. Moreover there is a sequence of such solutions with
+$(\rho_k,u_k)\overset{*}{\rightharpoonup}(\bar\rho,\bar u)$ in $L^\infty$.
 \end{theorem}
 
+The mixing property in \cite[Thm.~2.3]{LM26}, a theorem that \cite{LM26} recall from \cite{Sze12,Men22}, is stronger: it holds in every time slice \cite[Def.~2.2]{LM26} (see \cite{CCF21,CFM19}); we only state and use the space--time
+version above. The last assertion of Theorem~\ref{thm:hprinciple} is not part of \cite[Thm.~2.3]{LM26}; it is the approximation property of the $h$-principle of \cite[Thm.~2.1]{Men22}, which is
+also used in \cite[App.~A.1.2]{LM26}.
+
 \subsection{The flat interface}
-The following explicit subsolutions illustrate the role of the viscosity jump; the flat case is treated in \cite{Men22}.
+The following explicit subsolutions illustrate the role of the viscosity jump. They are not new. The flat interface is treated in \cite{Men22}, whose macroscopic profile
+\cite[Sec.~2]{Men22} has the flux $\frac{1-\rho^2}{1-A\rho}$ (denoted $F_A$ in \cite[Sec.~7.5]{LM26}; it is $F_1$ below). The ansatz $\bar u=0$, $\bar m=-F_\theta(\bar\rho)\ee$ below and the
+reduction of the hull condition to $0<\theta<1$ are those of the flat single strip of \cite[Sec.~3.2]{LM26}, whose constant $\gamma$ is our $\theta-\frac12$ and whose intermediate density is
+a constant.
+Finally, for the flat interface the multilayer subsolutions of \cite[Sec.~7.5]{LM26} with $\bar c=\theta$ have the mixing zones of Example~\ref{ex:flat}, and Luna-Velasco and Mengual
+identify the limit of their profiles, as the number of layers tends to infinity, as the viscosity-dependent Otto profile with time scaled by $\bar c$ \cite[Sec.~7.5]{LM26}, i.e.\ the profile of
+Example~\ref{ex:flat}.
 
 \begin{example}\label{ex:flat}
 Let $\theta\in(0,1)$ and $F_\theta(\rho):=\theta\frac{1-\rho^2}{1-A\rho}$ for $\rho\in[-1,1]$. Then $F_\theta(\pm1)=0$,
@@ -138,12 +184,18 @@ $[\frac{2\theta}{1-A},\infty)$, and to the inverse of $-F_\theta'$ in between, a
 \bar\rho(x,t)=R_\theta(x_2/t),\qquad \bar u=0,\qquad \bar m=-F_\theta(\bar\rho)\,\ee .
 \]
 Then $\partial_t\bar\rho+\partial_2\bar m_2=-\frac{R_\theta'}{t}\big(\frac{x_2}{t}+F_\theta'(R_\theta)\big)=0$ (a rarefaction wave), $\dvg\bar u=0$, and $\curl(\bar u+A\bar m)=-A\partial_1F_\theta(\bar\rho)=0=-\partial_1\bar\rho$;
-all fields are continuous, so \eqref{eq:linear} holds with initial datum $\mathrm{sign}(x_2)$. Outside the fan $\{-\frac{2\theta t}{1+A}<x_2<\frac{2\theta t}{1-A}\}$ the state is $(\pm1,0,0)\in\Kc$. Inside, $v=A\bar m$,
+all fields are continuous and $R_\theta$ is Lipschitz (since $-F_\theta''\ge\frac{2\theta(1-A^2)}{(1+|A|)^3}$), and $\bar\rho(\cdot,t)\to\mathrm{sign}(x_2)$ in $L^1_{\rm loc}$ as
+$t\to0$, so \eqref{eq:linear} holds with initial datum $\mathrm{sign}(x_2)$. Outside the fan $\{-\frac{2\theta t}{1+A}<x_2<\frac{2\theta t}{1-A}\}$ the state is $(\pm1,0,0)\in\Kc$. Inside, $v=A\bar m$,
 $(1-A^2)\bar m-(\bar\rho-A)v=(1-A\bar\rho)\bar m$, hence
 \[
 D=2(1-\theta)\ee,\qquad a=\Big(1-\frac{A^2\theta(1-\bar\rho^2)}{1-A^2\bar\rho^2}\Big)\ee,\qquad D\cdot(D-2a)=-\frac{4\theta(1-\theta)(1-A^2)}{1-A^2\bar\rho^2}<0 .
 \]
-So $(\bar\rho,\bar u,\bar m)$ is a subsolution, and Theorem~\ref{thm:hprinciple} gives mixing solutions whose mixing zone is $\{-\frac{2\theta t}{1+A}<x_2<\frac{2\theta t}{1-A}\}$. For $A>0$ (the heavy fluid
-on top is the more viscous one) the mixing zone grows faster upwards: the less viscous light fluid fingers into the more viscous one, as predicted by Saffman and Taylor. Moreover
-$\int(\bar\rho-\mathrm{sign}\,x_2)\dd x_2=t\int_{-1}^1F'_\theta(r)\dd r=0$: the centre of mass of the mixing zone does not move.
+So $(\bar\rho,\bar u,\bar m)$ is a subsolution, and Theorem~\ref{thm:hprinciple} gives mixing solutions whose mixing zone is $\{-\frac{2\theta t}{1+A}<x_2<\frac{2\theta t}{1-A}\}$. The same
+formulas with $\theta=1$ define the extremal profile, for which $D=0$ lies on the boundary circle $|D-a|=|a|$ of the hull; it is not a subsolution in the sense of
+Definition~\ref{def:subsol}, and the family is obtained from it by scaling time: $\bar\rho_\theta(x,t)=\bar\rho_1(x,\theta t)$ and $\bar m_\theta(x,t)=\theta\,\bar m_1(x,\theta t)$. For
+$A>0$ (the heavy fluid on top is the more viscous one) the mixing zone grows faster upwards, in line with the Saffman--Taylor picture \cite{ST58} of the less viscous fluid penetrating the
+more viscous one; this asymmetry, with the factors $1/(1\mp A)$, is already present in the profile of \cite{Men22} and in \cite[Secs.~1.4 and~3.2]{LM26}. Moreover
+$\int(\bar\rho-\mathrm{sign}\,x_2)\dd x_2=t\int_{-1}^1F'_\theta(r)\dd r=0$, i.e.\ $x_2=0$ remains the equal-mass level of the mixing zone (the counterpart of the centre of mass
+\eqref{eq:com} of a strip); this is conservation of mass, since $F_\theta(\pm1)=0$, and its discrete counterpart for multilayers is the identity $\sum_j(\theta_j-\theta_{j-1})h_j=0$ of
+\cite[Sec.~7.5]{LM26}.
 \end{example}

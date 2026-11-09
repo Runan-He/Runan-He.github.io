@@ -6,6 +6,13 @@ We keep the notation of Section~\ref{sec:ansatz}. The proof consists in choosing
 has a prescribed first order part, $M=-2t\,\partial_\alpha(\kappa\delta)+O(t^2)$ with $\int_\T M=0$, for a tilt $\delta$ to be chosen; and then in checking the open condition $D\cdot(D-2a)<0$ in
 the strip by comparison with its limit as $t\to0$.
 
+The scheme is that of \cite[Secs.~5--7]{LM26}: a first order matching, which fixes the initial velocity of the central curve (Lemma~\ref{lem:limits}; cf.\ \cite[Lemmas~5.1--5.2]{LM26}); a second
+order step, in which the normal acceleration of the central curve is found by inverting $I-2A\Kop_0$ (Lemmas~\ref{lem:accel}--\ref{lem:shift}; cf.\ \cite[Lemma~5.3 and Prop.~6.1]{LM26}); and
+the hull condition at $t=0$, followed by a perturbation argument and the $h$-principle (cf.\ \cite[Sec.~7.4]{LM26}). What differs is the target of the second order step, which we use to prescribe
+the tilt, the evaluation of the hull condition at $t=0$ with its full tangential part (Lemma~\ref{lem:hull0} and Remarks~\ref{x:rem-normalisations} and~\ref{x:rem-LM26-layer}), the
+intermediate density $\rhom$, which may differ from $A$, and the periodic setting. The time regularity of Lemma~\ref{lem:timereg} and the regularity of $G$ in Lemma~\ref{lem:accel} are only sketched (Appendix~\ref{x:app-sketch}); the proof of Theorem~\ref{thm:A}
+given here is complete modulo these sketches.
+
 \subsection{The limit $t\to0$: velocity matching}
 For the computation of the limits it is convenient to allow arbitrary normal velocities at $t=0$.
 
@@ -47,7 +54,10 @@ $v_S^{(0)}\cdot n_0=U_0+A\rhom U_0-A(1-\rhom^2)\kappa$, and inserting this in \e
 \]
 \end{proof}
 
-The vanishing of $M$ at order $t^0$ is the statement that the centre of mass $Z$ of the strip starts with the normal velocity of the Muskat problem, which we built into the ansatz.
+The vanishing of $M$ at order $t^0$ is the statement that the centre of mass $Z$ of the strip starts with the normal velocity of the Muskat problem, which we built into the ansatz. This is the
+first order compatibility condition of \cite[Lemma~5.2]{LM26}, where the central curve starts with the Muskat normal velocity and the boundary derivatives of their potential agree at $t=0$
+\cite[(5.14)]{LM26}; for $\rhom=A$ and $c=(1-A^2)\kappa$, the value $F_0/|\partial_\alpha z_0|=-\sig_0-2c$ is the normal component of $D$ on their single layer at $t=0$
+(Remark~\ref{x:rem-LM26-layer}).
 
 \subsection{The relaxation condition at $t=0$}
 
@@ -66,7 +76,10 @@ $\delta_*$ is the optimal tilt.
 
 \begin{proof}
 By \eqref{eq:F0}, $a^{(0)}\cdot n_0=n_{0,2}+AU_0-\frac{A^2(1-\rhom^2)\kappa}{\mum}$ with $n_{0,2}+AU_0=-\sig_0/2$; and
-$a^{(0)}\cdot\tau_0=\tau_{0,2}-\frac{A}{\mum}(\Top_0\sig_0+\rhom\tau_{0,2})=\frac{\tau_{0,2}-A\Top_0\sig_0}{\mum}$, which equals $-\frac{(1-A^2)\gamma_0}{2\mum}$ by \eqref{eq:gamma-sigma}. Writing
+$a^{(0)}\cdot\tau_0=\tau_{0,2}-\frac{A}{\mum}(\Top_0\sig_0+\rhom\tau_{0,2})=\frac{\tau_{0,2}-A\Top_0\sig_0}{\mum}$, which equals $-\frac{(1-A^2)\gamma_0}{2\mum}$ by \eqref{eq:gamma-sigma}.
+(For $\rhom=A$, where $a=(\ee-A\nabla p)/(1+A^2)$ in the variables of \cite{LM26} (Remark~\ref{x:rem-LM26-layer}), the normal component is \cite[(7.11)]{LM26} combined with the computation
+in the proof of \cite[Prop.~7.4]{LM26}, and the tangential component follows from the tangential part of \cite[(7.11)]{LM26} and from \cite[(3.7b)]{LM26}, which is
+Proposition~\ref{prop:gamma} in our normalisation.) Writing
 $D_n=-\sig_0-2(1-A\rhom)\kappa$, $a_n=a^{(0)}\cdot n_0$ and $a_\tau=a^{(0)}\cdot\tau_0$, we have
 \[
 D_n-2a_n=-2\kappa\Big[(1-A\rhom)-\frac{A^2(1-\rhom^2)}{1+A\rhom}\Big]=-\frac{2\kappa(1-A^2)}{\mum},
@@ -74,14 +87,29 @@ D_n-2a_n=-2\kappa\Big[(1-A\rhom)-\frac{A^2(1-\rhom^2)}{1+A\rhom}\Big]=-\frac{2\k
 so $D_n(D_n-2a_n)=\frac{2(1-A^2)}{\mum}\kappa\big(2(1-A\rhom)\kappa+\sig_0\big)$. Adding $\delta(\delta-2a_\tau)=(\delta-a_\tau)^2-a_\tau^2$ and $a_\tau^2=\frac{(1-A^2)^2\gamma_0^2}{4\mum^2}$ gives \eqref{eq:hull0}.
 \end{proof}
 
-\begin{remark}
-Without tilt ($\delta=0$) the condition $D^{(0)}_0\cdot(D^{(0)}_0-2a^{(0)})<0$ reads $0<2(1-A\rhom)\kappa<-\sig_0$, the range of \cite{LM26} for $\rhom=A$: it ignores the vortex sheet. The tilt
-$\delta_*$ moves $D^{(0)}$ onto the line through the centre $a^{(0)}$ of the relaxation disc parallel to $n_0$, and the admissible range becomes $\Phi(\kappa)<0$. When $\gamma_0\ne0$ this range is strictly
-larger, and it is non-empty even where $\sig_0\ge0$.
+\begin{remark}[Three normalisations of the tilt]\label{x:rem-normalisations}
+By \eqref{eq:hull0}, the tilt enters the relaxation inequality at $t=0$ only through $(\delta-\delta_*)^2$. We compare three choices.
+\begin{enumerate}[label=\textup{(\alph*)},leftmargin=*]
+\item $\delta=0$, which our construction gives when $M=O(t^2)$ and $C_\Psi\equiv0$ (Lemma~\ref{lem:stream}). The condition $D^{(0)}_0\cdot(D^{(0)}_0-2a^{(0)})<0$ reads
+$0<2(1-A\rhom)\kappa<-\sig_0$ and involves $\sig_0$ only. For $\rhom=A$ this is the range stated in \cite{LM26} for their single layer, $\bar c<\frac12$ in \cite[(7.13)]{LM26}. The untilted strip
+is, however, not the subsolution of \cite{LM26}: it shares with their single layer only the first order geometry and this stated range, and it is not used in \cite{LM26}.
+\item $\delta=\delta_{\rm LM}:=-\frac{(1-A^2)\gamma_0}{2+A^2}=\frac{2(1+A^2)}{2+A^2}\,\delta_*$ with $\rhom=A$, which is the tilt of the single layer of \cite{LM26}
+(Remark~\ref{x:rem-LM26-layer}). Since $\delta_{\rm LM}-\delta_*=\frac{A^2}{2+A^2}\,\delta_*$, the condition reads
+\[
+\kappa\big(2(1-A^2)\kappa+\sig_0\big)<\frac{(1-A^2)\gamma_0^2}{2(2+A^2)^2},
+\]
+which is \eqref{x:LM-range}.
+\item $\delta=\delta_*$: the condition is $\Phi(\kappa)<0$, i.e.\ \eqref{eq:kappa-range}. The tilt $\delta_*$ moves $D^{(0)}$ onto the line through the centre $a^{(0)}$ of the relaxation disc
+parallel to $n_0$, and by Theorem~\ref{thm:B} no single strip of intermediate density $\rhom$ does better.
+\end{enumerate}
+When $\gamma_0\ne0$, the ranges in (b) and (c) are strictly larger than the corresponding range in (a), and they are non-empty also where $\sig_0\ge0$. For $A=0$ we have
+$\delta_{\rm LM}=\delta_*$, so that (b) and (c) coincide; for $A\ne0$ the coefficient of $\gamma_0^2$ in (c) is larger than in (b) by the factor computed in Remark~\ref{x:rem-LM26-layer}.
 \end{remark}
 
 \subsection{Time regularity and acceleration matching}
-The following lemma is proved in Appendix~\ref{app:cauchy}.
+We only sketch the proof of the following lemma, in Appendix~\ref{x:app-sketch}, which also lists the points that are not proved in detail there. Fully proved analogues in the asymptotically
+flat setting are \cite[Lemmas~8.4--8.5 and Prop.~7.1]{LM26}, except for the Lipschitz bound on $\partial_tF^\pm$: for the second time derivative, \cite[Lemma~8.6 and Prop.~7.2]{LM26}
+prove only the weaker bound on spatial primitives that their argument needs.
 
 \begin{lemma}\label{lem:timereg}
 Let $a\in C^{3,\gamma}(\T)$ and let $h$ be a polynomial with $h(0)=h'(0)=0$. There are $T_1>0$ and $C$ such that $F^\pm$ and $M$, extended to $t=0$ by their limits, belong to $C^1([0,T_1];C^0(\T))$,
@@ -101,14 +129,20 @@ There is $G\in C^{3,\gamma}(\T)$, depending only on $z_0,\kappa,\rhom$ and $A$, 
 \begin{proof}
 For fixed $t$ the quantities $V^\pm$, $f^\pm$, $v$, $v_S^\pm$, $F^\pm$ and $M$ are affine functions of the velocities $(\partial_tz^+,\partial_tz^-)$, with coefficients depending only on the positions
 $z^\pm(\cdot,t)$: $V^\pm$ is linear in $\partial_tz^\pm$, $f^\pm$ is affine in $V^\pm$, and $v$ is linear in $f^\pm$. Write accordingly $M(t)=\mathcal L_t[\partial_tz^+,\partial_tz^-]+\mathcal B_t$.
-By the formulas of Appendix~\ref{app:cauchy}, $\mathcal L_t$ and $\mathcal B_t$ are differentiable at $t=0$ and their derivatives only involve $z_0$ and $\partial_tz^\pm(\cdot,0)=(U_0\pm c^\pm)n_0$, which do not
+By the formulas of Appendix~\ref{app:cauchy}, $\mathcal L_t$ and $\mathcal B_t$ are differentiable at $t=0$, where the two curves merge (this is part of the sketch of
+Appendix~\ref{x:app-sketch}), and their derivatives only involve $z_0$ and $\partial_tz^\pm(\cdot,0)=(U_0\pm c^\pm)n_0$, which do not
 depend on $a$ (the term $\frac{t^2}2an_0$ in the positions does not contribute at $t=0$). Hence $\partial_tM(\cdot,0)=\mathcal L_0[\partial_t^2z^+,\partial_t^2z^-](\cdot,0)+G$ with $G$ independent of $a$. Since
 $\partial_t^2z^\pm(\cdot,0)=an_0$ and, by \eqref{eq:M0}, the linear part of the map $(W^+,W^-)\mapsto M_0$ is $-\frac{4|\partial_\alpha z_0|}{1-\rhom^2}(I-2A\Kop_0)\overline W$, we obtain the formula.
-The regularity $G\in C^{3,\gamma}$ is proved in Appendix~\ref{app:cauchy}.
+The regularity $G\in C^{3,\gamma}$ is sketched in Appendix~\ref{x:app-sketch}.
 \end{proof}
 
 The vanishing of $M$ at order $t^0$ leaves no freedom (it is the Muskat equation for the velocity of the centre of mass), but at order $t^1$ the acceleration $a$ is a free function, and by
-Proposition~\ref{prop:invert} we can make $\partial_tM(\cdot,0)$ equal to \emph{any} function in $C^{3,\gamma}(\T)$. This is the freedom used for the tilt.
+Proposition~\ref{prop:invert} we can make $\partial_tM(\cdot,0)$ equal to \emph{any} function in $C^{3,\gamma}(\T)$. This is the freedom used for the tilt. It is the second order step of
+\cite{LM26}: there, too, the normal acceleration of the central curve enters the $O(t)$ part of the boundary data affinely, through $I-AP$, which is our $I-2A\Kop_0$
+\cite[Lemma~5.3, (5.21) and (8.41)]{LM26}, and it is determined by inverting this operator \cite[Prop.~6.1]{LM26} (in the periodic setting the invertibility is due to \cite{CCG11}; here
+Proposition~\ref{prop:invert}). Lemmas~\ref{lem:accel} and~\ref{lem:shift} are this step with a nonzero target, which prescribes the tilt. \cite{LM26} use two different normalisations of
+it, for the single layer \cite[(5.16)]{LM26} and for the multilayers \cite[(8.41)]{LM26}; in our variables they correspond to the tilts $\delta_{\rm LM}$ and, for one intermediate strip,
+$2\delta_*$ (Remark~\ref{x:rem-LM26-layer}).
 
 \begin{lemma}[Prescribed first order mismatch and mass correction]\label{lem:shift}
 Let $\delta\in C^{4,\gamma}(\T)$ and
@@ -129,6 +163,9 @@ $\int_\T\partial_\alpha(\kappa\delta)=0$, Lemma~\ref{lem:mass} gives $|Q^{(0)}(t
 $|h'(t)|\le Ct^2$, $|h(t)|\le Ct^3$. Adding $h(t)\ee$ to both curves adds $2\pi h$ to $\mathcal A^\pm$, so $Q=Q^{(0)}+4\pi h'=0$ and \eqref{eq:mass-cond} holds by Lemma~\ref{lem:mass}. Finally, Cauchy
 fields commute with translations, $\Cf[z+h\ee;f](x+h\ee)=\Cf[z;f](x)$, so the new $F^\pm$ are obtained from the old ones by adding $h'\ee$ to the velocities; by the affine dependence on the velocities and
 Lemma~\ref{lem:cauchy}(b), $\|M-M^{(0)}\|_{C^0}\le C|h'(t)|\le Ct^2$.
+
+The bounds $|h(t)|\le Ct^3$ and $\|M+2t\partial_\alpha(\kappa\delta)\|_{C^0}\le Ct^2$ rest on Lemmas~\ref{lem:timereg} and~\ref{lem:accel}, whose proofs are only sketched
+(Appendix~\ref{x:app-sketch}); the identity $Q=Q^{(0)}+4\pi h'=0$, and hence \eqref{eq:mass-cond}, does not.
 \end{proof}
 
 \subsection{Conclusion}
@@ -141,9 +178,10 @@ By Lemma~\ref{lem:shift}, \eqref{eq:mass-cond} holds and
 \int_0^\alpha M(\beta,t)\dd\beta+C_\Psi(t)+2t\kappa(\alpha)\delta(\alpha)=\int_0^\alpha\big(M+2t\partial_\beta(\kappa\delta)\big)(\beta,t)\dd\beta=O(t^2)
 \]
 uniformly in $\alpha\in[0,2\pi]$; by Lemma~\ref{lem:timereg} and since $h'(0)=0$, $\|F^\pm(\cdot,t)-F_0\|_{C^0}\le Ct$ with $F_0$ given by \eqref{eq:F0}. Thus \eqref{eq:stream-hyp} holds, and
-Lemma~\ref{lem:stream} gives $|D-D^{(0)}_{\delta}(\alpha)|\le Ct$ in $S_t$. By \eqref{eq:v-strip}, $|a-a^{(0)}(\alpha)|\le\frac{|A|}{\mum}Ct^\gamma$ in $S_t$, where $a=\ee+\frac A\mum v$ is the vector
-\eqref{eq:Da} of the state in the strip. By Lemma~\ref{lem:linear}, $(\bar\rho,\bar u,\bar m)$ is bounded, solves \eqref{eq:linear} with initial datum $\rho_0$, and lies in $\Kc$ outside the strip. Since all
-quantities are bounded, Lemma~\ref{lem:hull0} gives, in $S_t$,
+Lemma~\ref{lem:stream} gives $|D-D^{(0)}_{\delta}(\alpha)|\le Ct$ in $S_t$; in particular $D$ is bounded uniformly in $t$. By \eqref{eq:v-strip}, $|a-a^{(0)}(\alpha)|\le\frac{|A|}{\mum}Ct^\gamma$
+in $S_t$, where $a=\ee+\frac A\mum v$ is the vector \eqref{eq:Da} of the state in the strip. The field $v$ is bounded uniformly in $t$ by Lemma~\ref{lem:cauchy}(b) and
+Lemma~\ref{lem:geometry}, so $(\bar\rho,\bar u,\bar m)$ is bounded on $\T\times\R\times(0,T_1]$; by Lemma~\ref{lem:linear} it therefore solves \eqref{eq:linear} with initial datum $\rho_0$, and it
+lies in $\Kc$ outside the strip. Since all quantities are bounded, Lemma~\ref{lem:hull0} gives, in $S_t$,
 \[
 D\cdot(D-2a)\le\frac{2(1-A^2)}{\mum}\max_\T\Phi(\kappa)+C't^\gamma<0
 \]
@@ -154,6 +192,37 @@ to $\bar\rho$. Since $\Omega_{\rm mix}(t)=S_t$ is the strip between $\Gamma^\pm(
 \end{proof}
 
 \begin{remark}\label{rem:any-tilt}
-The proof works with any tilt $\delta\in C^{4,\gamma}$ for which $\frac{2(1-A^2)}{\mum}\Phi(\kappa)+(\delta-\delta_*)^2<0$ on $\T$. In particular, if $\kappa$ satisfies the untilted condition
-$0<2(1-A\rhom)\kappa<-\sig_0$, then $\delta=0$ is admissible and Theorem~\ref{thm:A} reduces to the single-layer result of \cite{LM26} (with $\rhom=A$) in our periodic H\"older setting.
+The proof works with any tilt $\delta\in C^{4,\gamma}$ for which $\frac{2(1-A^2)}{\mum}\Phi(\kappa)+(\delta-\delta_*)^2<0$ on $\T$, for instance with each of the three choices of
+Remark~\ref{x:rem-normalisations} under the corresponding condition on $\kappa$. In particular, if $0<2(1-A\rhom)\kappa<-\sig_0$, then $\delta=0$ is admissible; for $\rhom=A$ this gives, in our
+periodic H\"older setting, single strips with the opening range stated in \cite[(7.13)]{LM26} for the curved single layer of \cite{LM26}, whose intermediate density is $A$ (\cite{LM26} work in
+the asymptotically flat setting). These strips are not the subsolutions of \cite{LM26}, whose tilt is $\delta_{\rm LM}$ (Remark~\ref{x:rem-LM26-layer}). The multilayers of
+\cite[Sec.~7.5]{LM26} with $N\ge2$, whose $2N-1$ strips have the densities $\theta_j$ of \cite[(7.14)]{LM26}, are not single strips (for $N=1$ their only intermediate strip has density $A$,
+the tilt $2\delta_*$ and the range $\bar c<\frac12$; Remark~\ref{x:rem-LM26-layer}); for fully unstable data they reach any $0<\bar c<1$, and so open faster than our
+single strips wherever $|\gamma_0|$ is small.
+\end{remark}
+
+\begin{remark}[The single layer of \cite{LM26} in our variables]\label{x:rem-LM26-layer}
+Let $\rhom=A$ and $c=(1-A^2)\kappa$, so that the boundaries \eqref{eq:curves} move away from the central curve with the normal speeds $c/(1\mp A)$ of \cite[(4.2)]{LM26}. In the mixing zone of
+\cite{LM26} the momentum is $m=Au-\nabla^\perp g-\frac12(Au+\ee)$, with a potential $g$ \cite[(4.6)]{LM26}, and Darcy's law \cite[(4.10)]{LM26} reads
+$(1+\frac{A^2}2)u=-\nabla p+A\nabla^\perp g-\frac A2\ee$. In the variables \eqref{eq:Da} this gives
+\[
+D=(Au+\ee)-2\nabla^\perp g,\qquad a=\frac{\ee-A\nabla p}{1+A^2},\qquad D\cdot(D-2a)=\frac{4|\nabla g|^2-|Au+\ee|^2}{1+A^2},
+\]
+so that the exact hull condition $2|\nabla g|<|Au+\ee|$ of \cite[(4.14)]{LM26} is our condition $|D-a|<|a|$. In \cite{LM26} the acceleration of the central curve is chosen so as to cancel
+the $O(t)$ part of $\partial_\alpha G_+-\partial_\alpha G_-$, where $G_\pm$ are the values of $g$ on the two boundaries \cite[Sec.~3.3.4 and Lemma~5.3]{LM26}. Then the transverse
+derivative $\partial_\lambda G$ of $g$ in their strip coordinates is $O(t^2)$, and $\nabla g$ is tangential at leading order \cite[Props.~7.2--7.3 and (7.9)]{LM26}, so that $D\cdot\tau_0=(Au+\ee)\cdot\tau_0+O(t)$; and the tangential part of \cite[(4.10)]{LM26},
+together with \cite[(7.11)]{LM26} and \cite[(3.7b)]{LM26} (our Proposition~\ref{prop:gamma}), gives $(Au+\ee)\cdot\tau_0=\delta_{\rm LM}+O(t)$. Thus the single layer of \cite{LM26}
+is tilted towards the centre of the relaxation disc, and exactly onto it when $A=0$; on their subsolution our mismatch is $M=-2t\,\partial_\alpha(\kappa\delta_{\rm LM})+O(t^2)$. By
+\cite[(7.9)--(7.10)]{LM26}, the normal component of $D$ on their layer is $D\cdot n_0=-\sig_0-2c+O(t)$, the value $F_0/|\partial_\alpha z_0|$ of \eqref{eq:F0}, and by
+\cite[(7.11)]{LM26} the vector $a$ tends to $a^{(0)}$ of Lemma~\ref{lem:hull0}. Hence, by \eqref{eq:hull0} with $\delta=\delta_{\rm LM}$, the unchanged single layer of \cite{LM26} satisfies the strict hull condition at $t=0$ if and only if
+$\kappa$ lies in the range (b) of Remark~\ref{x:rem-normalisations}. This range is not stated in \cite{LM26}. Up to their final estimate the opening $c$ is free \cite[(5.1)]{LM26}; the restriction
+$\bar c<\frac12$ comes only from the lower bound $|Au+\ee|\ge(Au+\ee)\cdot n_0=-\frac12\sig_0+O(t)$ used in \cite[Sec.~7.4]{LM26}, which keeps only the normal component of $Au+\ee$,
+computed in \cite[Prop.~7.4]{LM26}, and discards the tangential (vortex-sheet) part. In this sense the range (b) is latent in \cite{LM26}: turning it into an existence statement in their setting
+requires only a modification of a few lines of \cite[Sec.~7.4]{LM26}, with an opening $c$ such that $c-c_\infty\in H^{k-1}$ and $\inf c>0$ \cite[Sec.~4.1 and (5.1)]{LM26}. Compared with
+(b), the optimal tilt $\delta_*$ multiplies the coefficient of $\gamma_0^2$ by
+\[
+\frac{(2+A^2)^2}{4(1+A^2)}=1+\frac{A^4}{4(1+A^2)}\in\Big[1,\frac98\Big),
+\]
+with no gain for $A=0$. Finally, for one intermediate strip ($N=1$), the normalisation of the multilayers of \cite[Sec.~7.5]{LM26} (see \cite[(8.38) and (8.43)]{LM26}) gives
+$D\cdot\tau_0\to2\delta_*$, the reflection of $\delta=0$ about $\delta_*$, whose margin in \eqref{eq:hull0} is the same as that of $\delta=0$.
 \end{remark}

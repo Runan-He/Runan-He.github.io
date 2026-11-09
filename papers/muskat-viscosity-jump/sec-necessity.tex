@@ -2,8 +2,11 @@
 \section{Necessary conditions: proof of Theorem~\ref{thm:B}}\label{sec:necessity}
 % ============================================================
 
-We now show that the range \eqref{eq:kappa-range} cannot be improved by subsolutions with a single intermediate density. We first fix the class of subsolutions; it contains the subsolutions of
-Section~\ref{sec:ansatz}, and its asymptotically flat analogue contains the single-layer subsolutions of \cite{LM26}.
+We now show that the range \eqref{eq:kappa-range} cannot be improved by subsolutions with a single intermediate density. This is a statement about the type of subsolution, not about the
+geometry of the mixing zone: the multilayer subsolutions of \cite[Sec.~7.5]{LM26}, whose mixing zone is one band containing several intermediate densities, are not single-strip subsolutions, and
+for fully unstable data they reach any $0<\bar c<1$; for $\bar c$ close to $1$ this exceeds the single-strip bound wherever $|\gamma_0|$ is small (if $\rhom=A$, $\sig_0<0$ and $\gamma_0=0$,
+Theorem~\ref{thm:B} gives $\kappa\le\kmax=-\sig_0/(2(1-A^2))$, i.e.\ $\bar c\le\frac12$ when $(1-A^2)\kappa=-\bar c\,\sig_0$). We first fix the class of subsolutions; it contains the subsolutions of
+Section~\ref{sec:ansatz}.
 
 \begin{definition}\label{def:single-strip}
 Let $z_0\in\Zc^{3,\gamma}$, $\rhom\in(-1,1)$ and $T>0$. A \emph{single-strip subsolution with intermediate density $\rhom$ emanating from $z_0$} is a subsolution $(\bar\rho,\bar u,\bar m)$ on
@@ -21,8 +24,44 @@ The \emph{initial normal velocities} of the strip are $W^\pm:=\partial_tz^\pm(\c
 
 The subsolutions constructed in Section~\ref{sec:ansatz} satisfy (S1)--(S5), with $X$ given by \eqref{eq:X}.
 
+In the asymptotically flat setting of \cite{LM26} one can define an analogous class, which contains the single-layer subsolutions of \cite{LM26} (with $\rhom=A$). We expect the proof below to
+apply to it after adapting Steps~1 and~4, which use periodic tools: Liouville's theorem on the cylinder and the periodic far-field limits of Cauchy integrals (Lemma~\ref{lem:cauchy}(c)) in Step~1,
+and the injectivity of $I-2A\Kop_0$ on $C^{0,\gamma}(\T)$ (Proposition~\ref{prop:invert}) in Step~4. In \cite{LM26} the Saffman--Taylor densities do not decay at infinity, the Cauchy integrals are
+taken in the principal value sense at infinity \cite[Sec.~3.3.2]{LM26}, and $I-AP$ is inverted on $H^j(\R)$ \cite[Prop.~6.1]{LM26}; we have not carried out this adaptation. For the single-layer
+subsolutions actually constructed in \cite{LM26}, the conclusions of Theorem~\ref{thm:B} are immediate: their central curve $z=\frac12[(1-A)z_++(1+A)z_-]$ is the centre of mass of the strip and
+starts with the Muskat normal velocity by construction \cite[Sec.~3.3.4 and Lemma~5.2]{LM26}; and, for every opening $c$ with which their single layer is a subsolution, letting $t\to0$ in
+their hull condition \cite[(4.14)]{LM26} gives \eqref{x:LM-range} with $\le$ in place of $<$, hence $\Phi(\kappa)\le0$ (see the discussion after Theorem~\ref{thm:B}). For their stated range
+$0<\bar c<\frac12$ \cite[(7.13)]{LM26}, with $(1-A^2)\kappa=c=-\bar c\,\sig_0$, this is simply $2(1-A^2)\kappa+\sig_0=(1-2\bar c)\sig_0<0$, which gives $\Phi(\kappa)<0$. The content of
+Theorem~\ref{thm:B} concerns the other single strips: other boundary motions, other tilts, other intermediate densities and, more generally, other states in the strip.
+
+The proof is built from ingredients of \cite{LM26}, which are used there constructively. The boundary motion determines the pressure, hence the Darcy field \cite[Sec.~3.3.2]{LM26} (Step~1);
+the Rankine--Hugoniot conditions determine the boundary data of the relaxed flux \cite[Sec.~3.3.1 and (4.12)]{LM26} (Step~2); on a strip of width $O(t)$ the transverse derivative involves $t^{-1}$
+times the difference of the boundary data \cite[Sec.~3.3.4]{LM26} (Step~3); equal leading boundary data correspond to the Muskat velocity of the central curve \cite[Lemma~5.2]{LM26}, through the
+invertibility of $I-AP$ \cite[Prop.~6.1]{LM26} (Step~4); and Step~5 evaluates at $t=0$ the hull condition, which for $\rhom=A$ is \cite[(4.14)]{LM26}, the term in $\gamma_0$ coming from
+\cite[(3.7b)]{LM26} through Proposition~\ref{prop:gamma} and the computation of Lemma~\ref{lem:hull0}. For the flat interface, (a) and (b) are contained in \cite[Sec.~3.2]{LM26}, within its ansatz $\bar u=0$, $\bar m$ constant and vertical, with an
+arbitrary intermediate density $\theta_{\rm mix}$: the mass balance $(1-\theta_{\rm mix})h_+=(1+\theta_{\rm mix})h_-$ puts the centre of mass at rest, which is (a) with $U_0=0$, and the hull
+condition $|\gamma|<\frac12$ there reads $0<\kappa<1/(1-A\theta_{\rm mix})=\kmax$, which is (b) with $\sig_0=-2$ and $\gamma_0=0$.
+
+We use Lemma~\ref{lem:limits} in the following form, in which the curves are only assumed to satisfy (S1).
+
+\begin{lemma}\label{x:lem-limits-S1}
+Let $z_0\in\Zc^{3,\gamma}$, let $z^\pm$ satisfy (S1), with $W^\pm:=\partial_tz^\pm(\cdot,0)\cdot n_0\in C^{0,\gamma}(\T)$, and define $f^\pm,v_S^\pm,F^\pm,M$ by
+\eqref{eq:densities}--\eqref{eq:M}. Then, uniformly on $\T$ as $t\to0$, $v_S^\pm(\cdot,t)\to v_S^{(0)}$, $F^\pm(\cdot,t)\to F_0^\pm$ and $M(\cdot,t)\to M_0=F_0^+-F_0^-$, where $v_S^{(0)}$ and
+$M_0$ are given by \eqref{eq:vS0}--\eqref{eq:M0}, and $F_0^\pm$ are obtained from \eqref{eq:Fplus}--\eqref{eq:Fminus} by replacing $z^\pm$, $n^\pm$, $V^\pm$ and $v_S^\pm$ with $z_0$, $n_0$,
+$W^\pm$ and $v_S^{(0)}$. If moreover $W^\pm=U_0\pm(1\pm\rhom)\kappa$ with $\kappa\in C^{0,\gamma}(\T)$, then \eqref{eq:F0} holds.
+\end{lemma}
+
+\begin{proof}
+By (S1), $z^\pm(\cdot,t)\to z_0$ in $C^{1,\gamma}$, with $\delta(z^\pm(\cdot,t))$ bounded below, and $\partial_tz^\pm(\cdot,t)\to\partial_tz^\pm(\cdot,0)$ in $C^{0,\gamma}$. Hence $n^\pm$,
+$|\partial_\alpha z^\pm|$ and $V^\pm$ converge in $C^{0,\gamma}$ to $n_0$, $|\partial_\alpha z_0|$ and $W^\pm$, and $f^\pm$ converges in $C^{0,\gamma}$ to $f_0^\pm$. The proof of
+Lemma~\ref{lem:limits} uses only these convergences, Lemma~\ref{lem:continuity} (each of the curves $\Gamma^\pm(t)$ lies on the appropriate side of the other by (S1)), Lemma~\ref{lem:cauchy}(b)--(c)
+and Proposition~\ref{prop:sigma}; it does not use the polynomial dependence on $t$ or the $C^{3,\gamma}$ regularity assumed there. It therefore applies without change.
+\end{proof}
+
 \begin{proof}[Proof of Theorem~\ref{thm:B}]
 Let $n^\pm$, $V^\pm=\partial_tz^\pm\cdot n^\pm$, $f^\pm$ and $v_S^\pm$ be defined from $z^\pm$ as in Section~\ref{sec:ansatz}, and let $v:=\bar u+A\bar m$ be the Darcy field of the subsolution.
+The identities of Steps~1--3 are obtained by testing the equations with functions of the form $\psi(t)\chi(x)$, so they hold for a.e.\ $t\in(0,T)$; in Steps~4 and~5 we pass to the limit
+$t\to0$ along a sequence $t_k\to0$ of such times.
 
 \emph{Step 1: the Darcy field.} By \eqref{eq:linear}, $\curl v=-\partial_1\bar\rho$ and $\dvg v=\dvg\bar u+A\dvg\bar m=-A\partial_t\bar\rho$ in $\mathcal D'$. By (S1) and (S3), $\partial_t\bar\rho=-\sum_\pm\jump\rho^\pm V^\pm\,\mathcal H^1\llcorner\Gamma^\pm(t)$,
 so for a.e.\ $t$ the field $v(\cdot,t)$ has the same distributional curl and divergence as $W:=\Cf[z^+;f^+]+\Cf[z^-;f^-]$ (Lemma~\ref{lem:cauchy}(b) and the computation of the jumps of $f^\pm$ in the proof of
@@ -30,42 +69,63 @@ Lemma~\ref{lem:linear}). Hence $w:=v-W$ is a bounded, periodic field with $\dvg 
 Outside the strip $\bar m=\pm\bar u$, so (S5) gives $v\to0$ as $|x_2|\to\infty$, whereas $W\to\pm\frac{AQ}{4\pi}\ee$ (see the proof of Lemma~\ref{lem:mass}). Comparing the limits at $\pm\infty$, the constant is $0$ (and
 $AQ=0$). Thus $v(\cdot,t)=W$ for a.e.\ $t$: the Darcy field of any single-strip subsolution is the one of our ansatz.
 
-\emph{Step 2: boundary fluxes.} By (S4), the conservation law $\partial_t\bar\rho+\dvg\bar m=0$ and $\dvg\bar u=0$ imply the Rankine--Hugoniot conditions $\jump{\bar\rho}V^\pm=\jump{\bar m\cdot n^\pm}$ and
-$\jump{\bar u\cdot n^\pm}=0$ pointwise on $\Gamma^\pm(t)$. Inside the strip, $\dvg\bar m=0$ and $\dvg v=0$, so the field $D:=\frac{2[(1-A^2)\bar m-(\rhom-A)v]}{1-\rhom^2}+2\ee$ of \eqref{eq:Da} is
+\emph{Step 2: boundary fluxes.} By (S4), the conservation law $\partial_t\bar\rho+\dvg\bar m=0$ and $\dvg\bar u=0$ imply, for a.e.\ $t$, the Rankine--Hugoniot conditions
+$\jump{\bar\rho}V^\pm=\jump{\bar m\cdot n^\pm}$ and $\jump{\bar u\cdot n^\pm}=0$ pointwise on $\Gamma^\pm(t)$: for a.e.\ $t$,
+$\dvg\bar m(\cdot,t)=-\partial_t\bar\rho(\cdot,t)=\sum_\pm\jump\rho^\pm V^\pm\,\mathcal H^1\llcorner\Gamma^\pm(t)$ by Step~1, while the Gauss--Green formula in each region, which applies by (S4),
+identifies $\dvg\bar m(\cdot,t)$ with $\sum_\pm\jump{\bar m\cdot n^\pm}\mathcal H^1\llcorner\Gamma^\pm(t)$; similarly for $\bar u$, with $\dvg\bar u=0$. Inside the strip, $\dvg\bar m=0$ and $\dvg v=0$, so the field $D:=\frac{2[(1-A^2)\bar m-(\rhom-A)v]}{1-\rhom^2}+2\ee$ of \eqref{eq:Da} is
 divergence-free in $S_t$ and continuous on $\overline{S_t}$. Reading the computation in the proof of Lemma~\ref{lem:linear} backwards, the Rankine--Hugoniot conditions determine the normal traces
-of $D$ from inside the strip:
+of $D$ from inside the strip: for a.e.\ $t$,
 \begin{equation}\label{eq:D-traces}
 D\cdot n^\pm\,|\partial_\alpha z^\pm|=F^\pm\qquad\text{on }\Gamma^\pm(t),
 \end{equation}
-with $F^\pm$ given by \eqref{eq:Fplus}--\eqref{eq:Fminus}. Since $(\bar\rho,\bar u,\bar m)\in\Uc_A$ in $S_t$, $D$ lies in the disc $\{|D-a|<|a|\}$, so $|D|\le2|a|\le C$, with $C$ independent of $t$ because $v$ is
-bounded uniformly in $t$ (Lemma~\ref{lem:cauchy}(b)).
+with $F^\pm$ given by \eqref{eq:Fplus}--\eqref{eq:Fminus}. Since $(\bar\rho,\bar u,\bar m)\in\Uc_A$ in $S_t$, $D$ lies in the disc $\{|D-a|<|a|\}$, so $|D|\le2|a|\le C$, with $C$ independent of $t$
+because $v=\bar u+A\bar m$ is bounded (Definition~\ref{def:subsol}).
 
-\emph{Step 3: flux balance.} On the periodic lift of $\overline{S_t}$, a simply connected strip, write $D=\nabla^\perp\Psi$ with $\Psi\in C^1$. By \eqref{eq:D-traces},
-$\partial_\alpha\big(\Psi\circ z^\pm\big)=F^\pm$, hence
+\emph{Step 3: flux balance.} Let $t$ be such that \eqref{eq:D-traces} holds. On the periodic lift of $\overline{S_t}$, a simply connected strip, write $D=\nabla^\perp\Psi$ with $\Psi\in C^1$. By
+\eqref{eq:D-traces}, $\partial_\alpha\big(\Psi\circ z^\pm\big)=F^\pm$, hence
 \[
 \Psi(z^+(\alpha,t))-\Psi(z^-(\alpha,t))=\Psi(z^+(0,t))-\Psi(z^-(0,t))+\int_0^\alpha M(\beta,t)\dd\beta .
 \]
-By (S2) the left-hand side, and the first two terms on the right, are bounded by $\sup|D|\cdot2C_Xt\le Ct$. Thus $\big|\int_{\alpha_1}^{\alpha_2}M(\beta,t)\dd\beta\big|\le Ct$ for all $\alpha_1,\alpha_2$.
+By (S2) the left-hand side, and the first two terms on the right, are bounded by $\sup|D|\cdot2C_Xt\le Ct$. Thus $\big|\int_{\alpha_1}^{\alpha_2}M(\beta,t)\dd\beta\big|\le Ct$ for all $\alpha_1,\alpha_2$,
+for a.e.\ $t$.
 
-\emph{Step 4: velocity of the centre of mass.} By (S1) and Lemma~\ref{lem:continuity}, $v_S^\pm(\cdot,t)\to v_S^{(0)}$ and $F^\pm(\cdot,t)\to F_0^\pm$ uniformly as $t\to0$, where the limits are computed exactly as in the
-proof of Lemma~\ref{lem:limits} (which only uses the values of $z^\pm$ and $\partial_tz^\pm$ at $t=0$). In particular $M(\cdot,t)\to M_0$ uniformly, with $M_0$ given by \eqref{eq:M0}. Step~3 gives
-$\int_{\alpha_1}^{\alpha_2}M_0=0$ for all $\alpha_1,\alpha_2$, so $M_0\equiv0$, i.e.\ $(I-2A\Kop_0)\overline W=2\Kop_0[n_{0,2}]$. Since $U_0$ solves the same equation (proof of Lemma~\ref{lem:limits}) and
-$I-2A\Kop_0$ is injective (Proposition~\ref{prop:invert}), $\overline W=U_0$. This is (a): writing $\kappa=\frac12(W^+-W^-)$, the identity $(1-\rhom)(W^+-U_0)+(1+\rhom)(W^--U_0)=0$ gives
-$W^\pm=U_0\pm(1\pm\rhom)\kappa$. Finally $\kappa\ge0$: to first order in $t$, $\Gamma^\pm(t)$ is the normal graph $\{z_0(\alpha)+tW^\pm(\alpha)n_0(\alpha)\}$ over $z_0$, up to $o(t)$, and $\Gamma^+(t)$ lies above
-$\Gamma^-(t)$.
+\emph{Step 4: velocity of the centre of mass.} By Lemma~\ref{x:lem-limits-S1}, $M(\cdot,t)\to M_0$ uniformly as $t\to0$, with $M_0$ given by \eqref{eq:M0}. Applying Step~3 along a sequence
+$t_k\to0$ gives $\int_{\alpha_1}^{\alpha_2}M_0=0$ for all $\alpha_1,\alpha_2$, so $M_0\equiv0$, i.e.\ $(I-2A\Kop_0)\overline W=2\Kop_0[n_{0,2}]$. Since $U_0$ solves the same equation (proof of
+Lemma~\ref{lem:limits}) and $I-2A\Kop_0$ is injective on $C^{0,\gamma}(\T)$ (Proposition~\ref{prop:invert}), $\overline W=U_0$. This is (a): writing $\kappa=\frac12(W^+-W^-)$, the identity
+$(1-\rhom)(W^+-U_0)+(1+\rhom)(W^--U_0)=0$ gives $W^\pm=U_0\pm(1\pm\rhom)\kappa$.
 
-\emph{Step 5: the relaxation inequality.} Fix $\alpha$ and $t\in(0,T]$. The trace of $D$ at $z^+(\alpha,t)$ from inside the strip lies in the closed disc centred at $a_S^+:=\ee+\frac{A}{\mum}v_S^+(\alpha,t)$ with radius
-$|a_S^+|$, and by \eqref{eq:D-traces} its component along $n^+$ is $F^+/|\partial_\alpha z^+|$. Therefore
+Finally, $\kappa\ge0$. For some $\eps>0$ the map $Y(\beta,s):=z_0(\beta)+s\,n_0(\beta)$ is a $C^1$ diffeomorphism from $\R\times(-\eps,\eps)$ onto a neighbourhood of $z_0(\R)$, with
+$DY(\beta,0)^{-1}w=(w\cdot\tau_0/|\partial_\beta z_0|,\,w\cdot n_0)$. By (S1), $z^\pm(\cdot,t)\to z_0$ in $C^1$ and $z^\pm(\cdot,t)=z_0+t\,\partial_tz^\pm(\cdot,0)+o(t)$ uniformly. Hence, for small $t$,
+$(\beta^\pm,s^\pm)(\cdot,t):=Y^{-1}\circ z^\pm(\cdot,t)$ satisfy $\partial_\alpha\beta^\pm\to1$, $\beta^\pm(\alpha,t)=\alpha+O(t)$ and $s^\pm(\alpha,t)=tW^\pm(\alpha)+o(t)$ uniformly. So
+$\beta^\pm(\cdot,t)$ is a diffeomorphism, $\Gamma^\pm(t)=\{Y(\beta,\eta^\pm(\beta,t))\}$ with $\eta^\pm(\cdot,t):=s^\pm(\cdot,t)\circ\beta^\pm(\cdot,t)^{-1}$, and, by the uniform continuity of
+$W^\pm$, $\eta^\pm(\cdot,t)=tW^\pm+o(t)$ uniformly: the tangential parts of $\partial_tz^\pm(\cdot,0)$ only reparametrise the curves. Near $z_0(\R)$ the region $\Omega^+(z^-(\cdot,t))$ is
+$\{Y(\beta,s):s>\eta^-(\beta,t)\}$ (tubular neighbourhood argument, as for Lemma~\ref{lem:geometry}), so $\Gamma^+(t)\subset\Omega^+(z^-(\cdot,t))$ gives $\eta^+>\eta^-$. Dividing by $t$
+and letting $t\to0$, $W^+\ge W^-$, i.e.\ $\kappa\ge0$.
+
+\emph{Step 5: the relaxation inequality.} Fix $\alpha$, and $t\in(0,T)$ such that \eqref{eq:D-traces} holds. The trace of $D$ at $z^+(\alpha,t)$ from inside the strip lies in the closed disc
+centred at $a_S^+:=\ee+\frac{A}{\mum}v_S^+(\alpha,t)$ with radius $|a_S^+|$, and by \eqref{eq:D-traces} its component along $n^+$ is $F^+/|\partial_\alpha z^+|$. Therefore
 \[
 \Big(\frac{F^+}{|\partial_\alpha z^+|}-a_S^+\cdot n^+\Big)^2\le|a_S^+|^2 .
 \]
-Let $t\to0$. By Step~4 and part (a), the computation of Lemma~\ref{lem:limits} applies with $W^\pm=U_0\pm(1\pm\rhom)\kappa$, so $F^+/|\partial_\alpha z^+|\to-\sig_0-2(1-A\rhom)\kappa$, and $a_S^+\to a^{(0)}$,
-whose components are given by \eqref{eq:a0}. Writing $D_n$, $a_n$, $a_\tau$ as in the proof of Lemma~\ref{lem:hull0}, the limit inequality reads $D_n(D_n-2a_n)-a_\tau^2\le0$, and the computation there shows
-that the left-hand side equals $\frac{2(1-A^2)}{\mum}\Phi(\kappa)$. Hence $\Phi(\kappa)\le0$, which is (b). Since $\Phi(\kappa)>0$ for $\kappa>\kmax$, we get $\kappa\le\kmax$, and $\kmax=0$ on $\Pinch(z_0)$.
+Let $t=t_k\to0$. By Lemma~\ref{x:lem-limits-S1} and part (a), the computation of Lemma~\ref{lem:limits} applies with $W^\pm=U_0\pm(1\pm\rhom)\kappa$, so
+$F^+/|\partial_\alpha z^+|\to-\sig_0-2(1-A\rhom)\kappa$, and $a_S^+\to a^{(0)}$, whose components are given by \eqref{eq:a0}. Writing $D_n$, $a_n$, $a_\tau$ as in the proof of
+Lemma~\ref{lem:hull0}, the limit inequality reads $D_n(D_n-2a_n)-a_\tau^2\le0$, and the computation there shows that the left-hand side equals $\frac{2(1-A^2)}{\mum}\Phi(\kappa)$. Hence
+$\Phi(\kappa)\le0$, which is (b). Since $\Phi(\kappa)>0$ for $\kappa>\kmax$, we get $\kappa\le\kmax$, and $\kmax=0$ on $\Pinch(z_0)$.
 \end{proof}
 
-\begin{remark}
-The proof shows more precisely where the constraints come from. Part (a) is a consequence of mass conservation in a strip of width $O(t)$ (Step~3); part (b) only uses the relaxation inequality on the
-\emph{boundary} of the strip, where the normal component of the relaxed flux is fixed by the Rankine--Hugoniot conditions. The tangential component is free in (b), and the bound $\Phi(\kappa)\le0$ is attained by
-the optimal tilt of Lemma~\ref{lem:hull0}. Thus Theorems~\ref{thm:A} and \ref{thm:B} together identify the admissible opening functions of single-strip subsolutions up to the boundary case $\Phi(\kappa)=0$.
+\begin{remark}\label{x:rem-necessity}
+The proof shows where the constraints come from, and it reads the mechanism of the construction of \cite{LM26} as a necessity argument. Part~(a) is a consequence of mass conservation in a
+strip of width $O(t)$ (Step~3): as for the potential of \cite{LM26}, whose transverse derivative involves $t^{-1}\partial_\lambda G$ \cite[Sec.~3.3.4]{LM26}, the boundary fluxes must agree at
+leading order, and this forces the Muskat velocity of the centre of mass, as in the first order compatibility condition \cite[Lemma~5.2]{LM26}. Part~(b) only uses the relaxation inequality on the
+\emph{boundary} of the strip, where the normal component of the relaxed flux is fixed by the Rankine--Hugoniot conditions, as in \cite[(4.12)]{LM26}; Steps~2 and~5 use only the closed disc
+(see Section~\ref{x:target-set}). The tangential component is free in (b), and minimising over it gives $\Phi(\kappa)\le0$; the minimiser is the optimal tilt $\delta_*$ of Lemma~\ref{lem:hull0},
+with which Theorem~\ref{thm:A} realises, for $z_0\in\Zc^{6,\gamma}$, every $\kappa\in C^{4,\gamma}(\T)$ with $0<\kappa<\kmax$.
+
+The gap between Theorems~\ref{thm:A} and~\ref{thm:B} is larger than the boundary case $\Phi(\kappa)=0$. Theorem~\ref{thm:A} requires $z_0\in\Zc^{6,\gamma}$, $\kappa\in C^{4,\gamma}(\T)$ and
+$\min\kappa>0$, whereas Theorem~\ref{thm:B} applies to $z_0\in\Zc^{3,\gamma}$ and yields $\kappa\in C^{0,\gamma}(\T)$ with $\kappa\ge0$. Openings $0\le\kappa<\kmax$ that vanish at some points are
+not covered by Theorem~\ref{thm:A}, even if $\gamma_0\ne0$ at these points, so that $\Phi(\kappa)<0$ holds everywhere; nor are openings or interfaces of lower regularity (see
+Section~\ref{sec:remarks}).
+
+The proof of Theorem~\ref{thm:B} uses Lemma~\ref{lem:continuity}, hence the uniformity of the Plemelj--Privalov constants over the curves $z^\pm(\cdot,t)$ (point (a) of
+Appendix~\ref{x:app-sketch}), but not the sketched Lemmas~\ref{lem:timereg} and~\ref{lem:accel}.
 \end{remark}

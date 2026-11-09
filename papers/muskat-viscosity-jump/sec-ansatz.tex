@@ -29,7 +29,8 @@ mapping $\lambda=\pm1$ onto $\Gamma^\pm(t)$. Moreover $z^\pm$ are polynomials in
 
 \begin{proof}
 All statements follow from $z^\pm(\cdot,t)-z_0=O(t)$ in $C^{3,\gamma}$, the continuity of $\delta$ with respect to the $C^1$ norm, $z^+-z^-=2t\kappa n_0$ with $\kappa>0$, and the fact that
-$\partial_\alpha X=\partial_\alpha z_0+O(t)$ and $\partial_\lambda X=t\kappa n_0$ are linearly independent; injectivity of $X$ for small $t$ is the usual tubular neighbourhood argument.
+$\partial_\alpha X=\partial_\alpha z_0+O(t)$ and $\partial_\lambda X=t\kappa n_0$ are linearly independent; injectivity of $X$ for small $t$ is the usual tubular neighbourhood argument, as in
+\cite[Lemma~B.1]{CFM22} and \cite[Lemma~4.1]{LM26}.
 \end{proof}
 
 We denote by $n^\pm$ the upward unit normals of $\Gamma^\pm(t)$ and by
@@ -40,6 +41,8 @@ their normal velocities. Note that the central curve $Z$ is the \emph{centre of 
 \begin{equation}\label{eq:com}
 Z=\tfrac12\big[(1-\rhom)z^++(1+\rhom)z^-\big].
 \end{equation}
+The relation $(1-\rhom)c^+=(1+\rhom)c^-$ is the mass balance $(1-\theta_{\rm mix})h_+=(1+\theta_{\rm mix})h_-$ of the flat strip of \cite[Sec.~3.2]{LM26}; for $\rhom=A$
+it is built into the opening speeds $c/(1\mp A)$ of the boundaries in \cite[(4.2)]{LM26}, and \cite[Sec.~7.5]{LM26} contains its multilayer analogue.
 
 \subsection{The subsolution}
 Let $\jump{\rho}^+:=1-\rhom$ and $\jump{\rho}^-:=1+\rhom$ be the jumps of the density across $\Gamma^\pm$, and define
@@ -75,19 +78,25 @@ Finally we set $\bar\rho(\cdot,0)=\rho_0$ and, for $0<t\le T_1$,
 \end{cases}
 \end{equation}
 By construction, in $S_t$ the Darcy field of the state is $\bar u+A\bar m=v$, and the quantities \eqref{eq:Da} are $d=D-2\ee$, $D=\nabla^\perp\Psi$ and $a=\ee+\frac A\mum v$.
+This is the single-layer ansatz of \cite[Secs.~4.2--4.6]{LM26} in our variables: $v=-\nabla p-\bar\rho\ee$, with $\nabla p$ a sum of Cauchy integrals over the two boundaries as in
+\cite[(4.8)]{LM26}; the densities $f^\pm$ are fixed by the boundary motion through the Saffman--Taylor densities of $\Gamma^\pm$, as in \cite[(4.7)]{LM26} (and \cite[(7.16)]{LM26} for general
+density jumps); $F^\pm$ correspond to the Rankine--Hugoniot boundary data \cite[(4.12)]{LM26}; and the stream function $\Psi$, interpolated linearly across the strip between primitives of
+these data, plays the role of the potential $g$ of \cite[(4.13)]{LM26} (for $\rhom=A$, $D=(Au+\ee)-2\nabla^\perp g$, Remark~\ref{x:rem-LM26-layer}).
 
 \begin{lemma}[The linear equations]\label{lem:linear}
 Assume that
 \begin{equation}\label{eq:mass-cond}
 \int_\T M(\alpha,t)\dd\alpha=0\qquad\text{for all }t\in(0,T_1].
 \end{equation}
-Then $D$ is well defined and $2\pi$-periodic in $x_1$, $(\bar\rho,\bar u,\bar m)$ is bounded, and it solves \eqref{eq:linear} in the sense of distributions on $\T\times\R\times[0,T_1)$ with initial datum $\rho_0$.
-Outside the closure of $\bigcup_t S_t\times\{t\}$ it takes values in $\Kc$.
+Then $D$ is well defined and $2\pi$-periodic in $x_1$, and $(\bar\rho,\bar u,\bar m)(\cdot,t)$ is bounded for each $t\in(0,T_1]$. If moreover $(\bar\rho,\bar u,\bar m)$ is bounded
+on $\T\times\R\times(0,T_1]$, uniformly in $t$ (this holds under the hypotheses of Lemma~\ref{lem:stream}; see the proof of Theorem~\ref{thm:A}), then it solves \eqref{eq:linear} in the sense
+of distributions on $\T\times\R\times[0,T_1)$ with initial datum $\rho_0$. Outside the closure of $\bigcup_t S_t\times\{t\}$ it takes values in $\Kc$.
 \end{lemma}
 
 \begin{proof}
 \emph{Periodicity.} $\Psi^\pm(\alpha+2\pi,t)=\Psi^\pm(\alpha,t)+\Phi^\pm(t)$ with $\Phi^\pm=\int_\T F^\pm$, and $\Phi^+=\Phi^-$ by \eqref{eq:mass-cond}. Since $X(\alpha+2\pi,\lambda,t)=X(\alpha,\lambda,t)+2\pi e_1$, we get
-$\Psi(x+2\pi e_1)=\Psi(x)+\Phi^+$, so $D=\nabla^\perp\Psi$ is periodic. $\Psi$ is $C^1$ up to $\partial S_t$, hence $D$ is bounded.
+$\Psi(x+2\pi e_1)=\Psi(x)+\Phi^+$, so $D=\nabla^\perp\Psi$ is periodic. $\Psi$ is $C^1$ up to $\partial S_t$, hence $D(\cdot,t)$ is bounded for each $t$. A bound uniform in
+$t$ needs more: since the strip has width $O(t)$, it requires $\int_0^\alpha M+C_\Psi=O(t)$, as in the hypotheses of Lemma~\ref{lem:stream}.
 
 \emph{The equations in the open regions.} In each of the three open regions $\bar\rho$ is constant; $v$ is divergence-free and curl-free there by Lemma~\ref{lem:cauchy}(a), and $\dvg D=\dvg\nabla^\perp\Psi=0$.
 Hence $\dvg\bar m=0$, $\dvg\bar u=\dvg v-A\dvg\bar m=0$ and $\curl(\bar u+A\bar m)=\curl v=0$ in each region. Outside the strip, $\bar m=\bar\rho\bar u$ with $\bar\rho=\pm1$, i.e.\ the state is in $\Kc$.
@@ -96,7 +105,7 @@ Hence $\dvg\bar m=0$, $\dvg\bar u=\dvg v-A\dvg\bar m=0$ and $\curl(\bar u+A\bar 
 \[
 \jump{\bar\rho}V=\jump{\bar m\cdot n},\qquad \jump{\bar u\cdot n}=0,\qquad \jump{(\bar u+A\bar m)\cdot\tau}=-\jump{\bar\rho}\tau_2 .
 \]
-(The initial condition holds because the fields are bounded and $\bar\rho(\cdot,t)\to\rho_0$ in $L^1_{\rm loc}$.) Consider $\Gamma^+$. The jump of $v$ across $\Gamma^+$ is $f^+$ (the field $\Cf[z^-;f^-]$ is
+(The initial condition holds because the fields are bounded uniformly in $t$ and $\bar\rho(\cdot,t)\to\rho_0$ in $L^1_{\rm loc}$.) Consider $\Gamma^+$. The jump of $v$ across $\Gamma^+$ is $f^+$ (the field $\Cf[z^-;f^-]$ is
 continuous there), and $f^+\cdot\tau^+=-\jump{\rho}^+\tau_2^+$, $f^+\cdot n^+=A\jump{\rho}^+V^+$. Since $\bar u+A\bar m=v$ on both sides, the third condition holds. Next, the flux of $\nabla^\perp\Psi$ through
 $\Gamma^+$ per unit $\alpha$ is $\nabla\Psi\cdot\partial_\alpha z^+=\partial_\alpha(\Psi\circ z^+)=\partial_\alpha\Psi^+=F^+$, so on the strip side
 \[
@@ -112,8 +121,8 @@ $(D-2\ee)\cdot n^-=\frac{2}{1-\rhom}((1+A)V^--v_S^-\cdot n^-)$, which gives $(1-
 $\bar m\cdot n^-=-(v_S^-\cdot n^--A(1+\rhom)V^-)/(1-A)$; hence $\jump{\bar m\cdot n^-}=(1+\rhom)V^-$ and $\jump{\bar u\cdot n^-}=0$.
 \end{proof}
 
-Thus the ansatz \eqref{eq:subsol} solves the linear system exactly, whatever the curves $z^\pm$ are, provided \eqref{eq:mass-cond} holds; the only remaining requirement for a subsolution is the
-open condition $D\cdot(D-2a)<0$ in $S_t$. The next lemma identifies \eqref{eq:mass-cond} with the conservation of mass.
+Thus the ansatz \eqref{eq:subsol} solves the linear system exactly, whatever the curves $z^\pm$ are, provided \eqref{eq:mass-cond} holds and the fields are bounded uniformly in $t$; the only
+remaining requirement for a subsolution is the open condition $D\cdot(D-2a)<0$ in $S_t$. The next lemma identifies \eqref{eq:mass-cond} with the conservation of mass.
 
 \begin{lemma}[Mass identity]\label{lem:mass}
 Let $\mathcal A^\pm(t):=\int_\T z_2^\pm\,\partial_\alpha z_1^\pm\dd\alpha$, so that $\frac{\dd}{\dd t}\mathcal A^\pm=\int_\T V^\pm|\partial_\alpha z^\pm|\dd\alpha$, and
@@ -148,11 +157,16 @@ and the difference is $\frac{2}{1-\rhom^2}\big(-\rhom AQ-(1-A\rhom)Q\big)=-\frac
 
 \begin{remark}\label{rem:centre-of-mass}
 $Q=0$ means that $(1-\rhom)\mathcal A^++(1+\rhom)\mathcal A^-$ is constant, i.e.\ that the total mass $\int(\bar\rho-\rho_{\rm ref})$ over a period is conserved. In view of \eqref{eq:com},
-the central interface $Z$ separates, to first order in the width of the strip, the same amounts of heavy and light fluid as the strip itself; this is why $Z$ must move, to leading order, with the
-normal velocity of the Muskat problem (Lemma~\ref{lem:limits}).
+the central interface $Z$ separates, to first order in the width of the strip, the same amounts of heavy and light fluid as the strip itself. Heuristically, this is why $Z$ must move, to leading
+order, with the normal velocity of the Muskat problem. Lemma~\ref{lem:mass} is, however, a global identity: the pointwise statement comes from the local flux balance $M_0=0$
+(Lemma~\ref{lem:limits}), and its necessity is the content of Theorem~\ref{thm:B}(a). In \cite{LM26}, too, the central curve starts with the normal velocity of the Muskat problem
+\cite[Sec.~3.3.4 and Lemma~5.2]{LM26}. The condition \eqref{eq:mass-cond}, Lemma~\ref{lem:mass} and the vertical correction $h$ of Lemma~\ref{lem:shift} are specific to the periodic setting:
+in \cite{LM26} the boundary values of the potential are primitives normalised at $\alpha=0$ \cite[(4.13)]{LM26}, and the smallness of their transverse difference follows from uniform estimates
+for primitives on $\R$ \cite[Prop.~7.2 and Lemmas~8.2, 8.6]{LM26}.
 \end{remark}
 
-The following lemma shows that the tangential component of $D$ is controlled by the primitive of $M$, and its normal component by the boundary fluxes.
+The following lemma, the counterpart for our stream function $\Psi$ of the gradient formula \cite[(4.11)]{LM26} for the potential of \cite{LM26}, shows that the tangential component of
+$D$ is controlled by the primitive of $M$, and its normal component by the boundary fluxes.
 
 \begin{lemma}[The state in the strip]\label{lem:stream}
 Assume \eqref{eq:mass-cond}, and that there are $C_1\ge1$, $F_0\in C^0(\T)$ and $\delta\in C^0(\T)$ such that for $t\in(0,T_1]$
@@ -183,5 +197,13 @@ $D=\nabla^\perp\Psi=(\nabla\Psi\cdot\tau_0)\,n_0-(\nabla\Psi\cdot n_0)\,\tau_0$,
 \begin{remark}\label{rem:tilt}
 Lemma~\ref{lem:stream} isolates the two components of the relaxed flux $D$ in the strip. The normal component is fixed by the boundary fluxes $F^\pm$, i.e.\ by the Rankine--Hugoniot conditions;
 the tangential component $D\cdot\tau_0$ is the transverse difference quotient $-(\Psi^+-\Psi^-)/(2t\kappa)$, and it is of order one exactly when the primitive of the flux mismatch is of order $t$.
-Making $M=O(t^2)$, as in \cite{LM26}, forces $D\cdot\tau_0=O(t)$; prescribing instead the $O(t)$ part of $M$ produces any desired tilt $\delta$.
+This is the structure of the construction of \cite{LM26}, with their potential $g$ in place of $\Psi$: the boundary motion determines the tangential derivatives of the values $G_\pm$ of $g$ on
+the two boundaries \cite[Sec.~3.3.1 and (4.12)]{LM26}, and the transverse derivative of $g$ involves $t^{-1}\partial_\lambda G$, where $\partial_\lambda G$ is the derivative of $g$ in the
+transverse variable of their strip coordinates \cite[Sec.~3.3.4 and (4.11)]{LM26}.
+For our ansatz, $M=O(t^2)$ together with $C_\Psi=O(t^2)$ forces $D\cdot\tau_0=O(t)$; prescribing instead the $O(t)$ part of $M$ produces any desired tilt $\delta$ (Lemma~\ref{lem:shift}).
+The normalisation of \cite{LM26} is a different one. It is imposed on $g$: the acceleration of the central curve cancels the $O(t)$ part of $\partial_\alpha G_+-\partial_\alpha G_-$, so that
+$\partial_\lambda G=O(t^2)$ \cite[Sec.~3.3.4, Lemma~5.3 and Prop.~7.2]{LM26}. For $\rhom=A$, in our variables this gives the tilt
+$\delta_{\rm LM}=-(1-A^2)\gamma_0/(2+A^2)$, not $\delta=0$, and on their subsolution $M=-2t\,\partial_\alpha(\kappa\delta_{\rm LM})+O(t^2)$ (Remark~\ref{x:rem-LM26-layer}). Thus the
+correspondence between $M$ and $\partial_\alpha G_+-\partial_\alpha G_-$ holds only at order $t^0$, where both vanish by the first order compatibility condition (Lemma~\ref{lem:limits} and
+\cite[Lemma~5.2]{LM26}).
 \end{remark}

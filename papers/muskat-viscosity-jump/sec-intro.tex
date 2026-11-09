@@ -9,7 +9,7 @@ different viscosities, and their evolution is governed by the \emph{incompressib
 \partial_t\rho+\dvg(\rho u)=0,\qquad \dvg u=0,\qquad \mu(\rho)\,u=-\nabla p-\rho\,\ee,\qquad (x,t)\in\T\times\R\times(0,T),
 \end{equation}
 where $\T=\R/2\pi\mathbb Z$, $\ee=(0,1)$, $u$ is the velocity, $p$ the pressure, $\rho$ the density and $\mu(\rho)$ the viscosity (permeability and gravity are normalised to one).
-After subtracting a hydrostatic pressure and rescaling,
+After subtracting a hydrostatic pressure and rescaling (as in \cite[Sec.~1.1]{LM26}),
 \begin{equation}\label{eq:normalisation}
 \rho\in\{-1,1\},\qquad \mu(\rho)=1+A\rho,\qquad A=\frac{\mu^+-\mu^-}{\mu^++\mu^-}\in(-1,1),
 \end{equation}
@@ -23,20 +23,25 @@ the \emph{Saffman--Taylor function} and the \emph{vortex-sheet strength}
 \end{equation}
 where $n$ and $\tau$ are the upward normal and the tangent, and $\pm$ denote traces from above and below. If $\sig>0$ the problem is locally well-posed
 \cite{Amb04,CG07,CCG11,Mat19,NP20} (see the surveys \cite{Gan17,GBL20}); if $\sig<0$ it is ill-posed \cite{SCH04,CG07}: this is the Saffman--Taylor instability \cite{ST58,Hom87}.
-In our normalisation $\sig=-2(n_2+AU)$, where $U=u\cdot n$, so the instability has a gravitational part ($n_2>0$: heavy fluid on top) and a viscous part ($AU>0$: the less viscous fluid
+In our normalisation $\sig=-2(n_2+AU)$, where $U=u\cdot n$ (cf.\ \cite[(3.8)]{LM26}), so the instability has a gravitational part ($n_2>0$: heavy fluid on top) and a viscous part ($AU>0$: the less viscous fluid
 pushes into the more viscous one).
 
 \subsection{Mixing solutions}
 In the unstable regime one looks for weak solutions in which the fluids mix at small scales inside a growing \emph{mixing zone}. Otto \cite{Ott99} described the flat case by a
 relaxation based on the gradient-flow structure; Sz\'ekelyhidi \cite{Sze12}, building on \cite{DLS09,CFG11,Shv11}, computed the relaxation of IPM for $A=0$ and constructed mixing
 solutions by convex integration. For curved interfaces and $A=0$, mixing solutions were constructed for fully unstable data in \cite{CCF21} (see also \cite{ACF21}), by piecewise constant
-subsolutions in \cite{FS18,NS21}, with degraded profiles in \cite{CFM19}, and with mixing zones localised near the unstable part of bubbles and turned interfaces in \cite{CFM22}.
-For $|A|<1$, Mengual \cite{Men22} proved the $h$-principle and treated the flat interface, observing that a \emph{pinch singularity} of the relaxation prevents mixing wherever there is
-neither Rayleigh--Taylor instability nor vorticity.
+subsolutions in \cite{FS18,NS21} (according to its abstract, \cite{FS18} also treats non-horizontal data in the Rayleigh--Taylor stable regime), with degraded profiles in \cite{CFM19}, and with
+localised mixing zones for bubbles and turned interfaces, reportedly opened slightly inside the stable regime, in \cite{CFM22}; we have not checked these statements on the stable regime
+against the full texts of \cite{FS18,CFM22}.
+For $|A|<1$, Mengual \cite{Men22} computed the lamination convex hull of IPM, proved the $h$-principle and treated the flat interface, showing how a \emph{pinch singularity} in the relaxation
+prevents the two fluids from mixing wherever there is neither Rayleigh--Taylor nor vorticity at the interface; the identification of the relaxation was completed in \cite[Thm.~2.4]{LM26}.
 
-Very recently, Luna-Velasco and Mengual \cite{LM26} constructed mixing solutions for curved interfaces with viscosity jump, under the assumption that the data are \emph{fully unstable},
-$\sig_0<0$ everywhere. Their key idea is to formulate the inversion of the Birkhoff--Rott operator in terms of $\sig$ rather than the vorticity. Their subsolutions consist of one (or finitely many)
-strips of constant intermediate density around a central curve, defined through a second order expansion in time as in \cite{FS18,CFM22}; the opening speeds are proportional to $\sig_0$.
+Very recently, Luna-Velasco and Mengual \cite{LM26} constructed mixing solutions for curved interfaces with viscosity jump, namely asymptotically flat chord-arc curves with
+$z_0-(\alpha,0)\in H^5(\R)$, under the assumption that the data are \emph{fully unstable}, $\sig_0<0$ everywhere. Their key idea is to formulate the inversion of the Birkhoff--Rott operator in
+terms of $\sig$ rather than the vorticity, which also gives a Saffman--Taylor formulation of the Muskat problem \cite[Sec.~3.1]{LM26}. Their subsolutions consist of one strip of intermediate
+density $A$, or of finitely many strips of different densities, around a central curve, defined through a second order expansion in time as in \cite{FS18,CFM22}; the opening speeds are proportional
+to $\sig_0$: in their notation $c=-\bar c\,\sig^{(0)}/|\partial_\alpha z^\circ|$ \cite[(7.13)]{LM26}, with $0<\bar c<\frac12$ for one strip and any $0<\bar c<1$ for several strips
+\cite[Sec.~7.5]{LM26} (see Section~\ref{x:relation} for the comparison with our notation).
 
 \subsection{Main results}
 Let $z_0\in\Zc^{k,\gamma}$, $k\ge3$, be a horizontally periodic interface (Definition~\ref{def:curves}) with upward normal $n_0$ and tangent $\tau_0$. By Propositions~\ref{prop:sigma}
@@ -44,19 +49,20 @@ and \ref{prop:gamma}, the Saffman--Taylor function, the normal velocity and the 
 \begin{equation}\label{eq:data}
 \sig_0=-2\big(I-2A\Kop_0\big)^{-1}[n_{0,2}],\qquad U_0=-\Kop_0\sig_0,\qquad \gamma_0=-2\big(I+2A\Kop_0\big)^{-1}[\tau_{0,2}],
 \end{equation}
-where $\Kop_0$ is the adjoint Neumann--Poincar\'e operator of $z_0$. For an intermediate density $\rhom\in(-1,1)$ let $\mum=1+A\rhom$ and define the \emph{admissibility function} and the
+where $\Kop_0$ is the adjoint Neumann--Poincar\'e operator of $z_0$. These are the horizontally periodic counterparts of \cite[(5.12)--(5.13)]{LM26} and of the relations between $\sig$ and
+the vorticity in \cite[(3.7b) and Sec.~3.1.3]{LM26}. For an intermediate density $\rhom\in(-1,1)$ let $\mum=1+A\rhom$ and define the \emph{admissibility function} and the
 \emph{maximal opening function}
 \begin{equation}\label{eq:Phi}
 \Phi(\kappa):=\kappa\big(2(1-A\rhom)\kappa+\sig_0\big)-\frac{(1-A^2)\gamma_0^2}{8\mum},\quad
 \kmax:=\frac{-\sig_0+\sqrt{\sig_0^2+(1-A\rhom)(1-A^2)\gamma_0^2/\mum}}{4(1-A\rhom)} .
 \end{equation}
-For $\kappa\ge0$, $\Phi(\kappa)<0$ if and only if $\kappa<\kmax$. Finally, the \emph{pinch set} of $z_0$ is
+For $\kappa>0$, $\Phi(\kappa)<0$ if and only if $\kappa<\kmax$. Finally, the \emph{pinch set} of $z_0$ is
 \[
 \Pinch(z_0):=\{\alpha\in\T:\ \sig_0(\alpha)\ge0\ \text{ and }\ \gamma_0(\alpha)=0\}=\{\kmax=0\}.
 \]
-Note that $\kmax\ge-\sig_0/(2(1-A\rhom))$, with equality where $\gamma_0=0$ and $\sig_0<0$.
+Note that $\kmax\ge-\sig_0/(2(1-A\rhom))$, with equality if and only if $\gamma_0=0$ and $\sig_0\le0$.
 
-\begin{theorem}[Existence with sharp opening rate]\label{thm:A}
+\begin{theorem}[Existence of single-strip mixing zones]\label{thm:A}
 Let $A\in(-1,1)$, $\gamma\in(0,1)$, $z_0\in\Zc^{6,\gamma}$, $\rhom\in(-1,1)$, and let $\kappa\in C^{4,\gamma}(\T)$ satisfy
 \begin{equation}\label{eq:kappa-range}
 0<\kappa(\alpha)<\kmax(\alpha)\qquad\text{for every }\alpha\in\T .
@@ -65,8 +71,8 @@ Then there exist $T>0$, $a\in C^{3,\gamma}(\T)$ and a polynomial $h$ with $|h(t)
 \begin{equation}\label{eq:central}
 Z(\alpha,t)=z_0(\alpha)+\Big(tU_0(\alpha)+\tfrac{t^2}{2}a(\alpha)\Big)n_0(\alpha)+h(t)\ee,\qquad z^\pm(\alpha,t)=Z(\alpha,t)\pm t(1\pm\rhom)\kappa(\alpha)n_0(\alpha),
 \end{equation}
-and denoting by $\Omega_{\rm mix}(t)$ the open strip between the curves $\Gamma^\pm(t)=z^\pm(\T,t)$, there are infinitely many weak solutions $(\rho,u)$ of \eqref{eq:IPM} on $[0,T]$ with the
-Muskat initial datum $\rho_0=\mathbf 1_{\Omega^+(z_0)}-\mathbf 1_{\Omega^-(z_0)}$ such that
+and denoting by $\Omega_{\rm mix}(t)$ the open strip between the curves $\Gamma^\pm(t)=z^\pm(\R,t)$, there are infinitely many weak solutions $(\rho,u)$ of \eqref{eq:IPM} in $\R^2\times(0,T)$,
+that is, with $x\in\R^2$ in place of $x\in\T\times\R$, with the Muskat initial datum $\rho_0=\mathbf 1_{\Omega^+(z_0)}-\mathbf 1_{\Omega^-(z_0)}$ such that
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item $\rho=1$ above $\Gamma^+(t)$ and $\rho=-1$ below $\Gamma^-(t)$;
 \item $\rho$ mixes in $\Omega_{\rm mix}$: both phases have positive measure in every open subset of $\{(x,t):0<t<T,\ x\in\Omega_{\rm mix}(t)\}$;
@@ -74,7 +80,8 @@ Muskat initial datum $\rho_0=\mathbf 1_{\Omega^+(z_0)}-\mathbf 1_{\Omega^-(z_0)}
 \end{enumerate}
 \end{theorem}
 
-The condition \eqref{eq:kappa-range} is sharp within the natural class of single-strip subsolutions (Definition~\ref{def:single-strip}):
+The subsolution behind Theorem~\ref{thm:A} is $2\pi$-periodic in $x_1$; the convex integration is applied to its periodic lift to $\R^2$, so the solutions need not be periodic.
+The condition \eqref{eq:kappa-range} is sharp within the class of single-strip subsolutions, whose mixing zone is one strip of constant intermediate density (Definition~\ref{def:single-strip}):
 
 \begin{theorem}[Necessary conditions]\label{thm:B}
 Let $z_0\in\Zc^{3,\gamma}$ and $\rhom\in(-1,1)$, and let $(\bar\rho,\bar u,\bar m)$ be a single-strip subsolution with intermediate density $\rhom$ emanating from $z_0$, whose boundary curves have initial
@@ -85,54 +92,131 @@ normal velocities $W^\pm$. Then
 \end{enumerate}
 \end{theorem}
 
-The single-layer subsolutions of \cite{LM26} (with $\rhom=A$) have the properties of Definition~\ref{def:single-strip} in the asymptotically flat setting, and the proof of Theorem~\ref{thm:B} applies to
-them verbatim. Combining the two theorems:
+Theorem~\ref{thm:B} constrains the type of subsolution rather than the width of the mixing zone: the multilayer subsolutions of \cite[Sec.~7.5]{LM26}, whose mixing zone contains several
+intermediate densities, are not single-strip subsolutions and can open faster (Section~\ref{x:relation}). The proof is short and is built from ingredients of \cite{LM26}: the boundary motion
+determines the Darcy field and, through the Rankine--Hugoniot conditions, the normal component of the relaxed flux on the boundary of the strip \cite[Secs.~3.3.1--3.3.2 and (4.12)]{LM26};
+part~(a) is the necessity counterpart of the first order compatibility condition \cite[Lemma~5.2]{LM26}; and the term in $\gamma_0$ comes from \cite[(3.7b)]{LM26}. For the flat interface both
+parts are already contained in \cite[Sec.~3.2]{LM26}, within its explicit ansatz with an arbitrary intermediate density: the centre of mass is at rest, and the hull condition reads
+$\kappa<1/(1-A\rhom)=\kmax$. We expect Theorem~\ref{thm:B} to hold also for the analogous class of subsolutions in the asymptotically flat setting of \cite{LM26}, which contains
+their single-layer subsolutions (with $\rhom=A$); Steps~1 and~4 of the proof, which use the periodic far field and the invertibility of $I-2A\Kop_0$ on periodic H\"older spaces, are the ones that
+need adaptation. For the single-layer subsolutions actually constructed in \cite{LM26} the conclusions are immediate: (a) holds by construction \cite[Lemma~5.2]{LM26}, and letting $t\to0$ in their
+hull condition \cite[(4.14)]{LM26}, with \cite[(4.10), (7.9)--(7.11) and (3.7b)]{LM26}, gives \eqref{x:LM-range} below with $\le$ in place of $<$, which implies $\Phi(\kappa)\le0$.
+Combining the two theorems:
 
 \begin{corollary}[Pinch-free data]\label{cor:pinch}
 Let $z_0\in\Zc^{6,\gamma}$. A single-strip subsolution emanating from $z_0$ with everywhere positive opening exists if and only if $\Pinch(z_0)=\emptyset$. In that case the conclusions of Theorem~\ref{thm:A}
-hold with $\kappa=\theta\kmax$ for every $\theta\in(0,1)$. In particular, mixing solutions exist for data that are \emph{not} fully unstable: on the part of the interface where $\sig_0\ge0$ the mixing is
-driven by the vortex sheet.
+hold with $\kappa=\theta\kmax$ for every $\theta\in(0,1)$.
 \end{corollary}
+
+Pinch-free data need not be fully unstable. For $A=0$, Corollary~\ref{cor:A0} and the overturned interface of Section~\ref{sec:applications} give pinch-free data that are Rayleigh--Taylor stable on part of
+the interface; for $A\in\{0.3,-0.6,0.9\}$ the same interface is pinch-free and partially Saffman--Taylor stable according to a numerical computation, without validated error bounds. On the part of the
+interface where $\sig_0\ge0$ the admissible opening comes entirely from the vortex-sheet term $(1-A^2)\gamma_0^2/(8\mum)$ in $\Phi$. For $\rhom=A$ the existence part of Corollary~\ref{cor:pinch} is
+latent in the asymptotically flat setting of \cite{LM26}, with the range \eqref{x:LM-range}, which for $\kappa>0$ is contained in \eqref{eq:kappa-range}: it would follow from the unmodified single layer
+of \cite{LM26} by keeping the full modulus $|Au+\ee|$ in their final estimate \cite[Sec.~7.4]{LM26} and choosing an opening with $c-c_\infty\in H^{k-1}$ and $\inf c>0$
+(Sections~\ref{x:mechanism} and~\ref{x:relation}); \cite{LM26} do not state it, and we have not written out this modification (Section~\ref{sec:remarks}, open problem~\ref{x:op-latent}).
 
 \begin{corollary}[Equal viscosities]\label{cor:A0}
-Let $A=0$ and $z_0\in\Zc^{6,\gamma}$. Then $\kmax=\frac12(1+n_{0,2})$ and $\Pinch(z_0)=\{\alpha:\ \tau_0(\alpha)=-e_1\}$. Hence, if the unit tangent of $z_0$ never equals $-e_1$, mixing solutions exist with any opening
-$0<\kappa<\frac12(1+n_{0,2})$; this includes overturned interfaces, which are Rayleigh--Taylor stable on the overturned part.
+Let $A=0$ and $z_0\in\Zc^{6,\gamma}$. Then $\kmax=\frac12(1+n_{0,2})$ and $\Pinch(z_0)=\{\alpha:\ \tau_0(\alpha)=-e_1\}$. Hence, if the unit tangent of $z_0$ never equals $-e_1$, mixing solutions exist with any
+opening $\kappa\in C^{4,\gamma}(\T)$ with $0<\kappa<\frac12(1+n_{0,2})$; this includes overturned interfaces, which are Rayleigh--Taylor stable on the overturned part.
 \end{corollary}
 
+The formulas $\sig_0=-2n_{0,2}$ and $\gamma_0=-2\tau_{0,2}$ for $A=0$ (Example~\ref{ex:A0}), on which Corollary~\ref{cor:A0} rests, are those of \cite[Secs.~1.2 and~3.1.3]{LM26}. Moreover, for $A=0$ we have
+$|Au+\ee|=1$, and by \cite[(4.14) and (7.9)]{LM26} the hull condition of the single layer of \cite{LM26} at $t=0$ reads $|2\kappa-n_{0,2}|<1$; this is the range of Corollary~\ref{cor:A0}, i.e.\
+\eqref{x:LM-range} with $A=0$. For $A=0$, see also \cite{FS18} for stable non-horizontal data and \cite{CFM22} for turned interfaces; we have not compared Corollary~\ref{cor:A0} with their precise
+admissible ranges.
+
 \begin{corollary}[Viscous fingering]\label{cor:injection}
-The results above apply, after a change of frame and of time scale, to the problem with a uniform injection velocity $V\ee$ at infinity and a gravity constant $G\ge0$, provided $G+AV>0$.
+The existence statements above (Theorem~\ref{thm:A}, the `if' part of Corollary~\ref{cor:pinch}, and Corollary~\ref{cor:A0}) apply, after a change of frame and of time scale, to the problem with a uniform
+injection velocity $V\ee$ at infinity and a gravity constant $G\ge0$, provided $G_{\rm eff}:=G+AV>0$; the opening functions, in particular $\kmax$, then refer to the rescaled time $G_{\rm eff}t$.
 In particular, for fluids of equal density ($G=0$), mixing solutions exist whenever the less viscous fluid is injected into the more viscous one ($AV>0$) and the data are pinch-free; see
 Corollary~\ref{cor:injection-precise}.
 \end{corollary}
 
+The same change of frame applies to \cite[Thm.~1.1]{LM26}, which therefore already gives injection-driven mixing solutions for fully unstable data, also without density contrast. The condition
+$G+AV>0$ is the Saffman--Taylor criterion for the flat interface \cite{ST58} (see also \cite{Hom87}); for an optimal bound on the growth rate of the mixing zone in viscous fingering see \cite{Ott97}.
+
 Figure~\ref{fig:turned} illustrates Corollary~\ref{cor:pinch} on an overturned interface.
 
-\subsection{The mechanism: tilting the relaxed flux}
+\subsection{The mechanism: the tangential component of the relaxed flux}\label{x:mechanism}
 The relaxation of \eqref{eq:IPM} is described in Section~\ref{sec:relax} by a vector $D$ (a normalised relaxed flux) lying in the open disc $|D-a|<|a|$, where $a=\ee+\frac{A}{\mu}v$ is computed from the
-Darcy field $v=\mu u$. In a thin mixing zone, mass conservation and the Rankine--Hugoniot conditions fix the \emph{normal} component of $D$, namely $D\cdot n=-\sig_0-2(1-A\rhom)\kappa$ at leading order.
-The \emph{tangential} component of $D$, on the other hand, is the transverse derivative of a stream function across a strip of width $O(t)$, and it is controlled by the $O(t)$ part of the flux
-mismatch between the two boundaries. That part is in turn governed by the normal acceleration of the central curve, which is the unknown of the second order compatibility condition. In
-\cite{LM26} this freedom is used to make the tangential component vanish. We use it instead to place $D$ on the line through the centre of the disc. Since
+density and the Darcy field $v=u+Am$ of the state; this is the relaxed set of \cite{Men22}, written (O) in \cite{LM26}, described at fixed Darcy field. In a thin mixing zone, mass conservation and
+the Rankine--Hugoniot conditions fix the \emph{normal} component of $D$, namely $D\cdot n_0=-\sig_0-2(1-A\rhom)\kappa$ at leading order. The \emph{tangential} component of $D$ is the transverse
+derivative of a stream function across a strip of width $O(t)$; it is therefore controlled by $t^{-1}$ times the $O(t)$ part of the primitive of the flux mismatch $M$ between the two boundaries
+(Lemma~\ref{lem:stream}), and that part is governed by the normal acceleration of the central curve, which is the unknown of the second order compatibility condition. This is the structure of the
+construction of \cite{LM26}: the boundary motion determines the tangential derivatives of their potential on the boundaries \cite[Sec.~3.3.1 and (4.12)]{LM26}; the transverse derivative involves
+$t^{-1}\partial_\lambda G$ \cite[Sec.~3.3.4]{LM26}; and the second order condition is affine in the acceleration, with linear part $I-AP$, our $I-2A\Kop_0$ \cite[Lemma~5.3, (5.21) and (8.41)]{LM26},
+and solvable for every right-hand side \cite[Prop.~6.1]{LM26} (in the periodic setting, by \cite{CCG11}). Lemmas~\ref{lem:accel} and~\ref{lem:shift} are this second order step with a prescribed
+nonzero target. Writing $a^{(0)}$ for the limit of $a$ as $t\to0$, and $\delta$ for the limit of $D\cdot\tau_0$,
 \[
-a\cdot n=-\tfrac12\sig_0+O(\kappa),\qquad a\cdot\tau=-\frac{(1-A^2)\gamma_0}{2\mum},
+a^{(0)}\cdot n_0=-\frac{\sig_0}2-\frac{A^2(1-\rhom^2)\kappa}{\mum},\qquad a^{(0)}\cdot\tau_0=-\frac{(1-A^2)\gamma_0}{2\mum}=:\delta_*,
 \]
-the admissible range is then governed by $|a|$, which combines the Saffman--Taylor function and the vortex-sheet strength, instead of $a\cdot n$ alone. This gives \eqref{eq:kappa-range}.
-Theorem~\ref{thm:B} shows that nothing better can be achieved with a single strip: the normal component of $D$ on the boundary of the strip is forced, and the hull condition at $t=0$ is exactly
-$\Phi(\kappa)\le0$.
+(for $\rhom=A$ the normal component is computed in \cite[(7.11) and the proof of Prop.~7.4]{LM26}, and the tangential one follows from \cite[(3.7b)]{LM26}), and the limit $D^{(0)}$ of $D$ satisfies
+\[
+D^{(0)}\cdot\big(D^{(0)}-2a^{(0)}\big)=\frac{2(1-A^2)}{\mum}\,\Phi(\kappa)+(\delta-\delta_*)^2
+\]
+(Lemma~\ref{lem:hull0}). The admissible range is thus governed by $|a|$, which combines the Saffman--Taylor function and the vortex-sheet strength (in the variables of \cite{LM26} the
+radius of the disc is $|Au+\ee|$, and a positive lower bound for it in the mixing zone is what \cite{LM26} single out as the additional ingredient required by the viscosity jump
+\cite[Secs.~3.3.4 and~7.3]{LM26}), and the best choice is $\delta=\delta_*$, which
+places $D$ on the line through the centre of the disc parallel to $n_0$. Prescribing the target of the second order condition accordingly gives Theorem~\ref{thm:A}. As $\kappa\to0$ the disc
+degenerates only where $\sig_0=\gamma_0=0$; on the rest of $\Pinch(z_0)$, where $\sig_0>0$ and $\gamma_0=0$, it is the forced normal component of $D$ that lies outside the disc. (The name of
+$\Pinch(z_0)$ refers to the pinch singularity of \cite{Men22}.)
 
-\subsection{Relation to \cite{LM26}}
-Sections~\ref{sec:muskat}--\ref{sec:ansatz} give a self-contained account, in a horizontally periodic H\"older setting, of the Saffman--Taylor formulation and of the single-strip ansatz of \cite{LM26}.
-The new results are the following.
-\begin{itemize}[leftmargin=*]
-\item The opening range is enlarged from $0<\kappa<-\sig_0/(2(1-A\rhom))$, i.e.\ $c<-\frac12\sig_0$ in the notation of \cite{LM26} with $\rhom=A$, to the sharp range $0<\kappa<\kmax$
-(Theorems~\ref{thm:A} and \ref{thm:B}).
-\item Data need not be fully unstable: it suffices that $\Pinch(z_0)=\emptyset$ (Corollary~\ref{cor:pinch}), which quantifies the pinch-singularity heuristics of \cite{Men22} for curved interfaces.
-\item For $A=0$ this gives mixing zones along the \emph{whole} of an overturned interface (Corollary~\ref{cor:A0}); compare with the localised mixing zones of \cite{CFM22}.
-\item Injection-driven viscous fingering without density contrast is covered (Corollary~\ref{cor:injection}).
-\item The intermediate density $\rhom$ is arbitrary, which produces a one-parameter family of asymmetric mixing zones; \cite{LM26} take $\rhom=A$.
-\end{itemize}
+The single layer of \cite{LM26} is already tilted. For $\rhom=A$, their momentum ansatz \cite[(4.6)]{LM26} and Darcy's law \cite[(4.10)]{LM26} give, in our variables, $D=(Au+\ee)-2\nabla^\perp g$ and
+$a=(\ee-A\nabla p)/(1+A^2)$, so that $D\cdot(D-2a)=(4|\nabla g|^2-|Au+\ee|^2)/(1+A^2)$ and their exact hull condition $2|\nabla g|<|Au+\ee|$ \cite[(4.14)]{LM26} is our disc. They choose the
+acceleration so as to cancel the $O(t)$ part of $\partial_\alpha G_+-\partial_\alpha G_-$ \cite[Sec.~3.3.4 and Lemma~5.3]{LM26}, a condition on their potential $g$ (with $G=g\circ Z$) rather than on
+our mismatch $M$. Then $\partial_\lambda G=O(t^2)$, $\nabla g$ is tangential at leading order \cite[Props.~7.2--7.3]{LM26}, and, by \cite[(4.10), (7.11) and (3.7b)]{LM26},
+\[
+D\cdot\tau_0=(Au+\ee)\cdot\tau_0+O(t)=\delta_{\rm LM}+O(t),\qquad \delta_{\rm LM}:=-\frac{(1-A^2)\gamma_0}{2+A^2}=\frac{2(1+A^2)}{2+A^2}\,\delta_* .
+\]
+Thus their layer is tilted towards the centre of the disc, and exactly onto it when $A=0$; in terms of our mismatch, $M=-2t\,\partial_\alpha(\kappa\delta_{\rm LM})+O(t^2)$ on their subsolution. (The choice
+$\delta=0$, i.e.\ $M=O(t^2)$, gives a different subsolution, not used in \cite{LM26}, whose range $0<2(1-A\rhom)\kappa<-\sig_0$ coincides with the range stated in \cite{LM26} for $\rhom=A$.) The stated
+range $\bar c<\frac12$ of \cite{LM26} comes only from the lower bound $|Au+\ee|\ge(Au+\ee)\cdot n_0=-\frac12\sig_0+O(t)$ in their final estimate \cite[Sec.~7.4]{LM26}, which discards the tangential
+part; up to that point their opening $c$ is free \cite[(5.1)]{LM26}. What we add is to keep the full modulus and to choose the normalisation optimally, $\delta=\delta_*$; compared with $\delta_{\rm LM}$
+this gains little for $A\ne0$ and nothing for $A=0$ (Section~\ref{x:relation}). Theorem~\ref{thm:B} shows that nothing better can be achieved with a single strip of constant intermediate density: the
+normal component of $D$ on the boundary of the strip is forced, and the hull condition at $t=0$, minimised over the free tangential component (that is, for $\delta=\delta_*$), is exactly
+$\Phi(\kappa)\le0$. Theorem~\ref{thm:B} is proved only in our periodic setting; for the single layer of \cite{LM26} the bound $\Phi(\kappa)\le0$ follows directly from their hull condition
+\cite[(4.14)]{LM26} (see the discussion after Theorem~\ref{thm:B}).
+
+\subsection{Relation to \cite{LM26}}\label{x:relation}
+Sections~\ref{sec:muskat}--\ref{sec:ansatz} give a self-contained account, in a horizontally periodic H\"older setting, of the Saffman--Taylor formulation and of the single-strip ansatz of \cite{LM26},
+and of the relaxation of \cite{Men22}. The periodic operator theory used in Section~\ref{sec:muskat} (the smoothing property of $\Kop$ and the invertibility of $I-2\xi\Kop$ for $|\xi|\le1$) is due to
+\cite{CCG11}, in Sobolev spaces; we use H\"older versions. In the periodic setting the mass balance of the strip (Lemma~\ref{lem:mass}) requires the vertical correction $h$ in \eqref{eq:central}, which has
+no counterpart in \cite{LM26}.
+
+In the opening speed $c=-\bar c\,\sig^{(0)}/|\partial_\alpha z^\circ|$ of \cite{LM26}, the quantity $\sig^{(0)}/|\partial_\alpha z^\circ|$ is our $\sig_0$; the boundaries of their mixing zone move with
+the normal speeds $c/(1\mp A)$ relative to the central curve, so that $c=(1-A^2)\kappa$ in our notation. The main result \cite[Thm.~1.1]{LM26} allows any $0<\bar c<1$, which is reached with finitely many
+strips of different densities \cite[Sec.~7.5]{LM26}. These multilayer subsolutions are not single-strip subsolutions. The half-width of their mixing zone grows like $t\kappa$ with
+$\kappa=c/(1-A^2)=-\bar c\,\sig_0/(1-A^2)$, which for $\bar c$ close to $1$ exceeds $\kmax$ (with $\rhom=A$) wherever $(1-A^2)^2\gamma_0^2<8(1+A^2)\sig_0^2$; where $\gamma_0=0$ the supremum
+$-\sig_0/(1-A^2)$ equals $2\kmax$. Our results are therefore to be compared with the single layer of \cite{LM26}, whose stated range is $c<-\sig^{(0)}/(2|\partial_\alpha z^\circ|)$, i.e.\ $\bar c<\frac12$,
+which in our notation is $0<\kappa<-\sig_0/(2(1-A^2))$. Relative to \cite{LM26}, what is new is the following.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=*]
+\item Theorem~\ref{thm:B}, that is, necessity within single-strip subsolutions of constant intermediate density. It is short and built from the ingredients of \cite{LM26}, and its flat case is
+contained in \cite[Sec.~3.2]{LM26}.
+\item An explicit single-layer range depending on the vortex sheet for $A\ne0$, including openings on pinch-free data that are partially Saffman--Taylor stable (Corollary~\ref{cor:pinch}). Such a range is
+latent in the construction of \cite{LM26}, but it is not stated there (nor, as far as we know, elsewhere for $A\ne0$): keeping the full modulus $|Au+\ee|$, the leading order as $t\to0$ of the
+exact hull condition \cite[(4.14)]{LM26} for the unchanged single layer of \cite{LM26}, with $c=(1-A^2)\kappa$, is
+\begin{equation}\label{x:LM-range}
+\kappa\big(2(1-A^2)\kappa+\sig_0\big)<\frac{(1-A^2)\gamma_0^2}{2(2+A^2)^2},
+\end{equation}
+equivalently $\frac{2(1-A^2)}{\mum}\Phi(\kappa)+(\delta_{\rm LM}-\delta_*)^2<0$ with $\rhom=A$. Turning \eqref{x:LM-range} into an existence theorem in their setting requires only a modification of a few lines of
+\cite[Sec.~7.4]{LM26}, together with the conditions $c-c_\infty\in H^{k-1}$ and $\inf c>0$ of \cite[Secs.~4.1 and~5]{LM26}; \cite{LM26} state that their aim is to construct mixing solutions rather than
+to optimise the opening speed \cite[Sec.~7.5]{LM26}.
+\item The optimal tilt $\delta_*$ for $A\ne0$ and general $\rhom$, which makes the range sharp within single strips. For $\rhom=A$ it improves the coefficient of $\gamma_0^2$ in \eqref{x:LM-range} by the
+factor $(2+A^2)^2/(4(1+A^2))\in[1,\frac98)$, and it gives nothing new for $A=0$. On the overturned interface of Section~\ref{sec:applications}, with $\rhom=A$, the minimum of $\kmax$ over the interface is
+$0.2350$, $0.2297$, $0.2265$, $0.2959$ for $A=0$, $0.3$, $-0.6$, $0.9$, against $0.2350$, $0.2294$, $0.2224$, $0.2778$ for the range \eqref{x:LM-range} (computed numerically), while the range stated in
+\cite{LM26} is empty on the stable part of that interface.
+\item Curved strips with $\rhom\ne A$, i.e.\ mixing zones in which the opening speeds of the two boundaries have the ratio $(1+\rhom)/(1-\rhom)$, and the horizontally periodic H\"older setting; both
+extensions are routine. For the flat interface, \cite[Sec.~3.2]{LM26} already treat an arbitrary intermediate density $\theta_{\rm mix}$, with the same hull condition and mass balance, and choose
+$\theta_{\rm mix}=A$ because it maximises the product $h_+h_-$ of the opening speeds. Their curved single layer has the intermediate density $A$; their momentum ansatz and Darcy law
+\cite[(4.6), (4.10)]{LM26} are written for a general intermediate phase, and their multilayers use them \cite[(7.17)]{LM26} in strips with the levels $\theta_j$ of \cite[(7.14)]{LM26}, which
+include $\theta_N=A$ and, for $N\ge2$, other values.
+\end{enumerate}
+Our existence statements for $A=0$ are very likely covered by \cite{FS18,CFM22}, although we have not compared them with the precise admissible ranges there, and they also follow from the construction of
+\cite{LM26}: for $A=0$, \eqref{x:LM-range} is $\Phi(\kappa)<0$. Corollary~\ref{cor:injection} is a change of frame, which applies equally to \cite[Thm.~1.1]{LM26}. Finally, Theorem~\ref{thm:A}(ii) asserts
+mixing in space--time, whereas \cite{LM26} prove mixing in every time slice, a property going back to \cite{CFM19}.
 
 \subsection*{Organisation}
-Section~\ref{sec:muskat} recalls periodic Cauchy integrals and the Saffman--Taylor formulation, and relates the vortex-sheet strength to $\sig$. Section~\ref{sec:relax} contains the relaxation and the
-$h$-principle. Section~\ref{sec:ansatz} introduces the single-strip ansatz. Section~\ref{sec:proof} proves Theorem~\ref{thm:A}, Section~\ref{sec:necessity} proves Theorem~\ref{thm:B}, and
-Section~\ref{sec:applications} proves the corollaries and discusses an example. Section~\ref{sec:remarks} contains remarks and open problems, and the appendix collects facts on Cauchy integrals.
+Section~\ref{sec:muskat} recalls periodic Cauchy integrals, the Saffman--Taylor formulation of \cite{LM26} and, following \cite[Sec.~3.1.3]{LM26}, the relation between the vortex-sheet strength and $\sig$.
+Section~\ref{sec:relax} contains the relaxation, following \cite{Men22}, and the $h$-principle of \cite{Men22}. Section~\ref{sec:ansatz} introduces the single-strip ansatz. Section~\ref{sec:proof} proves
+Theorem~\ref{thm:A}, Section~\ref{sec:necessity} proves Theorem~\ref{thm:B}, and Section~\ref{sec:applications} proves the corollaries and discusses an example. Section~\ref{sec:remarks} contains remarks and
+open problems, and the appendix collects facts on Cauchy integrals.

@@ -49,35 +49,72 @@
 \newcommand{\kmax}{\kappa_{\max}}
 \newcommand{\Pinch}{\Pi}
 
-\title[Vorticity-assisted mixing for the Muskat problem with viscosity jump]{Vorticity-assisted mixing and sharp opening rates\\ for the Muskat problem with viscosity jump}
+\title[Sharp single-strip opening rates for the Muskat problem with viscosity jump]{Sharp opening rates of single-strip subsolutions\\ for the Muskat problem with viscosity jump}
 
 \author{Draft manuscript}
-\thanks{\textbf{Provenance and credit.} The existence of mixing solutions for \emph{fully unstable} Muskat data with viscosity jump, the
-Saffman--Taylor formulation of the Muskat problem and the single-layer construction with a second order expansion in time are due to
-P.~Luna-Velasco and F.~Mengual \cite{LM26}. Sections~\ref{sec:muskat}--\ref{sec:ansatz} contain a self-contained (horizontally periodic, H\"older)
-account of that framework, written independently from the abstract of \cite{LM26} before the paper was read; see \texttt{COMPARISON.md} in the
-source repository. The new contributions are Theorems~\ref{thm:A} and \ref{thm:B}, Corollaries~\ref{cor:pinch}--\ref{cor:injection} and the
-tilting mechanism of Section~\ref{sec:proof}; their novelty with respect to \cite{CFM22} for equal viscosities has not been checked against the full text of that paper.}
+\thanks{\textbf{Credit and provenance.} Mixing solutions for fully unstable Muskat data with viscosity jump are due to P.~Luna-Velasco and
+F.~Mengual \cite{LM26}, whose analysis we follow. From \cite{LM26} come the Saffman--Taylor formulation, i.e.\ the inversion in terms of $\sig$ rather
+than the vorticity (Proposition~\ref{prop:gamma} is \cite[left relation in (3.7b), and Sec.~3.1.3]{LM26} in our normalisation; the $A=0$ formulas of
+Example~\ref{ex:A0} are in \cite[Secs.~1.2, 3.1.3]{LM26}); the single-layer construction with a second order expansion in time (after
+\cite{FS18,CFM22}), with its first-order matching (Lemma~\ref{lem:limits}; cf.\ \cite[Lemmas~5.1--5.2]{LM26}) and its second-order step, of which
+Lemmas~\ref{lem:accel}--\ref{lem:shift} are the periodic version with a nonzero target \cite[Lemma~5.3, (5.21), (8.41)]{LM26}, solvable by
+\cite[Prop.~6.1]{LM26} (periodic case: \cite{CCG11}); the components of $a^{(0)}$ in Lemma~\ref{lem:hull0} (normal: \cite[(7.11), Prop.~7.4]{LM26};
+tangential: from \cite[(3.7b)]{LM26}); and the flat single strip with arbitrary intermediate density \cite[Sec.~3.2]{LM26}. The periodic operator theory
+(smoothing of $\Kop$, invertibility of $I-2\xi\Kop$ for $|\xi|\le1$) is due to C\'ordoba, C\'ordoba and Gancedo \cite{CCG11} (we use H\"older versions);
+the linearisation of Darcy's law, the relaxation and the $h$-principle to Mengual \cite{Men22} (Sz\'ekelyhidi \cite{Sze12} for $A=0$). Our $\Uc_A$ is the
+set $O$ of \cite{Men22}, written (O) in \cite{LM26}, whose closure is the $\Lambda$-convex hull \cite[Thm.~2.4]{LM26}; the function $g$ characterising it
+is \cite[(A.1)]{LM26}, see \cite[Lemmas~4.1--4.2]{Men22}. \emph{Provenance.} Sections~\ref{sec:muskat}--\ref{sec:ansatz} were first written (commit
+\texttt{e8efc0f}, 6~November 2026) from the seminar abstract announcing \cite{LM26} only, before the paper was read; that abstract already announced the
+key idea of inverting in terms of $\sig$, so the independence concerns details, not the idea. The subsection of Section~\ref{sec:muskat} on the
+vortex-sheet strength (the operator $\Top$, Proposition~\ref{prop:gamma}, $\gamma_0$ and $\Pinch(z_0)$), the constant $C_\Psi$ and the tilt hypothesis
+of Lemma~\ref{lem:stream}, and Remark~\ref{rem:tilt} were added after reading \cite{LM26} (commit \texttt{a1c40e3}, 7~November 2026), as were the
+results (i)--(iii) below; (iv) was in the first version. The identification of $\Uc_A$ with $O$ in Section~\ref{sec:relax} (eq.~\eqref{x:UA-O}, whose last
+identity was first written in Section~8 of \texttt{a1c40e3}), Remark~\ref{rem:hull}(b)--(c) in its present form, and all comparisons with \cite{LM26} in
+Sections~\ref{sec:muskat}--\ref{sec:ansatz} were also written after reading \cite{LM26}, in the revisions of 7 and 9~November 2026; the revision of
+9~November also made smaller corrections in these sections.
+\emph{New relative to \cite{LM26}:} (i) Theorem~\ref{thm:B}, necessity within single-strip
+subsolutions of constant intermediate density, a short argument built from the ingredients of \cite{LM26} (flat case: \cite[Sec.~3.2]{LM26}); (ii) an
+explicit vortex-sheet-dependent
+single-layer range for $A\ne0$ (Theorem~\ref{thm:A}, Corollary~\ref{cor:pinch}), including openings on pinch-free, partially Saffman--Taylor stable data;
+it is latent in the construction of \cite{LM26}, whose single layer is already tilted and satisfies the exact hull condition \cite[(4.14)]{LM26} at $t=0$
+on a $\gamma_0$-dependent range, so that a few-line modification of \cite[Sec.~7.4]{LM26}, with an opening $c$ such that $c-c_\infty\in H^{k-1}$ and
+$\inf c>0$ \cite[Sec.~4.1 and (5.1)]{LM26}, yields such a range in their setting, but none is stated there; (iii) the optimal tilt $\delta_*$ for $A\ne0$ and general $\rhom$ (Lemma~\ref{lem:hull0}), sharp within single strips, which for $\rhom=A$
+multiplies the $\gamma_0^2$ term of the range of the single layer of \cite{LM26} by $(2+A^2)^2/(4(1+A^2))\in[1,9/8)$, with no gain for $A=0$; (iv) curved
+strips with $\rhom\ne A$ and the horizontally periodic H\"older setting, both routine. The multilayers of \cite[Sec.~7.5]{LM26} with several intermediate
+strips open faster than single strips for fully unstable data wherever $|\gamma_0|$ is small. Corollary~\ref{cor:injection} is a change of frame and of time scale that applies equally
+to \cite[Thm.~1.1]{LM26}. For $A=0$ our existence statements follow from the construction of \cite{LM26}, and our $A=0$ statements are very likely
+covered by earlier work: see \cite{FS18} for stable non-horizontal data and \cite{CFM22} for turned interfaces; we have not compared our $A=0$ statements
+with their precise admissible ranges. Details: \texttt{NOVELTY.md} and \texttt{COMPARISON.md} in the source repository.}
 
-\date{7 November 2026}
+\date{9 November 2026}
 
 \begin{document}
 
 \begin{abstract}
-We study mixing solutions of the incompressible porous media equation for two fluids with different densities and different viscosities.
-Luna-Velasco and Mengual recently constructed such solutions for \emph{fully unstable} Muskat data, i.e.\ when the Saffman--Taylor function $\sig_0$ of the
-initial interface is negative everywhere. We show that the second order compatibility condition in their time expansion contains a free function, which can be used to
-\emph{tilt} the relaxed flux inside the mixing zone towards the centre of the relaxation disc. This yields a sharp description of single-strip mixing zones:
-a strip with intermediate density $\rhom$ and opening function $\kappa$ emanating from an interface $z_0$ exists only if its centre of mass starts with the Muskat velocity and
+We study mixing solutions of the incompressible porous media equation for two fluids with different densities and different viscosities, for horizontally
+periodic interfaces. For asymptotically flat interfaces, Luna-Velasco and Mengual recently constructed such solutions for \emph{fully unstable} Muskat data,
+i.e.\ when the Saffman--Taylor function $\sig_0$ of the initial interface is negative everywhere, from subsolutions with one strip of constant intermediate
+density (a single layer) or with several such strips (multilayers). We work in the class of single-strip subsolutions and follow their Saffman--Taylor
+formulation. We first observe that their single layer, with its exact hull condition evaluated in full instead of through its normal component, already
+admits openings that depend on the vortex-sheet strength $\gamma_0$ of the interface; this is not stated in their paper. Optimising the target of the second
+order compatibility condition, which fixes the tangential component (the tilt) of the relaxed flux in the strip, we then obtain the sharp single-strip
+range. With $A$ the viscosity Atwood number, $\rhom$ the intermediate density and
 \[
-\kappa\big(2(1-A\rhom)\kappa+\sig_0\big)\le\frac{(1-A^2)\,\gamma_0^2}{8(1+A\rhom)},
+\Phi(\kappa):=\kappa\big(2(1-A\rhom)\kappa+\sig_0\big)-\frac{(1-A^2)\,\gamma_0^2}{8(1+A\rhom)},
 \]
-and it exists whenever the strict inequality holds. Here $A$ is the viscosity Atwood number and $\gamma_0$ is the strength of the vortex sheet carried by the interface. Consequently,
-mixing solutions exist for every initial interface of class $C^{6,\gamma}$ outside the \emph{pinch set} $\{\sig_0\ge0,\ \gamma_0=0\}$, including interfaces that are partially
-Saffman--Taylor \emph{stable}, where mixing is driven by the vortex sheet; for equal viscosities this covers every overturned interface whose tangent never points backwards.
-The results also apply, after a change of frame, to viscous fingering driven by injection without any density contrast. The analysis rests on writing the Darcy field
-$\mu u=-\nabla p-\rho e_2$ of a subsolution as Cauchy integrals whose densities are linear in the Saffman--Taylor function, and on the invertibility of $I\mp2A\Kop$, where
-$\Kop$ is the adjoint Neumann--Poincar\'e operator of the interface.
+we show that for interfaces of class $C^{6,\gamma}$ every opening function $\kappa\in C^{4,\gamma}$ with $\kappa>0$ and $\Phi(\kappa)<0$ is realised by a
+single strip, which yields infinitely many mixing solutions, and that every single-strip subsolution has a centre of mass that starts with the Muskat
+velocity and an opening that satisfies $\Phi(\kappa)\le0$. For $\rhom=A$ the optimal tilt improves the $\gamma_0^2$ term of the range of their single
+layer by a factor in $[1,9/8)$, and not at all when $A=0$. Consequently, single strips with everywhere positive opening exist if and only if $\gamma_0\ne0$
+wherever $\sig_0\ge0$. This condition allows partially Saffman--Taylor stable data: an explicit overturned interface satisfies it for $A=0$ and,
+numerically, for several values of $A\ne0$. Mixing solutions for such data are latent in the work of Luna-Velasco and Mengual (for $A=0$ with exactly our
+range) but not stated there; for $A=0$ they are very likely also covered by earlier work of F\"orster--Sz\'ekelyhidi and of Castro--Faraco--Mengual, whose
+precise admissible ranges we have not compared with ours. The multilayers of Luna-Velasco and Mengual with several intermediate strips open faster for fully
+unstable data wherever $|\gamma_0|$ is small. As in their work, the Darcy field
+$u+Am=-\nabla p-\rho\ee$ of a subsolution, where $m$ is its momentum, is written as a sum of Cauchy integrals whose densities are affine in the
+Saffman--Taylor densities, and the resulting equations are solved by inverting $I\mp2A\Kop$, where $\Kop$ is the adjoint Neumann--Poincar\'e operator of
+the interface. A change of frame and of time scale, which applies equally to their theorem, transfers the existence results to injection-driven viscous
+fingering.
 \end{abstract}
 
 \maketitle

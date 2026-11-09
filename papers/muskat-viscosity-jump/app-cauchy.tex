@@ -8,7 +8,7 @@ It is convenient to work with complex densities. For $z\in\Zc^{1,\gamma}$ and $G
 \]
 so that $\Cf[z;f]^\flat=\mathfrak c[z;f^\flat]$.
 
-\subsection{Reduction to closed curves}
+\subsection{Reduction to closed curves}\label{x:app-reduction}
 With $w=e^{ix}$ and $\omega=e^{i\zeta}$, a direct computation gives
 \[
 \tfrac12\cot\tfrac{\zeta-x}{2}\dd\zeta=\frac{\dd\omega}{\omega-w}-\frac i2\dd\zeta .
@@ -17,8 +17,9 @@ The map $x\mapsto e^{ix}$ sends the cylinder $\T\times\R$ to $\C\setminus\{0\}$,
 punctured interior of $\gamma$ and $\Omega^-(z)$ to its exterior. Hence $\mathfrak c[z;G]$ is the classical Cauchy integral $\frac1{2\pi i}\int_\gamma\frac{\tilde G(\omega)\dd\omega}{\omega-w}$ of the
 transported density $\tilde G$, minus the constant $\frac1{4\pi}\int_\T G\partial_\beta z\dd\beta$. The classical Plemelj--Privalov theorem for closed $C^{1,\gamma}$ curves
 \cite[Chapter~2]{Mus53}, \cite[Chapter~7]{Kre14} then gives Lemma~\ref{lem:cauchy}(b): $\mathfrak c[z;G]$ extends to a $C^{0,\gamma}$ function on each closed region, with norm bounded by
-$C\|G\|_{C^{0,\gamma}}$, where $C$ depends only on $\gamma$, $\delta(z)$ and $\|z\|_{\Zc^{1,\gamma}}$; its boundary values are given by the Plemelj formulas
-$\mathfrak c^\pm=\pm\frac12G+\pv\,\mathfrak c$. The value at $w=0$ corresponds to the limit $x_2\to+\infty$.
+$C\|G\|_{C^{0,\gamma}}$, and its boundary values are given by the Plemelj formulas $\mathfrak c^\pm=\pm\frac12G+\pv\,\mathfrak c$. The value at $w=0$ corresponds to the limit $x_2\to+\infty$.
+Two points are not covered by this reduction, and we do not prove them here: the dependence of $C$ only on $\gamma$, $\delta(z)$ and $\|z\|_{\Zc^{1,\gamma}}$ (the cited references treat a fixed
+curve), and the H\"older bound on the unbounded region $\Omega^-(z)$, on which the map $x\mapsto e^{ix}$ is not uniformly Lipschitz (see the end of Section~\ref{x:app-sketch}).
 
 \subsection{Derivative identities}
 \begin{lemma}\label{lem:identities}
@@ -51,7 +52,9 @@ Cauchy integrals of $C^{0,\gamma}$ densities, hence $C^{0,\gamma}$ up to $\Gamma
 \begin{equation}\label{eq:chain}
 \frac{\dd}{\dd t}\,\mathfrak c[z;G]\big(x(t)\big)=\mathfrak c\Big[z;\partial_tG-\frac{\partial_\beta G}{\partial_\beta z}\partial_tz\Big](x)+\mathfrak c\Big[z;\frac{\partial_\beta G}{\partial_\beta z}\Big](x)\;\dot x,
 \end{equation}
-and by uniform convergence of the derivatives up to $\Gamma$ the same formula holds for the boundary values $t\mapsto\mathfrak c[z;G]^\pm(\alpha)$ with $x(t)=z(\alpha,t)$.
+and we use the same formula for the boundary values $t\mapsto\mathfrak c[z;G]^\pm(\alpha)$ with $x(t)=z(\alpha,t)$. This boundary-value version on moving curves requires the derivatives to
+converge up to $\Gamma(t)$ uniformly in $t$, which we do not prove here. The identities \eqref{eq:dx}--\eqref{eq:chain} are the periodic versions of the differentiation identities
+\cite[(5.11), (8.5), (8.24)--(8.25)]{LM26} on $\R$.
 
 \subsection{Continuity}
 \begin{lemma}\label{lem:continuity}
@@ -60,7 +63,8 @@ $\mathfrak c[z_k;G_k](x_k)\to\mathfrak c[z;G]^+(\alpha)$; similarly from below.
 \end{lemma}
 
 \begin{proof}
-By the Plemelj--Privalov theorem the functions $\mathfrak c_k:=\mathfrak c[z_k;G_k]$ are uniformly $C^{0,\gamma}$ on $\overline{\Omega^+(z_k)}$, with a constant $L$ independent of $k$. Given $\eps>0$ let
+By the Plemelj--Privalov theorem the functions $\mathfrak c_k:=\mathfrak c[z_k;G_k]$ are uniformly $C^{0,\gamma}$ on $\overline{\Omega^+(z_k)}$, with a constant $L$ independent of $k$ (this uses
+the uniformity of the constant in Lemma~\ref{lem:cauchy}(b) over the family $\{z_k\}$, see Section~\ref{x:app-reduction}). Given $\eps>0$ let
 $y=z(\alpha)+\eps n(\alpha)$; for $k$ large $y\in\Omega^+(z_k)$ at distance $\ge\eps/2$ from $\Gamma_k$, so $\mathfrak c_k(y)\to\mathfrak c[z;G](y)$ by dominated convergence. Hence
 \[
 \limsup_k|\mathfrak c_k(x_k)-\mathfrak c[z;G]^+(\alpha)|\le\limsup_k\big(L|x_k-y|^\gamma+L\eps^\gamma\big)\le 2L\eps^\gamma,
@@ -68,8 +72,8 @@ $y=z(\alpha)+\eps n(\alpha)$; for $k$ large $y\in\Omega^+(z_k)$ at distance $\ge
 and $\eps$ is arbitrary. Uniformity in $\alpha$ follows from the same argument and the equicontinuity.
 \end{proof}
 
-\subsection{Proof of Lemma~\ref{lem:timereg} and of the regularity of $G$ in Lemma~\ref{lem:accel}}
-By Lemma~\ref{lem:geometry}, the curves $z^\pm(\cdot,t)$ are polynomials in $t$ with coefficients in $C^{3,\gamma}$, with $\delta(z^\pm)\ge\frac12\delta(z_0)$ on $[0,T_1]$. The normals $n^\pm$, the lengths
+\subsection{Sketch of the proof of Lemma~\ref{lem:timereg} and of the regularity of $G$ in Lemma~\ref{lem:accel}}\label{x:app-sketch}
+We sketch the argument; the points that are not proved in detail are listed at the end of this section. By Lemma~\ref{lem:geometry}, the curves $z^\pm(\cdot,t)$ are polynomials in $t$ with coefficients in $C^{3,\gamma}$, with $\delta(z^\pm)\ge\frac12\delta(z_0)$ on $[0,T_1]$. The normals $n^\pm$, the lengths
 $|\partial_\alpha z^\pm|$ and the velocities $V^\pm=\partial_tz^\pm\cdot n^\pm$ are therefore smooth in $t$ with values in $C^{2,\gamma}$, and so are the complex densities $G^\pm:=(f^\pm)^\flat$ and their time
 derivatives.
 
@@ -79,15 +83,22 @@ is a sum of boundary values and evaluations on the other curve of Cauchy integra
 G_1^\pm=\partial_tG^\pm-\frac{\partial_\beta G^\pm}{\partial_\beta z^\pm}\partial_tz^\pm,\qquad G_2^\pm=\frac{\partial_\beta G^\pm}{\partial_\beta z^\pm},
 \]
 multiplied by $\partial_tz^\pm$; these densities are bounded in $C^{1,\gamma}$ uniformly in $t$. Applying \eqref{eq:chain} once more, $\partial_t^2v_S^\pm$ involves Cauchy integrals of densities bounded in
-$C^{0,\gamma}$, evaluated on $\Gamma^\pm(t)$ from the side of the strip, and these are bounded uniformly in $t\in(0,T_1]$ by the Plemelj--Privalov theorem. Since $F^\pm$ are polynomials in
+$C^{0,\gamma}$, evaluated on $\Gamma^\pm(t)$ from the side of the strip, and these are bounded uniformly in $t\in(0,T_1]$ by the Plemelj--Privalov theorem (with constants uniform in $t$,
+point (a) below). Since $F^\pm$ are polynomials in
 $v_S^\pm\cdot n^\pm$, $V^\pm$, $n_2^\pm$ and $|\partial_\alpha z^\pm|$, we obtain that $\partial_tF^\pm$ and $\partial_t^2F^\pm$ are bounded in $C^0(\T)$ on $(0,T_1]$. By Lemma~\ref{lem:continuity} applied to the
-densities appearing in $F^\pm$ and $\partial_tF^\pm$, these functions extend continuously to $t=0$, which proves the first part of Lemma~\ref{lem:timereg}.
+densities appearing in $F^\pm$ and $\partial_tF^\pm$, these functions extend continuously to $t=0$, which gives the first part of Lemma~\ref{lem:timereg}.
 
-For \eqref{eq:v-strip}, let $x=X(\alpha,\lambda,t)$, so that $|x-z^\pm(\alpha,t)|\le2t\kappa(\alpha)$. The uniform Hölder bounds on $\overline{\Omega^-(z^+)}$ and $\overline{\Omega^+(z^-)}$ give
+For \eqref{eq:v-strip}, let $x=X(\alpha,\lambda,t)$, so that $|x-z^\pm(\alpha,t)|\le2t\kappa(\alpha)$. The uniform Hölder bounds on $\overline{\Omega^-(z^+)}$ and $\overline{\Omega^+(z^-)}$ (points (a) and (c) below) give
 $|v(x,t)-v_S^+(\alpha,t)|\le Ct^\gamma$, and the Lipschitz bound in time just proved gives $|v_S^+(\alpha,t)-v_S^{(0)}(\alpha)|\le Ct$.
 
 Finally, $G=\partial_tM(\cdot,0)$ for $a=0$, $h=0$ is obtained by letting $t\to0$ in the formula for $\partial_tM$. In the limit all Cauchy integrals become boundary values on $z_0\in\Zc^{6,\gamma}$, and
 the densities involve $n_0\in C^{5,\gamma}$, $\partial_tz^\pm(\cdot,0)=(U_0\pm c^\pm)n_0\in C^{4,\gamma}$, their first $\alpha$-derivatives, and $\partial_t^2z^\pm(\cdot,0)=0$. Thus
 $G^\pm(\cdot,0)\in C^{4,\gamma}$, $G_1^\pm(\cdot,0),G_2^\pm(\cdot,0)\in C^{3,\gamma}$, and by Lemma~\ref{lem:cauchy}(d) the boundary values are in $C^{3,\gamma}$. The remaining factors ($\partial_tz^\pm(\cdot,0)$, $n_0$,
 and the time derivatives at $t=0$ of $n^\pm$, $V^\pm$ and $|\partial_\alpha z^\pm|$, which involve $\partial_\alpha\partial_tz^\pm(\cdot,0)$) belong to $C^{3,\gamma}$. Hence $G\in C^{3,\gamma}(\T)$.
-\qed
+
+\emph{What is missing.} The argument above is a sketch. It uses three facts that we do not prove: (a) the Plemelj--Privalov bounds of Lemma~\ref{lem:cauchy}(b),(d) with constants that are
+uniform over the families of curves $z^\pm(\cdot,t)$, $t\in[0,T_1]$ (the classical references treat a fixed curve), which are also used in Lemma~\ref{lem:continuity}; (b) the boundary-value
+version of \eqref{eq:chain} on the moving curves $z^\pm(\cdot,t)$, up to $t=0$, where the two curves merge (the same point underlies the differentiability of $\mathcal L_t$ and $\mathcal B_t$ at
+$t=0$ in the proof of Lemma~\ref{lem:accel}); (c) H\"older bounds on the unbounded lower region $\Omega^-(z^+(\cdot,t))$, used for \eqref{eq:v-strip}, on which the map $x\mapsto e^{ix}$ of
+Section~\ref{x:app-reduction} is not uniformly Lipschitz. Fully proved analogues of these estimates in the asymptotically flat setting, with $L^\infty$ bounds for Sobolev densities, are
+\cite[Lemmas~8.4--8.5]{LM26}.

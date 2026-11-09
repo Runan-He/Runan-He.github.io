@@ -2,32 +2,79 @@
 \section{Remarks and open problems}\label{sec:remarks}
 % ============================================================
 
-\subsection{Continuous profiles with tilt (formal)}
-Single strips do not exhaust the relaxation. Consider a mixing zone of width $O(t)$ around $Z$ in which the density has a continuous profile $\bar\rho=R(\xi)$, $\xi=(x-Z)\cdot n/t$, increasing from $-1$ at $\xi_-$
-to $1$ at $\xi_+$ and normalised so that $Z$ is the centre of mass. Repeating the computations of Section~\ref{sec:proof} at leading order gives, with $\mathcal P(\xi):=-\int_{\xi_-}^{\xi}\eta R'(\eta)\dd\eta\ge0$,
+\subsection{Continuous profiles with tilt (formal)}\label{x:profiles}
+Single strips do not exhaust the relaxation: the multilayer subsolutions of \cite[Sec.~7.5]{LM26}, whose mixing zone contains several intermediate densities, obtain larger opening rates
+\cite[Sec.~7]{LM26}, for fully unstable data and wherever $|\gamma_0|$ is small (Section~\ref{x:relation}); as \cite[Sec.~7.5]{LM26} note, they are analogous to \cite[Sec.~6.2]{CFM22}
+and \cite[Sec.~5]{FS18}, where $A=0$. Consider a mixing zone of width $O(t)$ around $Z$ in which the density has a continuous profile
+$\bar\rho=R(\alpha,\xi)$, $\xi=(x-Z)\cdot n_0/t$, increasing in $\xi$ from $-1$ at $\xi_-(\alpha)$ to $1$ at $\xi_+(\alpha)$ and normalised so that $Z$ is the centre of mass. Repeating the
+computations of Section~\ref{sec:proof} at leading order, under the assumptions that $Z$ moves with the Muskat velocity $U_0$ and that the traces outside the zone are those of the Muskat problem,
+gives, with $\mathcal P(\xi):=-\int_{\xi_-}^{\xi}\eta\,\partial_\eta R\dd\eta\ge0$,
 \[
-D\cdot n=-\sig-\frac{2(1-AR)\,\mathcal P}{1-R^2},\qquad a\cdot n=-\frac{\sig}{2}-\frac{A^2\mathcal P}{1+AR},\qquad a\cdot\tau=-\frac{(1-A^2)\gamma}{2(1+AR)},
+D\cdot n_0=-\sig_0-\frac{2(1-AR)\,\mathcal P}{1-R^2},\qquad a\cdot n_0=-\frac{\sig_0}{2}-\frac{A^2\mathcal P}{1+AR},\qquad a\cdot\tau_0=-\frac{(1-A^2)\gamma_0}{2(1+AR)},
 \]
-where for the last identity we used that, at leading order, the tangential component of the Darcy field is $v\cdot\tau=-\Top_0\sig-\tau_2R$ across the zone, together with \eqref{eq:gamma-sigma}. Without tilt the condition is $(1-AR)\mathcal P<-\frac{\sig}{2}(1-R^2)$, and its extremal
-profile has fronts at $\xi_+=-\sig/(1-A)$ and $\xi_-=\sig/(1+A)$; these are the opening speeds reached by the multilayer subsolutions of \cite[Section~7.5]{LM26} as the number of layers tends to infinity,
-and for the flat interface they give Example~\ref{ex:flat} with $\theta\to1$. With the optimal tilt the condition becomes $(D\cdot n-a\cdot n)^2<|a|^2$ pointwise in the zone, which again enlarges the
-admissible profiles wherever $\gamma\ne0$. We expect that multilayer subsolutions with a tilt in every layer realise these larger profiles, by the argument of Section~\ref{sec:proof} applied layer by layer;
-note that each layer carries its own stream function, so one tilt per layer is available, while the number of compatibility conditions per order in $t$ grows accordingly.
+where for the last identity we used that, at leading order, the tangential component of the Darcy field is $v\cdot\tau_0=-\Top_0\sig_0-\tau_{0,2}R$ across the zone, together with
+\eqref{eq:gamma-sigma}, that is, \cite[(3.7b)]{LM26}. Without tilt ($D\cdot\tau_0=0$), or with the reflected tilt $D\cdot\tau_0=2a\cdot\tau_0$, which gives the same value of $D\cdot(D-2a)$, the
+condition $D\cdot(D-2a)<0$ is $(1-AR)\mathcal P<-\frac{\sig_0}{2}(1-R^2)$. Equality gives $\mathcal P=-\frac{\sig_0}2F_1(R)$, with $F_1(\rho)=\frac{1-\rho^2}{1-A\rho}$ as in
+Example~\ref{ex:flat}, hence $\xi=\frac{\sig_0}2F_1'(R)$; since $F_1'(\pm1)=\mp\frac2{1\mp A}$, this extremal profile has fronts at $\xi_+=-\sig_0/(1-A)$ and $\xi_-=\sig_0/(1+A)$. It lies on the
+boundary circle of the hull and is not itself admissible. Its fronts are the supremum of the opening speeds of the multilayer subsolutions of \cite[Sec.~7.5]{LM26}: for each $N$ (with $2N$
+interfaces) the outer boundaries of their mixing zone move away from the central curve with the normal speeds $c/(1\mp A)$, where $c=-\bar c\,\sig_0$ and $\bar c<1-\frac1{2N}$
+\cite[(7.13)--(7.15)]{LM26}, so these speeds are approached as $\bar c\to1$ (hence $N\to\infty$) but never attained. Luna-Velasco and Mengual also identify the profile: they interpret
+\cite[(7.15)]{LM26} as the Rankine--Hugoniot discretisation of a frozen scalar flux proportional to $F_1$, and they state that, as $N\to\infty$, the step profiles converge to the
+viscosity-dependent Otto profile with time scaled by $\bar c$ \cite[end of Sec.~7.5]{LM26}. The extremal profile above is that profile at $\bar c=1$; its flux $F_1$ is that of the flat profile
+of \cite[Sec.~2]{Men22}, and for the flat interface the profiles with $\bar c<1$ are those of Example~\ref{ex:flat} with $\theta=\bar c$. The inequality without tilt is a continuum version of the
+per-layer hull condition \cite[(7.18)--(7.19)]{LM26}. In fact the strips of the multilayers of \cite[Sec.~7.5]{LM26} carry the reflected tilt (unlike the
+single layer of \cite[Secs.~4--7.4]{LM26}, whose tilt is $\delta_{\rm LM}$; Remark~\ref{x:rem-LM26-layer}): by \cite[(7.18)]{LM26}, $m-\theta_ju$ is normal to the interface at leading order
+in the strip of density $\theta_j$, and since $D-2a=\frac{2(1-A^2)}{(1-\rho^2)\mu}(m-\rho u)$, this means $D\cdot\tau_0=2a\cdot\tau_0$. This is why the margin in \cite[(7.19)]{LM26} contains no
+term in $\gamma_0$.
+
+With the optimal tilt $D\cdot\tau_0=a\cdot\tau_0$ the condition becomes $(D\cdot n_0-a\cdot n_0)^2<|a|^2$ pointwise in the zone, which enlarges the admissible profiles wherever $\gamma_0\ne0$. By
+the computation of Lemma~\ref{lem:hull0}, with $\rhom=R$ and $\kappa=\mathcal P/(1-R^2)$, it is the single-strip condition $\Phi(\kappa)<0$ applied pointwise. Compared with \cite{LM26}, only this
+tilt is new in this subsection, and it is formal. We expect that multilayer subsolutions with a tilt in every layer approximate these larger profiles as the number of layers tends to infinity, by
+combining the tilt of Section~\ref{sec:proof} with the multilayer construction of \cite[Sec.~7.5 and Lemma~8.8]{LM26}. Each layer carries its own potential \cite[(7.17) and (8.38)]{LM26}, so one
+tilt per layer is available. Given the Darcy field, each internal interface imposes a single Rankine--Hugoniot relation, so the tilts enter only the total flux mismatch, and, as in
+\cite[Lemma~8.8]{LM26}, one acceleration per order should suffice.
 
 \subsection{The role of the vortex sheet}
-Theorem~\ref{thm:B} shows that within single strips the vortex sheet is not an additional assumption but a structural part of the relaxation: the admissible opening is governed by $|a|$, which combines
-$-\frac12\sig_0$ and $-\frac{(1-A^2)\gamma_0}{2\mum}$. This is a porous-media counterpart of the vortex-sheet driven mixing for the Euler equations \cite{MS23}. Physically, on a Saffman--Taylor stable but
-inclined part of the interface, the heavy fluid slides down along the interface, and the relaxation allows this shear to produce a mixing zone of positive width. Whether such mixing zones are selected
-by a physical criterion, for instance Otto's relaxation \cite{Ott99} or maximal dissipation, is an interesting question; for $A=0$ and the flat interface the maximal mixing rate is selected \cite{Ott99,Sze12}.
+Lemma~\ref{lem:hull0}, together with Theorems~\ref{thm:A} and~\ref{thm:B}, shows that within single strips the admissible opening is governed by $|a|$, whose components at $t=0$ are
+$-\frac12\sig_0-\frac{A^2(1-\rhom^2)\kappa}{\mum}$ and $-\frac{(1-A^2)\gamma_0}{2\mum}$: the vortex sheet enters through the relaxation condition, not as an additional assumption. This is not a
+mechanism absent from \cite{LM26}. Their exact hull condition \cite[(4.14)]{LM26} involves the full modulus $|Au+\ee|$, whose tangential part carries $\gamma_0$, and their single layer is already
+tilted (Remark~\ref{x:rem-LM26-layer}); the vortex-sheet contribution is discarded only in their final estimate \cite[Sec.~7.4]{LM26}, so it is latent in their construction. The qualitative
+statement that a pinch singularity in the relaxation prevents the two fluids from mixing wherever there is neither Rayleigh--Taylor nor vorticity at the interface is due to Mengual \cite{Men22}
+(see Remark~\ref{rem:hull}(b) for its relation with $\Pinch(z_0)$). What we add is the explicit range for $A\ne0$, its sharpness within single strips, and the small gain of the optimal tilt; for
+$A=0$, see \cite{FS18} for stable non-horizontal data and \cite{CFM22} for turned interfaces (we have not compared our $A=0$ statements with their precise admissible ranges).
+
+The analogy with the vortex-sheet driven mixing zones for the Euler equations \cite{MS23} is only partial: vortex sheets in Darcy flow have no Kelvin--Helmholtz instability, and where $\sig_0>0$
+the interface is Saffman--Taylor stable, so that mixing zones there reflect the non-uniqueness of weak solutions rather than an instability. For $A=0$ the `vortex sheet' is tangential gravity,
+$\gamma_0=-2\tau_{0,2}$ and $|Au+\ee|=1$: on a Rayleigh--Taylor stable but inclined part of the interface the heavy fluid slides down along the interface, and the relaxation allows this shear to
+produce a mixing zone of positive width; calling this vorticity-assisted is a choice of name. For $A\ne0$, $\gamma_0=-2(I+2A\Kop_0)^{-1}[\tau_{0,2}]$ is nonlocal, and this physical reading is only
+heuristic. Whether such mixing zones are selected by a physical criterion, for instance Otto's relaxation \cite{Ott99} or maximal dissipation, is an interesting question; for $A=0$ and the flat
+interface the maximal mixing rate is selected \cite{Ott99,Sze12}, and for $|A|<1$ the flat construction of \cite{Men22} preserves the connection with Otto's relaxation.
+
+\subsection{The target set}\label{x:target-set}
+In the proof of Theorem~\ref{thm:A} we only used that $\Uc_A$ consists of laminates (Proposition~\ref{prop:hull}). By Section~\ref{sec:relax}, $\Uc_A$ is the set $O$ of \cite{Men22}, written (O)
+in \cite{LM26}: with the function $g(\rho,u,m):=(1-A\rho)|m-\rho u|^2+(1-\rho^2)(m-\rho u)\cdot(Au+\ee)$ of \cite[(A.1)]{LM26} (see \cite[Lemmas~4.1--4.2]{Men22}, and \cite[Prop.~2.3]{Sze12} for
+$A=0$), a direct computation gives $D\cdot(D-2a)=\frac{4(1-A^2)}{(1-\rho^2)^2(1+A\rho)}\,g$ for $|\rho|<1$. The closure $\overline O$ is the lamination convex hull $\Kc^{lc}$ \cite{Men22}, and, by
+\cite[Thm.~2.4]{LM26}, it is also the $\Lambda$-convex hull $\Kc^\Lambda$ and the weak relaxation of \eqref{eq:IPM} in the sense of \cite[Sec.~2.1]{LM26}. The proof of Theorem~\ref{thm:B} uses only the
+closed disc $|D-a|\le|a|$ (Steps~2 and~5), which is the slice $\{\rho=\rhom\}$ of $\overline O$. Hence Theorem~\ref{thm:B} holds verbatim for single-strip subsolutions with values in
+$\overline O$ instead of $\Uc_A$. Moreover, weak limits of the triples $(\rho,u,\rho u)$ of solutions take values in $\overline O$ \cite[Lemma~A.4 and Thm.~2.4]{LM26}, so no larger target set is
+compatible with weak limits of solutions, and the range \eqref{eq:kappa-range} cannot be enlarged by changing the target set. This concerns single strips of constant intermediate density only:
+the multilayers of \cite[Sec.~7.5]{LM26} and, formally, the continuous profiles of Section~\ref{x:profiles} achieve larger openings by changing the structure of the subsolution, not the target set.
 
 \subsection{Open problems}
 \begin{enumerate}[label=(\arabic*),leftmargin=*]
-\item \emph{Pinch points.} When $\Pinch(z_0)\ne\emptyset$, Theorem~\ref{thm:B} forces $\kappa=0$ on $\Pinch(z_0)$, and a mixing zone must be localised, as in \cite{CFM22} for $A=0$. Extending Theorem~\ref{thm:A} to
-opening functions vanishing on $\Pinch(z_0)$ requires weighted versions of the estimates of Lemma~\ref{lem:stream}, since the margin in \eqref{eq:hull0} degenerates there.
-\item \emph{Asymptotically flat interfaces.} Our periodic setting simplifies the mass balance (Lemma~\ref{lem:mass}); the asymptotically flat setting of \cite{LM26} controls the primitive of $M$ by $L^1$-type
-estimates instead. The tilt requires the primitive of the first order part $-2\partial_\alpha(\kappa\delta)$ to be bounded, which holds when $\kappa\delta-\kappa_\infty\delta_\infty$ decays.
+\item \emph{Pinch points.} When $\Pinch(z_0)\ne\emptyset$, Theorem~\ref{thm:B} forces $\kappa=0$ on $\Pinch(z_0)$: there a single strip cannot open at a positive linear rate. So no single strip
+with everywhere positive linear opening exists; one must let the opening vanish on $\Pinch(z_0)$, or use mixing zones that do not surround the whole interface, such as the localised zones of
+\cite{CFM22} for $A=0$. Extending Theorem~\ref{thm:A} to opening functions vanishing on $\Pinch(z_0)$ requires weighted versions of the estimates of Lemma~\ref{lem:stream}, since the margin in
+\eqref{eq:hull0} degenerates there.
+\item\label{x:op-flat} \emph{Asymptotically flat interfaces.} In our periodic setting the strip carries a global constraint, $\int_\T M=0$ (Lemma~\ref{lem:mass}), which we meet with the vertical
+correction $h$; in exchange, the control of the stream function reduces to sup-norm bounds on $M$ (Lemma~\ref{lem:stream}). In the asymptotically flat setting of \cite{LM26} there is no such
+constraint: the boundary values of the potential are primitives normalised at $\alpha=0$ \cite[(4.13)]{LM26}, and the transverse derivative is controlled by uniform bounds on $\R$ for the
+primitive of $\partial_\alpha G_+-\partial_\alpha G_-$ \cite[Prop.~7.2]{LM26}, which rest on primitive estimates for the pressure terms \cite[Lemmas~8.2 and~8.6]{LM26} and on an $L^1$ bound for
+the geometric term. As far as we can see, transferring the tilt to $\R$ would require (a) a nonzero target, involving $\partial_\alpha(\kappa\delta)$, in the second order equations
+\cite[(5.15)--(5.16)]{LM26}, to be solved in the appropriate spaces $H^j(\R)$ by \cite[Prop.~6.1]{LM26}; (b) a relative normalisation of the two boundary values of the potential, playing the role of
+our $C_\Psi$, in place of $G_\pm(t,0)=0$; and (c) redoing \cite[Prop.~7.2]{LM26} for the $O(t^2)$ remainder. We have not carried this out.
+\item\label{x:op-latent} \emph{The latent range and tilted multilayers in the setting of \cite{LM26}.} For asymptotically flat interfaces it remains to write out the modification of \cite[Sec.~7.4]{LM26} that turns
+the range \eqref{x:LM-range} of their unchanged single layer into an existence statement, with an opening $c$ such that $c-c_\infty\in H^{k-1}$ and $\inf c>0$ \cite[Sec.~4.1 and (5.1)]{LM26}; to
+transfer the optimal tilt as in~\ref{x:op-flat}; and to construct the tilted multilayers of Section~\ref{x:profiles}, by combining these with \cite[Sec.~7.5 and Lemma~8.8]{LM26}.
 \item \emph{Longer times and lower regularity.} The time expansion only gives a short existence time, and we assumed $z_0\in C^{6,\gamma}$, far from the $H^5$ of \cite{LM26} and the $C^{3,\alpha}$ of \cite{FS18} for $A=0$.
-\item \emph{Exact relaxation.} We only used that $\Uc_A$ consists of laminates; Luna-Velasco and Mengual \cite{LM26} prove that its closure is the full $\Lambda$-convex hull and the weak relaxation of
-\eqref{eq:IPM}. Our set $\Uc_A$ coincides with their set $O$: with $g(\rho,u,m):=(1-A\rho)|m-\rho u|^2+(1-\rho^2)(m-\rho u)\cdot(Au+\ee)$, a direct computation gives
-$D\cdot(D-2a)=\frac{4(1-A^2)}{(1-\rho^2)^2(1+A\rho)}\,g$. Hence Theorem~\ref{thm:B} cannot be improved by enlarging the target set of the subsolutions.
 \end{enumerate}

@@ -82,6 +82,11 @@ Since the jump of $\Cf[z;\phi n]$ is normal, Lemma~\ref{lem:cauchy}(b) gives
 \end{equation}
 In potential-theoretic terms, $\Cf[z;\phi n]$ is the gradient of the single layer potential of $\phi$ and $\Kop(z)$ is the (periodic) adjoint Neumann--Poincar\'e operator.
 
+Lemma~\ref{lem:K}(a) and Proposition~\ref{prop:invert} below are H\"older-space versions of classical results of C\'ordoba, C\'ordoba and Gancedo \cite{CCG11} in the horizontally
+periodic setting: the smoothing property of $\Kop(z)$ (cf.\ \cite[Lemmas~3.1 and~5.2]{CCG11}) and, in Sobolev spaces, the invertibility of $I-2\xi\Kop(z)$ for $|\xi|\le1$, by a
+harmonic-energy argument (cf.\ \cite[Sec.~4]{CCG11}). They are recalled in \cite[Secs.~3.1.3, 8.2 and~8.3]{LM26}, whose operator $P$ corresponds to our $2\Kop$, and the versions
+for asymptotically flat curves are \cite[Props.~6.1 and~8.3]{LM26}.
+
 \begin{lemma}\label{lem:K}
 Let $k\ge2$ and $z\in\Zc^{k,\gamma}$.
 \begin{enumerate}[label=\textup{(\alph*)}]
@@ -148,6 +153,11 @@ with $u\to0$ and $\nabla p+\rho\ee\to0$ as $x_2\to\pm\infty$ (the fluids are at 
 \[
 v:=\mu(\rho)u=-\nabla p-\rho\ee,\qquad \sig:=\jump{\partial_n p}=\partial_np^+-\partial_np^-\ \text{ on }\Gamma .
 \]
+Proposition~\ref{prop:sigma} and Corollary~\ref{cor:muskat} below are the Saffman--Taylor formulation $(M\sigma)$ of Luna-Velasco and Mengual \cite[Sec.~3.1]{LM26}, transcribed to the
+horizontally periodic setting: \eqref{eq:v-sigma} says that $\nabla p=\Cf[z;\sig n]$, which is the representation \cite[(3.2)]{LM26} of the pressure gradient; \eqref{eq:U-sigma} is
+\cite[(3.6)]{LM26}; the identity $\sig=-2(n_2+AU)$ is \cite[(3.7a) and (3.8)]{LM26}; and \eqref{eq:sigma-eq} is \cite[(5.12)]{LM26}. The dictionary is $\jump\theta=-2$ for the phase jump
+of \cite{LM26}, whose Saffman--Taylor density is $|\partial_\alpha z|\sig$ and whose operator $P$ corresponds to $2\Kop(z)$. The proof below follows the derivation of $(M\sigma)$ in
+\cite[Sec.~3.1.5]{LM26}.
 
 \begin{proposition}\label{prop:sigma}
 Let $|A|<1$, $k\ge3$, $z\in\Zc^{k,\gamma}$, and let $\sig\in C^{k-2,\gamma}(\T)$ be the solution of
@@ -182,6 +192,9 @@ exponentially fast since $u'$ is the gradient of a periodic harmonic function in
 so $u'=0$ and $\nabla p'=0$.
 \end{proof}
 
+The identity $\int_\T\sig\dd s=-4\pi$ is the periodic counterpart of the normalisation $\sig^{(0)}+2\in H^{k-1}$ of \cite[Prop.~6.3]{LM26}. It also follows by integrating
+$\sig=-2(n_2+AU)$ over a period, since $\int_\T U\dd s=0$ by Lemma~\ref{lem:K}(b) (conservation of area).
+
 Since the interface moves with the normal velocity of the fluid, Proposition~\ref{prop:sigma} gives the following formulation of the Muskat problem with viscosity jump, in which the only
 operator to be inverted acts on the Saffman--Taylor function.
 
@@ -192,24 +205,43 @@ A family of curves $z(\cdot,t)\in\Zc^{k,\gamma}$, $k\ge3$, solves the Muskat pro
 \]
 \end{corollary}
 
+\begin{proof}
+By definition, $z$ solves the Muskat problem if, for every $t$, $\partial_tz\cdot n=u\cdot n$ on $\Gamma(t)$ (the kinematic condition, cf.\ \cite[(3.1)]{LM26}), where $u$ is the velocity
+of the solution of \eqref{eq:darcy-problem} for the curve $z(\cdot,t)$. By Proposition~\ref{prop:sigma}, $u\cdot n=-\Kop(z)\sig$, where $\sig$ is the unique solution of
+\eqref{eq:sigma-eq} (Proposition~\ref{prop:invert}).
+\end{proof}
+
 \begin{remark}[Duality with the vorticity formulation]\label{rem:duality}
 For a real function $\gamma$, the complex densities of $\gamma\tau$ and $\gamma n$ are $\gamma|\partial_\beta z|$ and $-i\gamma|\partial_\beta z|$, so $\Cf[z;\gamma\tau]^\flat=i\,\Cf[z;\gamma n]^\flat$, i.e.\
-$\Cf[z;\gamma\tau]$ is obtained by rotating $\Cf[z;\gamma n]$ by $-\pi/2$. In particular
-$\avg{\Cf[z;\gamma\tau]}\cdot\tau=\avg{\Cf[z;\gamma n]}\cdot n=\Kop(z)\gamma$. The velocity is curl-free off $\Gamma$ with jump $\gamma\tau$, $\gamma=\jump{u\cdot\tau}$, hence
-$u=\Cf[z;\gamma\tau]$ by Lemma~\ref{lem:cauchy}(e): $\avg u$ is the Birkhoff--Rott integral of the vortex sheet. The tangential part of Darcy's law, $\jump{v\cdot\tau}=-\jump{\rho}\tau_2=-2\tau_2$, reads
-$\gamma+2A\avg u\cdot\tau=-2\tau_2$, i.e.\ $(I+2A\Kop(z))\gamma=-2\tau_2$; with $\varpi=\gamma|\partial_\alpha z|$ this is the familiar equation $\varpi+2A\,\mathrm{BR}(z,\varpi)\cdot\partial_\alpha z=-2\partial_\alpha z_2$ of
-\cite{CCG11}. Thus the vorticity is obtained by inverting $I+2A\Kop(z)$, the Saffman--Taylor function by inverting $I-2A\Kop(z)$; both are covered by Proposition~\ref{prop:invert}. Note however
-that in the vorticity formulation the normal velocity $U=\avg u\cdot n=-\avg{\Cf[z;\gamma n]}\cdot\tau$ is a singular integral of $\gamma$, whereas in \eqref{eq:U-sigma} it is the smoothing operator
-$\Kop(z)$ applied to $\sig$. More importantly, the Saffman--Taylor formulation extends to subsolutions, where the vorticity formulation does not (Section~\ref{sec:ansatz}).
+$\Cf[z;\gamma\tau]$ is obtained by rotating $\Cf[z;\gamma n]$ by $-\pi/2$; this is the relation between the representations of the velocity and of the pressure gradient in \cite[(3.2)]{LM26}.
+In particular $\avg{\Cf[z;\gamma\tau]}\cdot\tau=\avg{\Cf[z;\gamma n]}\cdot n=\Kop(z)\gamma$. The velocity is curl-free off $\Gamma$ with jump $\gamma\tau$, $\gamma=\jump{u\cdot\tau}$, hence
+$u=\Cf[z;\gamma\tau]$ by Lemma~\ref{lem:cauchy}(e). Hence $\avg u=\mathrm{BR}(z,\varpi)$, where
+$\mathrm{BR}(z,\varpi)^\flat(\alpha):=\frac1{4\pi i}\pv\int_\T\varpi(\beta)\cot\frac{z(\alpha)-z(\beta)}2\dd\beta$ is the (periodised) Birkhoff--Rott integral and $\varpi:=-\gamma|\partial_\alpha z|$
+is the vorticity density of the sheet per unit $\alpha$ (so that $\curl u=-\gamma\,\mathcal H^1\llcorner\Gamma$; this is the density $\varpi$ of \cite{LM26}). The tangential part of Darcy's law,
+$\jump{v\cdot\tau}=-\jump{\rho}\tau_2=-2\tau_2$, reads $\gamma+2A\avg u\cdot\tau=-2\tau_2$, i.e.\ $(I+2A\Kop(z))\gamma=-2\tau_2$; in terms of $\varpi$ this is
+$\varpi-2A\,\mathrm{BR}(z,\varpi)\cdot\partial_\alpha z=2\partial_\alpha z_2$, which is $(I+AP)\varpi=-\jump\theta\partial_\alpha z_2$ of \cite[Sec.~3.1.3]{LM26} with $\jump\theta=-2$, and the
+equation for the vorticity of \cite{CCG11} up to the sign conventions used there for the jumps and the Atwood number (cf.\ \cite[Sec.~3.1.3]{LM26}). Thus the vorticity is obtained by
+inverting $I+2A\Kop(z)$ and the Saffman--Taylor function by inverting $I-2A\Kop(z)$: as observed in \cite[Sec.~3.1.3]{LM26}, both problems reduce to inverting operators of the form $I\pm AP$,
+and both are covered by Proposition~\ref{prop:invert}. In the vorticity formulation the normal velocity $U=\avg u\cdot n=-\avg{\Cf[z;\gamma n]}\cdot\tau$ is a singular integral of $\gamma$,
+whereas in \eqref{eq:U-sigma} it is the smoothing operator $\Kop(z)$ applied to $\sig$. This concerns only the map from the density to the normal velocity at a fixed interface (cf.\
+\cite[Prop.~8.3]{LM26}) and is not a gain of regularity for the evolution: the loss of derivatives behind the Saffman--Taylor instability sits in the dependence of $\Kop(z)$ on $z$, and the
+singular operator $\Top(z)$ of Section~\ref{x:vortex-sheet} reappears when $\gamma$ is recovered from $\sig$ (Proposition~\ref{prop:gamma}). As explained in \cite[Secs.~3.1.4 and~3.3.5]{LM26},
+the advantage of the Saffman--Taylor formulation appears for subsolutions with a mixing zone: the pressure remains harmonic in each region, whereas the velocity carries vorticity in the
+interior of the mixing zone, so that a vorticity formulation would couple the reconstruction of the velocity to the interior extension of the stream function of the relaxed flux ($\Psi$ in
+Section~\ref{sec:ansatz}, the potential $g$ in \cite{LM26}); in the strips of Section~\ref{sec:ansatz}, $\curl\bar u=-A\curl\bar m=-\frac{A(1-\rhom^2)}{2(1-A^2)}\Delta\Psi$ in $S_t$.
 \end{remark}
 
-\subsection{The vortex-sheet strength and the pinch set}
+\subsection{The vortex-sheet strength and the pinch set}\label{x:vortex-sheet}
+The letter $\gamma$ denotes both the H\"older exponent and the vortex-sheet strength; the meaning is always clear from the context.
 For $z\in\Zc^{2,\gamma}$ and a real function $\phi\in C^{0,\gamma}(\T)$ we also set
 \[
 \Top(z)\phi:=\avg{\Cf[z;\phi n]}\cdot\tau .
 \]
-Unlike $\Kop(z)$, the operator $\Top(z)$ is a singular integral operator (a Hilbert transform plus a smoothing operator); it is bounded on $C^{j,\gamma}(\T)$ for $z\in\Zc^{j+1,\gamma}$ by
-Lemma~\ref{lem:cauchy}(d). The vortex-sheet strength of the Muskat problem is a local function of $\sig$ and $\Top(z)\sig$:
+Unlike $\Kop(z)$, the operator $\Top(z)$ is a singular integral operator: the argument in the proof of Lemma~\ref{lem:K}(a) shows that, for $z\in\Zc^{k,\gamma}$ with $k\ge2$,
+$\Top(z)\phi-\frac{1}{2|\partial_\alpha z|}H\big[|\partial_\alpha z|\phi\big]$ is given by a kernel in $C^{k-2,\gamma}(\T\times\T)$, where
+$H\phi(\alpha):=\frac1{2\pi}\pv\int_\T\phi(\beta)\cot\frac{\alpha-\beta}2\dd\beta$ is the periodic Hilbert transform; for the flat interface $\Top=\frac12H$ (cf.\ \cite[(8.14)]{LM26} on $\R$).
+The operator $\Top(z)$ is bounded on $C^{j,\gamma}(\T)$ for $z\in\Zc^{j+1,\gamma}$ by Lemma~\ref{lem:cauchy}(d). As in \cite[Sec.~3.1.3]{LM26}, the vortex-sheet strength of the Muskat
+problem can be recovered from $\sig$ by a local formula in $\sig$ and $\Top(z)\sig$:
 
 \begin{proposition}\label{prop:gamma}
 In the setting of Proposition~\ref{prop:sigma}, the vortex-sheet strength $\gamma=\jump{u\cdot\tau}$ is
@@ -228,6 +260,12 @@ The velocity is curl-free and divergence-free off $\Gamma$, has no normal jump, 
 Remark~\ref{rem:duality} then gives $(I+2A\Kop(z))\gamma=-2\tau_2$, and uniqueness and regularity follow from Proposition~\ref{prop:invert} applied with $-A$ in place of $A$.
 \end{proof}
 
+Identity \eqref{eq:gamma-sigma} is the left relation of \cite[(3.7b)]{LM26}, $(1-A^2)\varpi=\jump\theta(AQ-\ee)\cdot\partial_\alpha z$, in our normalisation: $\jump\theta=-2$,
+$\varpi=-|\partial_\alpha z|\gamma$ (Remark~\ref{rem:duality}), the Saffman--Taylor density of \cite{LM26} is $|\partial_\alpha z|\sig$, and their mean pressure-gradient trace is
+$Q=\avg{\Cf[z;\sig n]}$, so that $Q\cdot\partial_\alpha z=|\partial_\alpha z|\,\Top(z)\sig$ and $\ee\cdot\partial_\alpha z=|\partial_\alpha z|\tau_2$. Luna-Velasco and Mengual \cite[Sec.~3.1.3]{LM26}
+recover $\varpi$ from $\sig$ in exactly this way, and the equation $(I+2A\Kop(z))\gamma=-2\tau_2$ is their $(I+AP)\varpi=-\jump\theta\partial_\alpha z_2$; only the uniqueness and regularity
+statements in periodic H\"older spaces are added here.
+
 \begin{definition}\label{def:unstable}
 Let $z_0\in\Zc^{k,\gamma}$, $k\ge3$, and $\Kop_0:=\Kop(z_0)$, $\Top_0:=\Top(z_0)$. The Saffman--Taylor function, the normal velocity and the vortex-sheet strength of the Muskat data
 $\rho_0=\mathbf 1_{\Omega^+(z_0)}-\mathbf 1_{\Omega^-(z_0)}$ are
@@ -237,9 +275,14 @@ $\rho_0=\mathbf 1_{\Omega^+(z_0)}-\mathbf 1_{\Omega^-(z_0)}$ are
 The data are \emph{fully unstable} if $\sig_0<0$ on $\T$. The \emph{pinch set} is $\Pinch(z_0):=\{\alpha:\ \sig_0(\alpha)\ge0,\ \gamma_0(\alpha)=0\}$.
 \end{definition}
 
+The functions $\sig_0$ and $U_0$ are the periodic counterparts of $\sig^{(0)}$ and of the normal component of $z^{(1)}$ in \cite[(5.12)--(5.13)]{LM26}, and full instability is the
+hypothesis of \cite[Thm.~1.1]{LM26}. For the relation of $\Pinch(z_0)$ with the pinch singularity of \cite{Men22} see Remark~\ref{rem:hull}(b).
+
 \begin{example}\label{ex:A0}
 For the flat interface $z_0(\alpha)=(\alpha,0)$ the kernel $k_{z_0}$ vanishes (the cotangent of a real number is real), so $\Kop_0=0$, $\sig_0\equiv-2$, $U_0\equiv0$ and $\gamma_0\equiv0$.
 If $A=0$, then $\sig_0=-2n_{0,2}$ and $\gamma_0=-2\tau_{0,2}$ for every $z_0$: the data are fully unstable if and only if $z_0$ is a graph, and $\Pinch(z_0)=\{n_0=-\ee\}=\{\tau_0=-e_1\}$.
+These formulas, and the resulting characterisation of fully unstable data for $A=0$, are those of \cite[Secs.~1.2 and~3.1.3]{LM26}: there $\sig=\jump\theta$ for the flat interface, and
+$\sig=\jump\theta\,\partial_\alpha z_1$, $\varpi=-\jump\theta\,\partial_\alpha z_2$ for $A=0$, with $\jump\theta=-2$.
 \end{example}
 
 For $z_0\in\Zc^{6,\gamma}$, Propositions~\ref{prop:invert} (with $k=6$, $j=4$) and \ref{prop:gamma}, and Lemma~\ref{lem:K}(a), give $\sig_0,U_0,\gamma_0\in C^{4,\gamma}(\T)$. The quantities
